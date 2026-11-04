@@ -157,3 +157,67 @@ The complete local analysis outputs are:
 - Original completed `.lmp`, frames, memory, events, telemetry, and manifests remain in their run directories; [m3-fast-partial-evidence.json](m3-fast-partial-evidence.json) records their IDs, source hashes, measurements, and output hashes.
 
 Core remains `prepared_no_api_calls` with all 45 slots pending. Neither plan was resumed after the stop.
+
+## Post-sweep investigation — M1/M2 reuse and effective navigation
+
+This is a subsequent, read-only investigation of the six completed runs, prompted by concern that M3 had bypassed the localization and map-planning work. It is separate from the original experiment and results above. No gameplay was rerun, no paid request was made, and no measurement, outcome, or runtime implementation was changed. The local audit is saved at `results/m3-fast-preflight/m1-m2-reuse-audit.json`; the [six-run evidence](m3-fast-partial-evidence.json) identifies the original recordings and logs.
+
+### Implementation and inputs were retained
+
+Recorded source hashes were compared with merged M2 commit `209d861` for ten modules: `autoqa/run.py`; `autoqa/agent/{pilot,client,grounder,memory,guards,navigation}.py`; `autoqa/prompts/builder.py`; and `autoqa/doom/{env,plan_renderer}.py`. **All 60 module/run comparisons matched.** This verifies reuse of the M1 gameplay foundations and M2 grounding, memory, guards, navigation validation, prompt assembly, and map rendering in these runs.
+
+For both seeds, the L2 and L3 prompt hashes match their respective earlier M2 navigation retests. Run settings match those retests when excluding the intentionally varied game seed: Muse Spark 1.3, low effort, experimental `muse_box_sam`, 60 decisions, 2,100 tics, USD 0.60 threshold, and the same request/output limits. The experimental grounder was not replaced with direct text-SAM or a stub.
+
+The new L3 seed-101 run also matches the winning M2 run's initial spawn, first JPEG, and frozen map:
+
+- Initial JPEG SHA-256: `2f5e07ae44f29a5089cab7e32daea4175b4959472f292ff362dda65f96553bf3`.
+- Map SHA-256: `aa34daddff1409d7ccabae7c6000e0ca8e8266075b8ec65543c34c47e77f7685`.
+- Each new L3 run recorded one static-map render. The unchanged prompt builder attaches the frozen map to the decision context. Seed 102 has its own initial-state map, as intended.
+
+These checks establish implementation/input continuity, not repeatable model behavior. The game seed controls engine initialization; the client does not pass that seed to model inference.
+
+### L2: grounding was active but seldom declared as the action basis
+
+| Seed | `locate` calls | Muse box-proposal requests | SAM requests | Executed acts declaring grounding | Executed acts declaring visual navigation |
+|---|---:|---:|---:|---:|---:|
+| 101 | 4 | 4 | 3 | 2 | 57 |
+| 102 | 5 | 5 | 6 | 3 | 56 |
+| Total | 9 | 9 | 9 | 5 | 113 |
+
+Thus the real Muse-box/SAM pipeline made 18 model requests, but only **5 of 118 executed L2 acts** declared grounding as their basis. These are model-written declarations, not five verified grounding-guided movements. Receipt validation establishes that cited evidence was available; it does not establish correct interpretation or effective steering.
+
+Specific examples from the logs:
+
+- Seed 101, decision 0: `gray door` returned an unverified candidate at approximately −22.263°. Muse cited `d0:gray door`, selected the candidate as its destination, and described approaching the door ahead-left. At decision 21 it cited the earlier `red pillar` result and explicitly described using its bearing to steer forward. These support some actual engagement with grounding results, without verifying identity or navigation benefit.
+- Seed 102, decision 23: `green armor vest` returned no candidate, but the next NAV entry declared `basis=grounding` while pursuing a visually observed green speck. The note acknowledged the failed lookup. This is an example of a grounding-labeled act that does **not** establish candidate-guided movement, so the five declarations must not be interpreted as verified effective use.
+- Other green-armor lookups returned no candidates, and most actions were labeled visual. A failed lookup is not proof that an object was absent. The four candidate-positive tool returns reported in the original results still have unverified identities.
+
+The available capability was therefore present and exercised, while its influence on navigation was limited and partly ambiguous. The audit does not establish that increasing lookup frequency would improve performance; redundant calls and unreliable semantic candidates remain concerns.
+
+### L3: map-specific intentions did not produce sustained route execution
+
+| Seed | Accepted map-based NAV updates | Executed acts linked to map-based NAV | `locate` calls |
+|---|---:|---:|---:|
+| 101 | 57 | 60 | 1 |
+| 102 | 52 | 60 | 0 |
+
+Both runs wrote map-specific initial plans: identify the start region, leave toward the central junction, traverse the north/east connections, then move south toward the southeast goal room. This is evidence of map-referenced interpretation beyond merely receiving an image.
+
+However, `basis=map` is required by the L3 validator. Consequently, the 120 map-labeled acts are protocol-compliance evidence, not proof that every action followed an effective route. The saved updates show persistent uncertain localization and local recovery:
+
+- Seed 101, decision 30 still describes the central pillar/gray-panel area as uncertain and proposes backing off a block to find the east opening. Decision 40 calls the situation a wall-locked loop. Decision 59 describes a metal-corner dead end and returning to a hall junction, while retaining the same southeast goal destination.
+- Seed 102, decision 30 still tentatively places the agent in the western start room and describes looping around pillars. By decision 50 it reports an uncertain central pillar maze; decision 59 says it is unclear whether cyclic views indicate the same place, and proposes another wall-following escape.
+
+The trajectories and lack of visible goal pixels in either L3 episode agree with unsuccessful route execution. The logs support a likely weakness in maintaining/checking the current map region and subgoal progress: the agent repeatedly retained goal-direction language while reacting locally to walls. They do not isolate the cause or prove that the map was ignored, that localization alone caused failure, or that map access harmed performance. The earlier M2 winner also struggled with localization before eventually reaching the east/south goal branch; its one success did not establish reliability.
+
+### Memory and warning behavior
+
+The existing model-written ledger was active: accepted writes were 26/29 for L1, 49/55 for L2, and 57/52 for L3, for seeds 101/102 respectively. The visual-cycle guard emitted 3/2, 3/0, and 3/2 warnings for those same levels/seeds. These counts establish that the mechanisms ran; they do not establish successful learning or recovery.
+
+Each episode deliberately began with a fresh scratchpad, recent history, and conversation under the documented no-cross-run-state protocol. The shared ledger means shared use by landmark/outcome notes and NAV within an episode. It does not mean memory is shared between episodes. The winning M2 run's notes and route were not loaded into M3. Cross-episode carry-over remains a separate, unimplemented M4 experiment.
+
+### Implications for future work
+
+The distinction is between **retained capability, recorded use, and demonstrated benefit**. Source/input checks verify retained capability. Tool calls, candidate citations, and map-specific notes demonstrate some use. Neither these declarations nor the six negative outcomes establish reliable grounding-guided movement, accurate map localization, or a causal benefit or harm.
+
+Targeted future work should investigate evidence-backed landmark-to-region matching, explicit checks before advancing map subgoals, and recovery from contradicted or uncertain location hypotheses. Evaluation should distinguish a failed grounding receipt from a usable candidate and inspect whether the resulting movement matches the stated intention. These are proposed directions, not implemented fixes or demonstrated improvements. Any carry-over comparison should remain separate from fresh-memory trials; any further paid experiment requires new approval. This investigation does not justify simply increasing the decision or cost budget.
