@@ -3,6 +3,8 @@
 import argparse
 from pathlib import Path
 
+from autoqa.config import SCENARIOS
+
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="ViZDoom Meta AI research harness")
@@ -17,12 +19,7 @@ def main(argv=None):
     run = commands.add_parser("run")
     run.add_argument(
         "--scenario",
-        choices=[
-            "my_way_home",
-            "health_gathering_supreme",
-            "deadly_corridor_nav",
-            "freedoom2_map01",
-        ],
+        choices=list(SCENARIOS),
         default="my_way_home",
     )
     run.add_argument("--level", type=int, choices=[1, 2, 3], default=1)

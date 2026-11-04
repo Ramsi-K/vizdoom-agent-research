@@ -47,6 +47,69 @@ class Act(StrictModel):
         return self
 
 
+class CombatMove(StrictModel):
+    type: Literal[
+        "forward",
+        "backward",
+        "strafe_left",
+        "strafe_right",
+        "turn_left",
+        "turn_right",
+        "use",
+        "attack",
+        "wait",
+        "look_up",
+        "look_down",
+        "weapon_1",
+        "weapon_2",
+        "weapon_3",
+        "weapon_4",
+        "weapon_5",
+        "weapon_6",
+        "weapon_7",
+        "next_weapon",
+        "previous_weapon",
+        "jump",
+        "crouch",
+        "reload",
+        "altattack",
+    ]
+    amount: int = Field(ge=1, le=180)
+    fire: bool
+
+    @model_validator(mode="after")
+    def limits(self):
+        cap = (
+            180
+            if self.type.startswith("turn_")
+            else 45
+            if self.type.startswith("look_")
+            else 1
+            if self.one_tic
+            else 35
+        )
+        if self.amount > cap:
+            raise ValueError(f"{self.type} amount exceeds {cap}")
+        return self
+
+    @property
+    def one_tic(self):
+        return self.type.startswith(("turn_", "look_", "weapon_")) or self.type in {
+            "use",
+            "next_weapon",
+            "previous_weapon",
+            "reload",
+        }
+
+    @property
+    def tics(self):
+        return 1 if self.one_tic else self.amount
+
+
+class CombatAct(Act):
+    moves: list[CombatMove] = Field(min_length=1, max_length=4)
+
+
 class Note(StrictModel):
     text: str = Field(max_length=1500)
     mode: Literal["append", "replace"]
@@ -93,24 +156,71 @@ SCENARIOS = {
     ),
     "deadly_corridor_nav": dict(cfg="deadly_corridor", timeout=2100, map="MAP01", nomonsters=True),
     "freedoom2_map01": dict(cfg="freedoom2", timeout=4200, map="MAP01", nomonsters=True),
+    "basic_combat": dict(
+        cfg="basic", timeout=300, map="MAP01", nomonsters=False, combat=True, goal="kill", skill=3
+    ),
+    "defend_center_combat": dict(
+        cfg="defend_the_center",
+        timeout=2100,
+        map="MAP01",
+        nomonsters=False,
+        combat=True,
+        goal="survive",
+        skill=3,
+    ),
+    "deadly_corridor_combat": dict(
+        cfg="deadly_corridor",
+        timeout=2100,
+        map="MAP01",
+        nomonsters=False,
+        combat=True,
+        goal="exit",
+        skill=3,
+    ),
+    "freedoom2_combat_map01": dict(
+        cfg="freedoom2",
+        timeout=4200,
+        map="MAP01",
+        nomonsters=False,
+        combat=True,
+        goal="exit",
+        skill=3,
+    ),
 }
+
+
+def combat_enabled(scenario):
+    return SCENARIOS[scenario].get("combat", False)
 
 
 class RunConfig(StrictModel):
     scenario: Literal[
-        "my_way_home", "health_gathering_supreme", "deadly_corridor_nav", "freedoom2_map01"
+        "my_way_home",
+        "health_gathering_supreme",
+        "deadly_corridor_nav",
+        "freedoom2_map01",
+        "basic_combat",
+        "defend_center_combat",
+        "deadly_corridor_combat",
+        "freedoom2_combat_map01",
     ] = "my_way_home"
     level: Literal[1, 2, 3] = 1
     seed: int = 101
     model: Literal["muse-spark-1.3", "muse-spark-1.3-contributor"] = "muse-spark-1.3"
     effort: Literal["minimal", "low", "medium"] = "low"
     max_decisions: int = Field(default=60, ge=1, le=1000)
-    max_tics: int = Field(default=2100, ge=1, le=4200)
+    max_tics: int = Field(default=2100, ge=1, le=21000)
     max_usd: float = Field(default=0.25, gt=0)
     wall_seconds: float = Field(default=900.0, gt=0)
     request_timeout: float = Field(default=45.0, gt=0)
     max_output_tokens: int = Field(default=3000, ge=3000, le=8000)
     grounding_mode: Literal["sam_text", "muse_box_sam"] = "muse_box_sam"
+
+    @model_validator(mode="after")
+    def extended_combat_horizon(self):
+        if self.max_tics > 4200 and self.scenario != "freedoom2_combat_map01":
+            raise ValueError("Extended tic horizons are available only for Freedoom combat")
+        return self
 
 
 # USD per million tokens, source: Meta pricing-rate-limits, checked 2026-11-04.

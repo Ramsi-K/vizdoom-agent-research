@@ -5,6 +5,7 @@ from dataclasses import asdict
 
 from pydantic import ValidationError
 
+from autoqa.config import combat_enabled
 from autoqa.prompts import builder
 
 from .client import InformationLeakError, ModelAPIError, replay_turn, tool_output
@@ -12,7 +13,7 @@ from .grounder import GroundingBudgetExceeded
 from .guards import Guards
 from .memory import Memory
 from .navigation import validate_navigation
-from .tools import MODELS
+from .tools import models_for_combat
 
 
 class Pilot:
@@ -31,6 +32,8 @@ class Pilot:
         }
         self.briefing_l2, self.grounder = briefing_l2, grounder
         self.locate_calls = 0
+        self.combat = combat_enabled(config.scenario)
+        self.tool_models = models_for_combat(self.combat)
         # Evidence registry for validating citations, not an additional model memory.
         self.grounding_receipts = {}
 
@@ -61,7 +64,12 @@ class Pilot:
             if cycle:
                 self.log("visual_cycle_warning", decision_idx=decision, **cycle)
             items = builder.build(
-                self.config.level, self.memory, obs, self.guards.warning, self.briefing_l2
+                self.config.level,
+                self.memory,
+                obs,
+                self.guards.warning,
+                self.briefing_l2,
+                combat=self.combat,
             )
             acted, misses = False, 0
             locate_results = {}  # exact same observed frame/concept only; no cross-frame reuse
@@ -99,6 +107,14 @@ class Pilot:
                     cost_usd=turn.cost_usd,
                     status=turn.status,
                 )
+                if self.combat:
+                    self.log(
+                        "model_decision",
+                        decision_idx=decision,
+                        call_idx=call_idx,
+                        frame_sha256=obs.frame_sha256,
+                        output=[item for item in turn.output if item.get("type") != "reasoning"],
+                    )
                 calls = [i for i in turn.output if i.get("type") == "function_call"]
                 if self.guards.budget_exhausted():
                     self.log("budget_exhausted", decision_idx=decision, unexecuted_calls=len(calls))
@@ -138,7 +154,7 @@ class Pilot:
                     if sum(i["name"] in {"act", "finish"} for i in calls) > 1:
                         raise ValueError("At most one act or finish per response")
                     for item in calls:
-                        validated[item["call_id"]] = MODELS[item["name"]].model_validate(
+                        validated[item["call_id"]] = self.tool_models[item["name"]].model_validate(
                             json.loads(item["arguments"])
                         )
                 except (ValueError, KeyError, ValidationError):

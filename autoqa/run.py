@@ -12,8 +12,8 @@ import vizdoom as vzd
 from autoqa.agent.client import MetaClient
 from autoqa.agent.grounder import Grounder
 from autoqa.agent.pilot import Pilot
-from autoqa.config import SCENARIOS
-from autoqa.doom.env import DoomEnv
+from autoqa.config import SCENARIOS, combat_enabled
+from autoqa.doom.env import DoomEnv, buttons_for
 from autoqa.io import EventLog, digest, write_json
 from autoqa.prompts.builder import prompt_hash
 from autoqa.secrets import model_key
@@ -51,7 +51,7 @@ def run_episode(config, *, root=Path.cwd()):
         scenario_cfg_path=str(config_path),
         scenario_cfg_sha256=digest(config_path),
         scenario_wad_sha256=digest(wad),
-        prompt_sha256=prompt_hash(config.level, briefing),
+        prompt_sha256=prompt_hash(config.level, briefing, combat=combat_enabled(config.scenario)),
         briefing_sha256=hashlib.sha256(briefing.encode()).hexdigest() if briefing else None,
         calibration_sha256=digest(calibration_path),
         scenario_id=config.scenario,
@@ -75,6 +75,13 @@ def run_episode(config, *, root=Path.cwd()):
         usage=None,
         sam_grounding=config.grounding_mode,
     )
+    if combat_enabled(config.scenario):
+        manifest.update(
+            action_schema="combat_v1",
+            scenario_profile=profile,
+            button_order=[button.name for button in buttons_for(config)],
+            control_prompt_sha256=digest(root / "prompts/combat_controls_v1.md"),
+        )
     write_json(directory / "manifest.json", manifest)
     env, client, pilot = None, None, None
     started = time.monotonic()
@@ -145,6 +152,21 @@ def run_episode(config, *, root=Path.cwd()):
                 )
                 if clock_reset:
                     manifest["terminal_clock_status"] = "native_reset_needs_replay"
+                if combat_enabled(config.scenario):
+                    manifest["combat_final"] = {
+                        key: env.telemetry.last.get(key)
+                        for key in (
+                            "kills",
+                            "items",
+                            "hits",
+                            "damage_dealt",
+                            "damage_taken",
+                            "health",
+                            "armor",
+                            "selected_weapon",
+                            "selected_weapon_ammo",
+                        )
+                    }
             for name in ("episode.lmp", "events.jsonl", "telemetry.jsonl"):
                 path = directory / name
                 if path.exists():

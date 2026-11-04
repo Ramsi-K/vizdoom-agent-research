@@ -2,6 +2,7 @@
 
 import hashlib
 import io
+from contextlib import ExitStack
 from dataclasses import asdict
 from pathlib import Path
 
@@ -9,9 +10,10 @@ import numpy as np
 import vizdoom as vzd
 from PIL import Image
 
-from autoqa.config import SCENARIOS, Act
+from autoqa.config import SCENARIOS, Act, CombatAct, combat_enabled
 from autoqa.io import EventLog
 
+from .demo_path import native_demo_path
 from .telemetry import TelemetryRecorder
 from .types import ActionFeedback, AgentObservation
 
@@ -28,12 +30,27 @@ CANONICAL_BUTTONS = [
     vzd.Button.TURN_LEFT_RIGHT_DELTA,
 ]
 
+COMBAT_BUTTONS = CANONICAL_BUTTONS + [
+    vzd.Button.LOOK_UP_DOWN_DELTA,
+    *[getattr(vzd.Button, f"SELECT_WEAPON{i}") for i in range(1, 8)],
+    vzd.Button.SELECT_NEXT_WEAPON,
+    vzd.Button.SELECT_PREV_WEAPON,
+    vzd.Button.JUMP,
+    vzd.Button.CROUCH,
+    vzd.Button.RELOAD,
+    vzd.Button.ALTATTACK,
+]
+
+
+def buttons_for(config):
+    return COMBAT_BUTTONS if combat_enabled(config.scenario) else CANONICAL_BUTTONS
+
 
 def configured_game(config, *, size=(640, 480)):
     game = vzd.DoomGame()
     profile = SCENARIOS[config.scenario]
     game.load_config(str(Path(vzd.scenarios_path) / (profile["cfg"] + ".cfg")))
-    game.set_available_buttons(CANONICAL_BUTTONS)
+    game.set_available_buttons(buttons_for(config))
     game.set_available_game_variables([])
     game.set_screen_format(vzd.ScreenFormat.RGB24)
     game.set_screen_resolution(
@@ -61,6 +78,10 @@ def configured_game(config, *, size=(640, 480)):
     game.set_doom_map(profile["map"])
     if profile["nomonsters"]:
         game.add_game_args("-nomonsters")
+    if combat_enabled(config.scenario):
+        game.set_doom_skill(profile["skill"])
+        game.add_game_args("+freelook 1")
+        game.set_button_max_value(vzd.Button.LOOK_UP_DOWN_DELTA, 0)
     game.add_game_args("+viz_nocheat 0")
     game.set_button_max_value(vzd.Button.TURN_LEFT_RIGHT_DELTA, 0)
     return game
@@ -79,9 +100,16 @@ class DoomEnv:
     def __init__(self, config, directory, calibration):
         self.config, self.directory = config, directory
         self.level = config.level
+        self.combat = combat_enabled(config.scenario)
+        self.buttons = buttons_for(config)
         self._plan_png = None
         self._game = configured_game(config)
-        self.telemetry = TelemetryRecorder(directory, calibration)
+        self.telemetry = TelemetryRecorder(
+            directory,
+            calibration,
+            combat=self.combat,
+            track_armor_goal=not self.combat or config.scenario == "deadly_corridor_combat",
+        )
         self.log = EventLog(directory / "events.jsonl")
         self.decision_idx = 0
         self._observation_counter = 0
@@ -89,10 +117,12 @@ class DoomEnv:
         self.previous_frames = []
         self._closed = False
         self._recording = False
+        self._demo_paths = ExitStack()
         try:
             self._game.init()
             self._game.set_seed(config.seed)
-            self._game.new_episode(str((directory / "episode.lmp").resolve()))
+            demo = self._demo_paths.enter_context(native_demo_path(directory / "episode.lmp"))
+            self._game.new_episode(demo)
             self._recording = True
             self.start_tic = self._game.get_episode_time()
             self._screen = self._game.get_state().screen_buffer.copy()
@@ -115,6 +145,7 @@ class DoomEnv:
                 )
         except BaseException:
             self._game.close()
+            self._demo_paths.close()
             raise
 
     def observe(self):
@@ -136,14 +167,14 @@ class DoomEnv:
 
     def execute(self, action: Act):
         # Revalidate at the engine boundary. Invalid calls are never clamped.
-        action = Act.model_validate(action.model_dump())
+        action = (CombatAct if self.combat else Act).model_validate(action.model_dump())
         start = self._game.get_episode_time()
         before = self._screen.copy()
         executed = 0
         for index, move in enumerate(action.moves):
             if self.episode_finished():
                 break
-            vector = [0.0] * len(CANONICAL_BUTTONS)
+            vector = [0.0] * len(self.buttons)
             button = {
                 "forward": 0,
                 "backward": 1,
@@ -158,6 +189,24 @@ class DoomEnv:
                 vector[4] = 1
             if move.type in {"turn_left", "turn_right"}:
                 vector[9] = move.amount * (-1 if move.type == "turn_left" else 1)
+            if self.combat:
+                if move.fire:
+                    vector[6] = 1
+                if move.type.startswith("look_"):
+                    vector[self.buttons.index(vzd.Button.LOOK_UP_DOWN_DELTA)] = move.amount * (
+                        1 if move.type == "look_up" else -1
+                    )
+                names = {
+                    **{f"weapon_{i}": f"SELECT_WEAPON{i}" for i in range(1, 8)},
+                    "next_weapon": "SELECT_NEXT_WEAPON",
+                    "previous_weapon": "SELECT_PREV_WEAPON",
+                    "jump": "JUMP",
+                    "crouch": "CROUCH",
+                    "reload": "RELOAD",
+                    "altattack": "ALTATTACK",
+                }
+                if move.type in names:
+                    vector[self.buttons.index(getattr(vzd.Button, names[move.type]))] = 1
             tic_start = self._game.get_episode_time()
             self._game.make_action(vector, move.tics)
             self.telemetry.record_step(
@@ -197,6 +246,23 @@ class DoomEnv:
     def outcome(self):
         if self._game.is_player_dead():
             return "player_dead"
+        if self.combat and self.episode_finished():
+            profile = SCENARIOS[self.config.scenario]
+            if profile["goal"] == "kill":
+                return (
+                    "success"
+                    if self._game.get_game_variable(vzd.GameVariable.KILLCOUNT) > 0
+                    else "timeout"
+                )
+            timed_out = self._game.get_episode_time() >= self.config.max_tics
+            if profile["goal"] == "survive":
+                return (
+                    "success"
+                    if timed_out and self.config.max_tics >= profile["timeout"]
+                    else "timeout"
+                )
+            # Natural objective exit is distinct from a positive shaping reward.
+            return "timeout" if timed_out else "success"
         if self.episode_finished():
             if self.config.scenario == "health_gathering_supreme":
                 return (
@@ -216,6 +282,7 @@ class DoomEnv:
                     self._game.new_episode()  # flush, never exposed to the Pilot
             finally:
                 self._game.close()
+                self._demo_paths.close()
                 self._closed = True
 
     def player_session(self):

@@ -1,0 +1,24 @@
+# Exploratory M3.5 plan; not an M3 sweep configuration.
+# scripts/run_m35.py executes exactly one explicitly selected slot per invocation.
+name: m35_initial
+max_total_usd: 2.40
+common:
+  level: 2
+  seed: 101
+  model: muse-spark-1.3
+  effort: low
+  max_decisions: 60
+  max_usd: 0.60
+  wall_seconds: 900.0
+  request_timeout: 45.0
+  max_output_tokens: 3000
+  grounding_mode: muse_box_sam
+runs:
+  - scenario: basic_combat
+    max_tics: 300
+  - scenario: defend_center_combat
+    max_tics: 2100
+  - scenario: deadly_corridor_combat
+    max_tics: 2100
+  - scenario: freedoom2_combat_map01
+    max_tics: 4200

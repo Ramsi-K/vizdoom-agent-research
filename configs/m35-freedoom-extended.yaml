@@ -1,0 +1,17 @@
+# One user-authorized extended episode; no automatic follow-up slots.
+name: m35_freedoom_extended
+max_total_usd: 3.00
+common:
+  level: 2
+  seed: 101
+  model: muse-spark-1.3
+  effort: low
+  max_decisions: 300
+  max_usd: 3.00
+  wall_seconds: 3600.0
+  request_timeout: 45.0
+  max_output_tokens: 3000
+  grounding_mode: muse_box_sam
+runs:
+  - scenario: freedoom2_combat_map01
+    max_tics: 21000

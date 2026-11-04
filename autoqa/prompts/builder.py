@@ -10,7 +10,7 @@ L1_TASK = "You are an automated QA tester playing an unfamiliar first-person lev
 PROMPT_DIR = Path(__file__).resolve().parents[2] / "prompts"
 
 
-def prefix(level=1, briefing_l2=None):
+def prefix(level=1, briefing_l2=None, *, combat=False):
     task = (PROMPT_DIR / "level1_task.md").read_text().strip()
     if task != L1_TASK:
         raise ValueError("Pinned Level 1 task has changed")
@@ -26,6 +26,8 @@ def prefix(level=1, briefing_l2=None):
         else "You are an automated QA tester playing this level. Attempt the supplied objective and report confusing or apparently broken behavior."
     )
     result = intro + "\n\n" + (PROMPT_DIR / "system_v3.md").read_text()
+    if combat:
+        result += "\n\n" + (PROMPT_DIR / "combat_controls_v1.md").read_text()
     if level > 1:
         result += "\n\n" + briefing_l2
     if level == 3:
@@ -35,18 +37,20 @@ def prefix(level=1, briefing_l2=None):
     return result
 
 
-def prompt_hash(level=1, briefing_l2=None):
-    return hashlib.sha256(prefix(level, briefing_l2).encode()).hexdigest()
+def prompt_hash(level=1, briefing_l2=None, *, combat=False):
+    return hashlib.sha256(prefix(level, briefing_l2, combat=combat).encode()).hexdigest()
 
 
-def build(level: int, memory, obs: AgentObservation, guard_notes=None, briefing_l2=None):
+def build(
+    level: int, memory, obs: AgentObservation, guard_notes=None, briefing_l2=None, *, combat=False
+):
     if level not in (1, 2, 3):
         raise ValueError("Unknown information level")
     if level < 3 and obs.plan_png is not None:
         raise ValueError("Only Level 3 may receive a map")
     if level == 3 and obs.plan_png is None:
         raise ValueError("Level 3 requires its frozen initial map")
-    stable = prefix(level, briefing_l2)
+    stable = prefix(level, briefing_l2, combat=combat)
     text = (
         f"Decision {obs.decision_idx}; elapsed {obs.tics_elapsed} tics; remaining {obs.tics_remaining} tics.\nLandmark/outcome ledger (model-written, 1500 characters maximum):\n{memory.scratchpad or '(empty; record landmarks as you observe them)'}\nRecent actions and uncertain locate evidence:\n"
         + "\n".join(memory.history)

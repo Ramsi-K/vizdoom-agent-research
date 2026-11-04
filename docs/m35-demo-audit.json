@@ -1,0 +1,1779 @@
+{
+  "kind": "M3.5 post-run audit and separately authorized extended demo; original measurements preserved",
+  "timing": "Seconds from first full-MP4 gameplay frame at 35 fps; event times approximate the start of a native tic interval",
+  "method": "Exact observation JPEG replay matching for SAM; separate one-tic demo playback for ammo, damage and horizontal sprite bounds; no model calls or live actions",
+  "limitations": [
+    "Ammo decrements may miss same-tic pickup consumption; non-damaging is not automatically tactically wasted",
+    "Horizontal bbox overlap is not exact ballistic accuracy and does not validate vertical aim or live-target status",
+    "Geometry queries cannot be assessed as failures using enemy-instance IoU",
+    "Post-hoc candidates from individual traces do not estimate general detector precision/recall",
+    "Sampled cell revisits and acceleration-sensitive collision proxies do not establish route correctness or QA defects"
+  ],
+  "runs": [
+    {
+      "summary": {
+        "run_id": "20261104T184348.144630Z_basic_combat_L2_s101",
+        "recording_provenance": "original_finalized_native",
+        "outcome": "success",
+        "exact_observation_frames": 1,
+        "ammo_decrement_events": 1,
+        "ammo_units_spent": 1.0,
+        "damaging_ammo_events": 1,
+        "nondamaging_ammo_events": 0,
+        "ammo_events_without_enemy_sprite": 0,
+        "ammo_events_horizontal_bbox_overlap": 1,
+        "dry_pistol_attack_tics": 0,
+        "attack_tics": 6,
+        "masks": 1,
+        "mask_enemy_iou_ge_half": 1,
+        "masks_without_object_overlap": 0,
+        "cells": 1,
+        "cell_entries": 1,
+        "reentries": 0,
+        "translation_primitives": 0,
+        "collision_proxy_count": 0,
+        "use_primitives": 0,
+        "geometry_changing_use_proxy": 0,
+        "visual_cycle_warnings": 0,
+        "kills": 1.0,
+        "recorded_usd": 0.01709965
+      },
+      "played_tics": 6,
+      "executed_acts": 1,
+      "combat_final": {
+        "kills": 1.0,
+        "items": 0.0,
+        "hits": 1.0,
+        "damage_dealt": 5.0,
+        "damage_taken": 0.0,
+        "health": 100.0,
+        "armor": 0.0,
+        "selected_weapon": 2.0,
+        "selected_weapon_ammo": 49.0
+      },
+      "api_errors": [],
+      "grounding_errors": 0,
+      "rejected_tool_batches": 0,
+      "navigation_rejections": 0,
+      "reconstruction": null,
+      "source_commit": "624a3c0841fdb828dcfd9e309a5fea533304c257",
+      "artifact_directory": "runs/20261104T184348.144630Z_basic_combat_L2_s101",
+      "recording_provenance": "original_finalized_native",
+      "reconstruction_verification_sha256": null,
+      "source_artifact_sha256": {
+        "manifest.json": "8cd413355ba4bb0e527303eb9bde99c61269a97bc5d07254f1e36b84b4842821",
+        "events.jsonl": "5eee57c699b723189b1d8fcb0364d1b7a95e314734f240e9300a94c0f2cce72f",
+        "telemetry.jsonl": "241b2d17f0741a5227106e54f97e85dce0eeb011f5e37c3e7c5cf30d541d354d",
+        "episode.lmp": "c2ea40731d8f93e132360d848f685f102948dd42eb6cbd1146e0f0b16d50039d",
+        "replay.json": "82fd9008412892792a7b7ef7b433266f51573efb2cf0bc9ad0cd9634bc07135c",
+        "replay.mp4": "5cc7616cec2f4150f22867b46acf7b7872112622029c95636353cc0363cf6a43",
+        "memory.json": "c6cea3c41b30be0cfe1969eb32f17eda29d1d2ffa65abca77494403f3864291d"
+      },
+      "full_audit_local_path": "results/m35-audit-final/20261104T184348.144630Z_basic_combat_L2_s101.json",
+      "full_audit_sha256": "3447fe90fa89c99c0987b55059c84b62dd6792f5e60773965da1972d8a7b97e3",
+      "audit_script_sha256": "f2fd92efd6159ffc0cd98b023a27c216f320a47e2bc4b5f75d95faf50dea93cb",
+      "native_final_matches": true,
+      "decision_blocks": [
+        {
+          "first_decision": 0,
+          "last_decision": 0,
+          "recorded_usd": 0.01709965,
+          "executed_acts": 1,
+          "locate_calls": 1,
+          "visual_cycle_warnings": 0,
+          "new_sampled_cells": 1,
+          "sampled_cell_reentries": 0,
+          "last_kills": 1.0,
+          "last_health": 100.0
+        }
+      ],
+      "first_enemy_observation_decision": 0,
+      "first_firing_primitive_decision": 0,
+      "shot_columns": [
+        "seconds",
+        "ammo_spent",
+        "damage",
+        "visible_enemy_sprites",
+        "horizontal_gap_deg"
+      ],
+      "shot_rows": [
+        [
+          0.114286,
+          1.0,
+          5.0,
+          1,
+          0.0
+        ]
+      ],
+      "kill_events": [
+        {
+          "tic": 18,
+          "seconds": 0.11428571428571428,
+          "gained": 1.0
+        }
+      ],
+      "damage_taken_events": [],
+      "masks": [
+        {
+          "decision": 0,
+          "seconds": 0.0,
+          "concept": "enemy monster",
+          "file": "locate_0001_mask0.png",
+          "mask_sha256": "0a034d295d2418bf54e47b00b4f9c3057f8e61182b9a84cb2bdb814c834bbb4a",
+          "input_frame_sha256": "6652586abb9e6c204ed88b167592f6fb322fa9657b9c58176ffe1e86a9b61340",
+          "exact_frame_match": true,
+          "best_object": {
+            "name": "Cacodemon",
+            "category": "Monster",
+            "iou": 0.8882998864066641
+          },
+          "enemy_iou": 0.8882998864066641,
+          "identity_verified_in_live_receipt": false
+        }
+      ]
+    },
+    {
+      "summary": {
+        "run_id": "20261104T190052.792354Z_defend_center_combat_L2_s101",
+        "recording_provenance": "original_finalized_native",
+        "outcome": "budget_exhausted",
+        "exact_observation_frames": 52,
+        "ammo_decrement_events": 26,
+        "ammo_units_spent": 26.0,
+        "damaging_ammo_events": 6,
+        "nondamaging_ammo_events": 20,
+        "ammo_events_without_enemy_sprite": 6,
+        "ammo_events_horizontal_bbox_overlap": 7,
+        "dry_pistol_attack_tics": 5,
+        "attack_tics": 360,
+        "masks": 4,
+        "mask_enemy_iou_ge_half": 3,
+        "masks_without_object_overlap": 1,
+        "cells": 28,
+        "cell_entries": 30,
+        "reentries": 2,
+        "translation_primitives": 37,
+        "collision_proxy_count": 2,
+        "use_primitives": 0,
+        "geometry_changing_use_proxy": 0,
+        "visual_cycle_warnings": 9,
+        "kills": 6.0,
+        "recorded_usd": 0.6015417999999997
+      },
+      "played_tics": 1123,
+      "executed_acts": 51,
+      "combat_final": {
+        "kills": 6.0,
+        "items": 0.0,
+        "hits": 6.0,
+        "damage_dealt": 55.0,
+        "damage_taken": 94.0,
+        "health": 6.0,
+        "armor": 0.0,
+        "selected_weapon": 2.0,
+        "selected_weapon_ammo": 0.0
+      },
+      "api_errors": [],
+      "grounding_errors": 0,
+      "rejected_tool_batches": 1,
+      "navigation_rejections": 2,
+      "reconstruction": null,
+      "source_commit": "6787787bb1937f9f522ab604853db949a4147d44",
+      "artifact_directory": "runs/20261104T190052.792354Z_defend_center_combat_L2_s101",
+      "recording_provenance": "original_finalized_native",
+      "reconstruction_verification_sha256": null,
+      "source_artifact_sha256": {
+        "manifest.json": "990453b95c501c85529fad52f409d8ccbe1c0553e873ff52f64f0e9d7dd07ab1",
+        "events.jsonl": "525fc4d3ee350301623a14bda246e246b3a0d5b6613e235dca06e0ba8075eda6",
+        "telemetry.jsonl": "724842c83b81d64f3e755bccb007a0428b2ad581f2b4dab452e4be6630ae3897",
+        "episode.lmp": "307c975dffceed0d6c5cf95aabbe36871086a90ed4860ae4a9ddc33e6ee41fc1",
+        "replay.json": "8cc89ceead16c686e4a1f1244e321e72f396d2de284047a3d00936bd6f2fb53f",
+        "replay.mp4": "87241002711e82dc55e28be48624e00d45aea2dd8cd9dc86b27cdd697f942d49",
+        "memory.json": "b522005a5cdd8ca05f4a324b7bbd132c925e6fa36b066c8a7e687f7f75f762ba"
+      },
+      "full_audit_local_path": "results/m35-audit-final/20261104T190052.792354Z_defend_center_combat_L2_s101.json",
+      "full_audit_sha256": "ff0c60cc24db545fa8c4647e1b13a3707c19df10d595a3f2eef15da3ae21b7fb",
+      "audit_script_sha256": "f2fd92efd6159ffc0cd98b023a27c216f320a47e2bc4b5f75d95faf50dea93cb",
+      "native_final_matches": true,
+      "decision_blocks": [
+        {
+          "first_decision": 0,
+          "last_decision": 51,
+          "recorded_usd": 0.6015417999999997,
+          "executed_acts": 51,
+          "locate_calls": 3,
+          "visual_cycle_warnings": 9,
+          "new_sampled_cells": 28,
+          "sampled_cell_reentries": 2,
+          "last_kills": 6.0,
+          "last_health": 6.0
+        }
+      ],
+      "first_enemy_observation_decision": 0,
+      "first_firing_primitive_decision": 0,
+      "shot_columns": [
+        "seconds",
+        "ammo_spent",
+        "damage",
+        "visible_enemy_sprites",
+        "horizontal_gap_deg"
+      ],
+      "shot_rows": [
+        [
+          0.285714,
+          1.0,
+          5.0,
+          1,
+          0.0
+        ],
+        [
+          0.685714,
+          1.0,
+          0.0,
+          0,
+          null
+        ],
+        [
+          1.085714,
+          1.0,
+          0.0,
+          0,
+          null
+        ],
+        [
+          1.485714,
+          1.0,
+          0.0,
+          0,
+          null
+        ],
+        [
+          1.885714,
+          1.0,
+          0.0,
+          0,
+          null
+        ],
+        [
+          2.428571,
+          1.0,
+          5.0,
+          1,
+          0.0
+        ],
+        [
+          2.828571,
+          1.0,
+          0.0,
+          1,
+          16.039943
+        ],
+        [
+          3.228571,
+          1.0,
+          0.0,
+          2,
+          0.0
+        ],
+        [
+          3.628571,
+          1.0,
+          0.0,
+          3,
+          0.0
+        ],
+        [
+          4.028571,
+          1.0,
+          15.0,
+          2,
+          0.0
+        ],
+        [
+          4.428571,
+          1.0,
+          15.0,
+          2,
+          0.0
+        ],
+        [
+          4.828571,
+          1.0,
+          0.0,
+          1,
+          0.537132
+        ],
+        [
+          5.228571,
+          1.0,
+          10.0,
+          1,
+          0.0
+        ],
+        [
+          5.628571,
+          1.0,
+          0.0,
+          0,
+          null
+        ],
+        [
+          6.028571,
+          1.0,
+          0.0,
+          1,
+          8.18023
+        ],
+        [
+          6.428571,
+          1.0,
+          5.0,
+          1,
+          3.576334
+        ],
+        [
+          6.828571,
+          1.0,
+          0.0,
+          0,
+          null
+        ],
+        [
+          7.228571,
+          1.0,
+          0.0,
+          1,
+          6.948654
+        ],
+        [
+          7.628571,
+          1.0,
+          0.0,
+          1,
+          10.619655
+        ],
+        [
+          8.028571,
+          1.0,
+          0.0,
+          1,
+          14.875682
+        ],
+        [
+          8.428571,
+          1.0,
+          0.0,
+          1,
+          16.863368
+        ],
+        [
+          8.828571,
+          1.0,
+          0.0,
+          1,
+          15.542579
+        ],
+        [
+          9.228571,
+          1.0,
+          0.0,
+          1,
+          15.209658
+        ],
+        [
+          9.628571,
+          1.0,
+          0.0,
+          1,
+          14.204636
+        ],
+        [
+          10.028571,
+          1.0,
+          0.0,
+          2,
+          9.404242
+        ],
+        [
+          10.428571,
+          1.0,
+          0.0,
+          2,
+          8.004729
+        ]
+      ],
+      "kill_events": [
+        {
+          "tic": 20,
+          "seconds": 0.2857142857142857,
+          "gained": 1.0
+        },
+        {
+          "tic": 95,
+          "seconds": 2.4285714285714284,
+          "gained": 1.0
+        },
+        {
+          "tic": 151,
+          "seconds": 4.0285714285714285,
+          "gained": 1.0
+        },
+        {
+          "tic": 165,
+          "seconds": 4.428571428571429,
+          "gained": 1.0
+        },
+        {
+          "tic": 193,
+          "seconds": 5.228571428571429,
+          "gained": 1.0
+        },
+        {
+          "tic": 235,
+          "seconds": 6.428571428571429,
+          "gained": 1.0
+        }
+      ],
+      "damage_taken_events": [
+        {
+          "tic": 444,
+          "seconds": 12.4,
+          "damage": 18.0,
+          "health": 82.0
+        },
+        {
+          "tic": 448,
+          "seconds": 12.514285714285714,
+          "damage": 18.0,
+          "health": 64.0
+        },
+        {
+          "tic": 452,
+          "seconds": 12.628571428571428,
+          "damage": 10.0,
+          "health": 54.0
+        },
+        {
+          "tic": 456,
+          "seconds": 12.742857142857142,
+          "damage": 4.0,
+          "health": 50.0
+        },
+        {
+          "tic": 460,
+          "seconds": 12.857142857142858,
+          "damage": 8.0,
+          "health": 42.0
+        },
+        {
+          "tic": 464,
+          "seconds": 12.971428571428572,
+          "damage": 18.0,
+          "health": 24.0
+        },
+        {
+          "tic": 468,
+          "seconds": 13.085714285714285,
+          "damage": 18.0,
+          "health": 6.0
+        }
+      ],
+      "masks": [
+        {
+          "decision": 0,
+          "seconds": 0.0,
+          "concept": "distant soldier",
+          "file": "locate_0001_mask0.png",
+          "mask_sha256": "56486f0117ff2556d30400476e0fe8463b72fd9be853f4dae46ec97d59d58e23",
+          "input_frame_sha256": "3f5063ebb763de06c10a07449936835ee2945cd54676b7023d94ad7075f843aa",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 20,
+          "seconds": 7.428571428571429,
+          "concept": "distant red enemy",
+          "file": "locate_0002_mask0.png",
+          "mask_sha256": "4b66bf00f86d4cf10bc41e043fbefe6c1079fe0d6fecf6604255cbf360d83790",
+          "input_frame_sha256": "d096346d2992406d2eff88c7866f5bb13a32775cc4a2b239d2cf80c9e95cb3a5",
+          "exact_frame_match": true,
+          "best_object": {
+            "name": "Demon",
+            "category": "Monster",
+            "iou": 0.7835616438356164
+          },
+          "enemy_iou": 0.7835616438356164,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 31,
+          "seconds": 11.485714285714286,
+          "concept": "pink worm enemy",
+          "file": "locate_0003_mask0.png",
+          "mask_sha256": "8e679808b1b524060c64b872e0d327697ab5d7ae5786eb0fe0addf67b09a3aac",
+          "input_frame_sha256": "34410a9b351e8bb192f22a528578864196dccd1274fa416c11474701221e3d00",
+          "exact_frame_match": true,
+          "best_object": {
+            "name": "Demon",
+            "category": "Monster",
+            "iou": 0.8566808950976588
+          },
+          "enemy_iou": 0.8566808950976588,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 31,
+          "seconds": 11.485714285714286,
+          "concept": "pink worm enemy",
+          "file": "locate_0003_mask1.png",
+          "mask_sha256": "d487616e26988584a8e7f8c7822e9d92e345df7e03e153f3596529874d588fa1",
+          "input_frame_sha256": "34410a9b351e8bb192f22a528578864196dccd1274fa416c11474701221e3d00",
+          "exact_frame_match": true,
+          "best_object": {
+            "name": "Demon",
+            "category": "Monster",
+            "iou": 0.8575380359612724
+          },
+          "enemy_iou": 0.8575380359612724,
+          "identity_verified_in_live_receipt": false
+        }
+      ]
+    },
+    {
+      "summary": {
+        "run_id": "20261104T190857.601337Z_deadly_corridor_combat_L2_s101",
+        "recording_provenance": "original_finalized_native",
+        "outcome": "player_dead",
+        "exact_observation_frames": 6,
+        "ammo_decrement_events": 7,
+        "ammo_units_spent": 7.0,
+        "damaging_ammo_events": 1,
+        "nondamaging_ammo_events": 6,
+        "ammo_events_without_enemy_sprite": 0,
+        "ammo_events_horizontal_bbox_overlap": 0,
+        "dry_pistol_attack_tics": 0,
+        "attack_tics": 112,
+        "masks": 1,
+        "mask_enemy_iou_ge_half": 0,
+        "masks_without_object_overlap": 0,
+        "cells": 2,
+        "cell_entries": 2,
+        "reentries": 0,
+        "translation_primitives": 0,
+        "collision_proxy_count": 0,
+        "use_primitives": 0,
+        "geometry_changing_use_proxy": 0,
+        "visual_cycle_warnings": 0,
+        "kills": 1.0,
+        "recorded_usd": 0.06176179999999999
+      },
+      "played_tics": 115,
+      "executed_acts": 6,
+      "combat_final": {
+        "kills": 1.0,
+        "items": 0.0,
+        "hits": 1.0,
+        "damage_dealt": 15.0,
+        "damage_taken": 114.0,
+        "health": -14.0,
+        "armor": 0.0,
+        "selected_weapon": 2.0,
+        "selected_weapon_ammo": 19.0
+      },
+      "api_errors": [],
+      "grounding_errors": 0,
+      "rejected_tool_batches": 0,
+      "navigation_rejections": 0,
+      "reconstruction": null,
+      "source_commit": "6787787bb1937f9f522ab604853db949a4147d44",
+      "artifact_directory": "runs/20261104T190857.601337Z_deadly_corridor_combat_L2_s101",
+      "recording_provenance": "original_finalized_native",
+      "reconstruction_verification_sha256": null,
+      "source_artifact_sha256": {
+        "manifest.json": "e79b9986de30aeb7d6792d1fb1c59576f06d48c9f9aafc5dc4ec8fb0c56c5522",
+        "events.jsonl": "c36720eb9e003b03cced42fecd87d87edb7983cfba2bbc7fb40cfa151278c1fd",
+        "telemetry.jsonl": "80527d63756a6d44bc7dbe8f1ffaf52c02e4d9f347212fa8dc8df39a9701f1e3",
+        "episode.lmp": "e02b0743499fa814e687c475b40e137468e9beebc135b11afce2e92760148003",
+        "replay.json": "69217dfa270fe70cd850dee8b65b6a0cf436e3b2a2e3a81faf192f8af2da7086",
+        "replay.mp4": "05538569d5c96f4ab954c5a5b25fea9f05e90fe159b9524ec71b081c5e916877",
+        "memory.json": "192db5ab2d7467b6b0d7d37ae3a3e7e081c346ead709b49a5cd7fa3032064546"
+      },
+      "full_audit_local_path": "results/m35-audit-final/20261104T190857.601337Z_deadly_corridor_combat_L2_s101.json",
+      "full_audit_sha256": "20147dfaffa919a723e07c78b3550381994b124429f5056b530f1f220d17cf83",
+      "audit_script_sha256": "f2fd92efd6159ffc0cd98b023a27c216f320a47e2bc4b5f75d95faf50dea93cb",
+      "native_final_matches": true,
+      "decision_blocks": [
+        {
+          "first_decision": 0,
+          "last_decision": 5,
+          "recorded_usd": 0.06176179999999999,
+          "executed_acts": 6,
+          "locate_calls": 1,
+          "visual_cycle_warnings": 0,
+          "new_sampled_cells": 2,
+          "sampled_cell_reentries": 0,
+          "last_kills": 1.0,
+          "last_health": -14.0
+        }
+      ],
+      "first_enemy_observation_decision": 0,
+      "first_firing_primitive_decision": 0,
+      "shot_columns": [
+        "seconds",
+        "ammo_spent",
+        "damage",
+        "visible_enemy_sprites",
+        "horizontal_gap_deg"
+      ],
+      "shot_rows": [
+        [
+          0.542857,
+          1.0,
+          0.0,
+          2,
+          15.042801
+        ],
+        [
+          0.942857,
+          1.0,
+          0.0,
+          2,
+          9.926246
+        ],
+        [
+          1.342857,
+          1.0,
+          0.0,
+          2,
+          6.595536
+        ],
+        [
+          1.742857,
+          1.0,
+          0.0,
+          3,
+          5.000645
+        ],
+        [
+          2.142857,
+          1.0,
+          15.0,
+          2,
+          3.576334
+        ],
+        [
+          2.542857,
+          1.0,
+          0.0,
+          2,
+          0.895174
+        ],
+        [
+          2.942857,
+          1.0,
+          0.0,
+          1,
+          13.360218
+        ]
+      ],
+      "kill_events": [
+        {
+          "tic": 76,
+          "seconds": 2.142857142857143,
+          "gained": 1.0
+        }
+      ],
+      "damage_taken_events": [
+        {
+          "tic": 40,
+          "seconds": 1.1142857142857143,
+          "damage": 48.0,
+          "health": 52.0
+        },
+        {
+          "tic": 49,
+          "seconds": 1.3714285714285714,
+          "damage": 6.0,
+          "health": 46.0
+        },
+        {
+          "tic": 82,
+          "seconds": 2.3142857142857145,
+          "damage": 30.0,
+          "health": 16.0
+        },
+        {
+          "tic": 115,
+          "seconds": 3.257142857142857,
+          "damage": 30.0,
+          "health": -14.0
+        }
+      ],
+      "masks": [
+        {
+          "decision": 0,
+          "seconds": 0.0,
+          "concept": "corridor passage",
+          "file": "locate_0001_mask0.png",
+          "mask_sha256": "e6e521b0898682d1c5bc48662f92cb763358b1b98667d3e2b19d8367b9f106a7",
+          "input_frame_sha256": "cb66ce8950b3b5487b8c85b6a01a44c00e999a70d799b9e949036b9ce12b8d49",
+          "exact_frame_match": true,
+          "best_object": {
+            "name": "ShotgunGuy",
+            "category": "Monster",
+            "iou": 3.675930010292604e-05
+          },
+          "enemy_iou": 3.675930010292604e-05,
+          "identity_verified_in_live_receipt": false
+        }
+      ]
+    },
+    {
+      "summary": {
+        "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+        "recording_provenance": "original_finalized_native",
+        "outcome": "budget_exhausted",
+        "exact_observation_frames": 55,
+        "ammo_decrement_events": 10,
+        "ammo_units_spent": 10.0,
+        "damaging_ammo_events": 4,
+        "nondamaging_ammo_events": 6,
+        "ammo_events_without_enemy_sprite": 2,
+        "ammo_events_horizontal_bbox_overlap": 1,
+        "dry_pistol_attack_tics": 0,
+        "attack_tics": 130,
+        "masks": 6,
+        "mask_enemy_iou_ge_half": 1,
+        "masks_without_object_overlap": 3,
+        "cells": 15,
+        "cell_entries": 29,
+        "reentries": 14,
+        "translation_primitives": 32,
+        "collision_proxy_count": 1,
+        "use_primitives": 11,
+        "geometry_changing_use_proxy": 2,
+        "visual_cycle_warnings": 1,
+        "kills": 2.0,
+        "recorded_usd": 0.6029905
+      },
+      "played_tics": 755,
+      "executed_acts": 54,
+      "combat_final": {
+        "kills": 2.0,
+        "items": 1.0,
+        "hits": 4.0,
+        "damage_dealt": 40.0,
+        "damage_taken": 27.0,
+        "health": 74.0,
+        "armor": 0.0,
+        "selected_weapon": 2.0,
+        "selected_weapon_ammo": 45.0
+      },
+      "api_errors": [],
+      "grounding_errors": 0,
+      "rejected_tool_batches": 3,
+      "navigation_rejections": 3,
+      "reconstruction": null,
+      "source_commit": "6787787bb1937f9f522ab604853db949a4147d44",
+      "artifact_directory": "runs/20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+      "recording_provenance": "original_finalized_native",
+      "reconstruction_verification_sha256": null,
+      "source_artifact_sha256": {
+        "manifest.json": "416190a474ea2c25c471daaf7ad8b505d51af2e38d95bb24a28f9d3af1e05b35",
+        "events.jsonl": "aaa8102e687ec0047f294978b95c6ae9d0ec2365d13a52eb9fee63653f9b015e",
+        "telemetry.jsonl": "e2b6a936225d37268e5db9ceeb43c3ca152188fa4b262f8daed9d9c84857f96f",
+        "episode.lmp": "732df5c5079c7ebc4fbd54e835270cb68b8e19b2d4efe0e1ce30afae7e4af32c",
+        "replay.json": "6865ba1980545b334bf8c70ed9759338b1065bd219f685ec794614038c8e3879",
+        "replay.mp4": "e098d532e18671311dbd29fb25ea740d8126a3818afc1aac596afbd11354c08a",
+        "memory.json": "7e693f0e29c8cfa83e6f54473942cec7c19cd66e000cf78fed1934dc6f958ca0"
+      },
+      "full_audit_local_path": "results/m35-audit-final/20261104T191136.406971Z_freedoom2_combat_map01_L2_s101.json",
+      "full_audit_sha256": "98ee33818648d5fd327730ba63cc2fa300c9ae30602306ede866c519b4585463",
+      "audit_script_sha256": "f2fd92efd6159ffc0cd98b023a27c216f320a47e2bc4b5f75d95faf50dea93cb",
+      "native_final_matches": true,
+      "decision_blocks": [
+        {
+          "first_decision": 0,
+          "last_decision": 54,
+          "recorded_usd": 0.6029905,
+          "executed_acts": 54,
+          "locate_calls": 5,
+          "visual_cycle_warnings": 1,
+          "new_sampled_cells": 15,
+          "sampled_cell_reentries": 14,
+          "last_kills": 2.0,
+          "last_health": 74.0
+        }
+      ],
+      "first_enemy_observation_decision": 35,
+      "first_firing_primitive_decision": 36,
+      "shot_columns": [
+        "seconds",
+        "ammo_spent",
+        "damage",
+        "visible_enemy_sprites",
+        "horizontal_gap_deg"
+      ],
+      "shot_rows": [
+        [
+          13.4,
+          1.0,
+          0.0,
+          2,
+          5.887814
+        ],
+        [
+          13.8,
+          1.0,
+          15.0,
+          2,
+          3.932896
+        ],
+        [
+          14.2,
+          1.0,
+          0.0,
+          2,
+          2.683775
+        ],
+        [
+          14.6,
+          1.0,
+          0.0,
+          1,
+          0.537132
+        ],
+        [
+          15.0,
+          1.0,
+          15.0,
+          1,
+          0.537132
+        ],
+        [
+          15.4,
+          1.0,
+          5.0,
+          1,
+          0.0
+        ],
+        [
+          15.8,
+          1.0,
+          0.0,
+          0,
+          null
+        ],
+        [
+          16.2,
+          1.0,
+          0.0,
+          1,
+          5.000645
+        ],
+        [
+          20.485714,
+          1.0,
+          5.0,
+          1,
+          3.576334
+        ],
+        [
+          20.885714,
+          1.0,
+          0.0,
+          0,
+          null
+        ]
+      ],
+      "kill_events": [
+        {
+          "tic": 540,
+          "seconds": 15.4,
+          "gained": 1.0
+        },
+        {
+          "tic": 718,
+          "seconds": 20.485714285714284,
+          "gained": 1.0
+        }
+      ],
+      "damage_taken_events": [
+        {
+          "tic": 599,
+          "seconds": 17.085714285714285,
+          "damage": 3.0,
+          "health": 97.0
+        },
+        {
+          "tic": 669,
+          "seconds": 19.085714285714285,
+          "damage": 9.0,
+          "health": 89.0
+        },
+        {
+          "tic": 715,
+          "seconds": 20.4,
+          "damage": 15.0,
+          "health": 74.0
+        }
+      ],
+      "masks": [
+        {
+          "decision": 0,
+          "seconds": 0.0,
+          "concept": "doorway opening",
+          "file": "locate_0001_mask0.png",
+          "mask_sha256": "bb471dbd5c6d07e7663ad23133b81cde474c9ddce2f591722ee98fdaa748ffc2",
+          "input_frame_sha256": "a0bcee395742164a59c458a0fd0792df44f7c47c11d385aaf48cd710e0ed4502",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 20,
+          "seconds": 8.285714285714286,
+          "concept": "metal door",
+          "file": "locate_0002_mask0.png",
+          "mask_sha256": "3940664ff4cf5899e14dd79f37f59f9a9a3894cf884ac29f104a2b3354dfcbec",
+          "input_frame_sha256": "5db0f0c68051becbdc982efc11a539bf6b29ad102a7d28abb2371236a8dc832f",
+          "exact_frame_match": true,
+          "best_object": {
+            "name": "DoomPlayer",
+            "category": "Self",
+            "iou": 0.00021435461398306598
+          },
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 21,
+          "seconds": 8.314285714285715,
+          "concept": "orange wall switch",
+          "file": "locate_0003_mask0.png",
+          "mask_sha256": "e51a1e1521ad1f7a23a57559cd6f0f8c1bdbbe3899f5a2095b8de392ae5ab50c",
+          "input_frame_sha256": "867419a21a113e4fbf882318f72681ab233728383de32668270b66333a87b55e",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 23,
+          "seconds": 9.514285714285714,
+          "concept": "orange lit panel",
+          "file": "locate_0004_mask0.png",
+          "mask_sha256": "9905e5cb70bf1e0b12374d0bc4e1d24796ca9ae9b67b1374840882088123ed73",
+          "input_frame_sha256": "f7e06baf986bf240b7383e505af4a55fbdb063739a4afe13e923c10a87cbd804",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 35,
+          "seconds": 13.257142857142858,
+          "concept": "enemy soldier",
+          "file": "locate_0005_mask0.png",
+          "mask_sha256": "5b812080b2ab519eafced85b5b779b187a4baa00d54d618171a9d2f44112b2f8",
+          "input_frame_sha256": "0fdd4edbb23735e6c3a6edc90457b5fe522a667851c46beddf1ac78e61a07340",
+          "exact_frame_match": true,
+          "best_object": {
+            "name": "Zombieman",
+            "category": "Monster",
+            "iou": 0.6444241316270567
+          },
+          "enemy_iou": 0.6444241316270567,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 35,
+          "seconds": 13.257142857142858,
+          "concept": "enemy soldier",
+          "file": "locate_0005_mask1.png",
+          "mask_sha256": "3351036287a1e413b3ba61523ea227e596a90fd86560900a144d03cea38f3fc3",
+          "input_frame_sha256": "0fdd4edbb23735e6c3a6edc90457b5fe522a667851c46beddf1ac78e61a07340",
+          "exact_frame_match": true,
+          "best_object": {
+            "name": "HealthBonus",
+            "category": "Health",
+            "iou": 0.6886543535620053
+          },
+          "enemy_iou": 0.026888098062475288,
+          "identity_verified_in_live_receipt": false
+        }
+      ]
+    },
+    {
+      "summary": {
+        "run_id": "20261104T193056.881681Z_freedoom2_combat_map01_L2_s101",
+        "recording_provenance": "offline_reconstructed_prefix_from_exact_logged_inputs",
+        "outcome": "interrupted_sigterm",
+        "exact_observation_frames": 220,
+        "ammo_decrement_events": 23,
+        "ammo_units_spent": 23.0,
+        "damaging_ammo_events": 12,
+        "nondamaging_ammo_events": 11,
+        "ammo_events_without_enemy_sprite": 2,
+        "ammo_events_horizontal_bbox_overlap": 5,
+        "dry_pistol_attack_tics": 0,
+        "attack_tics": 295,
+        "masks": 14,
+        "mask_enemy_iou_ge_half": 1,
+        "masks_without_object_overlap": 13,
+        "cells": 22,
+        "cell_entries": 113,
+        "reentries": 91,
+        "translation_primitives": 125,
+        "collision_proxy_count": 2,
+        "use_primitives": 35,
+        "geometry_changing_use_proxy": 3,
+        "visual_cycle_warnings": 3,
+        "kills": 4.0,
+        "recorded_usd": 2.0928668999999998
+      },
+      "played_tics": 3144,
+      "executed_acts": 215,
+      "combat_final": {
+        "kills": 4.0,
+        "items": 1.0,
+        "hits": 12.0,
+        "damage_dealt": 122.0,
+        "damage_taken": 18.0,
+        "health": 86.0,
+        "armor": 0.0,
+        "selected_weapon": 2.0,
+        "selected_weapon_ammo": 27.0
+      },
+      "api_errors": [],
+      "grounding_errors": 2,
+      "rejected_tool_batches": 22,
+      "navigation_rejections": 16,
+      "reconstruction": {
+        "original_source_sha256": {
+          "manifest.json": "c153a25ff9c03b0d437b8646de483f841c07bb1e45041bd6526752c2184c6d7c",
+          "events.jsonl": "906cd16cdb105267cc148eef785d62eb645807b29ba3f883645daba370403152",
+          "telemetry.jsonl": "db69b76806351c271aa37966f36c34c7c949d2b62af216f658f658e31baffcf2"
+        },
+        "matched_observation_frames": 220,
+        "matched_primitive_samples": 296,
+        "telemetry_variables_checked": [
+          "pos_x",
+          "pos_y",
+          "pos_z",
+          "angle_deg",
+          "pitch",
+          "camera_fov",
+          "health",
+          "armor",
+          "kills",
+          "items",
+          "hits",
+          "damage_dealt",
+          "damage_taken",
+          "selected_weapon",
+          "selected_weapon_ammo",
+          "ammo_0",
+          "ammo_1",
+          "ammo_2",
+          "ammo_3",
+          "ammo_4",
+          "ammo_5",
+          "ammo_6",
+          "ammo_7",
+          "ammo_8",
+          "ammo_9",
+          "weapon_0",
+          "weapon_1",
+          "weapon_2",
+          "weapon_3",
+          "weapon_4",
+          "weapon_5",
+          "weapon_6",
+          "weapon_7",
+          "weapon_8",
+          "weapon_9"
+        ],
+        "sector_heights_and_reward_match": true,
+        "all_logged_inputs_match_model_requests": true,
+        "ordered_original_frame_index_sha256": "6faf5eb16d9a9b8796be8ed9d294122e6ce500fbc1aa1852a742d52361ff3021",
+        "native_recording_sha256": "e75ce581579723626598744f30514a86292d4a5ad2c4061ddf3ce72388db14bd",
+        "recovery_script_sha256": "af898876a36bd6772dd660fb4d36080040287ee9caa8010cce2bb8da673ae023",
+        "limitations": [
+          "Original native recording was never finalized; this is a reconstruction",
+          "No evidence for any gameplay after last recorded action",
+          "Final model request and failed grounding charges may be unknown"
+        ]
+      },
+      "source_commit": "8a02c44e998246ce72d0ceed7d786c703a1340d7",
+      "artifact_directory": "runs/20261104T193056.881681Z_freedoom2_combat_map01_L2_s101/reconstructed-prefix",
+      "recording_provenance": "offline_reconstructed_prefix_from_exact_logged_inputs",
+      "reconstruction_verification_sha256": "0c10cd36fc894dc6d88d2c66dec2cf4dbb58af48699a55095afcbdcc25ca6b44",
+      "source_artifact_sha256": {
+        "manifest.json": "225a7b25b3b57092a081c34c15ad076f61106079f05fe81acf9f27db832a0c47",
+        "events.jsonl": "906cd16cdb105267cc148eef785d62eb645807b29ba3f883645daba370403152",
+        "telemetry.jsonl": "db69b76806351c271aa37966f36c34c7c949d2b62af216f658f658e31baffcf2",
+        "episode.lmp": "e75ce581579723626598744f30514a86292d4a5ad2c4061ddf3ce72388db14bd",
+        "replay.json": "7acbfbbdb60f03682ebed9915772ee4ba7b9cd7d431f582c2f4502e616c3613c",
+        "replay.mp4": "3e235ef50b4a86d0418e79de365c0ff62c89272ea4eacdc2a64e10ef26744644"
+      },
+      "full_audit_local_path": "results/m35-audit-final/20261104T193056.881681Z_freedoom2_combat_map01_L2_s101.json",
+      "full_audit_sha256": "023bf31327c2c662b1b8250ec73ba66e3cc537f0089d954442b6076d653acf9a",
+      "audit_script_sha256": "f2fd92efd6159ffc0cd98b023a27c216f320a47e2bc4b5f75d95faf50dea93cb",
+      "native_final_matches": true,
+      "decision_blocks": [
+        {
+          "first_decision": 0,
+          "last_decision": 59,
+          "recorded_usd": 0.5310986,
+          "executed_acts": 60,
+          "locate_calls": 4,
+          "visual_cycle_warnings": 0,
+          "new_sampled_cells": 15,
+          "sampled_cell_reentries": 10,
+          "last_kills": 2.0,
+          "last_health": 97.0
+        },
+        {
+          "first_decision": 60,
+          "last_decision": 119,
+          "recorded_usd": 0.6183573000000001,
+          "executed_acts": 60,
+          "locate_calls": 5,
+          "visual_cycle_warnings": 0,
+          "new_sampled_cells": 4,
+          "sampled_cell_reentries": 38,
+          "last_kills": 2.0,
+          "last_health": 100.0
+        },
+        {
+          "first_decision": 120,
+          "last_decision": 179,
+          "recorded_usd": 0.5965461499999998,
+          "executed_acts": 59,
+          "locate_calls": 3,
+          "visual_cycle_warnings": 3,
+          "new_sampled_cells": 0,
+          "sampled_cell_reentries": 29,
+          "last_kills": 2.0,
+          "last_health": 100.0
+        },
+        {
+          "first_decision": 180,
+          "last_decision": 218,
+          "recorded_usd": 0.34686485,
+          "executed_acts": 36,
+          "locate_calls": 1,
+          "visual_cycle_warnings": 0,
+          "new_sampled_cells": 3,
+          "sampled_cell_reentries": 14,
+          "last_kills": 4.0,
+          "last_health": 86.0
+        }
+      ],
+      "first_enemy_observation_decision": 19,
+      "first_firing_primitive_decision": 24,
+      "shot_columns": [
+        "seconds",
+        "ammo_spent",
+        "damage",
+        "visible_enemy_sprites",
+        "horizontal_gap_deg"
+      ],
+      "shot_rows": [
+        [
+          7.8,
+          1.0,
+          5.0,
+          2,
+          0.0
+        ],
+        [
+          8.2,
+          1.0,
+          15.0,
+          2,
+          0.0
+        ],
+        [
+          8.6,
+          1.0,
+          0.0,
+          1,
+          22.109448
+        ],
+        [
+          9.0,
+          1.0,
+          0.0,
+          1,
+          16.699244
+        ],
+        [
+          9.4,
+          1.0,
+          0.0,
+          1,
+          16.699244
+        ],
+        [
+          9.8,
+          1.0,
+          0.0,
+          1,
+          8.705794
+        ],
+        [
+          10.2,
+          1.0,
+          0.0,
+          1,
+          9.055358
+        ],
+        [
+          10.6,
+          1.0,
+          5.0,
+          1,
+          7.47733
+        ],
+        [
+          11.0,
+          1.0,
+          0.0,
+          1,
+          5.710593
+        ],
+        [
+          11.4,
+          1.0,
+          5.0,
+          1,
+          5.710593
+        ],
+        [
+          11.8,
+          1.0,
+          15.0,
+          1,
+          0.179049
+        ],
+        [
+          54.114286,
+          1.0,
+          0.0,
+          0,
+          null
+        ],
+        [
+          82.685714,
+          1.0,
+          10.0,
+          2,
+          2.326362
+        ],
+        [
+          83.085714,
+          1.0,
+          15.0,
+          2,
+          1.432096
+        ],
+        [
+          83.485714,
+          1.0,
+          17.0,
+          2,
+          1.611019
+        ],
+        [
+          83.885714,
+          1.0,
+          0.0,
+          2,
+          5.178285
+        ],
+        [
+          84.285714,
+          1.0,
+          0.0,
+          2,
+          9.055358
+        ],
+        [
+          84.685714,
+          1.0,
+          0.0,
+          2,
+          10.273331
+        ],
+        [
+          85.085714,
+          1.0,
+          10.0,
+          1,
+          0.0
+        ],
+        [
+          85.485714,
+          1.0,
+          10.0,
+          1,
+          1.07417
+        ],
+        [
+          85.885714,
+          1.0,
+          5.0,
+          1,
+          0.0
+        ],
+        [
+          86.285714,
+          1.0,
+          10.0,
+          1,
+          0.0
+        ],
+        [
+          86.685714,
+          1.0,
+          0.0,
+          0,
+          null
+        ]
+      ],
+      "kill_events": [
+        {
+          "tic": 288,
+          "seconds": 8.2,
+          "gained": 1.0
+        },
+        {
+          "tic": 414,
+          "seconds": 11.8,
+          "gained": 1.0
+        },
+        {
+          "tic": 2979,
+          "seconds": 85.08571428571429,
+          "gained": 1.0
+        },
+        {
+          "tic": 3021,
+          "seconds": 86.28571428571429,
+          "gained": 1.0
+        }
+      ],
+      "damage_taken_events": [
+        {
+          "tic": 320,
+          "seconds": 9.114285714285714,
+          "damage": 3.0,
+          "health": 97.0
+        },
+        {
+          "tic": 2906,
+          "seconds": 83.0,
+          "damage": 15.0,
+          "health": 86.0
+        }
+      ],
+      "masks": [
+        {
+          "decision": 0,
+          "seconds": 0.0,
+          "concept": "central doorway",
+          "file": "locate_0001_mask0.png",
+          "mask_sha256": "5a56900f20037f4a2127dff978e49f05bae59368aebc01d19e885f2c6f9bfafb",
+          "input_frame_sha256": "a0bcee395742164a59c458a0fd0792df44f7c47c11d385aaf48cd710e0ed4502",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 20,
+          "seconds": 6.628571428571429,
+          "concept": "red enemy",
+          "file": "locate_0002_mask0.png",
+          "mask_sha256": "001b22640a86b537d0307c28ff11923d3161db9732c36fdf17feb2591605a03e",
+          "input_frame_sha256": "c2ef3a2d9f9d5e8fc5c9713e7c0dc758db206c69d95e53961ea32de72419ddc5",
+          "exact_frame_match": true,
+          "best_object": {
+            "name": "Zombieman",
+            "category": "Monster",
+            "iou": 0.8062575210589651
+          },
+          "enemy_iou": 0.8062575210589651,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 54,
+          "seconds": 20.142857142857142,
+          "concept": "red button",
+          "file": "locate_0004_mask0.png",
+          "mask_sha256": "fd6c124e2db60d744e49bc6804806c9196697d2aa34215bc2712ffa1e1fa7c1d",
+          "input_frame_sha256": "331e1d6007fba6eb8c40d1fc7c3dce3d6533fc3b0caba542dcb8d2f55ff695bf",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 64,
+          "seconds": 22.142857142857142,
+          "concept": "green cross",
+          "file": "locate_0005_mask0.png",
+          "mask_sha256": "b5e0365ca3759907bc0c2cc18e3b9f7c6ee2843c9e135c80928053aa07fb4f8c",
+          "input_frame_sha256": "257ce2c7d443482eb53fcbd7861ea8da6e9702eb9e13c31a634d3f9ffe44b12e",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 73,
+          "seconds": 28.057142857142857,
+          "concept": "stairs",
+          "file": "locate_0006_mask0.png",
+          "mask_sha256": "4d84dd72341169d14a602f28d21cee2c9f19e782e73c0bf4e26e9bb01bf895c7",
+          "input_frame_sha256": "4463521631fc0aad87f71b065c73a6a94c833d57a1536f6af3bdf53a2ce94089",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 73,
+          "seconds": 28.057142857142857,
+          "concept": "stairs",
+          "file": "locate_0006_mask1.png",
+          "mask_sha256": "bd88153dc4104f4f6b094b5cb57edceeb0ec04b3f604b5d2c2093ced444250c6",
+          "input_frame_sha256": "4463521631fc0aad87f71b065c73a6a94c833d57a1536f6af3bdf53a2ce94089",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 73,
+          "seconds": 28.057142857142857,
+          "concept": "stairs",
+          "file": "locate_0006_mask2.png",
+          "mask_sha256": "3e7c78fcf57bb2e7d6b5c4629b29fec184b1a674d1dd2b1b9bd8b4fa6929cef0",
+          "input_frame_sha256": "4463521631fc0aad87f71b065c73a6a94c833d57a1536f6af3bdf53a2ce94089",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 85,
+          "seconds": 33.05714285714286,
+          "concept": "lit doorway",
+          "file": "locate_0007_mask0.png",
+          "mask_sha256": "3cbdb4719dcf35ef57896434690de70d80f5815fab8e60755d57bfe946765b1f",
+          "input_frame_sha256": "5e5794c82bf9f338293a29dcc1e0edaca0e7a22638141894475fcb4462f62286",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 105,
+          "seconds": 42.4,
+          "concept": "green light",
+          "file": "locate_0008_mask0.png",
+          "mask_sha256": "ba472b368d7e70187f97583023facc99bfc6af6514dd23470f01f2daf493680e",
+          "input_frame_sha256": "dfceccf4326fbfe0deb85312ccdec8b5d4e7aaf47f0da06f07176526024a5f70",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 118,
+          "seconds": 50.65714285714286,
+          "concept": "doorway",
+          "file": "locate_0009_mask0.png",
+          "mask_sha256": "3fa0d828b885e3c02646e782fdbe4400b7184b179bbc61faeba9da86ba9f871a",
+          "input_frame_sha256": "692f3d1fe570052f6a0f22705f3a300b42fe3a5aad24eb88fd95e7b89b930b3b",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 138,
+          "seconds": 60.22857142857143,
+          "concept": "metal door",
+          "file": "locate_0010_mask0.png",
+          "mask_sha256": "8d58e384acd3b13cb72af61f4673bd8f25a493f467a4e98018b7800d392528d5",
+          "input_frame_sha256": "09b48c84b516c04eb64e022b1ce293a8bc1bbd5d7707a30d2a29fb0ae2efb684",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 138,
+          "seconds": 60.22857142857143,
+          "concept": "metal door",
+          "file": "locate_0010_mask1.png",
+          "mask_sha256": "c1726dd2f388c9f110f7aeda3680c07e6481b2022b6f5e7bacd2f690630ff8b3",
+          "input_frame_sha256": "09b48c84b516c04eb64e022b1ce293a8bc1bbd5d7707a30d2a29fb0ae2efb684",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 149,
+          "seconds": 65.22857142857143,
+          "concept": "white door",
+          "file": "locate_0011_mask0.png",
+          "mask_sha256": "f0a605ddc4c16b8ff75f36d75c6a82ca13106246a8e4c65f004d09e1553bcbde",
+          "input_frame_sha256": "0972ae1eec398e6795bc96cf9005256a9c208916bda7510b54e4f3b5275143e1",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        },
+        {
+          "decision": 169,
+          "seconds": 72.37142857142857,
+          "concept": "AGM sign",
+          "file": "locate_0012_mask0.png",
+          "mask_sha256": "ccd2501d576ecee31880c7898a1486b0cc19ef875935705cb73ff519c1977e2c",
+          "input_frame_sha256": "6d5560b34ad20890c2c7c1974ab7383c930c65102e2c3512dc4f89166f6e80d2",
+          "exact_frame_match": true,
+          "best_object": null,
+          "enemy_iou": 0.0,
+          "identity_verified_in_live_receipt": false
+        }
+      ]
+    }
+  ],
+  "demo_segments": [
+    {
+      "name": "arena-kills",
+      "run_id": "20261104T190052.792354Z_defend_center_combat_L2_s101",
+      "source": "runs/20261104T190052.792354Z_defend_center_combat_L2_s101/replay.mp4",
+      "source_sha256": "87241002711e82dc55e28be48624e00d45aea2dd8cd9dc86b27cdd697f942d49",
+      "path": "results/m35-demo/arena-kills.mp4",
+      "sha256": "5b17c28a438e3e6fa6c83185669bb766f9bb42bd37f3c73ddadc763de30fd47a",
+      "source_start_frame": 0,
+      "source_end_frame_exclusive": 245,
+      "start_seconds": 0.0,
+      "end_seconds": 7.0,
+      "frames": 245,
+      "fps": 35.0,
+      "note": "Six native-recorded kills; survivor objective incomplete",
+      "method": "Decoded original full MP4, exact frame trim, H.264 re-encode; no overlay, synthesized frames or speed change",
+      "optional_subtitles": "results/m35-demo/arena-kills.srt",
+      "subtitles_sha256": "55ff125ea7ed3249a33783aad174b519f7895a0e56da6cb233f4e1cacbdec690"
+    },
+    {
+      "name": "arena-grounding-action-failure",
+      "run_id": "20261104T190052.792354Z_defend_center_combat_L2_s101",
+      "source": "runs/20261104T190052.792354Z_defend_center_combat_L2_s101/replay.mp4",
+      "source_sha256": "87241002711e82dc55e28be48624e00d45aea2dd8cd9dc86b27cdd697f942d49",
+      "path": "results/m35-demo/arena-grounding-action-failure.mp4",
+      "sha256": "a63a53429ed302ac6707154e7f1305192b724effc536b923912f39da10658833",
+      "source_start_frame": 260,
+      "source_end_frame_exclusive": 340,
+      "start_seconds": 7.428571428571429,
+      "end_seconds": 9.714285714285714,
+      "frames": 80,
+      "fps": 35.0,
+      "note": "Valid left-bearing candidate followed by six attack-only acts and no damage",
+      "method": "Decoded original full MP4, exact frame trim, H.264 re-encode; no overlay, synthesized frames or speed change",
+      "optional_subtitles": "results/m35-demo/arena-grounding-action-failure.srt",
+      "subtitles_sha256": "af2e9f2a482e2b18c9910b5c57781eb0bf2639cb6eaf57b0a57464f799130d98"
+    },
+    {
+      "name": "arena-ammo-and-health-collapse",
+      "run_id": "20261104T190052.792354Z_defend_center_combat_L2_s101",
+      "source": "runs/20261104T190052.792354Z_defend_center_combat_L2_s101/replay.mp4",
+      "source_sha256": "87241002711e82dc55e28be48624e00d45aea2dd8cd9dc86b27cdd697f942d49",
+      "path": "results/m35-demo/arena-ammo-and-health-collapse.mp4",
+      "sha256": "647c7764afeb7cb4d5847084bf06bce178c3ce7762ab0bea3b1da774ce0d09c5",
+      "source_start_frame": 374,
+      "source_end_frame_exclusive": 472,
+      "start_seconds": 10.685714285714285,
+      "end_seconds": 13.485714285714286,
+      "frames": 98,
+      "fps": 35.0,
+      "note": "Empty pistol, failed weapon-switch requests, melee damage to 6 health",
+      "method": "Decoded original full MP4, exact frame trim, H.264 re-encode; no overlay, synthesized frames or speed change",
+      "optional_subtitles": "results/m35-demo/arena-ammo-and-health-collapse.srt",
+      "subtitles_sha256": "e32f5b83a3e0dd07ec57a7a484beb835a777ce8349f97357450cb555d96816b5"
+    },
+    {
+      "name": "freedoom-first-engagement",
+      "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+      "source": "runs/20261104T191136.406971Z_freedoom2_combat_map01_L2_s101/replay.mp4",
+      "source_sha256": "e098d532e18671311dbd29fb25ea740d8126a3818afc1aac596afbd11354c08a",
+      "path": "results/m35-demo/freedoom-first-engagement.mp4",
+      "sha256": "dafb73076aaef1a3ba06eae7e6275ea8471fc9b0911d35623ab45c4f3113ad41",
+      "source_start_frame": 441,
+      "source_end_frame_exclusive": 584,
+      "start_seconds": 12.6,
+      "end_seconds": 16.685714285714287,
+      "frames": 143,
+      "fps": 35.0,
+      "note": "Turn toward visible enemies then sustained pistol engagement and first kill",
+      "method": "Decoded original full MP4, exact frame trim, H.264 re-encode; no overlay, synthesized frames or speed change",
+      "optional_subtitles": "results/m35-demo/freedoom-first-engagement.srt",
+      "subtitles_sha256": "a57a574e88a092a1218b9d33415a0d122cec539601b10c6aa997fc969e3a32a4"
+    },
+    {
+      "name": "freedoom-second-kill",
+      "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+      "source": "runs/20261104T191136.406971Z_freedoom2_combat_map01_L2_s101/replay.mp4",
+      "source_sha256": "e098d532e18671311dbd29fb25ea740d8126a3818afc1aac596afbd11354c08a",
+      "path": "results/m35-demo/freedoom-second-kill.mp4",
+      "sha256": "ea62660b002bd2865d69f31b57be47d0ddd81ad28cdfc1a38f27b4c9c58cac1b",
+      "source_start_frame": 693,
+      "source_end_frame_exclusive": 755,
+      "start_seconds": 19.8,
+      "end_seconds": 21.571428571428573,
+      "frames": 62,
+      "fps": 35.0,
+      "note": "Damage taken and second kill; exit not reached",
+      "method": "Decoded original full MP4, exact frame trim, H.264 re-encode; no overlay, synthesized frames or speed change",
+      "optional_subtitles": "results/m35-demo/freedoom-second-kill.srt",
+      "subtitles_sha256": "559077f22824b40c017375847a41c66590cc5e89c097de383f5e4a3e20291972"
+    },
+    {
+      "name": "corridor-death",
+      "run_id": "20261104T190857.601337Z_deadly_corridor_combat_L2_s101",
+      "source": "runs/20261104T190857.601337Z_deadly_corridor_combat_L2_s101/replay.mp4",
+      "source_sha256": "05538569d5c96f4ab954c5a5b25fea9f05e90fe159b9524ec71b081c5e916877",
+      "path": "results/m35-demo/corridor-death.mp4",
+      "sha256": "f86337efce039296354dae497058496c9ff0395db34bafe9f790b3849160e062",
+      "source_start_frame": 0,
+      "source_end_frame_exclusive": 115,
+      "start_seconds": 0.0,
+      "end_seconds": 3.2857142857142856,
+      "frames": 115,
+      "fps": 35.0,
+      "note": "Stationary gunfight: one kill and player death",
+      "method": "Decoded original full MP4, exact frame trim, H.264 re-encode; no overlay, synthesized frames or speed change",
+      "optional_subtitles": "results/m35-demo/corridor-death.srt",
+      "subtitles_sha256": "28a6ccb1066afdd408fe795ccc68cde1bce32ee2e5a37f7155baa99ba6cdc594"
+    },
+    {
+      "name": "extended-reconstructed-first-fight",
+      "run_id": "20261104T193056.881681Z_freedoom2_combat_map01_L2_s101",
+      "source": "runs/20261104T193056.881681Z_freedoom2_combat_map01_L2_s101/reconstructed-prefix/replay.mp4",
+      "source_sha256": "3e235ef50b4a86d0418e79de365c0ff62c89272ea4eacdc2a64e10ef26744644",
+      "path": "results/m35-demo/extended-reconstructed-first-fight.mp4",
+      "sha256": "b63df3bf7638587a37ee1e9d1401f61f3c16539e011541df786c35918d92fa76",
+      "source_start_frame": 228,
+      "source_end_frame_exclusive": 438,
+      "start_seconds": 6.514285714285714,
+      "end_seconds": 12.514285714285714,
+      "frames": 210,
+      "fps": 35.0,
+      "note": "Two early kills in exact-input reconstructed prefix; original LMP lost",
+      "recording_provenance": "offline_reconstructed_prefix_from_exact_logged_inputs",
+      "method": "Exact frame trim of verified reconstructed-prefix MP4; no new inputs, overlays, synthesized frames or speed changes",
+      "optional_subtitles": "results/m35-demo/extended-reconstructed-first-fight.srt",
+      "subtitles_sha256": "9187329e9085715cb9d5ebbb1584a556441298b26cc673ffe790be080c8b2e81"
+    },
+    {
+      "name": "extended-reconstructed-late-fight",
+      "run_id": "20261104T193056.881681Z_freedoom2_combat_map01_L2_s101",
+      "source": "runs/20261104T193056.881681Z_freedoom2_combat_map01_L2_s101/reconstructed-prefix/replay.mp4",
+      "source_sha256": "3e235ef50b4a86d0418e79de365c0ff62c89272ea4eacdc2a64e10ef26744644",
+      "path": "results/m35-demo/extended-reconstructed-late-fight.mp4",
+      "sha256": "fea6c55149bb8143cf48d73dbe681765c79e6ebae2a67cafb7d51d4dcdfee7db",
+      "source_start_frame": 2852,
+      "source_end_frame_exclusive": 3098,
+      "start_seconds": 81.48571428571428,
+      "end_seconds": 88.51428571428572,
+      "frames": 246,
+      "fps": 35.0,
+      "note": "Later engagement: two further kills and incoming damage; exact-input reconstructed prefix",
+      "recording_provenance": "offline_reconstructed_prefix_from_exact_logged_inputs",
+      "method": "Exact frame trim of verified reconstructed-prefix MP4; no new inputs, overlays, synthesized frames or speed changes",
+      "optional_subtitles": "results/m35-demo/extended-reconstructed-late-fight.srt",
+      "subtitles_sha256": "1d753a7c671627a9b75d0158f3525c4ecd825ad67bd491d331c53807a9812b36"
+    }
+  ],
+  "extended_protocol": {
+    "original_manifest_status": "running",
+    "original_native_recording_available": false,
+    "worker_exit_code": 143,
+    "termination_source": "unconfirmed; no controller interruption was issued",
+    "recording_provenance": "offline_reconstructed_prefix_from_exact_logged_inputs",
+    "unknown_failed_or_inflight_charges_possible": true,
+    "run_id": "20261104T193056.881681Z_freedoom2_combat_map01_L2_s101",
+    "config": {
+      "scenario": "freedoom2_combat_map01",
+      "level": 2,
+      "seed": 101,
+      "model": "muse-spark-1.3",
+      "effort": "low",
+      "max_decisions": 300,
+      "max_tics": 21000,
+      "max_usd": 3.0,
+      "wall_seconds": 3600.0,
+      "request_timeout": 45.0,
+      "max_output_tokens": 3000,
+      "grounding_mode": "muse_box_sam"
+    },
+    "source_commit": "8a02c44e998246ce72d0ceed7d786c703a1340d7",
+    "artifact_directory": "runs/20261104T193056.881681Z_freedoom2_combat_map01_L2_s101/reconstructed-prefix",
+    "reconstruction_verification_sha256": "0c10cd36fc894dc6d88d2c66dec2cf4dbb58af48699a55095afcbdcc25ca6b44",
+    "changed_fields": {
+      "max_decisions": {
+        "initial": 60,
+        "extended": 300
+      },
+      "max_tics": {
+        "initial": 4200,
+        "extended": 21000
+      },
+      "max_usd": {
+        "initial": 0.6,
+        "extended": 3.0
+      },
+      "wall_seconds": {
+        "initial": 900.0,
+        "extended": 3600.0
+      }
+    },
+    "runtime_source_differences": [
+      "autoqa/config.py"
+    ],
+    "same_prompt_sha256": true,
+    "same_briefing_sha256": true,
+    "same_controls_sha256": true,
+    "same_button_order": true,
+    "same_scenario_profile": true,
+    "same_spawn": true,
+    "fresh_memory": true,
+    "no_further_paid_runs": true,
+    "outcome": "interrupted_sigterm",
+    "recorded_usd": 2.0928668999999998,
+    "decisions": 220,
+    "executed_acts": 215,
+    "combat_final": {
+      "kills": 4.0,
+      "items": 1.0,
+      "hits": 12.0,
+      "damage_dealt": 122.0,
+      "damage_taken": 18.0,
+      "health": 86.0,
+      "armor": 0.0,
+      "selected_weapon": 2.0,
+      "selected_weapon_ammo": 27.0
+    }
+  }
+}
