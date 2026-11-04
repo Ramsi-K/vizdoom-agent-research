@@ -57,6 +57,11 @@ def build(
     )
     if guard_notes:
         text += "\n" + guard_notes
+    previous = getattr(memory, "carryover_brief", None)
+    if previous is not None:
+        from autoqa.agent.carryover import prompt_text
+
+        text = prompt_text(previous) + "\n\n" + text
     content = [{"type": "input_text", "text": text}]
     for label, data in [(f"t-{i + 1}", b) for i, b in enumerate(obs.prev_frames_jpeg)] + [
         ("current frame", obs.frame_jpeg)

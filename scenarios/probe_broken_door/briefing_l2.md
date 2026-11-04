@@ -1,0 +1,1 @@
+Explore this unfamiliar first-person level and try to find its exit. Interact with doors or switches when appropriate. Report confusing or apparently broken behavior using observed evidence. No enemies are present in this navigation scenario.

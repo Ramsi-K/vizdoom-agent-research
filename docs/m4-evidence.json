@@ -1,0 +1,2076 @@
+{
+  "schema_version": 1,
+  "validation_date": "2026-11-05 IST (run IDs UTC)",
+  "gameplay_local_checkpoint": "1b2c4901353c529a516a5e1646acc671496ee5c3",
+  "tree_equivalent_published_checkpoint": "55c8b813ed0f1a5fb3b945d193ae87223f21f1c6",
+  "gameplay_tree": "29e1c2f5631507cddec7b884251244bb14f77796",
+  "implementation_commit": "6a17d1c987e5318ea6683ab4681caec2e052df93",
+  "tree_equivalent_published_final_implementation": "5c8428a2fa0bbf8056173b6b85b20ff27289aae8",
+  "main_implementation_checkpoint": "c1394de",
+  "tree_equivalent_published_implementation": "b89073ab852662b5a968cf1f94672d45de49072d",
+  "campaign_status": "finished_with_invalid_attempts",
+  "campaign_config": {
+    "protocol": "self_observed_only_v1",
+    "scenario": "my_way_home",
+    "level": 2,
+    "seeds": [
+      101,
+      102,
+      103
+    ],
+    "attempts": 2,
+    "model": "muse-spark-1.3",
+    "effort": "low",
+    "max_decisions": 60,
+    "max_tics": 2100,
+    "max_usd_per_episode": 0.45,
+    "wall_seconds": 600,
+    "request_timeout": 45,
+    "max_total_usd": 2.9
+  },
+  "campaign_config_sha256": "ed48a25aebcc36b1c865aafeac1ca0adae13c9527a5c6f5e3fed29d602da5256",
+  "carryover_protocol_measured": "self_observed_only_v1",
+  "carryover_v2_status": "offline tested, no live experiment",
+  "runs": [
+    {
+      "run_id": "20261104T212644.766410Z_my_way_home_L2_s101",
+      "directory": "runs/20261104T212644.766410Z_my_way_home_L2_s101",
+      "scenario": "my_way_home",
+      "seed": 101,
+      "attempt": 1,
+      "evaluation_group": "carryover",
+      "outcome": "budget_exhausted",
+      "decisions": 44,
+      "acts": 42,
+      "wall_seconds": 410.87871490599355,
+      "metrics": {
+        "completed": 0,
+        "progress_fraction": null,
+        "spl": null,
+        "coverage_fraction": 0.3125,
+        "unique_cells_visited": 5,
+        "revisit_rate": 0.736842105263158,
+        "collision_rate": 0.06060606060606061,
+        "stuck_warning_count": 0,
+        "visual_cycle_warning_count": 2,
+        "locate_calls": 4,
+        "locate_hit_rate": 0.5,
+        "cost_usd": 0.45020514999999983,
+        "tics_used": 763,
+        "sampled_path_units": 3706.866934369335
+      },
+      "source_sha256": {
+        "manifest.json": "de1753432ce33c68829ab535fdf88fa1845bc3386cfa5118f095a470a700cc9a",
+        "events.jsonl": "fdcbe99f08023a4cf605baeb38e11b6841342e3a575da11e3baefd3af06ae604",
+        "telemetry.jsonl": "a540985c2fd94e32860d720073d7e6000c3a822404a7cf13e5a159c6905cbbc5",
+        "episode.lmp": "934da019eda632b9ea3fb427f4fa99057d599b53b8d30e3dd94ca788b6c00764",
+        "memory.json": "d763b5239454427de9cbfed95d25262a154e7548c6fa2e0ed0d2a0a1c6554c27",
+        "issues.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "replay": {
+        "matches_telemetry": true,
+        "gameplay_frames": 763,
+        "frames": 763,
+        "fps": 35,
+        "from_tic": 10,
+        "to_tic": 773,
+        "size": [
+          640,
+          480
+        ],
+        "video_sha256": "a3f968d762df1d0c9427424a92b5e5f7cd634393325c1a7dcfe0ab10dba26ee7",
+        "lmp_sha256": "934da019eda632b9ea3fb427f4fa99057d599b53b8d30e3dd94ca788b6c00764"
+      },
+      "inline_issue_count": 0,
+      "model_grounding_basis_actions": 2,
+      "explicit_previous_attempt_note_events": 0,
+      "previous_attempt_note_excerpt": null
+    },
+    {
+      "run_id": "20261104T213604.544726Z_my_way_home_L2_s101",
+      "directory": "runs/20261104T213604.544726Z_my_way_home_L2_s101",
+      "scenario": "my_way_home",
+      "seed": 101,
+      "attempt": 2,
+      "evaluation_group": "carryover",
+      "outcome": "invalid_api_error",
+      "decisions": 22,
+      "acts": 21,
+      "wall_seconds": 273.4713385840005,
+      "metrics": {
+        "completed": 0,
+        "progress_fraction": null,
+        "spl": null,
+        "coverage_fraction": 0.25,
+        "unique_cells_visited": 4,
+        "revisit_rate": 0.5,
+        "collision_rate": 0.07142857142857142,
+        "stuck_warning_count": 0,
+        "visual_cycle_warning_count": 0,
+        "locate_calls": 5,
+        "locate_hit_rate": 0.2,
+        "cost_usd": 0.19153794999999998,
+        "tics_used": 288,
+        "sampled_path_units": 955.4413384275649
+      },
+      "source_sha256": {
+        "manifest.json": "c49ea407dd1dae93ff5ce692d07b56f11b2cfaf02823b820145ab632ccefd72e",
+        "events.jsonl": "c21b9ce6514b4f50f8ecc1c1e14c39f2aabf8eb78bbbc3bc6f300b18e39262ae",
+        "telemetry.jsonl": "f6588d0ab50326ade9117a4c9f08628f54c0014b729b52424e67badfba24926d",
+        "episode.lmp": "ffdc6d178617b64cdcd4acc58f398e3a95e471ba4502d5c500b36d5cf25bc65e",
+        "memory.json": "c620c24562b4b3f4c6d5c90ebc6b155f9a8418fa7f7eaba4eb135852b3120d8b",
+        "issues.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "replay": {
+        "matches_telemetry": true,
+        "gameplay_frames": 288,
+        "frames": 288,
+        "fps": 35,
+        "from_tic": 10,
+        "to_tic": 298,
+        "size": [
+          640,
+          480
+        ],
+        "video_sha256": "079b9b8ed6fafa8dd2856b97d21e66057e8500ce60745ca4a4a210133eed864a",
+        "lmp_sha256": "ffdc6d178617b64cdcd4acc58f398e3a95e471ba4502d5c500b36d5cf25bc65e"
+      },
+      "inline_issue_count": 0,
+      "model_grounding_basis_actions": 1,
+      "explicit_previous_attempt_note_events": 0,
+      "previous_attempt_note_excerpt": null,
+      "carryover": {
+        "brief_sha256": "92d44aad2ac95842b8c6190c279620943dedc12ecfd58bf844101a231cf983a5",
+        "source_run_id": "20261104T212644.766410Z_my_way_home_L2_s101",
+        "scenario": "my_way_home",
+        "level": 2,
+        "seed": 101,
+        "source_sha256": {
+          "manifest.json": "de1753432ce33c68829ab535fdf88fa1845bc3386cfa5118f095a470a700cc9a",
+          "events.jsonl": "fdcbe99f08023a4cf605baeb38e11b6841342e3a575da11e3baefd3af06ae604",
+          "memory.json": "d763b5239454427de9cbfed95d25262a154e7548c6fa2e0ed0d2a0a1c6554c27",
+          "issues.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "protocol": "self_observed_only_v1"
+      },
+      "actual_brief": "Previous attempt ended budget_exhausted; 44 decisions. These are your uncertain observations, not verified facts.\nOwn reported concerns: none\nRepeat warnings at decisions: 32, 40\nOwn landmark/outcome notes: d42 left turn to side wall: gray metal left, brown pillar right | tried: turn left | observed: close side wall view\nNAV {\"at\":43,\"basis\":\"visual\",\"location\":\"against side wall gray metal with brown pillar\",\"heading\":\"facing side tech wall\",\"destination\":\"test side wall for door\",\"subgoals\":[\"use wall then check opening\",\"turn to scan other side\"],\"grounding_refs\":[\"d29:white door\"],\"uncertainty\":\"side tech panels unverified as door; identity uncertain\",\"replan\":\"check lateral wall before returning to white door\",\"next_check\":\"wall opening or unchanged after use\"}"
+    },
+    {
+      "run_id": "20261104T214527.173965Z_my_way_home_L2_s102",
+      "directory": "runs/20261104T214527.173965Z_my_way_home_L2_s102",
+      "scenario": "my_way_home",
+      "seed": 102,
+      "attempt": 1,
+      "evaluation_group": "carryover",
+      "outcome": "budget_exhausted",
+      "decisions": 51,
+      "acts": 49,
+      "wall_seconds": 456.002815505999,
+      "metrics": {
+        "completed": 0,
+        "progress_fraction": null,
+        "spl": null,
+        "coverage_fraction": null,
+        "unique_cells_visited": 10,
+        "revisit_rate": 0.5652173913043479,
+        "collision_rate": 0.024390243902439025,
+        "stuck_warning_count": 0,
+        "visual_cycle_warning_count": 1,
+        "locate_calls": 4,
+        "locate_hit_rate": 0.25,
+        "cost_usd": 0.45278745,
+        "tics_used": 802,
+        "sampled_path_units": 3194.3458068704945
+      },
+      "source_sha256": {
+        "manifest.json": "664d1666fe6b8e118e62b95f5a54d8f4baccf836606be2df44444a87723bef98",
+        "events.jsonl": "5dec8d4ebd54fe78f7e2c3cfa228a28378bf30b74d48208abd09b523f0d4837c",
+        "telemetry.jsonl": "c843cc48c8be80790afa0c92c344b3af3cc312fa0fd780a18a82e5aef7fe40dd",
+        "episode.lmp": "eef523b745ee1bcf0b7470446064ba278c90eb6aed309eeef15e17e60b0f2db8",
+        "memory.json": "e06a63fcd51ae5cdb00c63a1243fa27e1e5418d80ad7c6261aba8b8863de6376",
+        "issues.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "replay": {
+        "matches_telemetry": true,
+        "gameplay_frames": 802,
+        "frames": 802,
+        "fps": 35,
+        "from_tic": 10,
+        "to_tic": 812,
+        "size": [
+          640,
+          480
+        ],
+        "video_sha256": "b51fa08e01847d3b64ed398635e32c32f1209ba071f751d4bf01644d5b7957c8",
+        "lmp_sha256": "eef523b745ee1bcf0b7470446064ba278c90eb6aed309eeef15e17e60b0f2db8"
+      },
+      "inline_issue_count": 0,
+      "model_grounding_basis_actions": 1,
+      "explicit_previous_attempt_note_events": 0,
+      "previous_attempt_note_excerpt": null
+    },
+    {
+      "run_id": "20261104T215744.152533Z_my_way_home_L2_s102",
+      "directory": "runs/20261104T215744.152533Z_my_way_home_L2_s102",
+      "scenario": "my_way_home",
+      "seed": 102,
+      "attempt": 2,
+      "evaluation_group": "carryover",
+      "outcome": "budget_exhausted",
+      "decisions": 39,
+      "acts": 38,
+      "wall_seconds": 600.1847333230107,
+      "metrics": {
+        "completed": 0,
+        "progress_fraction": null,
+        "spl": null,
+        "coverage_fraction": null,
+        "unique_cells_visited": 8,
+        "revisit_rate": 0.5789473684210527,
+        "collision_rate": 0.07407407407407407,
+        "stuck_warning_count": 0,
+        "visual_cycle_warning_count": 0,
+        "locate_calls": 12,
+        "locate_hit_rate": 0.6666666666666666,
+        "cost_usd": 0.40050534999999976,
+        "tics_used": 701,
+        "sampled_path_units": 3325.8883779825806
+      },
+      "source_sha256": {
+        "manifest.json": "6c2cdd839fa8f3d1216f6db2552abaab3f6922c35538923605eb3fc9023e0fe3",
+        "events.jsonl": "693bd95a81ea47647a49749cba45ba79a6146e2d5b3b3c7a0b62e733a2e317d6",
+        "telemetry.jsonl": "b0e3004789955fbb6d595e95f9d3d87a181fb94ad6de0be72140ddb054ae240f",
+        "episode.lmp": "b5dad810f6c9d142dd60bffe5680d00b1b8522ff6d480827ab5778f68a815ef9",
+        "memory.json": "b1579e9c5e0a1817cab26e6c621a4f31808b75149cd3e3ccae09be4354406c41",
+        "issues.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "replay": {
+        "matches_telemetry": true,
+        "gameplay_frames": 701,
+        "frames": 701,
+        "fps": 35,
+        "from_tic": 10,
+        "to_tic": 711,
+        "size": [
+          640,
+          480
+        ],
+        "video_sha256": "9d3311ff2aa61f7a3754f7445cfedb1112247e9c40314d1226e36267a40c0869",
+        "lmp_sha256": "b5dad810f6c9d142dd60bffe5680d00b1b8522ff6d480827ab5778f68a815ef9"
+      },
+      "inline_issue_count": 0,
+      "model_grounding_basis_actions": 6,
+      "explicit_previous_attempt_note_events": 0,
+      "previous_attempt_note_excerpt": null,
+      "carryover": {
+        "brief_sha256": "48b7388cbe85bb326823b968a57d58c4d483563171a204ec2c69e6406ef02f63",
+        "source_run_id": "20261104T214527.173965Z_my_way_home_L2_s102",
+        "scenario": "my_way_home",
+        "level": 2,
+        "seed": 102,
+        "source_sha256": {
+          "manifest.json": "664d1666fe6b8e118e62b95f5a54d8f4baccf836606be2df44444a87723bef98",
+          "events.jsonl": "5dec8d4ebd54fe78f7e2c3cfa228a28378bf30b74d48208abd09b523f0d4837c",
+          "memory.json": "e06a63fcd51ae5cdb00c63a1243fa27e1e5418d80ad7c6261aba8b8863de6376",
+          "issues.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "protocol": "self_observed_only_v1"
+      },
+      "actual_brief": "Previous attempt ended budget_exhausted; 51 decisions. These are your uncertain observations, not verified facts.\nOwn reported concerns: none\nRepeat warnings at decisions: 45\nOwn landmark/outcome notes: d48 still facehug metal|tried: back+turn|obs: wall fills view|uncertain: orientation spin\nNAV {\"at\":49,\"basis\":\"visual\",\"location\":\"against riveted wall close\",\"heading\":\"unknown\",\"destination\":\"about-face to room center\",\"subgoals\":[\"open floor\",\"doorway\"],\"grounding_refs\":[\"d47:green armor\"],\"uncertainty\":\"no grounding geometry; using pixels, identity unverified\",\"replan\":\"turn 180 then forward to leave wall\",\"next_check\":\"wall recedes, floor expands\"}"
+    },
+    {
+      "run_id": "20261104T220758.325214Z_my_way_home_L2_s103",
+      "directory": "runs/20261104T220758.325214Z_my_way_home_L2_s103",
+      "scenario": "my_way_home",
+      "seed": 103,
+      "attempt": 1,
+      "evaluation_group": "carryover",
+      "outcome": "budget_exhausted",
+      "decisions": 51,
+      "acts": 48,
+      "wall_seconds": 507.81363210000563,
+      "metrics": {
+        "completed": 0,
+        "progress_fraction": null,
+        "spl": null,
+        "coverage_fraction": null,
+        "unique_cells_visited": 8,
+        "revisit_rate": 0.813953488372093,
+        "collision_rate": 0.0196078431372549,
+        "stuck_warning_count": 0,
+        "visual_cycle_warning_count": 1,
+        "locate_calls": 6,
+        "locate_hit_rate": 0.6666666666666666,
+        "cost_usd": 0.4500826499999999,
+        "tics_used": 1380,
+        "sampled_path_units": 5438.652456053633
+      },
+      "source_sha256": {
+        "manifest.json": "cfa90feaeeb440d693d9f6e693bf6ab02c379d836a463ff9e9c293fe6e7b6bef",
+        "events.jsonl": "587879dd470fb1f6fac6b62ea4c2b5315d225565ee59cd71f30b15fcaa0f98a0",
+        "telemetry.jsonl": "a2df0268e2580dd42d2baec941a17f103ccb4d7677d4ebbcbaec62f535cce97a",
+        "episode.lmp": "fd318251b3a6dd1e7aea0cd6160d80b19be6c8bccbbe3050d946db6559a59e04",
+        "memory.json": "2f61090598a1fd3a64e8b9b54b522dc69db7975a6bbf48ea42dade6d03f5d64c",
+        "issues.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "replay": {
+        "matches_telemetry": true,
+        "gameplay_frames": 1380,
+        "frames": 1380,
+        "fps": 35,
+        "from_tic": 10,
+        "to_tic": 1390,
+        "size": [
+          640,
+          480
+        ],
+        "video_sha256": "467d0b25b9fdfb655bba1a0733c0d962689d9fd8c15c1ee372e1665b2cbf5787",
+        "lmp_sha256": "fd318251b3a6dd1e7aea0cd6160d80b19be6c8bccbbe3050d946db6559a59e04"
+      },
+      "inline_issue_count": 0,
+      "model_grounding_basis_actions": 4,
+      "explicit_previous_attempt_note_events": 0,
+      "previous_attempt_note_excerpt": null
+    },
+    {
+      "run_id": "20261104T221632.185344Z_my_way_home_L2_s103",
+      "directory": "runs/20261104T221632.185344Z_my_way_home_L2_s103",
+      "scenario": "my_way_home",
+      "seed": 103,
+      "attempt": 2,
+      "evaluation_group": "carryover",
+      "outcome": "budget_exhausted",
+      "decisions": 41,
+      "acts": 38,
+      "wall_seconds": 567.3015102359932,
+      "metrics": {
+        "completed": 0,
+        "progress_fraction": null,
+        "spl": null,
+        "coverage_fraction": 0.5,
+        "unique_cells_visited": 8,
+        "revisit_rate": 0.6923076923076923,
+        "collision_rate": 0.0,
+        "stuck_warning_count": 0,
+        "visual_cycle_warning_count": 1,
+        "locate_calls": 11,
+        "locate_hit_rate": 0.7272727272727273,
+        "cost_usd": 0.4551229,
+        "tics_used": 683,
+        "sampled_path_units": 2995.0448034105384
+      },
+      "source_sha256": {
+        "manifest.json": "3a6409d6ac362933326e32f773ca786cb749d640c87bfd617acb91ececd481e5",
+        "events.jsonl": "418ed25e9cff872b3928bfed0ecb20f17fbf8a9e766bb1cd92334aea11f215f5",
+        "telemetry.jsonl": "518a24508f2b5c1b4b54af819cd613a1ccb7cd8e6b04f7358ebc45761bc71370",
+        "episode.lmp": "02d494ffa1f77affbb2366c041d51b88c2fed017f9c3c676c2d19322f96a6696",
+        "memory.json": "fea2042fa5374c6dace9167a6fd31ac98a1ce23665ce241eb0f5a4fffda29426",
+        "issues.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "replay": {
+        "matches_telemetry": true,
+        "gameplay_frames": 683,
+        "frames": 683,
+        "fps": 35,
+        "from_tic": 10,
+        "to_tic": 693,
+        "size": [
+          640,
+          480
+        ],
+        "video_sha256": "6a7099c168ee666d652a55f9c1d2652eaa68087a221c636302c5d449b654a454",
+        "lmp_sha256": "02d494ffa1f77affbb2366c041d51b88c2fed017f9c3c676c2d19322f96a6696"
+      },
+      "inline_issue_count": 0,
+      "model_grounding_basis_actions": 7,
+      "explicit_previous_attempt_note_events": 0,
+      "previous_attempt_note_excerpt": null,
+      "carryover": {
+        "brief_sha256": "9648475470f02ad5bef05d6f23aec09e2a4f94c3b220a757555a52f03f42e744",
+        "source_run_id": "20261104T220758.325214Z_my_way_home_L2_s103",
+        "scenario": "my_way_home",
+        "level": 2,
+        "seed": 103,
+        "source_sha256": {
+          "manifest.json": "cfa90feaeeb440d693d9f6e693bf6ab02c379d836a463ff9e9c293fe6e7b6bef",
+          "events.jsonl": "587879dd470fb1f6fac6b62ea4c2b5315d225565ee59cd71f30b15fcaa0f98a0",
+          "memory.json": "2f61090598a1fd3a64e8b9b54b522dc69db7975a6bbf48ea42dade6d03f5d64c",
+          "issues.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "protocol": "self_observed_only_v1"
+      },
+      "actual_brief": "Previous attempt ended budget_exhausted; 51 decisions. These are your uncertain observations, not verified facts.\nOwn reported concerns: none\nRepeat warnings at decisions: 39\nOwn landmark/outcome notes: d47 nose mesh use no change|d48 back+turn to corridor|d49 blue pillars white panels ahead | tried: use metal+white no open | observed: same corridor view returns | uncertain/next: panels maybe doors need switch?\nNAV {\"at\":49,\"basis\":\"visual\",\"location\":\"blue-pillar corridor facing white paneled wall\",\"heading\":\"unknown\",\"destination\":\"white paneled wall ahead\",\"subgoals\":[\"approach panels\",\"test side walls for door\"],\"grounding_refs\":[\"d43:white door\"],\"uncertainty\":\"prior white door candidate unverified, use failed; identity/passability unknown\",\"replan\":\"re-approach to test use at close r"
+    },
+    {
+      "run_id": "20261104T213106.519030Z_probe_broken_door_L2_s101",
+      "directory": "runs/20261104T213106.519030Z_probe_broken_door_L2_s101",
+      "scenario": "probe_broken_door",
+      "seed": 101,
+      "attempt": null,
+      "evaluation_group": "fault_probe",
+      "outcome": "budget_exhausted",
+      "decisions": 34,
+      "acts": 32,
+      "wall_seconds": 403.3558235929959,
+      "metrics": {
+        "completed": 0,
+        "progress_fraction": 0.5,
+        "spl": 0.0,
+        "coverage_fraction": 0.09259259259259259,
+        "unique_cells_visited": 10,
+        "revisit_rate": 0.5,
+        "collision_rate": 0.0,
+        "stuck_warning_count": 0,
+        "visual_cycle_warning_count": 0,
+        "locate_calls": 5,
+        "locate_hit_rate": 0.8,
+        "cost_usd": 0.35121614999999984,
+        "tics_used": 408,
+        "sampled_path_units": 2797.8314193486403
+      },
+      "source_sha256": {
+        "manifest.json": "e0ff88ea2ea4af73c9f219b52e046cb9bee3435945945438c5a57f3bd6dda4da",
+        "events.jsonl": "10f810097c361d3ff50a614b8ad490c101c093b1cbdb7ab8e73636633f295e16",
+        "telemetry.jsonl": "141ef4e50e9782888edf550c720045d1fee457925886ac2621b753ad5c5a011d",
+        "episode.lmp": "b8cd9ec19afe0a0996c54ad8e56a0345f7e6a5b8a3c3584c81ad10faac3e0d90",
+        "memory.json": "3c5b1979e9b52a1d154c9aef78fd6afa2f944215685a48a7d0e9f8eb8f21a48f",
+        "issues.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "replay": {
+        "matches_telemetry": true,
+        "gameplay_frames": 408,
+        "frames": 408,
+        "fps": 35,
+        "from_tic": 1,
+        "to_tic": 409,
+        "size": [
+          640,
+          480
+        ],
+        "video_sha256": "802686ab52208fd48d45c41e7a400bc73c897f8cafba9de77d9228192b1788d5",
+        "lmp_sha256": "b8cd9ec19afe0a0996c54ad8e56a0345f7e6a5b8a3c3584c81ad10faac3e0d90"
+      },
+      "inline_issue_count": 0,
+      "model_grounding_basis_actions": 5,
+      "explicit_previous_attempt_note_events": 0,
+      "previous_attempt_note_excerpt": null
+    }
+  ],
+  "previous_attempt_reference_search_regex": "previous attempt|prior attempt|last attempt|earlier attempt|previous episode|carry.over",
+  "paired_results": [
+    {
+      "pair_id": "my_way_home_L2_s101",
+      "status": "invalid_attempt",
+      "deltas": {
+        "completed": null,
+        "progress_fraction": null,
+        "tics_to_first_new_room": null,
+        "stuck_warning_count": null,
+        "cost_usd": null
+      },
+      "first_new_room_method": "First changed sector_id after initialization; sampled room-entry proxy, not semantic room segmentation",
+      "pairing_errors": [
+        "invalid_attempt_outcome"
+      ],
+      "attempts": [
+        {
+          "run_id": "20261104T212644.766410Z_my_way_home_L2_s101",
+          "completed": 0,
+          "progress_fraction": null,
+          "tics_to_first_new_room": 21,
+          "stuck_warning_count": 0,
+          "cost_usd": 0.45020514999999983
+        },
+        {
+          "run_id": "20261104T213604.544726Z_my_way_home_L2_s101",
+          "completed": 0,
+          "progress_fraction": null,
+          "tics_to_first_new_room": 66,
+          "stuck_warning_count": 0,
+          "cost_usd": 0.19153794999999998
+        }
+      ]
+    },
+    {
+      "pair_id": "my_way_home_L2_s102",
+      "status": "complete",
+      "deltas": {
+        "completed": 0,
+        "progress_fraction": null,
+        "tics_to_first_new_room": 202,
+        "stuck_warning_count": 0,
+        "cost_usd": -0.05228210000000022
+      },
+      "first_new_room_method": "First changed sector_id after initialization; sampled room-entry proxy, not semantic room segmentation",
+      "pairing_errors": [],
+      "attempts": [
+        {
+          "run_id": "20261104T214527.173965Z_my_way_home_L2_s102",
+          "completed": 0,
+          "progress_fraction": null,
+          "tics_to_first_new_room": 74,
+          "stuck_warning_count": 0,
+          "cost_usd": 0.45278745
+        },
+        {
+          "run_id": "20261104T215744.152533Z_my_way_home_L2_s102",
+          "completed": 0,
+          "progress_fraction": null,
+          "tics_to_first_new_room": 276,
+          "stuck_warning_count": 0,
+          "cost_usd": 0.40050534999999976
+        }
+      ]
+    },
+    {
+      "pair_id": "my_way_home_L2_s103",
+      "status": "complete",
+      "deltas": {
+        "completed": 0,
+        "progress_fraction": null,
+        "tics_to_first_new_room": 5,
+        "stuck_warning_count": 0,
+        "cost_usd": 0.005040250000000079
+      },
+      "first_new_room_method": "First changed sector_id after initialization; sampled room-entry proxy, not semantic room segmentation",
+      "pairing_errors": [],
+      "attempts": [
+        {
+          "run_id": "20261104T220758.325214Z_my_way_home_L2_s103",
+          "completed": 0,
+          "progress_fraction": null,
+          "tics_to_first_new_room": 16,
+          "stuck_warning_count": 0,
+          "cost_usd": 0.4500826499999999
+        },
+        {
+          "run_id": "20261104T221632.185344Z_my_way_home_L2_s103",
+          "completed": 0,
+          "progress_fraction": null,
+          "tics_to_first_new_room": 21,
+          "stuck_warning_count": 0,
+          "cost_usd": 0.4551229
+        }
+      ]
+    }
+  ],
+  "reviewer_trials": [
+    {
+      "source_run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+      "status": "failed_api",
+      "model": "muse-spark-1.3",
+      "effort": "high",
+      "max_output_tokens": 4000,
+      "request_timeout": null,
+      "recorded_usd": 0.0,
+      "unknown_charge_risk": true,
+      "mode": null,
+      "findings": null,
+      "prompt_sha256": "ce7801fcf4420a751c63405099d216f180e89ef8e8707b17039b557ed2d88d11",
+      "reviewer_source_sha256": null,
+      "reviewer_sha256": null,
+      "preflight": [
+        {
+          "mode": "video",
+          "input_tokens": 23155,
+          "uncached_input_and_max_output_estimate_usd": 0.04594375
+        }
+      ],
+      "file_cleanup": "delete_failed_expires_after_86400_seconds",
+      "trial": "m4-review-freedoom",
+      "status_sha256": "3958047ecd97e5806d431438e94d779842d30b34a14d532f7005d1d25fd6f77a",
+      "status_path": "results/m4-review-freedoom/reviewer_status.json",
+      "calls": [
+        {
+          "mode": "video",
+          "error_type": "APITimeoutError",
+          "http_status": null,
+          "usage": null,
+          "cost_usd": null
+        }
+      ],
+      "video_input_sha256": "28bf12b89eb6252a967bfea084b174ede60e9344827c5007cedcd484e20bb7cd"
+    },
+    {
+      "source_run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+      "status": "completed",
+      "model": "muse-spark-1.3",
+      "effort": "high",
+      "max_output_tokens": 8000,
+      "request_timeout": 180.0,
+      "recorded_usd": 0.05716725,
+      "unknown_charge_risk": false,
+      "mode": "video",
+      "findings": 7,
+      "prompt_sha256": "ce7801fcf4420a751c63405099d216f180e89ef8e8707b17039b557ed2d88d11",
+      "reviewer_source_sha256": "a25cb493f28baf74d8a63edd272d3deee3a7479bac71b2825bab88c7c82fb420",
+      "reviewer_sha256": "ecbbe58571d626d7885e00a14192bd8025c0be1c8fedd3f0e42d4be6c9edf5ab",
+      "preflight": [
+        {
+          "mode": "video",
+          "input_tokens": 23155,
+          "uncached_input_and_max_output_estimate_usd": 0.06294375
+        }
+      ],
+      "file_cleanup": null,
+      "trial": "m4-review-freedoom-8000",
+      "status_sha256": "2abb791297da77b2dfb9f32e418dea8e9d2c32c706943b8e9dcc9b7d8bcbaad2",
+      "status_path": "results/m4-review-freedoom-8000/reviewer_status.json",
+      "calls": [
+        {
+          "mode": "video",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 28472,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 5077,
+            "output_tokens_details": {
+              "reasoning_tokens": 3943
+            },
+            "total_tokens": 33549
+          },
+          "cost_usd": 0.05716725,
+          "latency_ms": 49923.704786997405,
+          "output_structure": [
+            {
+              "type": "reasoning",
+              "status": "completed",
+              "content_types": []
+            },
+            {
+              "type": "message",
+              "status": "completed",
+              "content_types": [
+                "output_text"
+              ]
+            }
+          ],
+          "output_text_chars": 4914,
+          "incomplete_reason": null
+        }
+      ],
+      "video_input_sha256": "c8e60d4afe8f80a202b1514e69e1ae058f3737251d9a539736929170a11718c6",
+      "native_camera_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "source_run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+      "status": "completed",
+      "model": "muse-spark-1.3",
+      "effort": "high",
+      "max_output_tokens": 8000,
+      "request_timeout": 180.0,
+      "recorded_usd": 0.024436799999999998,
+      "unknown_charge_risk": false,
+      "mode": "video",
+      "findings": 3,
+      "prompt_sha256": "ce7801fcf4420a751c63405099d216f180e89ef8e8707b17039b557ed2d88d11",
+      "reviewer_source_sha256": "e69c74faff95862ce0602c82c8bfec06f0b47849415f551a002d610d1f28214a",
+      "reviewer_sha256": "12c7561418958a849576d2a11c5256c6bcd6de2cc122ea02bf611174398131a4",
+      "preflight": [
+        {
+          "mode": "video",
+          "input_tokens": 23155,
+          "uncached_input_and_max_output_estimate_usd": 0.06294375
+        }
+      ],
+      "file_cleanup": null,
+      "trial": "m4-review-freedoom-native640",
+      "status_sha256": "6c301adeb6bfa7c134028a53536be9bba56059e9c305cc55baad7e19061f9a3b",
+      "status_path": "results/m4-review-freedoom-native640/reviewer_status.json",
+      "calls": [
+        {
+          "mode": "video",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 28472,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 22897,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 3302,
+            "output_tokens_details": {
+              "reasoning_tokens": 2434
+            },
+            "total_tokens": 31774
+          },
+          "cost_usd": 0.024436799999999998,
+          "latency_ms": 24318.996407993836,
+          "output_structure": [
+            {
+              "type": "reasoning",
+              "status": "completed",
+              "content_types": []
+            },
+            {
+              "type": "message",
+              "status": "completed",
+              "content_types": [
+                "output_text"
+              ]
+            }
+          ],
+          "output_text_chars": 3636,
+          "incomplete_reason": null
+        }
+      ],
+      "video_input_sha256": "b7973cf815ac788f7b2ac6a8031dba484cadc2af91406912c6617f8483c0f70a",
+      "native_camera_resolution": [
+        640,
+        480
+      ]
+    },
+    {
+      "source_run_id": "20261104T165638.914244Z_my_way_home_L2_s101",
+      "status": "failed_usage_journal_bug",
+      "model": "muse-spark-1.3",
+      "effort": "high",
+      "max_output_tokens": 4000,
+      "request_timeout": null,
+      "recorded_usd": null,
+      "unknown_charge_risk": true,
+      "mode": null,
+      "findings": null,
+      "prompt_sha256": "ce7801fcf4420a751c63405099d216f180e89ef8e8707b17039b557ed2d88d11",
+      "reviewer_source_sha256": null,
+      "reviewer_sha256": null,
+      "preflight": null,
+      "file_cleanup": null,
+      "trial": "m4-review-my-way-home",
+      "status_sha256": "e55c4fc0d5266bd132cdbfdac726837e1fc02195b22314f1c02aefa28c81a324",
+      "status_path": "results/m4-review-my-way-home/reviewer_status.json",
+      "calls": [],
+      "video_input_sha256": "9163c042c6feb5f877cd5febc0fdbb4e008c6994dd3e58eac46959ce9ef385a9",
+      "native_camera_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "source_run_id": "20261104T165638.914244Z_my_way_home_L2_s101",
+      "status": "completed",
+      "model": "muse-spark-1.3",
+      "effort": "high",
+      "max_output_tokens": 4000,
+      "request_timeout": null,
+      "recorded_usd": 0.052855,
+      "unknown_charge_risk": false,
+      "mode": "keyframes",
+      "findings": 2,
+      "prompt_sha256": "ce7801fcf4420a751c63405099d216f180e89ef8e8707b17039b557ed2d88d11",
+      "reviewer_source_sha256": null,
+      "reviewer_sha256": null,
+      "preflight": null,
+      "file_cleanup": null,
+      "trial": "m4-review-my-way-home-keyframes",
+      "status_sha256": "70b1a8dd4b7c50f13c79b016acaad26df1dfdae446ef06652455a0de33e8be70",
+      "status_path": "results/m4-review-my-way-home-keyframes/reviewer_status.json",
+      "calls": [
+        {
+          "mode": "keyframes",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 29687,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 3705,
+            "output_tokens_details": {
+              "reasoning_tokens": 3014
+            },
+            "total_tokens": 33392
+          },
+          "cost_usd": 0.052855,
+          "latency_ms": 46214.34146500542,
+          "output_structure": [
+            {
+              "type": "reasoning",
+              "status": "completed",
+              "content_types": []
+            },
+            {
+              "type": "message",
+              "status": "completed",
+              "content_types": [
+                "output_text"
+              ]
+            }
+          ],
+          "output_text_chars": 2836
+        }
+      ]
+    },
+    {
+      "source_run_id": "20261104T213106.519030Z_probe_broken_door_L2_s101",
+      "status": "failed_api",
+      "model": "muse-spark-1.3",
+      "effort": "high",
+      "max_output_tokens": 4000,
+      "request_timeout": null,
+      "recorded_usd": 0.0,
+      "unknown_charge_risk": true,
+      "mode": null,
+      "findings": null,
+      "prompt_sha256": "ce7801fcf4420a751c63405099d216f180e89ef8e8707b17039b557ed2d88d11",
+      "reviewer_source_sha256": null,
+      "reviewer_sha256": null,
+      "preflight": [
+        {
+          "mode": "keyframes",
+          "input_tokens": 19806,
+          "uncached_input_and_max_output_estimate_usd": 0.0417575
+        }
+      ],
+      "file_cleanup": null,
+      "trial": "m4-review-probe",
+      "status_sha256": "046c426e764dc0f1bf6f34a218a55a75fe7cc3d31f1078fc69fb82fa0eb0ab66",
+      "status_path": "results/m4-review-probe/reviewer_status.json",
+      "calls": [
+        {
+          "mode": "keyframes",
+          "error_type": "APITimeoutError",
+          "http_status": null,
+          "usage": null,
+          "cost_usd": null
+        }
+      ]
+    },
+    {
+      "source_run_id": "20261104T213106.519030Z_probe_broken_door_L2_s101",
+      "status": "completed",
+      "model": "muse-spark-1.3",
+      "effort": "high",
+      "max_output_tokens": 8000,
+      "request_timeout": 180.0,
+      "recorded_usd": 0.0192117,
+      "unknown_charge_risk": false,
+      "mode": "keyframes",
+      "findings": 3,
+      "prompt_sha256": "ce7801fcf4420a751c63405099d216f180e89ef8e8707b17039b557ed2d88d11",
+      "reviewer_source_sha256": "061c72df0da0f5d96a8420daca489e8d2132176f332f705f81e2a0fadfcff249",
+      "reviewer_sha256": "f7946ffdec49ef0e7a5030c99b401b327f9a53614a4509ded535c39040956c59",
+      "preflight": [
+        {
+          "mode": "keyframes",
+          "input_tokens": 19806,
+          "uncached_input_and_max_output_estimate_usd": 0.0587575
+        }
+      ],
+      "file_cleanup": null,
+      "trial": "m4-review-probe-8000",
+      "status_sha256": "2a417debf61687f10d5bf2945b00ce028424182496be2199e3e478d82aeddfeb",
+      "status_path": "results/m4-review-probe-8000/reviewer_status.json",
+      "calls": [
+        {
+          "mode": "keyframes",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 19387,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 19313,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 3817,
+            "output_tokens_details": {
+              "reasoning_tokens": 2946
+            },
+            "total_tokens": 23204
+          },
+          "cost_usd": 0.0192117,
+          "latency_ms": 49185.710399004165,
+          "output_structure": [
+            {
+              "type": "reasoning",
+              "status": "completed",
+              "content_types": []
+            },
+            {
+              "type": "message",
+              "status": "completed",
+              "content_types": [
+                "output_text"
+              ]
+            }
+          ],
+          "output_text_chars": 3500,
+          "incomplete_reason": null
+        }
+      ]
+    },
+    {
+      "source_run_id": "20261104T213106.519030Z_probe_broken_door_L2_s101",
+      "status": "failed_schema_or_incomplete",
+      "model": "muse-spark-1.3",
+      "effort": "high",
+      "max_output_tokens": 4000,
+      "request_timeout": 180.0,
+      "recorded_usd": 0.04123375,
+      "unknown_charge_risk": false,
+      "mode": null,
+      "findings": null,
+      "prompt_sha256": "ce7801fcf4420a751c63405099d216f180e89ef8e8707b17039b557ed2d88d11",
+      "reviewer_source_sha256": null,
+      "reviewer_sha256": null,
+      "preflight": [
+        {
+          "mode": "keyframes",
+          "input_tokens": 19806,
+          "uncached_input_and_max_output_estimate_usd": 0.0417575
+        }
+      ],
+      "file_cleanup": null,
+      "trial": "m4-review-probe-connectivity-retry",
+      "status_sha256": "e2c039e3d009be5b5084902c727b4307f9fe2cc783f3aed3575ff8eb8b1416af",
+      "status_path": "results/m4-review-probe-connectivity-retry/reviewer_status.json",
+      "calls": [
+        {
+          "mode": "keyframes",
+          "status": "incomplete",
+          "usage": {
+            "input_tokens": 19387,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 4000,
+            "output_tokens_details": {
+              "reasoning_tokens": 3781
+            },
+            "total_tokens": 23387
+          },
+          "cost_usd": 0.04123375,
+          "latency_ms": 50633.41100901016,
+          "output_structure": [
+            {
+              "type": "reasoning",
+              "status": "completed",
+              "content_types": []
+            },
+            {
+              "type": "message",
+              "status": "incomplete",
+              "content_types": [
+                "output_text"
+              ]
+            }
+          ],
+          "output_text_chars": 826
+        }
+      ],
+      "effective_sdk_timeout_seconds": 90
+    }
+  ],
+  "qa_reviews": [
+    {
+      "case": "my_way_home_default_keyframes",
+      "run_id": "20261104T165638.914244Z_my_way_home_L2_s101",
+      "primary_review": true,
+      "reviewer_sha256": "67164f1221aa602034e4ab8bf32dd37e0e50be12e767bff14e7739cf081a773f",
+      "raw_model_findings": 2,
+      "counts": {
+        "behavior_confirmed": 1,
+        "behavior_contradicted": 0,
+        "unverifiable": 1
+      },
+      "verifier_source_sha256": {
+        "verify.py": "3ff5b741425929d262716afb2aeea26dbcc3fb10cc5078fd00a70a7c81ca56bb",
+        "trace.py": "77a026aadf106172e80688040ffe5bc829785083fea4854762405dbac06e013e",
+        "topology.py": "3a07cd6e74a9325a83c8cd085a320de21d473d877d59778e846e05906c590a44",
+        "schemas.py": "423aae7bc285cebf665091f664feddd2a81c64635d2f9b9f66c2940fac16803e"
+      },
+      "findings": [
+        {
+          "issue_id": "iss_20261104T165638.914244Z_my_way_home_L2_s101_001",
+          "run_id": "20261104T165638.914244Z_my_way_home_L2_s101",
+          "scenario_id": "my_way_home",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "INTERACTION_NO_EFFECT",
+          "severity": "low",
+          "summary": "Multiple use actions on close gray paneled surfaces produce no visible opening.",
+          "rationale": "Agent records approach+use and push+use on close gray panels with ~3% frame change and notes 'still closed/solid, no open'. Views show face-planted gray panels before and after. This is observed lack of change only; panels may be non-operable walls misidentified as doors by the agent.",
+          "evidence_steps": [
+            0,
+            1,
+            2,
+            39,
+            50,
+            51
+          ],
+          "tic_range": [
+            10,
+            872
+          ],
+          "model_confidence": 0.65,
+          "trace_verification_status": "unverifiable",
+          "verifier_rule": "check_interaction_no_effect",
+          "verifier_notes": "Required category-specific evidence is unavailable or inconclusive.",
+          "verifier_metrics": {
+            "window": [
+              10,
+              942
+            ],
+            "sampled_cell_entries": 30,
+            "sampled_unique_cells": 11,
+            "translation_samples": 47,
+            "stuck_warnings": 0,
+            "uses": [
+              {
+                "decision": 1,
+                "tic": 32,
+                "proxy_change": false,
+                "post_window_covered": false
+              },
+              {
+                "decision": 2,
+                "tic": 43,
+                "proxy_change": false,
+                "post_window_covered": false
+              },
+              {
+                "decision": 39,
+                "tic": 649,
+                "proxy_change": false,
+                "post_window_covered": false
+              },
+              {
+                "decision": 50,
+                "tic": 871,
+                "proxy_change": false,
+                "post_window_covered": false
+              },
+              {
+                "decision": 51,
+                "tic": 872,
+                "proxy_change": false,
+                "post_window_covered": false
+              }
+            ],
+            "displacement_ratio_summary": {
+              "n": 47,
+              "minimum": 0.04025434974685968,
+              "maximum": 1.768950056673773
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Please verify whether the gray paneled surfaces at start and near blue-pillar hall are intended as operable doors, locked doors needing a switch, or decorative walls, and whether use-from-contact should give feedback?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        },
+        {
+          "issue_id": "iss_20261104T165638.914244Z_my_way_home_L2_s101_002",
+          "run_id": "20261104T165638.914244Z_my_way_home_L2_s101",
+          "scenario_id": "my_way_home",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "NAVIGATION_CONFUSION",
+          "severity": "low",
+          "summary": "Agent repeatedly revisits visually similar blue-pillar hall, locker room, and red/stone dead-end without progress.",
+          "rationale": "Log shows two traversals to the same stone dead-end, returns to locker wall, and system visual-cycle warnings noting resemblance to decisions 20,13 and 26,23 and 51,41. Agent notes looping/circular connection and spends many steps recentering from pillar/wall pinches, indicating disorientation rather than confirmed blockage.",
+          "evidence_steps": [
+            13,
+            14,
+            15,
+            16,
+            21,
+            25,
+            26,
+            31,
+            32,
+            57
+          ],
+          "tic_range": [
+            218,
+            968
+          ],
+          "model_confidence": 0.8,
+          "trace_verification_status": "behavior_confirmed",
+          "verifier_rule": "check_navigation_confusion",
+          "verifier_notes": "Repeated sampled cell entries, a repeat warning, or measured rotation without BFS progress occurred. Purposeful exploration remains a possible explanation.",
+          "verifier_metrics": {
+            "window": [
+              148,
+              985
+            ],
+            "sampled_cell_entries": 30,
+            "sampled_unique_cells": 12,
+            "translation_samples": 42,
+            "stuck_warnings": 0,
+            "max_cell_visits": 6,
+            "yaw_sum_deg": 2794.971313456765,
+            "measured_bfs_reduction": null,
+            "displacement_ratio_summary": {
+              "n": 42,
+              "minimum": 0.04025434974685968,
+              "maximum": 1.768950056673773
+            }
+          },
+          "causal_hypothesis": "CANDIDATE_NAVIGATION_FRICTION_OR_INTENTIONAL_MAZE",
+          "sensitivity_class": null,
+          "recommended_developer_check": "Please check whether landmarks distinguish blue-pillar corridor vs locker vs red/stone branches, or if repeated revisits are expected exploratory behavior in this layout?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        }
+      ]
+    },
+    {
+      "case": "fault_probe_diagnostic",
+      "run_id": "20261104T213106.519030Z_probe_broken_door_L2_s101",
+      "primary_review": true,
+      "reviewer_sha256": "f7946ffdec49ef0e7a5030c99b401b327f9a53614a4509ded535c39040956c59",
+      "raw_model_findings": 3,
+      "counts": {
+        "behavior_confirmed": 1,
+        "behavior_contradicted": 0,
+        "unverifiable": 2
+      },
+      "verifier_source_sha256": {
+        "verify.py": "3ff5b741425929d262716afb2aeea26dbcc3fb10cc5078fd00a70a7c81ca56bb",
+        "trace.py": "77a026aadf106172e80688040ffe5bc829785083fea4854762405dbac06e013e",
+        "topology.py": "3a07cd6e74a9325a83c8cd085a320de21d473d877d59778e846e05906c590a44",
+        "schemas.py": "423aae7bc285cebf665091f664feddd2a81c64635d2f9b9f66c2940fac16803e"
+      },
+      "findings": [
+        {
+          "issue_id": "iss_20261104T213106.519030Z_probe_broken_door_L2_s101_001",
+          "run_id": "20261104T213106.519030Z_probe_broken_door_L2_s101",
+          "scenario_id": "probe_broken_door",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "INTERACTION_NO_EFFECT",
+          "severity": "medium",
+          "summary": "Close-range 'use' and forward push on initial brown AGM door produced no visible opening.",
+          "rationale": "Log notes touching brown AGM panel at d4, 'use' at d5 then push at d6 both recorded as 'no open / still facing panel'. Image 0006 shows door still closed at close range. No visible slide or state change in supplied views.",
+          "evidence_steps": [
+            4,
+            5,
+            6
+          ],
+          "tic_range": [
+            81,
+            117
+          ],
+          "model_confidence": 0.75,
+          "trace_verification_status": "behavior_confirmed",
+          "verifier_rule": "check_interaction_no_effect",
+          "verifier_notes": "A use was executed with no sampled geometry/reward response over the next 35 tics. Target functionality and intended design are not established.",
+          "verifier_metrics": {
+            "window": [
+              11,
+              187
+            ],
+            "sampled_cell_entries": 9,
+            "sampled_unique_cells": 7,
+            "translation_samples": 11,
+            "stuck_warnings": 0,
+            "uses": [
+              {
+                "decision": 5,
+                "tic": 102,
+                "proxy_change": false,
+                "post_window_covered": true
+              }
+            ],
+            "displacement_ratio_summary": {
+              "n": 11,
+              "minimum": 0.5524181871323418,
+              "maximum": 2.058092763244093
+            }
+          },
+          "causal_hypothesis": "CONFIRMED_INJECTED_FAULT",
+          "sensitivity_class": null,
+          "recommended_developer_check": "Is this lower brown AGM door intended to be locked/keyed at this point, and does it provide any locked feedback (sound, message, light change) distinguishable from no-effect?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        },
+        {
+          "issue_id": "iss_20261104T213106.519030Z_probe_broken_door_L2_s101_002",
+          "run_id": "20261104T213106.519030Z_probe_broken_door_L2_s101",
+          "scenario_id": "probe_broken_door",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "INTERACTION_NO_EFFECT",
+          "severity": "medium",
+          "summary": "Upper-landing infinity AGM and red-striped doors did not open after multiple aligned 'use' attempts and push test.",
+          "rationale": "Arrived top landing facing pair (d12, image 0012). Used infinity door (d13), turned and used red-striped door (d14-d15, image 0015), pushed red door (d16). Notes consistently 'shut / use no effect / stays shut' before surveying landing.",
+          "evidence_steps": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "tic_range": [
+            206,
+            252
+          ],
+          "model_confidence": 0.8,
+          "trace_verification_status": "unverifiable",
+          "verifier_rule": "check_interaction_no_effect",
+          "verifier_notes": "Required category-specific evidence is unavailable or inconclusive.",
+          "verifier_metrics": {
+            "window": [
+              136,
+              322
+            ],
+            "sampled_cell_entries": 10,
+            "sampled_unique_cells": 8,
+            "translation_samples": 12,
+            "stuck_warnings": 0,
+            "uses": [
+              {
+                "decision": 13,
+                "tic": 238,
+                "proxy_change": false,
+                "post_window_covered": false
+              },
+              {
+                "decision": 14,
+                "tic": 240,
+                "proxy_change": false,
+                "post_window_covered": false
+              },
+              {
+                "decision": 15,
+                "tic": 241,
+                "proxy_change": false,
+                "post_window_covered": false
+              }
+            ],
+            "displacement_ratio_summary": {
+              "n": 12,
+              "minimum": 0.5803324923318809,
+              "maximum": 2.054765747517185
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Are the upper infinity AGM and red-striped doors intended to open by direct 'use', by remote switch/key, or remain closed, and is any locked-door feedback present?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        },
+        {
+          "issue_id": "iss_20261104T213106.519030Z_probe_broken_door_L2_s101_003",
+          "run_id": "20261104T213106.519030Z_probe_broken_door_L2_s101",
+          "scenario_id": "probe_broken_door",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "VISUAL_AMBIGUITY",
+          "severity": "low",
+          "summary": "Central green cross and small red jamb detail repeatedly used as switches with no discernible effect; switch identity unclear.",
+          "rationale": "Green switch locate was tiny low-conf unverified (d27). Agent treated central green cross as switch (d27-d28 use, no open) then small red jamb rectangle as button with 4x use (d29-d32, images 0027/0030/0033 still shut). Own notes flag both identities as unverified decor vs switch.",
+          "evidence_steps": [
+            27,
+            28,
+            29,
+            30,
+            31,
+            32
+          ],
+          "tic_range": [
+            388,
+            409
+          ],
+          "model_confidence": 0.65,
+          "trace_verification_status": "unverifiable",
+          "verifier_rule": "check_visual_ambiguity",
+          "verifier_notes": "Required category-specific evidence is unavailable or inconclusive.",
+          "verifier_metrics": {
+            "window": [
+              318,
+              409
+            ],
+            "sampled_cell_entries": 4,
+            "sampled_unique_cells": 4,
+            "translation_samples": 5,
+            "stuck_warnings": 0,
+            "low_confidence_goal_lookup_steps": [],
+            "displacement_ratio_summary": {
+              "n": 5,
+              "minimum": 0.3237699597452281,
+              "maximum": 2.054765747517185
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Are the central green cross or small red jamb detail intended as usable switches, and do they look distinct and give click/light feedback, or could decor be mistaken for a switch?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        }
+      ]
+    },
+    {
+      "case": "freedoom_widescreen_diagnostic",
+      "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+      "primary_review": false,
+      "reviewer_sha256": "ecbbe58571d626d7885e00a14192bd8025c0be1c8fedd3f0e42d4be6c9edf5ab",
+      "raw_model_findings": 7,
+      "counts": {
+        "behavior_confirmed": 0,
+        "behavior_contradicted": 2,
+        "unverifiable": 5
+      },
+      "verifier_source_sha256": {
+        "verify.py": "3ff5b741425929d262716afb2aeea26dbcc3fb10cc5078fd00a70a7c81ca56bb",
+        "trace.py": "77a026aadf106172e80688040ffe5bc829785083fea4854762405dbac06e013e",
+        "topology.py": "3a07cd6e74a9325a83c8cd085a320de21d473d877d59778e846e05906c590a44",
+        "schemas.py": "423aae7bc285cebf665091f664feddd2a81c64635d2f9b9f66c2940fac16803e"
+      },
+      "findings": [
+        {
+          "issue_id": "iss_20261104T191136.406971Z_freedoom2_combat_map01_L2_s101_001",
+          "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+          "scenario_id": "freedoom2_combat_map01",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "INTERACTION_NO_EFFECT",
+          "severity": "low",
+          "summary": "Initial brown AGM panel: two close-range Use actions produced no visible opening.",
+          "rationale": "At d3 flush against brown panel agent used Use with still-closed view; at d4 backed off, reused and pushed forward with no opening. Agent notes record no opening and identity from pixels only, unverified.",
+          "evidence_steps": [
+            3,
+            4
+          ],
+          "tic_range": [
+            66,
+            88
+          ],
+          "model_confidence": 0.6,
+          "trace_verification_status": "behavior_contradicted",
+          "verifier_rule": "check_interaction_no_effect",
+          "verifier_notes": "Geometry/reward changed in the sampled post-use interval. This proxy does not identify the particular interaction or its cause.",
+          "verifier_metrics": {
+            "window": [
+              1,
+              158
+            ],
+            "sampled_cell_entries": 7,
+            "sampled_unique_cells": 6,
+            "translation_samples": 9,
+            "stuck_warnings": 0,
+            "uses": [
+              {
+                "decision": 3,
+                "tic": 67,
+                "proxy_change": true,
+                "post_window_covered": false
+              },
+              {
+                "decision": 4,
+                "tic": 78,
+                "proxy_change": true,
+                "post_window_covered": false
+              }
+            ],
+            "displacement_ratio_summary": {
+              "n": 9,
+              "minimum": 0.17278682796872952,
+              "maximum": 2.9260937778210785
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Is this brown AGM panel intended as usable door or decorative wall, and if decorative is lack of affordance intended?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        },
+        {
+          "issue_id": "iss_20261104T191136.406971Z_freedoom2_combat_map01_L2_s101_002",
+          "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+          "scenario_id": "freedoom2_combat_map01",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "INTERACTION_NO_EFFECT",
+          "severity": "low",
+          "summary": "Upper platform metal door: approach plus two Use attempts produced no opening.",
+          "rationale": "d8 advanced to small metal door and used Use, d9 centered close and used again. Agent at d10 records use x2 no open and abandons. No slide or gap observed.",
+          "evidence_steps": [
+            8,
+            9
+          ],
+          "tic_range": [
+            139,
+            151
+          ],
+          "model_confidence": 0.6,
+          "trace_verification_status": "unverifiable",
+          "verifier_rule": "check_interaction_no_effect",
+          "verifier_notes": "Required category-specific evidence is unavailable or inconclusive.",
+          "verifier_metrics": {
+            "window": [
+              69,
+              221
+            ],
+            "sampled_cell_entries": 6,
+            "sampled_unique_cells": 5,
+            "translation_samples": 8,
+            "stuck_warnings": 0,
+            "uses": [
+              {
+                "decision": 8,
+                "tic": 150,
+                "proxy_change": false,
+                "post_window_covered": false
+              },
+              {
+                "decision": 9,
+                "tic": 151,
+                "proxy_change": false,
+                "post_window_covered": false
+              }
+            ],
+            "displacement_ratio_summary": {
+              "n": 8,
+              "minimum": 0.17278682796872952,
+              "maximum": 2.9260937778210785
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Is this platform metal door with red stripes intended usable or fixed decor, and should it give feedback on Use?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        },
+        {
+          "issue_id": "iss_20261104T191136.406971Z_freedoom2_combat_map01_L2_s101_003",
+          "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+          "scenario_id": "freedoom2_combat_map01",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "INTERACTION_NO_EFFECT",
+          "severity": "low",
+          "summary": "Far AGM doorway in wide room: close-range Use produced no opening, agent turned away.",
+          "rationale": "d13 used close AGM brown door with green lights; d14 agent records use fail closed and turns 180 to scan room. Identity as doorway from texture only, unverified.",
+          "evidence_steps": [
+            13,
+            14
+          ],
+          "tic_range": [
+            207,
+            209
+          ],
+          "model_confidence": 0.6,
+          "trace_verification_status": "unverifiable",
+          "verifier_rule": "check_interaction_no_effect",
+          "verifier_notes": "Required category-specific evidence is unavailable or inconclusive.",
+          "verifier_metrics": {
+            "window": [
+              137,
+              279
+            ],
+            "sampled_cell_entries": 7,
+            "sampled_unique_cells": 5,
+            "translation_samples": 8,
+            "stuck_warnings": 0,
+            "uses": [
+              {
+                "decision": 13,
+                "tic": 208,
+                "proxy_change": false,
+                "post_window_covered": false
+              }
+            ],
+            "displacement_ratio_summary": {
+              "n": 8,
+              "minimum": 0.620022105832513,
+              "maximum": 2.9260937778210785
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Is this far AGM doorway intended to open with Use or require another mechanism, or is it non-functional texture?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        },
+        {
+          "issue_id": "iss_20261104T191136.406971Z_freedoom2_combat_map01_L2_s101_004",
+          "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+          "scenario_id": "freedoom2_combat_map01",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "INTERACTION_NO_EFFECT",
+          "severity": "low",
+          "summary": "Stairs-top white/red door: repeated close Use actions showed no slide or effect.",
+          "rationale": "d18 pushed to white door base and used Use, d19 used again close-up with minimal frame change. Agent records white door use x3 no open and abandons. Door identity unverified.",
+          "evidence_steps": [
+            18,
+            19
+          ],
+          "tic_range": [
+            274,
+            291
+          ],
+          "model_confidence": 0.65,
+          "trace_verification_status": "unverifiable",
+          "verifier_rule": "check_interaction_no_effect",
+          "verifier_notes": "Required category-specific evidence is unavailable or inconclusive.",
+          "verifier_metrics": {
+            "window": [
+              204,
+              361
+            ],
+            "sampled_cell_entries": 7,
+            "sampled_unique_cells": 7,
+            "translation_samples": 9,
+            "stuck_warnings": 0,
+            "uses": [
+              {
+                "decision": 18,
+                "tic": 290,
+                "proxy_change": false,
+                "post_window_covered": false
+              },
+              {
+                "decision": 19,
+                "tic": 291,
+                "proxy_change": false,
+                "post_window_covered": false
+              }
+            ],
+            "displacement_ratio_summary": {
+              "n": 9,
+              "minimum": 0.620022105832513,
+              "maximum": 2.3539296380782164
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Is this white door with red stripes intended as exit/switch or wall decor, and is no-effect on Use intended?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        },
+        {
+          "issue_id": "iss_20261104T191136.406971Z_freedoom2_combat_map01_L2_s101_005",
+          "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+          "scenario_id": "freedoom2_combat_map01",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "INTERACTION_NO_EFFECT",
+          "severity": "low",
+          "summary": "AGM green-lit panel beyond open gateway: two centered Use actions produced no opening.",
+          "rationale": "d27 strafed to clear pillar and used AGM door, d28 used again centered close with no opening. d29 agent records use x2 no open, likely decoy, and turns back to gateway.",
+          "evidence_steps": [
+            27,
+            28,
+            29
+          ],
+          "tic_range": [
+            393,
+            416
+          ],
+          "model_confidence": 0.6,
+          "trace_verification_status": "unverifiable",
+          "verifier_rule": "check_interaction_no_effect",
+          "verifier_notes": "Required category-specific evidence is unavailable or inconclusive.",
+          "verifier_metrics": {
+            "window": [
+              323,
+              486
+            ],
+            "sampled_cell_entries": 8,
+            "sampled_unique_cells": 6,
+            "translation_samples": 8,
+            "stuck_warnings": 0,
+            "uses": [
+              {
+                "decision": 27,
+                "tic": 414,
+                "proxy_change": false,
+                "post_window_covered": false
+              },
+              {
+                "decision": 28,
+                "tic": 415,
+                "proxy_change": false,
+                "post_window_covered": false
+              }
+            ],
+            "displacement_ratio_summary": {
+              "n": 8,
+              "minimum": 0.8712520264918628,
+              "maximum": 1.9118514433453553
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Is this green-lit AGM panel beyond the gateway intended usable, or decorative, and is non-response to Use expected?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        },
+        {
+          "issue_id": "iss_20261104T191136.406971Z_freedoom2_combat_map01_L2_s101_006",
+          "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+          "scenario_id": "freedoom2_combat_map01",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "NAVIGATION_CONFUSION",
+          "severity": "low",
+          "summary": "Similar corridor views triggered visual-cycle warning after repeated backtracking.",
+          "rationale": "After abandoning white door at d20 with 180 turn, system flagged view resembles d11 and d1 despite intervening actions. Agent noted cycle warning and that similar places can differ, indicating orientation difficulty.",
+          "evidence_steps": [
+            20,
+            21
+          ],
+          "tic_range": [
+            291,
+            313
+          ],
+          "model_confidence": 0.5,
+          "trace_verification_status": "unverifiable",
+          "verifier_rule": "check_navigation_confusion",
+          "verifier_notes": "Required category-specific evidence is unavailable or inconclusive.",
+          "verifier_metrics": {
+            "window": [
+              221,
+              383
+            ],
+            "sampled_cell_entries": 7,
+            "sampled_unique_cells": 7,
+            "translation_samples": 9,
+            "stuck_warnings": 0,
+            "max_cell_visits": 1,
+            "yaw_sum_deg": 278.99780263169623,
+            "measured_bfs_reduction": null,
+            "displacement_ratio_summary": {
+              "n": 9,
+              "minimum": 0.620022105832513,
+              "maximum": 2.3539296380782164
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Are low corridor views intentionally similar, and are landmarks distinct enough for player orientation?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        },
+        {
+          "issue_id": "iss_20261104T191136.406971Z_freedoom2_combat_map01_L2_s101_007",
+          "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+          "scenario_id": "freedoom2_combat_map01",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "BLOCKED_PATH",
+          "severity": "low",
+          "summary": "L-shaped counter blocked direct movement, requiring back-off and sidestep.",
+          "rationale": "d44 turned to follow counter, d45 strafed along it, d46 agent notes blocked by counter, picked up bullets but needed back-off plus strafe to continue. Counter behaved as solid obstacle.",
+          "evidence_steps": [
+            44,
+            45,
+            46
+          ],
+          "tic_range": [
+            621,
+            692
+          ],
+          "model_confidence": 0.7,
+          "trace_verification_status": "behavior_contradicted",
+          "verifier_rule": "check_blocked_path",
+          "verifier_notes": "All measured translation primitives in the window achieved at least 60% of expected displacement without a collision proxy.",
+          "verifier_metrics": {
+            "window": [
+              551,
+              756
+            ],
+            "sampled_cell_entries": 9,
+            "sampled_unique_cells": 6,
+            "translation_samples": 9,
+            "stuck_warnings": 0,
+            "low_displacement_or_frame_change": 0,
+            "displacement_ratio_summary": {
+              "n": 9,
+              "minimum": 0.6879408961107779,
+              "maximum": 1.5739467488457237
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Is the L-shaped counter intended solid with only route around its end, and is that route readable to players?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        }
+      ]
+    },
+    {
+      "case": "freedoom_native640_diagnostic",
+      "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+      "primary_review": true,
+      "reviewer_sha256": "12c7561418958a849576d2a11c5256c6bcd6de2cc122ea02bf611174398131a4",
+      "raw_model_findings": 3,
+      "counts": {
+        "behavior_confirmed": 0,
+        "behavior_contradicted": 0,
+        "unverifiable": 3
+      },
+      "verifier_source_sha256": {
+        "verify.py": "3ff5b741425929d262716afb2aeea26dbcc3fb10cc5078fd00a70a7c81ca56bb",
+        "trace.py": "77a026aadf106172e80688040ffe5bc829785083fea4854762405dbac06e013e",
+        "topology.py": "3a07cd6e74a9325a83c8cd085a320de21d473d877d59778e846e05906c590a44",
+        "schemas.py": "423aae7bc285cebf665091f664feddd2a81c64635d2f9b9f66c2940fac16803e"
+      },
+      "findings": [
+        {
+          "issue_id": "iss_20261104T191136.406971Z_freedoom2_combat_map01_L2_s101_001",
+          "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+          "scenario_id": "freedoom2_combat_map01",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "VISUAL_AMBIGUITY",
+          "severity": "medium",
+          "summary": "Door-like AGM/metal/white panels repeatedly mistaken for usable doors; close-range use showed no opening.",
+          "rationale": "Agent repeatedly approached brown AGM, metal with red stripes, and white with red stripes panels as doors and used at point-blank with no observed opening, then noted identity unverified and possible decor. Pattern suggests door-like framing is confusable; cannot confirm from video alone if locked, switch-gated, or non-interactive.",
+          "evidence_steps": [
+            3,
+            4,
+            8,
+            9,
+            13,
+            18,
+            19,
+            27,
+            28
+          ],
+          "tic_range": [
+            66,
+            415
+          ],
+          "model_confidence": 0.65,
+          "trace_verification_status": "unverifiable",
+          "verifier_rule": "check_visual_ambiguity",
+          "verifier_notes": "Required category-specific evidence is unavailable or inconclusive.",
+          "verifier_metrics": {
+            "window": [
+              1,
+              485
+            ],
+            "sampled_cell_entries": 21,
+            "sampled_unique_cells": 12,
+            "translation_samples": 23,
+            "stuck_warnings": 0,
+            "low_confidence_goal_lookup_steps": [],
+            "displacement_ratio_summary": {
+              "n": 23,
+              "minimum": 0.17278682796872952,
+              "maximum": 2.9260937778210785
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Are the brown AGM panels, platform metal door with red stripes, and white door with red stripes intended as operable doors, locked doors, or non-interactive decor, and is their affordance visually distinct?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        },
+        {
+          "issue_id": "iss_20261104T191136.406971Z_freedoom2_combat_map01_L2_s101_002",
+          "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+          "scenario_id": "freedoom2_combat_map01",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "MECHANIC_UNCLEAR",
+          "severity": "low",
+          "summary": "Orange panel use had ambiguous feedback; link to gateway opening unclear.",
+          "rationale": "Agent used orange lit panel point-blank (d24 frame_change 4.5%) and could not confirm effect; it noted AGM lights/gateway open but causality unverified and prior gateway already visible. No clear click, light change, or message captured in log.",
+          "evidence_steps": [
+            23,
+            24,
+            25,
+            26
+          ],
+          "tic_range": [
+            334,
+            393
+          ],
+          "model_confidence": 0.5,
+          "trace_verification_status": "unverifiable",
+          "verifier_rule": "check_mechanic_unclear",
+          "verifier_notes": "Required category-specific evidence is unavailable or inconclusive.",
+          "verifier_metrics": {
+            "window": [
+              264,
+              463
+            ],
+            "sampled_cell_entries": 9,
+            "sampled_unique_cells": 8,
+            "translation_samples": 11,
+            "stuck_warnings": 0,
+            "attributed_hazard_events": 0,
+            "identified_closed_door_contacts": 0,
+            "displacement_ratio_summary": {
+              "n": 11,
+              "minimum": 0.6418732651742929,
+              "maximum": 1.9118514433453553
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Does the orange wall panel trigger any gate, door, or light change, and what immediate audio/visual feedback should a player observe after use?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        },
+        {
+          "issue_id": "iss_20261104T191136.406971Z_freedoom2_combat_map01_L2_s101_003",
+          "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+          "scenario_id": "freedoom2_combat_map01",
+          "level": 2,
+          "seed": 101,
+          "source": "reviewer_post",
+          "category": "NAVIGATION_CONFUSION",
+          "severity": "low",
+          "summary": "Agent revisited similar corridor/gateway views, showing disorientation in wide-room loop.",
+          "rationale": "System visual-cycle warning at d21 flagged resemblance to d11/d1. Agent notes loop back to gateway view and performed multiple 90/180 turns scanning wide room and side walls. Indicates disorientation, not proof of blocked path or same location.",
+          "evidence_steps": [
+            20,
+            21,
+            30,
+            33,
+            34
+          ],
+          "tic_range": [
+            291,
+            465
+          ],
+          "model_confidence": 0.6,
+          "trace_verification_status": "unverifiable",
+          "verifier_rule": "check_navigation_confusion",
+          "verifier_notes": "Required category-specific evidence is unavailable or inconclusive.",
+          "verifier_metrics": {
+            "window": [
+              221,
+              535
+            ],
+            "sampled_cell_entries": 12,
+            "sampled_unique_cells": 10,
+            "translation_samples": 13,
+            "stuck_warnings": 0,
+            "max_cell_visits": 2,
+            "yaw_sum_deg": 928.9929197190779,
+            "measured_bfs_reduction": null,
+            "displacement_ratio_summary": {
+              "n": 13,
+              "minimum": 0.620022105832513,
+              "maximum": 2.3539296380782164
+            }
+          },
+          "causal_hypothesis": null,
+          "sensitivity_class": null,
+          "recommended_developer_check": "Is the gateway/wide-room/stairs loop intended to be visually distinct on each approach, and are landmarks sufficient for orientation?",
+          "design_defect_confirmed": false,
+          "evidence_limitations": [
+            "Behavior confirmation is not a game-defect verdict; human design intent and playtesting are not established."
+          ]
+        }
+      ]
+    }
+  ],
+  "failed_gameplay_requests": [
+    {
+      "run_id": "20261104T212644.766410Z_my_way_home_L2_s101",
+      "event": "api_error",
+      "attempt": 1,
+      "http_status": 502,
+      "error_type": "InternalServerError",
+      "retry": true
+    },
+    {
+      "run_id": "20261104T213604.544726Z_my_way_home_L2_s101",
+      "event": "grounding_error",
+      "decision_idx": 21,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "run_id": "20261104T213604.544726Z_my_way_home_L2_s101",
+      "event": "api_error",
+      "attempt": 1,
+      "http_status": null,
+      "error_type": "APITimeoutError",
+      "retry": true
+    },
+    {
+      "run_id": "20261104T213604.544726Z_my_way_home_L2_s101",
+      "event": "api_error",
+      "attempt": 2,
+      "http_status": null,
+      "error_type": "APIConnectionError",
+      "retry": true
+    },
+    {
+      "run_id": "20261104T213604.544726Z_my_way_home_L2_s101",
+      "event": "api_error",
+      "attempt": 3,
+      "http_status": null,
+      "error_type": "APIConnectionError",
+      "retry": true
+    },
+    {
+      "run_id": "20261104T213604.544726Z_my_way_home_L2_s101",
+      "event": "api_error",
+      "attempt": 4,
+      "http_status": null,
+      "error_type": "APIConnectionError",
+      "retry": true
+    },
+    {
+      "run_id": "20261104T213604.544726Z_my_way_home_L2_s101",
+      "event": "api_error",
+      "attempt": 5,
+      "http_status": null,
+      "error_type": "APIConnectionError",
+      "retry": true
+    },
+    {
+      "run_id": "20261104T214527.173965Z_my_way_home_L2_s102",
+      "event": "grounding_error",
+      "decision_idx": 40,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "run_id": "20261104T214527.173965Z_my_way_home_L2_s102",
+      "event": "grounding_error",
+      "decision_idx": 47,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "run_id": "20261104T215744.152533Z_my_way_home_L2_s102",
+      "event": "grounding_error",
+      "decision_idx": 0,
+      "error_type": "APITimeoutError"
+    },
+    {
+      "run_id": "20261104T215744.152533Z_my_way_home_L2_s102",
+      "event": "api_error",
+      "attempt": 1,
+      "http_status": null,
+      "error_type": "APITimeoutError",
+      "retry": true
+    }
+  ],
+  "costs": {
+    "approved_recorded_usage_threshold_usd": 4.0,
+    "new_gameplay_returned_usage_usd": 2.7514575999999993,
+    "reviewer_returned_usage_usd": 0.1949045,
+    "total_known_returned_usage_usd": 2.946362099999999,
+    "actual_failed_request_charges_usd": null,
+    "campaign_error_planning_reserve_usd": 0.35,
+    "reviewer_error_planning_reserve_usd": 0.15,
+    "known_plus_planning_reserves_usd": 3.446362099999999,
+    "reserves_are_not_measurements": true
+  },
+  "protected_source_sha256": {
+    "README.md": "2a3823efffed7a2338572bedd6adfbeb5ef99b5b8bba404323f34c437de82279",
+    "docs/01-foundations.md": "9765d6a0f92a73661bdce08dcdf6b2a693ea41dc05526ca6f0063f2c5d0ff42c",
+    "docs/02-agent.md": "873ed2821d01f63c3c683913175471c452bfce2f30d606355860c3986c4d4d68",
+    "docs/03-experiments.md": "adf3fe14838e5a8ec7b0c21af08c80121f4a240c1d9269f3d5088fdc3dadd663",
+    "docs/04-implementation.md": "86b53ed984bf6fe6699e8338dafc1d8a6870b19f26e9741a5274377f2a81d6d9",
+    "docs/m3-results.md": "8bb029c5578fd93aeffb53b091c3245c7f086afa276aabff90d4d9832acf1146",
+    "docs/m35-results.md": "c3802622430f79efb5ae997aef946ca43c5b6757410e67de3853f01458c21f4d"
+  },
+  "tests": {
+    "offline_passed": 185,
+    "live_api_tests_deselected": 4,
+    "seconds": 14.37,
+    "lint": "passed",
+    "format": "passed"
+  },
+  "limitations": [
+    "Invalid seed-101 pair excluded, not rerun.",
+    "Only three planned L2 seeds; full five-seed multi-scenario study not run.",
+    "Progress/BFS unresolved; no Euclidean substitution.",
+    "Room-entry latency is a sampled first-sector-change proxy.",
+    "Feedback delivery and keyword mentions do not establish effective use.",
+    "Measured v1 brief lacks explicit warning-associated move/intent context; unrun v2 adds it.",
+    "Ordinary Freedoom validation uses the combat profile, not the navigation benchmark.",
+    "Distinct camera/Reviewer variants are separate diagnostic observations, not independent gameplay replicates.",
+    "Trace confirmation is not a design-defect verdict; all human measurements remain null.",
+    "Failed-request charges are unknown; preflight/reserves are planning estimates, not actual billing."
+  ],
+  "figures": [
+    {
+      "path": "docs/m4-figures/carryover-seed102-trajectory.png",
+      "sha256": "83edd49d9af9961bbf7ee52fb2088d1d62203a47750bca42734f4c660854c52e",
+      "source_path": "results/m4-validation-report/carryover_heatmaps/my_way_home_L2_s102/paired_trajectory.png",
+      "source_sha256": "83edd49d9af9961bbf7ee52fb2088d1d62203a47750bca42734f4c660854c52e",
+      "meaning": "Seed 102, Attempt 1 vs Attempt 2; evaluation-only trajectory"
+    },
+    {
+      "path": "docs/m4-figures/carryover-seed103-coverage.png",
+      "sha256": "2f748b1c269aa4096c4cfe39f497ecb370d66c98e53874fd00df2b5b797e007a",
+      "source_path": "results/m4-validation-report/carryover_heatmaps/my_way_home_L2_s103/paired_coverage.png",
+      "source_sha256": "2f748b1c269aa4096c4cfe39f497ecb370d66c98e53874fd00df2b5b797e007a",
+      "meaning": "Seed 103, Attempt 1 vs Attempt 2; evaluation-only coverage"
+    },
+    {
+      "path": "docs/m4-figures/fault-probe-keyframe.jpg",
+      "sha256": "f39cc9a8e25dbca224c5037528b197fb227e480760cb633406124f373ebf454c",
+      "source_path": "results/m4-validation-report/evidence/sam_20261104T213106.519030Z_probe_broken_door_L2_s101_0.png",
+      "source_sha256": "407c8a20541d0ee6890063f702a7ce4ee9dc11050a4d5b26602d9b311f71b851",
+      "run_id": "20261104T213106.519030Z_probe_broken_door_L2_s101",
+      "step": 0,
+      "meaning": "Observed probe frame with a source-matched SAM candidate raster and evaluation-only inset; identity unverified. JPEG display derivative, not a pixel-analysis input."
+    }
+  ],
+  "report_validation": {
+    "report_sha256": "66d93fe75ae4f8aef4537eb908731f7346f51d15c199b7a82829b264a49a39f9",
+    "summary_sha256": "7b5ce033d054db16544e373d01e9b9e67de98501e7d2f73b7c5452c58606999b",
+    "html_tables": 17,
+    "embedded_videos": 8,
+    "embedded_images": 52,
+    "source_matched_sam_gallery": 18,
+    "browser_driven_ui_test": "not run",
+    "native_m4_replays_verified": 7,
+    "paired_plot_labels": "Explicit episode outcome and pair status; seed identity; evaluation-only footer",
+    "report_source_sha256": "bfa20b3d274d37612b6f3d8f629f3d48f5f32f0e50e330bb5114e2386ebca4dc"
+  }
+}

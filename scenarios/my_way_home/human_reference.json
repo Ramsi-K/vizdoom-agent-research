@@ -1,0 +1,16 @@
+{
+  "scenario_id": "my_way_home",
+  "human_runs_dir": null,
+  "human_runs_recorded": 0,
+  "human_completion_rate": null,
+  "median_human_tics": null,
+  "documented_design_mechanics": [
+    {
+      "id": "intentional_maze_branch",
+      "category": "NAVIGATION_CONFUSION",
+      "description": "The published scenario describes connected rooms with different colors and a dead-end corridor. Revisiting a branch can reflect the intended navigation task; an agent's confusion does not establish a design defect.",
+      "is_intentional_convention": true,
+      "source_url": "https://github.com/Farama-Foundation/ViZDoom/blob/main/docs/environments/default.md#my-way-home"
+    }
+  ]
+}

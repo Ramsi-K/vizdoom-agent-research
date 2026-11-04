@@ -97,6 +97,10 @@ def summarize(directories, *, expected=None):
     slots = {}
     for directory in directories:
         manifest = read_json(directory / "manifest.json")
+        if manifest.get("evaluation_group") == "carryover" or manifest.get("carryover"):
+            raise ValueError(
+                "Carry-over runs require separate paired RQ3 analysis, not ordinary L1/L2/L3 aggregation"
+            )
         metrics = episode_metrics(directory)
         key = (metrics["scenario_id"], metrics["seed"], metrics["level"])
         if key in slots:

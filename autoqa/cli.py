@@ -38,6 +38,41 @@ def main(argv=None):
     run.add_argument(
         "--grounding-mode", choices=["sam_text", "muse_box_sam"], default="muse_box_sam"
     )
+    run.add_argument(
+        "--carry-over", type=Path, help="Prior attempt; opt-in self-observed feedback only"
+    )
+    for command in ("verify", "report", "review"):
+        qa = commands.add_parser(
+            command, help="M4 derived QA evidence (review is paid only with --execute)"
+        )
+        qa.add_argument("run_dirs", type=Path, nargs="+" if command == "report" else 1)
+        qa.add_argument("--out", type=Path, required=True)
+        if command in {"verify", "report"}:
+            qa.add_argument(
+                "--reviewer",
+                type=Path,
+                action="append",
+                default=[],
+                help="Reviewer JSON; one per run in input order",
+            )
+        if command == "report":
+            qa.add_argument("--no-clips", action="store_true")
+        if command == "review":
+            qa.add_argument(
+                "--execute",
+                action="store_true",
+                help="Explicitly authorize one bounded paid review",
+            )
+            qa.add_argument("--skip-reviewer-video", action="store_true")
+            qa.add_argument("--max-usd", type=float, default=0.2)
+            qa.add_argument("--request-timeout", type=float, default=90)
+            qa.add_argument("--max-output-tokens", type=int, default=4000)
+    carry = commands.add_parser(
+        "carryover", help="Prepare the RQ3 paired study; execution needs --execute"
+    )
+    carry.add_argument("--config", type=Path, default=Path("configs/sweep_carryover.yaml"))
+    carry.add_argument("--out", type=Path, required=True)
+    carry.add_argument("--execute", action="store_true")
     view = commands.add_parser("replay")
     view.add_argument("run_dir", type=Path)
     view.add_argument("--size", choices=["640x480", "1280x720"], default="1280x720")
@@ -67,6 +102,97 @@ def main(argv=None):
     metrics.add_argument("run_dir", type=Path)
     metrics.add_argument("--out", type=Path, required=True, help="New derived JSON file")
     args = parser.parse_args(argv)
+    if args.command == "carryover":
+        from .carryover import main as carryover_main
+
+        return carryover_main(
+            ["--config", str(args.config), "--out", str(args.out)]
+            + (["--execute"] if args.execute else [])
+        )
+    if args.command in {"verify", "report", "review"}:
+        import json
+
+        from .eval.metrics import read_json
+
+        directories = args.run_dirs
+        experiment_context = None
+        expected = None
+        if (
+            args.command == "report"
+            and len(directories) == 1
+            and not (directories[0] / "manifest.json").exists()
+        ):
+            sweep_directory = directories[0]
+            summary = read_json(sweep_directory / "summary.json")
+            experiment_context = {
+                k: summary[k]
+                for k in ("sweep_status", "execution_accounting", "analysis_scope", "limitations")
+                if k in summary
+            }
+            if (sweep_directory / "sweep_manifest.json").exists():
+                plan = read_json(sweep_directory / "sweep_manifest.json")
+                expected = [
+                    {k: slot[k] for k in ("scenario", "level", "seed")} for slot in plan["slots"]
+                ]
+                experiment_context.update(
+                    {
+                        k: plan[k]
+                        for k in (
+                            "status",
+                            "planned_episodes",
+                            "remaining_slots",
+                            "stop_context",
+                            "pairing_status",
+                        )
+                        if k in plan
+                    }
+                )
+            directories = [Path(row["directory"]) for row in summary.get("episodes", [])]
+            if not directories:
+                parser.error("Sweep summary contains no recorded episode directories")
+        if args.command == "review":
+            from .qa.reviewer import review
+
+            result = review(
+                directories[0],
+                args.out,
+                execute=args.execute,
+                skip_reviewer_video=args.skip_reviewer_video,
+                max_usd=args.max_usd,
+                request_timeout=args.request_timeout,
+                max_output_tokens=args.max_output_tokens,
+            )
+            print(json.dumps(result))
+            return 0 if result["status"] in {"prepared", "completed"} else 1
+        reviewers = args.reviewer
+        if reviewers and len(reviewers) != len(directories):
+            parser.error("Supply one --reviewer JSON per input run, or omit all")
+        if args.command == "verify":
+            from .qa.verify import write_verification
+
+            if args.out.exists():
+                parser.error("Derived verification output already exists")
+            args.out.parent.mkdir(parents=True, exist_ok=True)
+            result = write_verification(
+                directories[0], args.out, reviewer=reviewers[0] if reviewers else None
+            )
+            print(json.dumps(result["counts"]))
+        else:
+            from .qa.report import generate_report
+
+            mapping = {
+                read_json(p / "manifest.json")["run_id"]: r for p, r in zip(directories, reviewers)
+            }
+            result = generate_report(
+                directories,
+                args.out,
+                reviewers=mapping,
+                clips=not args.no_clips,
+                expected=expected,
+                experiment_context=experiment_context,
+            )
+            print(json.dumps(dict(runs=result["runs"], report=str(args.out / "report.html"))))
+        return 0
     if args.command in {"sweep", "analyze", "metrics"}:
         import json
 
@@ -116,8 +242,10 @@ def main(argv=None):
         from .config import RunConfig
         from .run import run_episode
 
-        config = RunConfig.model_validate({k: v for k, v in vars(args).items() if k != "command"})
-        _, manifest = run_episode(config)
+        config = RunConfig.model_validate(
+            {k: v for k, v in vars(args).items() if k not in {"command", "carry_over"}}
+        )
+        _, manifest = run_episode(config, carry_over=args.carry_over)
         return (
             1
             if manifest["outcome"].startswith("invalid_") or manifest["outcome"] == "interrupted"

@@ -150,6 +150,14 @@ class Locate(StrictModel):
 
 
 SCENARIOS = {
+    "probe_broken_door": dict(
+        cfg="freedoom2",
+        timeout=1750,
+        map="MAP01",
+        nomonsters=True,
+        is_fault_probe=True,
+        fault_injection="unresponsive_use_trigger",
+    ),
     "my_way_home": dict(cfg="my_way_home", timeout=2100, map="MAP01", nomonsters=False),
     "health_gathering_supreme": dict(
         cfg="health_gathering_supreme", timeout=2100, map="MAP01", nomonsters=False
@@ -195,6 +203,7 @@ def combat_enabled(scenario):
 
 class RunConfig(StrictModel):
     scenario: Literal[
+        "probe_broken_door",
         "my_way_home",
         "health_gathering_supreme",
         "deadly_corridor_nav",
