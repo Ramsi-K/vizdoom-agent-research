@@ -28,7 +28,7 @@ class ActionFeedback:
 
 
 class PlayerSession(Protocol):
-    level: Literal[1]
+    level: Literal[1, 2, 3]
 
     def observe(self) -> AgentObservation: ...
     def execute(self, action: Act) -> ActionFeedback: ...

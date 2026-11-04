@@ -8,7 +8,7 @@ import imageio.v2 as imageio
 import vizdoom as vzd
 from PIL import Image, ImageDraw
 
-from autoqa.config import RunConfig
+from autoqa.config import SCENARIOS, RunConfig
 from autoqa.io import digest, write_json
 
 from .env import configured_game
@@ -21,10 +21,14 @@ def replay(directory: Path, *, size=(1280, 720), from_tic=None, to_tic=None, cap
         json.loads(line) for line in (directory / "telemetry.jsonl").read_text().splitlines()
     ]
     terminal = telemetry[-1]
+    profile = SCENARIOS[config.scenario]
+    wad = Path(vzd.scenarios_path) / f"{profile['cfg']}.wad"
+    if not wad.exists():
+        wad = Path(vzd.__file__).parent / "freedoom2.wad"
     for path, expected in [
         (Path(vzd.__file__).parent / "freedoom2.wad", manifest["iwad_sha256"]),
-        (Path(vzd.scenarios_path) / f"{config.scenario}.cfg", manifest["scenario_cfg_sha256"]),
-        (Path(vzd.scenarios_path) / f"{config.scenario}.wad", manifest["scenario_wad_sha256"]),
+        (Path(vzd.scenarios_path) / f"{profile['cfg']}.cfg", manifest["scenario_cfg_sha256"]),
+        (wad, manifest["scenario_wad_sha256"]),
         (directory / "episode.lmp", manifest["episode_lmp_sha256"]),
     ]:
         if digest(path) != expected:

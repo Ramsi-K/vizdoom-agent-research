@@ -164,3 +164,43 @@ def test_multiple_act_calls_are_rejected_without_partial_execution(observation):
     client = FakeClient([double, turn("finish", dict(status="gave_up", rationale="stop"), "f")])
     assert Pilot(RunConfig(), session, client, lambda *a, **k: None).run_episode() == "gave_up"
     assert session.actions == []
+
+
+def test_locate_returns_evidence_without_advancing_game(observation):
+    session = FakeSession(observation)
+    client = FakeClient([turn("locate", dict(concept="green armor"), "l"), turn(call_id="a")])
+
+    class FakeGrounder:
+        def locate(self, frame, concept):
+            assert session.actions == []
+            assert frame == observation.frame_jpeg
+            return dict(found=False, matches=[], method="sam_text"), []
+
+    pilot = Pilot(
+        RunConfig(max_decisions=1), session, client, lambda *a, **k: None, grounder=FakeGrounder()
+    )
+    assert pilot.run_episode() == "max_decisions"
+    assert len(session.actions) == 1
+    assert '"found": false' in str(client.requests[1])
+
+
+def test_grounding_budget_stops_parallel_act_without_rewriting_it(observation):
+    session = FakeSession(observation)
+    act = turn(call_id="a")
+    response = ModelTurn(
+        act.output + [turn("locate", dict(concept="vest"), "l").output[-1]],
+        act.usage,
+        0,
+        0,
+        "completed",
+    )
+    client = FakeClient([response])
+    pilot = Pilot(RunConfig(max_usd=0.001), session, client, lambda *a, **k: None)
+
+    class ExpensiveGrounder:
+        def locate(self, frame, concept):
+            pilot.charge_grounding("sam-3.1", 0.0025, {}, 0)
+
+    pilot.grounder = ExpensiveGrounder()
+    assert pilot.run_episode() == "budget_exhausted"
+    assert session.actions == []

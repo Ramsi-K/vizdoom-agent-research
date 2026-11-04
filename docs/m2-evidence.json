@@ -1,0 +1,5880 @@
+{
+  "date": "2026-11-04",
+  "base_commit": "12d84328e512f2bad581cd586efb5b0db50ac0eb",
+  "runtime_commit": "16afed7121c19e2d5291dfc479650149a22d3547",
+  "tests": {
+    "passed": 70,
+    "live_api_deselected": 4,
+    "lint": "passed"
+  },
+  "paired_spawn_identical": true,
+  "grounding_summary": {
+    "sam_text": {
+      "positive_cases": 21,
+      "hits": 0,
+      "negative_cases": 7,
+      "false_positives": 0,
+      "incomplete": 0,
+      "cost_usd": 0.07,
+      "matched_bearing_mae_deg": null
+    },
+    "muse_box_sam": {
+      "positive_cases": 21,
+      "hits": 10,
+      "negative_cases": 7,
+      "false_positives": 2,
+      "incomplete": 0,
+      "cost_usd": 0.16803335,
+      "matched_bearing_mae_deg": 0.19814813822989186
+    }
+  },
+  "grounding_by_scenario": [
+    {
+      "mode": "sam_text",
+      "scenario": "my_way_home",
+      "positive": 7,
+      "hits": 0,
+      "negative": 3,
+      "false_positives": 0,
+      "muse_boxes_iou_ge_05": null,
+      "mean_muse_box_iou": null,
+      "cost_usd": 0.025
+    },
+    {
+      "mode": "sam_text",
+      "scenario": "health_gathering_supreme",
+      "positive": 7,
+      "hits": 0,
+      "negative": 2,
+      "false_positives": 0,
+      "muse_boxes_iou_ge_05": null,
+      "mean_muse_box_iou": null,
+      "cost_usd": 0.0225
+    },
+    {
+      "mode": "sam_text",
+      "scenario": "freedoom2_map01",
+      "positive": 7,
+      "hits": 0,
+      "negative": 2,
+      "false_positives": 0,
+      "muse_boxes_iou_ge_05": null,
+      "mean_muse_box_iou": null,
+      "cost_usd": 0.0225
+    },
+    {
+      "mode": "muse_box_sam",
+      "scenario": "my_way_home",
+      "positive": 7,
+      "hits": 5,
+      "negative": 3,
+      "false_positives": 1,
+      "muse_boxes_iou_ge_05": 6,
+      "mean_muse_box_iou": 0.6817253256577697,
+      "cost_usd": 0.0478966
+    },
+    {
+      "mode": "muse_box_sam",
+      "scenario": "health_gathering_supreme",
+      "positive": 7,
+      "hits": 5,
+      "negative": 2,
+      "false_positives": 1,
+      "muse_boxes_iou_ge_05": 5,
+      "mean_muse_box_iou": 0.7022769487799517,
+      "cost_usd": 0.09001375
+    },
+    {
+      "mode": "muse_box_sam",
+      "scenario": "freedoom2_map01",
+      "positive": 7,
+      "hits": 0,
+      "negative": 2,
+      "false_positives": 0,
+      "muse_boxes_iou_ge_05": 0,
+      "mean_muse_box_iou": 0.0,
+      "cost_usd": 0.030123
+    }
+  ],
+  "grounding_cases": [
+    {
+      "mode": "sam_text",
+      "index": 0,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_00.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 2113.3108919966617,
+        "frame_sha256": "361040b2cabf678b37e5013b90a9f005bfd4238a4d8e43db2ab44ad423e9cc25",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 2019.060508995608
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 1,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_00.jpg",
+      "concept": "medkit",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1989.6607670016238,
+        "frame_sha256": "361040b2cabf678b37e5013b90a9f005bfd4238a4d8e43db2ab44ad423e9cc25",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1893.9857250006753
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 2,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_01.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 2598.4157450002385,
+        "frame_sha256": "39ce8b860d0a08a0d16e5412b78ae8d924939110cf01dd1b0f4dc076e01d1a5d",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 2501.8041110015474
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 3,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_02.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1720.5415019998327,
+        "frame_sha256": "eef284761219cc5e0192e28a0c2352cb54a3d1e65dbd4812e4597defccf86ab1",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1639.7344099968905
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 4,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_03.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1898.57712599769,
+        "frame_sha256": "631d4163d8eb9ce43eba51ca397f8d5cbbe9a5dbc9863f98ec491a97a707aee1",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1816.4657189990976
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 5,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_03.jpg",
+      "concept": "medkit",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1928.5863160039298,
+        "frame_sha256": "631d4163d8eb9ce43eba51ca397f8d5cbbe9a5dbc9863f98ec491a97a707aee1",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1832.9510499970638
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 6,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_04.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1611.4307349998853,
+        "frame_sha256": "29b5c5e2fc1f343dc006a5af1b44924c962f21a9bc55747ea1119ac5a83a09a4",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1522.8529529995285
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 7,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_05.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1951.9034280019696,
+        "frame_sha256": "84777685d8313dbe55b2e2b083728cc1dde84ef50e092ef56ef486f5285014a9",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1863.1045809961506
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 8,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_06.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1764.7607139952015,
+        "frame_sha256": "f5fa8a6a48d79fcd2a8eb59d5d5f941375404c98cc4cf825ca1f62f0c2bfe31f",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1676.5849909934332
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 9,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_06.jpg",
+      "concept": "medkit",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1269.516136002494,
+        "frame_sha256": "f5fa8a6a48d79fcd2a8eb59d5d5f941375404c98cc4cf825ca1f62f0c2bfe31f",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1177.390277000086
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 10,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_00.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1639.880834001815,
+        "frame_sha256": "9ccb002e5a1291d7f7c5c9cbf2fc352ac790bffc346144407cde9ff9cab1aa5b",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1562.3624840009143
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 11,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_01.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1677.5303239992354,
+        "frame_sha256": "00858cfd709ada173549c2c11b79a4e8a19c25684da9ce2c2e488b0bb71338b5",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1606.1348360017291
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 12,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_02.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 2008.11014300416,
+        "frame_sha256": "24bd725595a0272577237299e3cdfbed122da57120ca7b70ed27e0ed029d1a02",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1921.434345000307
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 13,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_02.jpg",
+      "concept": "green armor",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1704.9534399993718,
+        "frame_sha256": "24bd725595a0272577237299e3cdfbed122da57120ca7b70ed27e0ed029d1a02",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1630.5011479998939
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 14,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_03.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1358.4004239964997,
+        "frame_sha256": "362a430aeb0b990c33bd19042a61d0c7583e5efcbe4facdac6f71067fd13fc6c",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1281.844828998146
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 15,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_04.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1649.1279330002726,
+        "frame_sha256": "0a299d9f07595daff287bea646ec5048e302afad7583146f0f2c6aa422625b6c",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1566.294055999606
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 16,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_05.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1763.5629379947204,
+        "frame_sha256": "6bc510f3a0127d957a7e8d0f26aaf91258cfdbc00b541ac863f988d9d9bfed79",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1681.2640550051583
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 17,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_05.jpg",
+      "concept": "green armor",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 2128.0187199954526,
+        "frame_sha256": "6bc510f3a0127d957a7e8d0f26aaf91258cfdbc00b541ac863f988d9d9bfed79",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 2050.8245380042354
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 18,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_06.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1995.5942660017172,
+        "frame_sha256": "a5bb9e458e7f9c3e0402be7678c8e8da98787a3292d7baa1e9ad72f559263a9e",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1922.8364270020393
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 19,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_00.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1532.8042409964837,
+        "frame_sha256": "1eb00f6c882e1f4f353d2a9a032465bdf3ad4bd9a8518e82754ddfb775f0da1e",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1451.7854880032246
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 20,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_01.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 2000.0102909980342,
+        "frame_sha256": "c0921816dce3904b086d2ca1b8ebd0cdf48e562345c1a99a2685bb8b68c7ac0b",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1919.220142000995
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 21,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_01.jpg",
+      "concept": "green armor",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1690.5936340044718,
+        "frame_sha256": "c0921816dce3904b086d2ca1b8ebd0cdf48e562345c1a99a2685bb8b68c7ac0b",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1608.953337999992
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 22,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_02.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1561.7457650005235,
+        "frame_sha256": "777068bb14baa53242e8cb5b452888b029694737ebcc70458603fcc10239126e",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1479.5584000021336
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 23,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_03.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 2036.044510998181,
+        "frame_sha256": "db72157874472c970b24f364bc610e3c0c7a7be6d90d828b4239729d13732c91",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1981.0376460009138
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 24,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_04.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1542.3873100007768,
+        "frame_sha256": "3dd98bc2aabbed9ac90fae98b93128323eae41b107f36312e30323fcca1ce53b",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1466.954885996529
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 25,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_04.jpg",
+      "concept": "green armor",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 2070.408193998446,
+        "frame_sha256": "3dd98bc2aabbed9ac90fae98b93128323eae41b107f36312e30323fcca1ce53b",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1994.279179998557
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 26,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_05.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1695.1476219983306,
+        "frame_sha256": "348a0117c6e3659e73c8b7c27da66b3b8aa781c0c8111ed5c8ba363e14287a66",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1626.2106979993405
+        }
+      ]
+    },
+    {
+      "mode": "sam_text",
+      "index": 27,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_06.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 2145.196063000185,
+        "frame_sha256": "4bc10fddc71d4230c48a2f4ff1d9eed63e786c4ad2e974d9550e838233c14712",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 2055.914127995493
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 0,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_00.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              289,
+              234,
+              353,
+              287
+            ],
+            "segmentation_confidence": 0.890625,
+            "encoding": "one_bit",
+            "confidence": 0.85,
+            "localizer_confidence": 0.85,
+            "bearing_deg": 0.17904872813898812,
+            "vertical_band": "level",
+            "area_fraction": 0.006383463541666667,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              289,
+              238,
+              353,
+              287
+            ],
+            "localizer_confidence": 0.85
+          }
+        ],
+        "cost_usd": 0.00466385,
+        "latency_ms": 7060.193700999662,
+        "frame_sha256": "361040b2cabf678b37e5013b90a9f005bfd4238a4d8e43db2ab44ad423e9cc25",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 199,
+            "terminal_text_characters": 199,
+            "parser_text_characters": 199,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.9100961538461538,
+      "muse_box_iou": 0.8177314211212516,
+      "hit": true,
+      "false_positive": false,
+      "bearing_errors_deg": [
+        0.17623228559524143
+      ],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.0021638499999999997,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 384,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 470,
+            "output_tokens_details": {
+              "reasoning_tokens": 430
+            },
+            "total_tokens": 941
+          },
+          "latency_ms": 5402.794842004369
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1557.700195000507
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 1,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_00.jpg",
+      "concept": "medkit",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.0018255,
+        "latency_ms": 3920.495470003516,
+        "frame_sha256": "361040b2cabf678b37e5013b90a9f005bfd4238a4d8e43db2ab44ad423e9cc25",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.0018255,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 291,
+            "output_tokens_details": {
+              "reasoning_tokens": 275
+            },
+            "total_tokens": 762
+          },
+          "latency_ms": 3836.3483540015295
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 2,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_01.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              260,
+              231,
+              325,
+              288
+            ],
+            "segmentation_confidence": 0.92578125,
+            "encoding": "one_bit",
+            "confidence": 0.85,
+            "localizer_confidence": 0.85,
+            "bearing_deg": -4.911788172505993,
+            "vertical_band": "level",
+            "area_fraction": 0.006549479166666667,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              260,
+              236,
+              325,
+              287
+            ],
+            "localizer_confidence": 0.85
+          }
+        ],
+        "cost_usd": 0.006692750000000001,
+        "latency_ms": 10082.709900998452,
+        "frame_sha256": "39ce8b860d0a08a0d16e5412b78ae8d924939110cf01dd1b0f4dc076e01d1a5d",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 190,
+            "terminal_text_characters": 190,
+            "parser_text_characters": 190,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.9310344827586207,
+      "muse_box_iou": 0.864406779661017,
+      "hit": true,
+      "false_positive": false,
+      "bearing_errors_deg": [
+        0.08417468298918607
+      ],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00419275,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 848,
+            "output_tokens_details": {
+              "reasoning_tokens": 808
+            },
+            "total_tokens": 1319
+          },
+          "latency_ms": 8021.161410004424
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1967.4125739984447
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 3,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_02.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              259,
+              236,
+              297,
+              263
+            ],
+            "segmentation_confidence": 0.6796875,
+            "encoding": "one_bit",
+            "confidence": 0.6796875,
+            "localizer_confidence": 0.9,
+            "bearing_deg": -7.477330306660798,
+            "vertical_band": "level",
+            "area_fraction": 0.0019075520833333334,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              259,
+              228,
+              296,
+              261
+            ],
+            "localizer_confidence": 0.9
+          }
+        ],
+        "cost_usd": 0.0049672499999999994,
+        "latency_ms": 23199.70447000378,
+        "frame_sha256": "eef284761219cc5e0192e28a0c2352cb54a3d1e65dbd4812e4597defccf86ab1",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 159,
+            "terminal_text_characters": 159,
+            "parser_text_characters": 159,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.25046992481203006,
+      "muse_box_iou": 0.29622216662496875,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00246725,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 442,
+            "output_tokens_details": {
+              "reasoning_tokens": 402
+            },
+            "total_tokens": 913
+          },
+          "latency_ms": 20845.643213004223
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 2259.75363899488
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 4,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_03.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              201,
+              234,
+              242,
+              290
+            ],
+            "segmentation_confidence": 0.68359375,
+            "encoding": "one_bit",
+            "confidence": 0.68359375,
+            "localizer_confidence": 0.9,
+            "bearing_deg": -17.10901967824021,
+            "vertical_band": "level",
+            "area_fraction": 0.0040885416666666665,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              200,
+              234,
+              242,
+              291
+            ],
+            "localizer_confidence": 0.9
+          }
+        ],
+        "cost_usd": 0.00571525,
+        "latency_ms": 9682.993661997898,
+        "frame_sha256": "631d4163d8eb9ce43eba51ca397f8d5cbbe9a5dbc9863f98ec491a97a707aee1",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 193,
+            "terminal_text_characters": 193,
+            "parser_text_characters": 193,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.5346624376982329,
+      "muse_box_iou": 0.5549750653051532,
+      "hit": true,
+      "false_positive": false,
+      "bearing_errors_deg": [
+        2.1154982266672917
+      ],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00321525,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 618,
+            "output_tokens_details": {
+              "reasoning_tokens": 578
+            },
+            "total_tokens": 1089
+          },
+          "latency_ms": 7987.146902996756
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1606.4424520009197
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 5,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_03.jpg",
+      "concept": "medkit",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.00300275,
+        "latency_ms": 5701.740791002521,
+        "frame_sha256": "631d4163d8eb9ce43eba51ca397f8d5cbbe9a5dbc9863f98ec491a97a707aee1",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00300275,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 568,
+            "output_tokens_details": {
+              "reasoning_tokens": 552
+            },
+            "total_tokens": 1039
+          },
+          "latency_ms": 5614.763447003497
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 6,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_04.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              169,
+              230,
+              239,
+              292
+            ],
+            "segmentation_confidence": 0.9140625,
+            "encoding": "one_bit",
+            "confidence": 0.78,
+            "localizer_confidence": 0.78,
+            "bearing_deg": -19.925580658184323,
+            "vertical_band": "level",
+            "area_fraction": 0.0076953125,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              168,
+              232,
+              240,
+              293
+            ],
+            "localizer_confidence": 0.78
+          }
+        ],
+        "cost_usd": 0.0055112500000000005,
+        "latency_ms": 11885.638122999808,
+        "frame_sha256": "29b5c5e2fc1f343dc006a5af1b44924c962f21a9bc55747ea1119ac5a83a09a4",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 193,
+            "terminal_text_characters": 193,
+            "parser_text_characters": 193,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.9288358700123406,
+      "muse_box_iou": 0.9421888790820829,
+      "hit": true,
+      "false_positive": false,
+      "bearing_errors_deg": [
+        0.06672009142746305
+      ],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00301125,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 570,
+            "output_tokens_details": {
+              "reasoning_tokens": 530
+            },
+            "total_tokens": 1041
+          },
+          "latency_ms": 10223.794347999501
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1564.5577370014507
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 7,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_05.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              137,
+              241,
+              206,
+              296
+            ],
+            "segmentation_confidence": 0.87890625,
+            "encoding": "one_bit",
+            "confidence": 0.87890625,
+            "localizer_confidence": 0.9,
+            "bearing_deg": -24.8942466504589,
+            "vertical_band": "level",
+            "area_fraction": 0.007421875,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              138,
+              244,
+              207,
+              297
+            ],
+            "localizer_confidence": 0.9
+          }
+        ],
+        "cost_usd": 0.00472925,
+        "latency_ms": 5977.597204000631,
+        "frame_sha256": "84777685d8313dbe55b2e2b083728cc1dde84ef50e092ef56ef486f5285014a9",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 208,
+            "terminal_text_characters": 208,
+            "parser_text_characters": 208,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.9227608874281019,
+      "muse_box_iou": 0.7660119555935099,
+      "hit": true,
+      "false_positive": false,
+      "bearing_errors_deg": [
+        0.09683339719175521
+      ],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00222925,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 386,
+            "output_tokens_details": {
+              "reasoning_tokens": 353
+            },
+            "total_tokens": 857
+          },
+          "latency_ms": 4347.850064004888
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1531.1887019997812
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 8,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_06.jpg",
+      "concept": "green armor",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              129,
+              243,
+              173,
+              300
+            ],
+            "segmentation_confidence": 0.62890625,
+            "encoding": "one_bit",
+            "confidence": 0.62890625,
+            "localizer_confidence": 0.85,
+            "bearing_deg": -27.83965426304082,
+            "vertical_band": "level",
+            "area_fraction": 0.004375,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              125,
+              244,
+              174,
+              301
+            ],
+            "localizer_confidence": 0.85
+          }
+        ],
+        "cost_usd": 0.0052222499999999995,
+        "latency_ms": 8186.760099997628,
+        "frame_sha256": "f5fa8a6a48d79fcd2a8eb59d5d5f941375404c98cc4cf825ca1f62f0c2bfe31f",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 225,
+            "terminal_text_characters": 225,
+            "parser_text_characters": 225,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.4930685650056201,
+      "muse_box_iou": 0.5305410122164049,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00272225,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 502,
+            "output_tokens_details": {
+              "reasoning_tokens": 462
+            },
+            "total_tokens": 973
+          },
+          "latency_ms": 5979.778945998987
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 2113.706967997132
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 9,
+      "scenario": "my_way_home",
+      "frame": "runs/m2-fixtures/my_way_home_06.jpg",
+      "concept": "medkit",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              100,
+              245,
+              157,
+              300
+            ],
+            "segmentation_confidence": 0.84765625,
+            "encoding": "one_bit",
+            "confidence": 0.84765625,
+            "localizer_confidence": 0.85,
+            "bearing_deg": -30.89788420019395,
+            "vertical_band": "level",
+            "area_fraction": 0.005914713541666667,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              97,
+              244,
+              157,
+              300
+            ],
+            "localizer_confidence": 0.85
+          }
+        ],
+        "cost_usd": 0.0055665,
+        "latency_ms": 7577.369899001496,
+        "frame_sha256": "f5fa8a6a48d79fcd2a8eb59d5d5f941375404c98cc4cf825ca1f62f0c2bfe31f",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 203,
+            "terminal_text_characters": 203,
+            "parser_text_characters": 203,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": true,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.0030665,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 583,
+            "output_tokens_details": {
+              "reasoning_tokens": 543
+            },
+            "total_tokens": 1054
+          },
+          "latency_ms": 6414.435054997739
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1075.416182000481
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 10,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_00.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              490,
+              210,
+              547,
+              258
+            ],
+            "segmentation_confidence": 0.96484375,
+            "encoding": "one_bit",
+            "confidence": 0.9,
+            "localizer_confidence": 0.9,
+            "bearing_deg": 31.811844365256388,
+            "vertical_band": "level",
+            "area_fraction": 0.0076692708333333335,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              490,
+              210,
+              546,
+              258
+            ],
+            "localizer_confidence": 0.9
+          }
+        ],
+        "cost_usd": 0.00492475,
+        "latency_ms": 6592.0285700049135,
+        "frame_sha256": "9ccb002e5a1291d7f7c5c9cbf2fc352ac790bffc346144407cde9ff9cab1aa5b",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 163,
+            "terminal_text_characters": 163,
+            "parser_text_characters": 163,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.9578387228817028,
+      "muse_box_iou": 0.9824561403508771,
+      "hit": true,
+      "false_positive": false,
+      "bearing_errors_deg": [
+        0.10924736976856408
+      ],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00242475,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 432,
+            "output_tokens_details": {
+              "reasoning_tokens": 392
+            },
+            "total_tokens": 903
+          },
+          "latency_ms": 4687.358008995943
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1815.9329720001551
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 11,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_01.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              306,
+              215,
+              354,
+              255
+            ],
+            "segmentation_confidence": 0.9609375,
+            "encoding": "one_bit",
+            "confidence": 0.95,
+            "localizer_confidence": 0.95,
+            "bearing_deg": 1.789910608246069,
+            "vertical_band": "level",
+            "area_fraction": 0.0054296875,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              305,
+              216,
+              355,
+              255
+            ],
+            "localizer_confidence": 0.95
+          }
+        ],
+        "cost_usd": 0.005048,
+        "latency_ms": 6765.563829001621,
+        "frame_sha256": "00858cfd709ada173549c2c11b79a4e8a19c25684da9ce2c2e488b0bb71338b5",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 156,
+            "terminal_text_characters": 156,
+            "parser_text_characters": 156,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.9593967517401392,
+      "muse_box_iou": 0.9369369369369369,
+      "hit": true,
+      "false_positive": false,
+      "bearing_errors_deg": [
+        0.08548256505523844
+      ],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.002548,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 461,
+            "output_tokens_details": {
+              "reasoning_tokens": 421
+            },
+            "total_tokens": 932
+          },
+          "latency_ms": 5004.3158550033695
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1679.9545149988262
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 12,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_02.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              121,
+              226,
+              176,
+              272
+            ],
+            "segmentation_confidence": 0.96484375,
+            "encoding": "one_bit",
+            "confidence": 0.96,
+            "localizer_confidence": 0.96,
+            "bearing_deg": -28.188526512116322,
+            "vertical_band": "level",
+            "area_fraction": 0.007151692708333333,
+            "identity_verified": false
+          },
+          {
+            "id": "2",
+            "box": [
+              538,
+              208,
+              557,
+              218
+            ],
+            "segmentation_confidence": 0.65625,
+            "encoding": "one_bit",
+            "confidence": 0.55,
+            "localizer_confidence": 0.55,
+            "bearing_deg": 35.410448290851754,
+            "vertical_band": "level",
+            "area_fraction": 0.0004915364583333333,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              121,
+              226,
+              177,
+              273
+            ],
+            "localizer_confidence": 0.96
+          },
+          {
+            "box": [
+              538,
+              207,
+              554,
+              218
+            ],
+            "localizer_confidence": 0.55
+          }
+        ],
+        "cost_usd": 0.0092905,
+        "latency_ms": 11537.199366997811,
+        "frame_sha256": "24bd725595a0272577237299e3cdfbed122da57120ca7b70ed27e0ed029d1a02",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 170,
+            "terminal_text_characters": 170,
+            "parser_text_characters": 170,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 129,
+            "terminal_text_characters": 129,
+            "parser_text_characters": 129,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.9650442477876107,
+      "muse_box_iou": 0.9612462006079028,
+      "hit": true,
+      "false_positive": false,
+      "bearing_errors_deg": [
+        0.10521439698984025
+      ],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.0042905,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 871,
+            "output_tokens_details": {
+              "reasoning_tokens": 808
+            },
+            "total_tokens": 1342
+          },
+          "latency_ms": 8381.82493000204
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1864.9041669996222
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1189.4377319986233
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 13,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_02.jpg",
+      "concept": "green armor",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.005455,
+        "latency_ms": 11492.40505299531,
+        "frame_sha256": "24bd725595a0272577237299e3cdfbed122da57120ca7b70ed27e0ed029d1a02",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.005455,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 1145,
+            "output_tokens_details": {
+              "reasoning_tokens": 1129
+            },
+            "total_tokens": 1616
+          },
+          "latency_ms": 11419.53559400281
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 14,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_03.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.0026585,
+        "latency_ms": 5793.276911004796,
+        "frame_sha256": "362a430aeb0b990c33bd19042a61d0c7583e5efcbe4facdac6f71067fd13fc6c",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": 0.0,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.0026585,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 487,
+            "output_tokens_details": {
+              "reasoning_tokens": 471
+            },
+            "total_tokens": 958
+          },
+          "latency_ms": 5711.113924997335
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 15,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_04.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              507,
+              231,
+              542,
+              259
+            ],
+            "segmentation_confidence": 0.953125,
+            "encoding": "one_bit",
+            "confidence": 0.95,
+            "localizer_confidence": 0.95,
+            "bearing_deg": 32.581120441408004,
+            "vertical_band": "level",
+            "area_fraction": 0.0027994791666666667,
+            "identity_verified": false
+          },
+          {
+            "id": "2",
+            "box": [
+              502,
+              213,
+              517,
+              226
+            ],
+            "segmentation_confidence": 0.8984375,
+            "encoding": "one_bit",
+            "confidence": 0.8,
+            "localizer_confidence": 0.8,
+            "bearing_deg": 30.633487077830342,
+            "vertical_band": "level",
+            "area_fraction": 0.0005729166666666667,
+            "identity_verified": false
+          },
+          {
+            "id": "3",
+            "box": [
+              141,
+              213,
+              156,
+              225
+            ],
+            "segmentation_confidence": 0.8828125,
+            "encoding": "one_bit",
+            "confidence": 0.6,
+            "localizer_confidence": 0.6,
+            "bearing_deg": -28.188526512116322,
+            "vertical_band": "level",
+            "area_fraction": 0.0005305989583333333,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              507,
+              230,
+              542,
+              259
+            ],
+            "localizer_confidence": 0.95
+          },
+          {
+            "box": [
+              500,
+              213,
+              517,
+              228
+            ],
+            "localizer_confidence": 0.8
+          },
+          {
+            "box": [
+              140,
+              212,
+              157,
+              226
+            ],
+            "localizer_confidence": 0.6
+          }
+        ],
+        "cost_usd": 0.01107225,
+        "latency_ms": 11400.191588996677,
+        "frame_sha256": "0a299d9f07595daff287bea646ec5048e302afad7583146f0f2c6aa422625b6c",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 142,
+            "terminal_text_characters": 142,
+            "parser_text_characters": 142,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 128,
+            "terminal_text_characters": 128,
+            "parser_text_characters": 128,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 126,
+            "terminal_text_characters": 126,
+            "parser_text_characters": 126,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.9710312862108922,
+      "muse_box_iou": 0.9379310344827586,
+      "hit": true,
+      "false_positive": false,
+      "bearing_errors_deg": [
+        0.056897485169130846,
+        0.016536961976793663,
+        0.039558835746003496
+      ],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00357225,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 702,
+            "output_tokens_details": {
+              "reasoning_tokens": 616
+            },
+            "total_tokens": 1173
+          },
+          "latency_ms": 6856.9277900023735
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1489.8013759957394
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1352.5330440024845
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1596.9398140005069
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 16,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_05.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              321,
+              252,
+              350,
+              278
+            ],
+            "segmentation_confidence": 0.60546875,
+            "encoding": "one_bit",
+            "confidence": 0.60546875,
+            "localizer_confidence": 0.9,
+            "bearing_deg": 2.7730969366397513,
+            "vertical_band": "level",
+            "area_fraction": 0.00205078125,
+            "identity_verified": false
+          },
+          {
+            "id": "2",
+            "box": [
+              438,
+              249,
+              471,
+              276
+            ],
+            "segmentation_confidence": 0.67578125,
+            "encoding": "one_bit",
+            "confidence": 0.67578125,
+            "localizer_confidence": 0.88,
+            "bearing_deg": 22.797624136857866,
+            "vertical_band": "level",
+            "area_fraction": 0.0023600260416666665,
+            "identity_verified": false
+          },
+          {
+            "id": "3",
+            "box": [
+              469,
+              249,
+              492,
+              268
+            ],
+            "segmentation_confidence": 0.6328125,
+            "encoding": "one_bit",
+            "confidence": 0.6328125,
+            "localizer_confidence": 0.85,
+            "bearing_deg": 26.636626129868525,
+            "vertical_band": "level",
+            "area_fraction": 0.0011588541666666668,
+            "identity_verified": false
+          },
+          {
+            "id": "4",
+            "box": [
+              319,
+              242,
+              331,
+              251
+            ],
+            "segmentation_confidence": 0.7265625,
+            "encoding": "one_bit",
+            "confidence": 0.7,
+            "localizer_confidence": 0.7,
+            "bearing_deg": 0.8951737102110742,
+            "vertical_band": "level",
+            "area_fraction": 0.00023111979166666666,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              320,
+              254,
+              349,
+              277
+            ],
+            "localizer_confidence": 0.9
+          },
+          {
+            "box": [
+              441,
+              253,
+              469,
+              275
+            ],
+            "localizer_confidence": 0.88
+          },
+          {
+            "box": [
+              470,
+              250,
+              492,
+              269
+            ],
+            "localizer_confidence": 0.85
+          },
+          {
+            "box": [
+              316,
+              240,
+              332,
+              252
+            ],
+            "localizer_confidence": 0.7
+          }
+        ],
+        "cost_usd": 0.014328750000000001,
+        "latency_ms": 13459.236289003456,
+        "frame_sha256": "6bc510f3a0127d957a7e8d0f26aaf91258cfdbc00b541ac863f988d9d9bfed79",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 156,
+            "terminal_text_characters": 156,
+            "parser_text_characters": 156,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 158,
+            "terminal_text_characters": 158,
+            "parser_text_characters": 158,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 146,
+            "terminal_text_characters": 146,
+            "parser_text_characters": 146,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 129,
+            "terminal_text_characters": 129,
+            "parser_text_characters": 129,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.09838709677419355,
+      "muse_box_iou": 0.16129032258064516,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00432875,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 880,
+            "output_tokens_details": {
+              "reasoning_tokens": 771
+            },
+            "total_tokens": 1351
+          },
+          "latency_ms": 8016.3876520018675
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1175.1854519970948
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 2038.1873180012917
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 713.3940089988755
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1414.9826690045302
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 17,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_05.jpg",
+      "concept": "green armor",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              315,
+              196,
+              326,
+              207
+            ],
+            "segmentation_confidence": 0.8203125,
+            "encoding": "one_bit",
+            "confidence": 0.6,
+            "localizer_confidence": 0.6,
+            "bearing_deg": 0.08952458263394668,
+            "vertical_band": "level",
+            "area_fraction": 0.00029296875,
+            "identity_verified": false
+          },
+          {
+            "id": "2",
+            "box": [
+              317,
+              212,
+              331,
+              223
+            ],
+            "segmentation_confidence": 0.89453125,
+            "encoding": "one_bit",
+            "confidence": 0.7,
+            "localizer_confidence": 0.7,
+            "bearing_deg": 0.7161599454704083,
+            "vertical_band": "level",
+            "area_fraction": 0.000458984375,
+            "identity_verified": false
+          },
+          {
+            "id": "3",
+            "box": [
+              320,
+              226,
+              348,
+              250
+            ],
+            "segmentation_confidence": 0.95703125,
+            "encoding": "one_bit",
+            "confidence": 0.9,
+            "localizer_confidence": 0.9,
+            "bearing_deg": 2.5050928672413986,
+            "vertical_band": "level",
+            "area_fraction": 0.001979166666666667,
+            "identity_verified": false
+          },
+          {
+            "id": "4",
+            "box": [
+              442,
+              225,
+              469,
+              247
+            ],
+            "segmentation_confidence": 0.94140625,
+            "encoding": "one_bit",
+            "confidence": 0.9,
+            "localizer_confidence": 0.9,
+            "bearing_deg": 22.949621189149994,
+            "vertical_band": "level",
+            "area_fraction": 0.0017545572916666666,
+            "identity_verified": false
+          },
+          {
+            "id": "5",
+            "box": [
+              469,
+              222,
+              490,
+              240
+            ],
+            "segmentation_confidence": 0.91015625,
+            "encoding": "one_bit",
+            "confidence": 0.85,
+            "localizer_confidence": 0.85,
+            "bearing_deg": 26.49338669973687,
+            "vertical_band": "level",
+            "area_fraction": 0.0010872395833333333,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              315,
+              196,
+              327,
+              207
+            ],
+            "localizer_confidence": 0.6
+          },
+          {
+            "box": [
+              318,
+              213,
+              332,
+              223
+            ],
+            "localizer_confidence": 0.7
+          },
+          {
+            "box": [
+              321,
+              226,
+              348,
+              248
+            ],
+            "localizer_confidence": 0.9
+          },
+          {
+            "box": [
+              441,
+              225,
+              469,
+              246
+            ],
+            "localizer_confidence": 0.9
+          },
+          {
+            "box": [
+              471,
+              222,
+              491,
+              240
+            ],
+            "localizer_confidence": 0.85
+          }
+        ],
+        "cost_usd": 0.01685,
+        "latency_ms": 17224.077063998266,
+        "frame_sha256": "6bc510f3a0127d957a7e8d0f26aaf91258cfdbc00b541ac863f988d9d9bfed79",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 131,
+            "terminal_text_characters": 131,
+            "parser_text_characters": 131,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 127,
+            "terminal_text_characters": 127,
+            "parser_text_characters": 127,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 136,
+            "terminal_text_characters": 136,
+            "parser_text_characters": 136,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 140,
+            "terminal_text_characters": 140,
+            "parser_text_characters": 140,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 137,
+            "terminal_text_characters": 137,
+            "parser_text_characters": 137,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": true,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00435,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 885,
+            "output_tokens_details": {
+              "reasoning_tokens": 753
+            },
+            "total_tokens": 1356
+          },
+          "latency_ms": 8041.151331999572
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1439.0761789982207
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1635.9189619979588
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 2136.971674000961
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1582.0859039959032
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 2277.96409799339
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 18,
+      "scenario": "health_gathering_supreme",
+      "frame": "runs/m2-fixtures/health_gathering_supreme_06.jpg",
+      "concept": "medkit",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              137,
+              229,
+              170,
+              256
+            ],
+            "segmentation_confidence": 0.95703125,
+            "encoding": "one_bit",
+            "confidence": 0.92,
+            "localizer_confidence": 0.92,
+            "bearing_deg": -27.488523755343426,
+            "vertical_band": "level",
+            "area_fraction": 0.002529296875,
+            "identity_verified": false
+          },
+          {
+            "id": "2",
+            "box": [
+              267,
+              223,
+              293,
+              245
+            ],
+            "segmentation_confidence": 0.94921875,
+            "encoding": "one_bit",
+            "confidence": 0.9,
+            "localizer_confidence": 0.9,
+            "bearing_deg": -7.125016348901797,
+            "vertical_band": "level",
+            "area_fraction": 0.0015494791666666667,
+            "identity_verified": false
+          },
+          {
+            "id": "3",
+            "box": [
+              291,
+              219,
+              310,
+              237
+            ],
+            "segmentation_confidence": 0.90234375,
+            "encoding": "one_bit",
+            "confidence": 0.85,
+            "localizer_confidence": 0.85,
+            "bearing_deg": -3.4871494609179643,
+            "vertical_band": "level",
+            "area_fraction": 0.00095703125,
+            "identity_verified": false
+          },
+          {
+            "id": "4",
+            "box": [
+              565,
+              217,
+              585,
+              234
+            ],
+            "segmentation_confidence": 0.90234375,
+            "encoding": "one_bit",
+            "confidence": 0.9,
+            "localizer_confidence": 0.9,
+            "bearing_deg": 38.55046529615772,
+            "vertical_band": "level",
+            "area_fraction": 0.0009830729166666666,
+            "identity_verified": false
+          },
+          {
+            "id": "5",
+            "box": [
+              560,
+              232,
+              596,
+              260
+            ],
+            "segmentation_confidence": 0.921875,
+            "encoding": "one_bit",
+            "confidence": 0.92,
+            "localizer_confidence": 0.92,
+            "bearing_deg": 38.877496338512636,
+            "vertical_band": "level",
+            "area_fraction": 0.0028157552083333333,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              137,
+              228,
+              169,
+              256
+            ],
+            "localizer_confidence": 0.92
+          },
+          {
+            "box": [
+              268,
+              224,
+              292,
+              244
+            ],
+            "localizer_confidence": 0.9
+          },
+          {
+            "box": [
+              292,
+              219,
+              312,
+              237
+            ],
+            "localizer_confidence": 0.85
+          },
+          {
+            "box": [
+              565,
+              217,
+              588,
+              236
+            ],
+            "localizer_confidence": 0.9
+          },
+          {
+            "box": [
+              561,
+              233,
+              596,
+              260
+            ],
+            "localizer_confidence": 0.92
+          }
+        ],
+        "cost_usd": 0.020386,
+        "latency_ms": 23665.931353993074,
+        "frame_sha256": "a5bb9e458e7f9c3e0402be7678c8e8da98787a3292d7baa1e9ad72f559263a9e",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 143,
+            "terminal_text_characters": 143,
+            "parser_text_characters": 143,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 143,
+            "terminal_text_characters": 143,
+            "parser_text_characters": 143,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 140,
+            "terminal_text_characters": 140,
+            "parser_text_characters": 140,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 137,
+            "terminal_text_characters": 137,
+            "parser_text_characters": 137,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          },
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 148,
+            "terminal_text_characters": 148,
+            "parser_text_characters": 148,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.9746835443037974,
+      "muse_box_iou": 0.9360780065005417,
+      "hit": true,
+      "false_positive": false,
+      "bearing_errors_deg": [
+        0.01640880698831282,
+        0.0999879196389788,
+        0.06763455347994585,
+        0.012735879693146046,
+        0.021206753301378
+      ],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.007886,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 1717,
+            "output_tokens_details": {
+              "reasoning_tokens": 1585
+            },
+            "total_tokens": 2188
+          },
+          "latency_ms": 14459.39397499751
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1478.129210001498
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 2316.9284850009717
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1522.4830170045607
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 2245.4586520034354
+        },
+        {
+          "model": "sam-3.1",
+          "cost_usd": 0.0025,
+          "usage": {
+            "input_tokens": 0,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 0,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 0,
+            "images_processed": 1
+          },
+          "latency_ms": 1537.6086670003133
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 19,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_00.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.00262875,
+        "latency_ms": 5616.9547050012625,
+        "frame_sha256": "1eb00f6c882e1f4f353d2a9a032465bdf3ad4bd9a8518e82754ddfb775f0da1e",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": 0.0,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00262875,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 480,
+            "output_tokens_details": {
+              "reasoning_tokens": 462
+            },
+            "total_tokens": 951
+          },
+          "latency_ms": 5538.937963996432
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 20,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_01.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.002939,
+        "latency_ms": 6505.671272003383,
+        "frame_sha256": "c0921816dce3904b086d2ca1b8ebd0cdf48e562345c1a99a2685bb8b68c7ac0b",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": 0.0,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.002939,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 553,
+            "output_tokens_details": {
+              "reasoning_tokens": 535
+            },
+            "total_tokens": 1024
+          },
+          "latency_ms": 6419.463875994552
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 21,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_01.jpg",
+      "concept": "green armor",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.00222075,
+        "latency_ms": 4938.452105998294,
+        "frame_sha256": "c0921816dce3904b086d2ca1b8ebd0cdf48e562345c1a99a2685bb8b68c7ac0b",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00222075,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 384,
+            "output_tokens_details": {
+              "reasoning_tokens": 366
+            },
+            "total_tokens": 855
+          },
+          "latency_ms": 4864.946369998506
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 22,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_02.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.00351275,
+        "latency_ms": 7565.057640997111,
+        "frame_sha256": "777068bb14baa53242e8cb5b452888b029694737ebcc70458603fcc10239126e",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": 0.0,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00351275,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 688,
+            "output_tokens_details": {
+              "reasoning_tokens": 670
+            },
+            "total_tokens": 1159
+          },
+          "latency_ms": 7486.026913997193
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 23,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_03.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.00466875,
+        "latency_ms": 10452.54229499551,
+        "frame_sha256": "db72157874472c970b24f364bc610e3c0c7a7be6d90d828b4239729d13732c91",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": 0.0,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00466875,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 960,
+            "output_tokens_details": {
+              "reasoning_tokens": 944
+            },
+            "total_tokens": 1431
+          },
+          "latency_ms": 10390.464411000721
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 24,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_04.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.00339375,
+        "latency_ms": 7409.728681996057,
+        "frame_sha256": "3dd98bc2aabbed9ac90fae98b93128323eae41b107f36312e30323fcca1ce53b",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": 0.0,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00339375,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 660,
+            "output_tokens_details": {
+              "reasoning_tokens": 644
+            },
+            "total_tokens": 1131
+          },
+          "latency_ms": 7340.120979999483
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 25,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_04.jpg",
+      "concept": "green armor",
+      "positive": false,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.00340225,
+        "latency_ms": 7071.055879998312,
+        "frame_sha256": "3dd98bc2aabbed9ac90fae98b93128323eae41b107f36312e30323fcca1ce53b",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": null,
+      "muse_box_iou": null,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.00340225,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 662,
+            "output_tokens_details": {
+              "reasoning_tokens": 646
+            },
+            "total_tokens": 1133
+          },
+          "latency_ms": 7003.774603996135
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 26,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_05.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.003602,
+        "latency_ms": 8218.853459999082,
+        "frame_sha256": "348a0117c6e3659e73c8b7c27da66b3b8aa781c0c8111ed5c8ba363e14287a66",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": 0.0,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.003602,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 709,
+            "output_tokens_details": {
+              "reasoning_tokens": 693
+            },
+            "total_tokens": 1180
+          },
+          "latency_ms": 8140.643075006665
+        }
+      ]
+    },
+    {
+      "mode": "muse_box_sam",
+      "index": 27,
+      "scenario": "freedoom2_map01",
+      "frame": "runs/m2-fixtures/freedoom2_map01_06.jpg",
+      "concept": "health bonus",
+      "positive": true,
+      "status": "completed",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.003755,
+        "latency_ms": 8286.171070998535,
+        "frame_sha256": "4bc10fddc71d4230c48a2f4ff1d9eed63e786c4ad2e974d9550e838233c14712",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "mask_iou": 0.0,
+      "muse_box_iou": 0.0,
+      "hit": false,
+      "false_positive": false,
+      "bearing_errors_deg": [],
+      "requests": [
+        {
+          "model": "muse-spark-1.3",
+          "cost_usd": 0.003755,
+          "usage": {
+            "input_tokens": 471,
+            "input_tokens_details": {
+              "cache_write_tokens": null,
+              "cached_tokens": 0,
+              "cache_write_tokens_details": null
+            },
+            "output_tokens": 745,
+            "output_tokens_details": {
+              "reasoning_tokens": 727
+            },
+            "total_tokens": 1216
+          },
+          "latency_ms": 8218.12420799688
+        }
+      ]
+    }
+  ],
+  "grounding_source_sha256": "ace07e18ffdeae88a737625fc26b792ab773689716989278d48b69b2bb631661",
+  "optical_calibration": {
+    "my_way_home": {
+      "records": 7,
+      "mae_deg": 0.0658433223951289,
+      "max_error_deg": 0.09683339719175521
+    },
+    "health_gathering_supreme": {
+      "records": 18,
+      "mae_deg": 0.041757024367071516,
+      "max_error_deg": 0.10924736976856408
+    },
+    "freedoom2_map01": {
+      "records": 17,
+      "mae_deg": 0.04680124654543912,
+      "max_error_deg": 0.17383012249288754
+    }
+  },
+  "required_ten_fixture_bearing": {
+    "count": 10,
+    "mae_deg": 0.05362124162451417,
+    "max_error_deg": 0.08670814009019999
+  },
+  "initial_probe": [
+    {
+      "mode": "muse_box_sam",
+      "case": "armor",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              304,
+              237,
+              353,
+              287
+            ],
+            "segmentation_confidence": 0.8515625,
+            "encoding": "one_bit",
+            "confidence": 0.75,
+            "localizer_confidence": 0.75,
+            "bearing_deg": 1.5215613564293002,
+            "vertical_band": "level",
+            "area_fraction": 0.004801432291666667,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              311,
+              239,
+              353,
+              288
+            ],
+            "localizer_confidence": 0.75
+          }
+        ],
+        "cost_usd": 0.0065780000000000005,
+        "latency_ms": 12079.170557997713,
+        "frame_sha256": "361040b2cabf678b37e5013b90a9f005bfd4238a4d8e43db2ab44ad423e9cc25",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 190,
+            "terminal_text_characters": 190,
+            "parser_text_characters": 190,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "max_iou": 0.7043010752688172,
+      "expected_positive": true
+    },
+    {
+      "mode": "muse_box_sam",
+      "case": "absent",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "muse_box_sam",
+        "proposals": [],
+        "cost_usd": 0.00224625,
+        "latency_ms": 5096.1329259953345,
+        "frame_sha256": "2f5e07ae44f29a5089cab7e32daea4175b4959472f292ff362dda65f96553bf3",
+        "wire": [],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "max_iou": null,
+      "expected_positive": false
+    },
+    {
+      "mode": "sam_text",
+      "case": "absent",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1987.1171710037743,
+        "frame_sha256": "2f5e07ae44f29a5089cab7e32daea4175b4959472f292ff362dda65f96553bf3",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "max_iou": null,
+      "expected_positive": false
+    },
+    {
+      "mode": "sam_text",
+      "case": "medkit",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 1971.784317996935,
+        "frame_sha256": "27f78ccd7a068c138c624e7aa27f46bb3cad53a9e25273a93651a4a867c102e3",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "max_iou": null,
+      "expected_positive": true
+    },
+    {
+      "mode": "sam_text",
+      "case": "armor",
+      "result": {
+        "found": false,
+        "matches": [],
+        "method": "sam_text",
+        "proposals": [
+          null
+        ],
+        "cost_usd": 0.0025,
+        "latency_ms": 2803.7394779967144,
+        "frame_sha256": "361040b2cabf678b37e5013b90a9f005bfd4238a4d8e43db2ab44ad423e9cc25",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 0,
+            "delta_characters": 0,
+            "terminal_text_characters": 0,
+            "parser_text_characters": 0,
+            "parser_record_count": 0,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": true
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "max_iou": null,
+      "expected_positive": true
+    },
+    {
+      "mode": "muse_box_sam",
+      "case": "medkit",
+      "result": {
+        "found": true,
+        "matches": [
+          {
+            "id": "1",
+            "box": [
+              507,
+              231,
+              541,
+              259
+            ],
+            "segmentation_confidence": 0.95703125,
+            "encoding": "one_bit",
+            "confidence": 0.95,
+            "localizer_confidence": 0.95,
+            "bearing_deg": 32.517510615045516,
+            "vertical_band": "level",
+            "area_fraction": 0.0027766927083333333,
+            "identity_verified": false
+          }
+        ],
+        "method": "muse_box_sam",
+        "proposals": [
+          {
+            "box": [
+              507,
+              231,
+              541,
+              260
+            ],
+            "localizer_confidence": 0.95
+          }
+        ],
+        "cost_usd": 0.00580875,
+        "latency_ms": 8688.431937000132,
+        "frame_sha256": "27f78ccd7a068c138c624e7aa27f46bb3cad53a9e25273a93651a4a867c102e3",
+        "wire": [
+          {
+            "finish_status": "completed",
+            "output_item_types": [
+              "message"
+            ],
+            "delta_events": 1,
+            "delta_characters": 142,
+            "terminal_text_characters": 142,
+            "parser_text_characters": 142,
+            "parser_record_count": 2,
+            "parser_status": "completed",
+            "parser_diagnostics": [],
+            "raw_text_matches_parser": true,
+            "terminal_text_matches_parser": true,
+            "genuinely_empty_model_output": false
+          }
+        ],
+        "overlay": "locate_0001_overlay.png"
+      },
+      "max_iou": 0.9766627771295215,
+      "expected_positive": true
+    }
+  ],
+  "episodes": [
+    {
+      "directory": "runs/20261104T084959.240345Z_my_way_home_L1_s101",
+      "manifest": {
+        "run_id": "20261104T084959.240345Z_my_way_home_L1_s101",
+        "timestamp": "20261104T084959.240345Z",
+        "git_commit": "16afed7121c19e2d5291dfc479650149a22d3547",
+        "source_sha256": {
+          "autoqa/__init__.py": "e7e5bd04cfac130fe14251dcf8f1429120587b28afbc3e3fdc25249b6c318b9c",
+          "autoqa/agent/__init__.py": "0863806f5746f27501778c4f34676dbedc1808c605e4a6b3c28ba944837aef74",
+          "autoqa/agent/client.py": "a8932912b0b35923bac88a79b499dfa0f2d2172f4334581cb401808ce2a7f33a",
+          "autoqa/agent/grounder.py": "2bae3326e14c5e1c47a2820b3fe2ec5ec6d586d4b4170f915c820e153ace8c34",
+          "autoqa/agent/guards.py": "6e3357b517f8e60d4af0795e226ca28acee022fbe07199af0550a4ce5e7faf61",
+          "autoqa/agent/memory.py": "638d668366ab2232982870d367ad3702ce7c4f8e0684acc793ecd92d65a3a9c6",
+          "autoqa/agent/pilot.py": "824c4181964706d3960ef46ec92ccb9a57a612bf947b60b9e89163eb20d5fb23",
+          "autoqa/agent/tools.py": "6a56597e1f343a895c4f44c09a8a221b5c9b1a537c0c257c91bbd193e06c8904",
+          "autoqa/cli.py": "e3011b9b4aa3ac9c4993c0c6d3c7f76822a6fbfe19cf39463e60b086bb820b08",
+          "autoqa/config.py": "a22cea205144b68dd582648c31e5fed365a2329333d099a35ffda4d39614fc11",
+          "autoqa/doom/__init__.py": "b2465e08ccadc455910e45a1cce1a3795e8badd73f6daa171ed35265a9bf481b",
+          "autoqa/doom/env.py": "9fbfa1429f89c5dc7fa6ea2748867b20952528b2c40f08dc0a39a199e35df9fd",
+          "autoqa/doom/plan_renderer.py": "b3eddac468db3836b6b561fb4e79d801c41ab21c262fbf510ce71f4c25f953a0",
+          "autoqa/doom/replay.py": "b55f4f48c664298992b66a9c934bb9bb2e5a584e35a4aac260e008f7fd004e4e",
+          "autoqa/doom/telemetry.py": "cd47cba9998774b17a7f7f0cbd056c5d11e27aa288c15197a26f8021e99f9a7d",
+          "autoqa/doom/topology.py": "87d5da713f1936f97673732ae5c45a9e86a17da29f59e04f978f742e6e89d34d",
+          "autoqa/doom/types.py": "5a0ea0ad70da17c21541cd905bc9f99b43113e768747890e591cdd51275b3854",
+          "autoqa/io.py": "20c70376cc1b584c2cad7f2b99b85923fcece2557fade60424a1a6685401a9b2",
+          "autoqa/m0/__init__.py": "25623dd83064d4722b4d2acad22cedb8e390a3bc1f76c33063951b69fa90662a",
+          "autoqa/m0/api.py": "0e6e5a1f6a1dd6792d627c2b732f22cb5c083235f4ab35e0a0b0a42cf4c6a480",
+          "autoqa/m0/local.py": "15788c4fd9de22d3f22b6ac4258214058db387ce5885e21cfba65f731a237727",
+          "autoqa/m0/sam_audit.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+          "autoqa/m0/spike.py": "967b57507347013349bec0bc7bece80465fad8e1be8a6210ea96d0236106d5bb",
+          "autoqa/m0/worker.py": "85445b519ab758e88092a105cd2a81c59409a2158f21b9b45b03ba6e2a81e8b6",
+          "autoqa/prompts/__init__.py": "7def4b60beb414d6d7c3affa8653bbb6ede975b7f497bf740d67ad5577bb8cfe",
+          "autoqa/prompts/builder.py": "2b6932151a7bab10f0d43098909165e2a8ef6d1f6577b69f09bf8d8be85cf813",
+          "autoqa/run.py": "901e954be1ec7d1db3ab6923c8d45bd9b2716a01660e68135263a6b9ffc1b51a",
+          "autoqa/sam_wire.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+          "autoqa/secrets.py": "2da6977bc1e72d0d7c6e47e30b4e657611fbaae2f41b5fc09b78c0cafcfd4674"
+        },
+        "vizdoom_version": "1.3.2",
+        "iwad_path": "/home/ramsi/projects/vizdoom-agent-research/.venv/lib/python3.12/site-packages/vizdoom/freedoom2.wad",
+        "iwad_sha256": "a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b",
+        "scenario_cfg_path": "/home/ramsi/projects/vizdoom-agent-research/.venv/lib/python3.12/site-packages/vizdoom/scenarios/my_way_home.cfg",
+        "scenario_cfg_sha256": "3dc0eb5e3557df7918484f91bdc4bc13b78cf67c6a6eaf2052e8ad66cfccbe46",
+        "scenario_wad_sha256": "18e98ff4c9186808eb00696b799cfe88a79e7486429c1692aafbed8ef359c0b1",
+        "prompt_sha256": "99b5e9ecf568113c2dabbd80c4e7c4ec3ffacd99c93ce6fe56dff2ac09acc4a7",
+        "briefing_sha256": null,
+        "calibration_sha256": "6059f73fa524dbbf83a5a1b752a29a28cb08ad85c042d99ab2eef6bb863e230c",
+        "scenario_id": "my_way_home",
+        "level": 1,
+        "seed": 101,
+        "model": "muse-spark-1.3",
+        "effort": "low",
+        "config": {
+          "scenario": "my_way_home",
+          "level": 1,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "max_decisions": 60,
+          "max_tics": 2100,
+          "max_usd": 0.6,
+          "wall_seconds": 900.0,
+          "request_timeout": 45.0,
+          "max_output_tokens": 3000,
+          "grounding_mode": "muse_box_sam"
+        },
+        "is_fault_probe": false,
+        "fault_injection": null,
+        "engine_overrides": {
+          "mode": "PLAYER",
+          "resolution": [
+            640,
+            480
+          ],
+          "hud": true,
+          "episode_start_time": "bundled config (my_way_home: 10)",
+          "episode_timeout": 2100,
+          "recording_seed_reset": true
+        },
+        "outcome": "max_decisions",
+        "total_usd": 0.2957116499999999,
+        "usage": {
+          "input_tokens": 212001,
+          "output_tokens": 19538,
+          "cached_tokens": 65751,
+          "reasoning_tokens": 11436
+        },
+        "sam_grounding": "muse_box_sam",
+        "spawn_state": {
+          "pos_x": 464.0,
+          "pos_y": -176.0,
+          "pos_z": 0.0,
+          "angle_deg": 338.93920906329043,
+          "tic": 10
+        },
+        "plan_sha256": null,
+        "wall_seconds": 296.90165475100366,
+        "decisions": 60,
+        "model_calls": 71,
+        "act_calls": 60,
+        "inline_issues": 0,
+        "locate_calls": 8,
+        "grounding_model_calls": 16,
+        "grounding_cost_usd": 0.04875025000000001,
+        "final_tic": 602,
+        "reward_total": -0.05920000000000009,
+        "start_tic": 10,
+        "tics_used": 592,
+        "episode_lmp_sha256": "6a6dbb42fd513ae57783d81d6116f7c167c8b30a033ca365489df5165fc92f4a",
+        "events_jsonl_sha256": "c6d8ee03273abb79beaad5b0c2c50a716d534b3355b4cbd7a595bb566f2904a8",
+        "telemetry_jsonl_sha256": "7caab5d3761ff4e9258c12f01b2f8579b53bee154df0522e7fc99cbdf05b086d"
+      },
+      "replay": {
+        "final_tic": 602,
+        "reward_total": -0.05920000000000067,
+        "expected_final_tic": 602,
+        "expected_reward_total": -0.05920000000000009,
+        "matches_telemetry": true,
+        "frames": 592,
+        "fps": 35,
+        "shape": [
+          720,
+          1280,
+          3
+        ],
+        "codec": "h264",
+        "size": [
+          1280,
+          720
+        ],
+        "from_tic": 10,
+        "to_tic": 602,
+        "captions": false,
+        "video_sha256": "ffd7d1ea269523c9a71d6834eb936d4602897a6a7313994f20bc122d69a2b639",
+        "lmp_sha256": "6a6dbb42fd513ae57783d81d6116f7c167c8b30a033ca365489df5165fc92f4a"
+      },
+      "audit": {
+        "every_primitive_matches_model_act": true,
+        "matched_primitives": 71,
+        "unmatched_primitives": 0,
+        "api_errors": 0,
+        "grounding_errors": 0,
+        "rejected_tool_responses": 2,
+        "tool_counts": {
+          "act": 60,
+          "locate": 8,
+          "note": 1
+        },
+        "locate_found": 4,
+        "locate_completed": 8,
+        "cached_tokens_per_pilot_response": [
+          113,
+          1393,
+          113,
+          113,
+          1393,
+          113,
+          113,
+          113,
+          113,
+          2289,
+          113,
+          113,
+          113,
+          113,
+          113,
+          113,
+          1137,
+          113,
+          113,
+          113,
+          1393,
+          1393,
+          1393,
+          1393,
+          113,
+          1393,
+          1393,
+          113,
+          113,
+          113,
+          113,
+          1393,
+          113,
+          113,
+          113,
+          113,
+          1393,
+          113,
+          113,
+          1393,
+          2929,
+          1393,
+          2929,
+          1137,
+          1393,
+          1393,
+          1393,
+          1393,
+          1393,
+          1393,
+          1393,
+          1393,
+          3057,
+          1393,
+          1393,
+          113,
+          1393,
+          1393,
+          113,
+          1393,
+          1393,
+          3057,
+          1393,
+          113,
+          1393,
+          1393,
+          1393,
+          113,
+          1137,
+          1393,
+          1393
+        ],
+        "all_responses_after_first_have_cached_tokens": true,
+        "static_plan_render_count": 0,
+        "runtime_source_hashes_verified": true,
+        "artifact_hashes_verified": true,
+        "accounting_matches_all_pilot_and_grounding_requests": true
+      }
+    },
+    {
+      "directory": "runs/20261104T084959.528710Z_my_way_home_L2_s101",
+      "manifest": {
+        "run_id": "20261104T084959.528710Z_my_way_home_L2_s101",
+        "timestamp": "20261104T084959.528710Z",
+        "git_commit": "16afed7121c19e2d5291dfc479650149a22d3547",
+        "source_sha256": {
+          "autoqa/__init__.py": "e7e5bd04cfac130fe14251dcf8f1429120587b28afbc3e3fdc25249b6c318b9c",
+          "autoqa/agent/__init__.py": "0863806f5746f27501778c4f34676dbedc1808c605e4a6b3c28ba944837aef74",
+          "autoqa/agent/client.py": "a8932912b0b35923bac88a79b499dfa0f2d2172f4334581cb401808ce2a7f33a",
+          "autoqa/agent/grounder.py": "2bae3326e14c5e1c47a2820b3fe2ec5ec6d586d4b4170f915c820e153ace8c34",
+          "autoqa/agent/guards.py": "6e3357b517f8e60d4af0795e226ca28acee022fbe07199af0550a4ce5e7faf61",
+          "autoqa/agent/memory.py": "638d668366ab2232982870d367ad3702ce7c4f8e0684acc793ecd92d65a3a9c6",
+          "autoqa/agent/pilot.py": "824c4181964706d3960ef46ec92ccb9a57a612bf947b60b9e89163eb20d5fb23",
+          "autoqa/agent/tools.py": "6a56597e1f343a895c4f44c09a8a221b5c9b1a537c0c257c91bbd193e06c8904",
+          "autoqa/cli.py": "e3011b9b4aa3ac9c4993c0c6d3c7f76822a6fbfe19cf39463e60b086bb820b08",
+          "autoqa/config.py": "a22cea205144b68dd582648c31e5fed365a2329333d099a35ffda4d39614fc11",
+          "autoqa/doom/__init__.py": "b2465e08ccadc455910e45a1cce1a3795e8badd73f6daa171ed35265a9bf481b",
+          "autoqa/doom/env.py": "9fbfa1429f89c5dc7fa6ea2748867b20952528b2c40f08dc0a39a199e35df9fd",
+          "autoqa/doom/plan_renderer.py": "b3eddac468db3836b6b561fb4e79d801c41ab21c262fbf510ce71f4c25f953a0",
+          "autoqa/doom/replay.py": "b55f4f48c664298992b66a9c934bb9bb2e5a584e35a4aac260e008f7fd004e4e",
+          "autoqa/doom/telemetry.py": "cd47cba9998774b17a7f7f0cbd056c5d11e27aa288c15197a26f8021e99f9a7d",
+          "autoqa/doom/topology.py": "87d5da713f1936f97673732ae5c45a9e86a17da29f59e04f978f742e6e89d34d",
+          "autoqa/doom/types.py": "5a0ea0ad70da17c21541cd905bc9f99b43113e768747890e591cdd51275b3854",
+          "autoqa/io.py": "20c70376cc1b584c2cad7f2b99b85923fcece2557fade60424a1a6685401a9b2",
+          "autoqa/m0/__init__.py": "25623dd83064d4722b4d2acad22cedb8e390a3bc1f76c33063951b69fa90662a",
+          "autoqa/m0/api.py": "0e6e5a1f6a1dd6792d627c2b732f22cb5c083235f4ab35e0a0b0a42cf4c6a480",
+          "autoqa/m0/local.py": "15788c4fd9de22d3f22b6ac4258214058db387ce5885e21cfba65f731a237727",
+          "autoqa/m0/sam_audit.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+          "autoqa/m0/spike.py": "967b57507347013349bec0bc7bece80465fad8e1be8a6210ea96d0236106d5bb",
+          "autoqa/m0/worker.py": "85445b519ab758e88092a105cd2a81c59409a2158f21b9b45b03ba6e2a81e8b6",
+          "autoqa/prompts/__init__.py": "7def4b60beb414d6d7c3affa8653bbb6ede975b7f497bf740d67ad5577bb8cfe",
+          "autoqa/prompts/builder.py": "2b6932151a7bab10f0d43098909165e2a8ef6d1f6577b69f09bf8d8be85cf813",
+          "autoqa/run.py": "901e954be1ec7d1db3ab6923c8d45bd9b2716a01660e68135263a6b9ffc1b51a",
+          "autoqa/sam_wire.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+          "autoqa/secrets.py": "2da6977bc1e72d0d7c6e47e30b4e657611fbaae2f41b5fc09b78c0cafcfd4674"
+        },
+        "vizdoom_version": "1.3.2",
+        "iwad_path": "/home/ramsi/projects/vizdoom-agent-research/.venv/lib/python3.12/site-packages/vizdoom/freedoom2.wad",
+        "iwad_sha256": "a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b",
+        "scenario_cfg_path": "/home/ramsi/projects/vizdoom-agent-research/.venv/lib/python3.12/site-packages/vizdoom/scenarios/my_way_home.cfg",
+        "scenario_cfg_sha256": "3dc0eb5e3557df7918484f91bdc4bc13b78cf67c6a6eaf2052e8ad66cfccbe46",
+        "scenario_wad_sha256": "18e98ff4c9186808eb00696b799cfe88a79e7486429c1692aafbed8ef359c0b1",
+        "prompt_sha256": "cef867caf125d10d149cc80f87c11b85d3bc4bc7fdc35768816a44cb85eb2964",
+        "briefing_sha256": "9ee5d990ea3dac9c99799ba4782e68f28595e9e874c291c747744fad4fb49d19",
+        "calibration_sha256": "6059f73fa524dbbf83a5a1b752a29a28cb08ad85c042d99ab2eef6bb863e230c",
+        "scenario_id": "my_way_home",
+        "level": 2,
+        "seed": 101,
+        "model": "muse-spark-1.3",
+        "effort": "low",
+        "config": {
+          "scenario": "my_way_home",
+          "level": 2,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "max_decisions": 60,
+          "max_tics": 2100,
+          "max_usd": 0.6,
+          "wall_seconds": 900.0,
+          "request_timeout": 45.0,
+          "max_output_tokens": 3000,
+          "grounding_mode": "muse_box_sam"
+        },
+        "is_fault_probe": false,
+        "fault_injection": null,
+        "engine_overrides": {
+          "mode": "PLAYER",
+          "resolution": [
+            640,
+            480
+          ],
+          "hud": true,
+          "episode_start_time": "bundled config (my_way_home: 10)",
+          "episode_timeout": 2100,
+          "recording_seed_reset": true
+        },
+        "outcome": "max_decisions",
+        "total_usd": 0.31740219999999986,
+        "usage": {
+          "input_tokens": 252611,
+          "output_tokens": 23613,
+          "cached_tokens": 94288,
+          "reasoning_tokens": 15046
+        },
+        "sam_grounding": "muse_box_sam",
+        "spawn_state": {
+          "pos_x": 464.0,
+          "pos_y": -176.0,
+          "pos_z": 0.0,
+          "angle_deg": 338.93920906329043,
+          "tic": 10
+        },
+        "plan_sha256": null,
+        "wall_seconds": 410.56435041400255,
+        "decisions": 60,
+        "model_calls": 80,
+        "act_calls": 60,
+        "inline_issues": 0,
+        "locate_calls": 19,
+        "grounding_model_calls": 21,
+        "grounding_cost_usd": 0.0570585,
+        "final_tic": 696,
+        "reward_total": -0.06860000000000009,
+        "start_tic": 10,
+        "tics_used": 686,
+        "episode_lmp_sha256": "11479d98fd1ca10e04d8c81b5c556d00620db61b1e59ad0b104d3e965ed42675",
+        "events_jsonl_sha256": "16e914c8f1cf0057267772cdeb961d32fa7f6fce66ed754c63fe270336a7dbf7",
+        "telemetry_jsonl_sha256": "172ef0baadb94ea7cbb73088c8642ff7eada08f40a88f60aa8d69346c2328ba5"
+      },
+      "replay": {
+        "final_tic": 696,
+        "reward_total": -0.06860000000000094,
+        "expected_final_tic": 696,
+        "expected_reward_total": -0.06860000000000009,
+        "matches_telemetry": true,
+        "frames": 686,
+        "fps": 35,
+        "shape": [
+          720,
+          1280,
+          3
+        ],
+        "codec": "h264",
+        "size": [
+          1280,
+          720
+        ],
+        "from_tic": 10,
+        "to_tic": 696,
+        "captions": false,
+        "video_sha256": "e9977cd973f00ddedbf3fae47584ccb513d308c9e743b11baeea2713176a277f",
+        "lmp_sha256": "11479d98fd1ca10e04d8c81b5c556d00620db61b1e59ad0b104d3e965ed42675"
+      },
+      "audit": {
+        "every_primitive_matches_model_act": true,
+        "matched_primitives": 66,
+        "unmatched_primitives": 0,
+        "api_errors": 1,
+        "grounding_errors": 0,
+        "rejected_tool_responses": 2,
+        "tool_counts": {
+          "act": 60,
+          "locate": 19
+        },
+        "locate_found": 2,
+        "locate_completed": 19,
+        "cached_tokens_per_pilot_response": [
+          113,
+          113,
+          2161,
+          113,
+          113,
+          113,
+          2289,
+          1521,
+          113,
+          2417,
+          113,
+          113,
+          113,
+          113,
+          113,
+          113,
+          113,
+          2801,
+          113,
+          2801,
+          113,
+          1521,
+          1521,
+          1521,
+          1521,
+          1521,
+          113,
+          1521,
+          113,
+          1521,
+          113,
+          1521,
+          113,
+          1521,
+          3057,
+          1521,
+          1137,
+          113,
+          1521,
+          1521,
+          1521,
+          1137,
+          1137,
+          113,
+          1521,
+          3057,
+          1521,
+          1521,
+          1137,
+          113,
+          1137,
+          1521,
+          3057,
+          113,
+          1521,
+          1521,
+          113,
+          1521,
+          113,
+          3057,
+          1521,
+          1521,
+          1521,
+          3057,
+          113,
+          1521,
+          3057,
+          113,
+          1521,
+          1521,
+          1521,
+          1521,
+          113,
+          113,
+          113,
+          3057,
+          1521,
+          1521,
+          3057,
+          1137
+        ],
+        "all_responses_after_first_have_cached_tokens": true,
+        "static_plan_render_count": 0,
+        "runtime_source_hashes_verified": true,
+        "artifact_hashes_verified": true,
+        "accounting_matches_all_pilot_and_grounding_requests": true
+      }
+    },
+    {
+      "directory": "runs/20261104T084959.633761Z_my_way_home_L3_s101",
+      "manifest": {
+        "run_id": "20261104T084959.633761Z_my_way_home_L3_s101",
+        "timestamp": "20261104T084959.633761Z",
+        "git_commit": "16afed7121c19e2d5291dfc479650149a22d3547",
+        "source_sha256": {
+          "autoqa/__init__.py": "e7e5bd04cfac130fe14251dcf8f1429120587b28afbc3e3fdc25249b6c318b9c",
+          "autoqa/agent/__init__.py": "0863806f5746f27501778c4f34676dbedc1808c605e4a6b3c28ba944837aef74",
+          "autoqa/agent/client.py": "a8932912b0b35923bac88a79b499dfa0f2d2172f4334581cb401808ce2a7f33a",
+          "autoqa/agent/grounder.py": "2bae3326e14c5e1c47a2820b3fe2ec5ec6d586d4b4170f915c820e153ace8c34",
+          "autoqa/agent/guards.py": "6e3357b517f8e60d4af0795e226ca28acee022fbe07199af0550a4ce5e7faf61",
+          "autoqa/agent/memory.py": "638d668366ab2232982870d367ad3702ce7c4f8e0684acc793ecd92d65a3a9c6",
+          "autoqa/agent/pilot.py": "824c4181964706d3960ef46ec92ccb9a57a612bf947b60b9e89163eb20d5fb23",
+          "autoqa/agent/tools.py": "6a56597e1f343a895c4f44c09a8a221b5c9b1a537c0c257c91bbd193e06c8904",
+          "autoqa/cli.py": "e3011b9b4aa3ac9c4993c0c6d3c7f76822a6fbfe19cf39463e60b086bb820b08",
+          "autoqa/config.py": "a22cea205144b68dd582648c31e5fed365a2329333d099a35ffda4d39614fc11",
+          "autoqa/doom/__init__.py": "b2465e08ccadc455910e45a1cce1a3795e8badd73f6daa171ed35265a9bf481b",
+          "autoqa/doom/env.py": "9fbfa1429f89c5dc7fa6ea2748867b20952528b2c40f08dc0a39a199e35df9fd",
+          "autoqa/doom/plan_renderer.py": "b3eddac468db3836b6b561fb4e79d801c41ab21c262fbf510ce71f4c25f953a0",
+          "autoqa/doom/replay.py": "b55f4f48c664298992b66a9c934bb9bb2e5a584e35a4aac260e008f7fd004e4e",
+          "autoqa/doom/telemetry.py": "cd47cba9998774b17a7f7f0cbd056c5d11e27aa288c15197a26f8021e99f9a7d",
+          "autoqa/doom/topology.py": "87d5da713f1936f97673732ae5c45a9e86a17da29f59e04f978f742e6e89d34d",
+          "autoqa/doom/types.py": "5a0ea0ad70da17c21541cd905bc9f99b43113e768747890e591cdd51275b3854",
+          "autoqa/io.py": "20c70376cc1b584c2cad7f2b99b85923fcece2557fade60424a1a6685401a9b2",
+          "autoqa/m0/__init__.py": "25623dd83064d4722b4d2acad22cedb8e390a3bc1f76c33063951b69fa90662a",
+          "autoqa/m0/api.py": "0e6e5a1f6a1dd6792d627c2b732f22cb5c083235f4ab35e0a0b0a42cf4c6a480",
+          "autoqa/m0/local.py": "15788c4fd9de22d3f22b6ac4258214058db387ce5885e21cfba65f731a237727",
+          "autoqa/m0/sam_audit.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+          "autoqa/m0/spike.py": "967b57507347013349bec0bc7bece80465fad8e1be8a6210ea96d0236106d5bb",
+          "autoqa/m0/worker.py": "85445b519ab758e88092a105cd2a81c59409a2158f21b9b45b03ba6e2a81e8b6",
+          "autoqa/prompts/__init__.py": "7def4b60beb414d6d7c3affa8653bbb6ede975b7f497bf740d67ad5577bb8cfe",
+          "autoqa/prompts/builder.py": "2b6932151a7bab10f0d43098909165e2a8ef6d1f6577b69f09bf8d8be85cf813",
+          "autoqa/run.py": "901e954be1ec7d1db3ab6923c8d45bd9b2716a01660e68135263a6b9ffc1b51a",
+          "autoqa/sam_wire.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+          "autoqa/secrets.py": "2da6977bc1e72d0d7c6e47e30b4e657611fbaae2f41b5fc09b78c0cafcfd4674"
+        },
+        "vizdoom_version": "1.3.2",
+        "iwad_path": "/home/ramsi/projects/vizdoom-agent-research/.venv/lib/python3.12/site-packages/vizdoom/freedoom2.wad",
+        "iwad_sha256": "a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b",
+        "scenario_cfg_path": "/home/ramsi/projects/vizdoom-agent-research/.venv/lib/python3.12/site-packages/vizdoom/scenarios/my_way_home.cfg",
+        "scenario_cfg_sha256": "3dc0eb5e3557df7918484f91bdc4bc13b78cf67c6a6eaf2052e8ad66cfccbe46",
+        "scenario_wad_sha256": "18e98ff4c9186808eb00696b799cfe88a79e7486429c1692aafbed8ef359c0b1",
+        "prompt_sha256": "f9a5ad20c20a2665bd412193e7bb8ed71cf0ce24f67f7f5627aa14069493cfb8",
+        "briefing_sha256": "9ee5d990ea3dac9c99799ba4782e68f28595e9e874c291c747744fad4fb49d19",
+        "calibration_sha256": "6059f73fa524dbbf83a5a1b752a29a28cb08ad85c042d99ab2eef6bb863e230c",
+        "scenario_id": "my_way_home",
+        "level": 3,
+        "seed": 101,
+        "model": "muse-spark-1.3",
+        "effort": "low",
+        "config": {
+          "scenario": "my_way_home",
+          "level": 3,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "max_decisions": 60,
+          "max_tics": 2100,
+          "max_usd": 0.6,
+          "wall_seconds": 900.0,
+          "request_timeout": 45.0,
+          "max_output_tokens": 3000,
+          "grounding_mode": "muse_box_sam"
+        },
+        "is_fault_probe": false,
+        "fault_injection": null,
+        "engine_overrides": {
+          "mode": "PLAYER",
+          "resolution": [
+            640,
+            480
+          ],
+          "hud": true,
+          "episode_start_time": "bundled config (my_way_home: 10)",
+          "episode_timeout": 2100,
+          "recording_seed_reset": true
+        },
+        "outcome": "max_decisions",
+        "total_usd": 0.23378964999999996,
+        "usage": {
+          "input_tokens": 240568,
+          "output_tokens": 17517,
+          "cached_tokens": 128516,
+          "reasoning_tokens": 9625
+        },
+        "sam_grounding": "muse_box_sam",
+        "spawn_state": {
+          "pos_x": 464.0,
+          "pos_y": -176.0,
+          "pos_z": 0.0,
+          "angle_deg": 338.93920906329043,
+          "tic": 10
+        },
+        "plan_sha256": "aa34daddff1409d7ccabae7c6000e0ca8e8266075b8ec65543c34c47e77f7685",
+        "wall_seconds": 246.07165140000143,
+        "decisions": 60,
+        "model_calls": 68,
+        "act_calls": 60,
+        "inline_issues": 0,
+        "locate_calls": 8,
+        "grounding_model_calls": 8,
+        "grounding_cost_usd": 0.014837749999999999,
+        "final_tic": 1047,
+        "reward_total": -0.10370000000000013,
+        "start_tic": 10,
+        "tics_used": 1037,
+        "episode_lmp_sha256": "3245f39ecd1792ce06152c10459466559f9c8f3b19804269e689240fa8fdf130",
+        "events_jsonl_sha256": "9231003caa1904e4d53fce0dd839c5cb17efe8c10e5915837d1fb5ede022d91a",
+        "telemetry_jsonl_sha256": "e50ed28012f5638a887eb525d7ec7c69f8e9bb3781a9b92bd8f3ba1ffa72b5a7"
+      },
+      "replay": {
+        "final_tic": 1047,
+        "reward_total": -0.10370000000000194,
+        "expected_final_tic": 1047,
+        "expected_reward_total": -0.10370000000000013,
+        "matches_telemetry": true,
+        "frames": 1037,
+        "fps": 35,
+        "shape": [
+          720,
+          1280,
+          3
+        ],
+        "codec": "h264",
+        "size": [
+          1280,
+          720
+        ],
+        "from_tic": 10,
+        "to_tic": 1047,
+        "captions": false,
+        "video_sha256": "0df3f88b284d80860b142c42b88b9fd3f9b2a9445094dc6b93e2559ecbd40c96",
+        "lmp_sha256": "3245f39ecd1792ce06152c10459466559f9c8f3b19804269e689240fa8fdf130"
+      },
+      "audit": {
+        "every_primitive_matches_model_act": true,
+        "matched_primitives": 87,
+        "unmatched_primitives": 0,
+        "api_errors": 0,
+        "grounding_errors": 0,
+        "rejected_tool_responses": 0,
+        "tool_counts": {
+          "locate": 8,
+          "act": 60
+        },
+        "locate_found": 0,
+        "locate_completed": 8,
+        "cached_tokens_per_pilot_response": [
+          1137,
+          113,
+          1905,
+          113,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          3569,
+          1905,
+          1905,
+          1905,
+          1905,
+          3569,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905,
+          1905
+        ],
+        "all_responses_after_first_have_cached_tokens": true,
+        "static_plan_render_count": 1,
+        "runtime_source_hashes_verified": true,
+        "artifact_hashes_verified": true,
+        "accounting_matches_all_pilot_and_grounding_requests": true
+      }
+    }
+  ],
+  "costs_usd": {
+    "initial_probe": 0.022133,
+    "paired_grounding": 0.23803335,
+    "episodes": 0.8469034999999997,
+    "total": 1.1070698499999998
+  }
+}

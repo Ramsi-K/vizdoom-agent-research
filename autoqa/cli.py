@@ -15,8 +15,17 @@ def main(argv=None):
             sub.add_argument("--out", type=Path, default=Path("docs/spike-results.md"))
             sub.add_argument("--calibration", type=Path, default=Path("configs/calibration.json"))
     run = commands.add_parser("run")
-    run.add_argument("--scenario", choices=["my_way_home"], default="my_way_home")
-    run.add_argument("--level", type=int, choices=[1], default=1)
+    run.add_argument(
+        "--scenario",
+        choices=[
+            "my_way_home",
+            "health_gathering_supreme",
+            "deadly_corridor_nav",
+            "freedoom2_map01",
+        ],
+        default="my_way_home",
+    )
+    run.add_argument("--level", type=int, choices=[1, 2, 3], default=1)
     run.add_argument("--seed", type=int, default=101)
     run.add_argument(
         "--model",
@@ -29,6 +38,9 @@ def main(argv=None):
     run.add_argument("--max-usd", type=float, default=0.25)
     run.add_argument("--wall-seconds", type=float, default=900.0)
     run.add_argument("--request-timeout", type=float, default=45.0)
+    run.add_argument(
+        "--grounding-mode", choices=["sam_text", "muse_box_sam"], default="muse_box_sam"
+    )
     view = commands.add_parser("replay")
     view.add_argument("run_dir", type=Path)
     view.add_argument("--size", choices=["640x480", "1280x720"], default="1280x720")

@@ -1,13 +1,14 @@
 """Only the four M1 tools. SAM locate is deliberately absent until M2."""
 
-from autoqa.config import Act, Finish, Issue, Note
+from autoqa.config import Act, Finish, Issue, Locate, Note
 
-MODELS = {"act": Act, "note": Note, "report_issue": Issue, "finish": Finish}
+MODELS = {"act": Act, "note": Note, "report_issue": Issue, "finish": Finish, "locate": Locate}
 DESCRIPTIONS = {
     "act": "Execute 1 to 4 movement primitives in order, at most 70 tics in total. Ends the decision.",
     "note": "Append to or replace your private scratchpad (1500 characters maximum).",
     "report_issue": "Record a suspected gameplay issue with visible evidence; it is not verified as a defect.",
     "finish": "Stop playing because you give up or are blocked. The environment detects success.",
+    "locate": "Look for one 1-4 word noun phrase in the current frame. Returns optical candidates or found=false; it does not advance the game or verify identity.",
 }
 
 

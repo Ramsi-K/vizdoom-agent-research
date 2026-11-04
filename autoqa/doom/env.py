@@ -9,7 +9,7 @@ import numpy as np
 import vizdoom as vzd
 from PIL import Image
 
-from autoqa.config import Act
+from autoqa.config import SCENARIOS, Act
 from autoqa.io import EventLog
 
 from .telemetry import TelemetryRecorder
@@ -31,7 +31,8 @@ CANONICAL_BUTTONS = [
 
 def configured_game(config, *, size=(640, 480)):
     game = vzd.DoomGame()
-    game.load_config(str(Path(vzd.scenarios_path) / (config.scenario + ".cfg")))
+    profile = SCENARIOS[config.scenario]
+    game.load_config(str(Path(vzd.scenarios_path) / (profile["cfg"] + ".cfg")))
     game.set_available_buttons(CANONICAL_BUTTONS)
     game.set_available_game_variables([])
     game.set_screen_format(vzd.ScreenFormat.RGB24)
@@ -57,6 +58,9 @@ def configured_game(config, *, size=(640, 480)):
     game.set_sectors_info_enabled(True)
     game.set_episode_timeout(config.max_tics)
     game.set_seed(config.seed)
+    game.set_doom_map(profile["map"])
+    if profile["nomonsters"]:
+        game.add_game_args("-nomonsters")
     game.add_game_args("+viz_nocheat 0")
     game.set_button_max_value(vzd.Button.TURN_LEFT_RIGHT_DELTA, 0)
     return game
@@ -74,7 +78,8 @@ def jpeg(array, size=None):
 class DoomEnv:
     def __init__(self, config, directory, calibration):
         self.config, self.directory = config, directory
-        self.level = 1
+        self.level = config.level
+        self._plan_png = None
         self._game = configured_game(config)
         self.telemetry = TelemetryRecorder(directory, calibration)
         self.log = EventLog(directory / "events.jsonl")
@@ -92,6 +97,22 @@ class DoomEnv:
             self.start_tic = self._game.get_episode_time()
             self._screen = self._game.get_state().screen_buffer.copy()
             self.telemetry.record_step(self._game, "init", 0)
+            if self.level == 3:
+                import json
+
+                from .plan_renderer import render_plan
+
+                geometry = json.loads((directory / "geometry.json").read_text())
+                self._plan_png = render_plan(
+                    geometry, self.telemetry.last, scenario=config.scenario
+                )
+                (directory / "plan_l3.png").write_bytes(self._plan_png)
+                self.log(
+                    "static_plan",
+                    tic=self.start_tic,
+                    sha256=hashlib.sha256(self._plan_png).hexdigest(),
+                    render_count=1,
+                )
         except BaseException:
             self._game.close()
             raise
@@ -109,7 +130,7 @@ class DoomEnv:
             frame,
             tuple(reversed(self.previous_frames[-2:])),
             self.change,
-            None,
+            self._plan_png if self.level == 3 else None,
             hashlib.sha256(frame).hexdigest(),
         )
 
@@ -177,6 +198,13 @@ class DoomEnv:
         if self._game.is_player_dead():
             return "player_dead"
         if self.episode_finished():
+            if self.config.scenario == "health_gathering_supreme":
+                return (
+                    "success"
+                    if self._game.get_episode_time() - self.start_tic
+                    >= SCENARIOS[self.config.scenario]["timeout"]
+                    else "timeout"
+                )
             return "success" if self._game.get_total_reward() > 0 else "timeout"
         return None
 
@@ -194,7 +222,7 @@ class DoomEnv:
         owner = self
 
         class Session:
-            level = 1
+            level = owner.level
 
             def observe(self):
                 return owner.observe()

@@ -8,13 +8,14 @@ from pydantic import ValidationError
 from autoqa.prompts import builder
 
 from .client import InformationLeakError, ModelAPIError, replay_turn, tool_output
+from .grounder import GroundingBudgetExceeded
 from .guards import Guards
 from .memory import Memory
 from .tools import MODELS
 
 
 class Pilot:
-    def __init__(self, config, session, client, log):
+    def __init__(self, config, session, client, log, *, briefing_l2=None, grounder=None):
         self.config, self.session, self.client, self.log = config, session, client, log
         self.memory, self.guards = Memory(), Guards(config)
         self.issues = []
@@ -27,6 +28,23 @@ class Pilot:
             "cached_tokens": 0,
             "reasoning_tokens": 0,
         }
+        self.briefing_l2, self.grounder = briefing_l2, grounder
+        self.locate_calls = 0
+
+    def charge_grounding(self, model, cost_usd, usage, latency_ms):
+        self.guards.total_usd += cost_usd
+        for key in ("input_tokens", "output_tokens"):
+            self.tokens[key] += usage.get(key, 0) or 0
+        for key, parent in (
+            ("cached_tokens", "input_tokens_details"),
+            ("reasoning_tokens", "output_tokens_details"),
+        ):
+            self.tokens[key] += (usage.get(parent) or {}).get(key, 0) or 0
+        self.log(
+            "grounding_request", model=model, cost_usd=cost_usd, usage=usage, latency_ms=latency_ms
+        )
+        if self.guards.budget_exhausted():
+            raise GroundingBudgetExceeded("Budget exhausted during grounding")
 
     def run_episode(self):
         for decision in range(self.config.max_decisions):
@@ -36,7 +54,9 @@ class Pilot:
                 return "budget_exhausted"
             self.decisions = decision + 1
             obs = self.session.observe()
-            items = builder.build(1, self.memory, obs, self.guards.warning)
+            items = builder.build(
+                self.config.level, self.memory, obs, self.guards.warning, self.briefing_l2
+            )
             acted, misses = False, 0
             for call_idx in range(4):
                 if self.guards.budget_exhausted():
@@ -135,7 +155,8 @@ class Pilot:
                     items = replay_turn(items, turn.output, results)
                     continue
                 stop = None
-                for item in calls:
+                # Read-only tools use the observed frame before any act in the batch.
+                for item in sorted(calls, key=lambda call: call["name"] in {"act", "finish"}):
                     args = validated[item["call_id"]]
                     self.log(
                         "tool_call",
@@ -144,7 +165,34 @@ class Pilot:
                         name=item["name"],
                         arguments=args.model_dump(),
                     )
-                    if item["name"] == "note":
+                    if item["name"] == "locate":
+                        self.locate_calls += 1
+                        if self.grounder is None:
+                            out = {
+                                "found": False,
+                                "status": "could_not_verify",
+                                "reason": "No grounder configured",
+                            }
+                        else:
+                            try:
+                                measured, _ = self.grounder.locate(obs.frame_jpeg, args.concept)
+                                self.log(
+                                    "locate",
+                                    decision_idx=decision,
+                                    concept=args.concept,
+                                    **measured,
+                                )
+                                out = {key: measured[key] for key in ("found", "matches", "method")}
+                            except GroundingBudgetExceeded:
+                                return "budget_exhausted"
+                            except Exception as error:
+                                out = {
+                                    "found": False,
+                                    "status": "could_not_verify",
+                                    "error_type": type(error).__name__,
+                                }
+                                self.log("grounding_error", decision_idx=decision, **out)
+                    elif item["name"] == "note":
                         out = self.memory.note(args.text, args.mode)
                     elif item["name"] == "report_issue":
                         data = args.model_dump()

@@ -5,8 +5,8 @@ from autoqa.agent.tools import TOOLS
 from autoqa.config import Act, RunConfig
 
 
-def test_m1_exposes_exactly_four_tools_with_closed_schemas():
-    assert {t["name"] for t in TOOLS} == {"act", "note", "report_issue", "finish"}
+def test_m2_exposes_five_tools_with_closed_schemas():
+    assert {t["name"] for t in TOOLS} == {"act", "note", "report_issue", "finish", "locate"}
 
     def check(node, depth=0):
         assert depth <= 10
@@ -39,7 +39,7 @@ def test_primitive_and_total_limits_are_rejected_not_clamped(moves):
         Act.model_validate(dict(moves=moves, run=False, intent="test"))
 
 
-@pytest.mark.parametrize("settings", [dict(level=2), dict(level=3), dict(model="non-meta-model")])
+@pytest.mark.parametrize("settings", [dict(level=4), dict(level=0), dict(model="non-meta-model")])
 def test_run_settings_reject_future_levels_and_other_providers(settings):
     with pytest.raises(ValidationError):
         RunConfig.model_validate(settings)

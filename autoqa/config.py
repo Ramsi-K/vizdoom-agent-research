@@ -76,18 +76,41 @@ class Finish(StrictModel):
     rationale: str = Field(min_length=1, max_length=500)
 
 
+class Locate(StrictModel):
+    concept: str = Field(min_length=1, max_length=80)
+
+    @model_validator(mode="after")
+    def one_phrase(self):
+        if not 1 <= len(self.concept.split()) <= 4 or any(c in self.concept for c in ",;\n"):
+            raise ValueError("Use one noun phrase with 1-4 words")
+        return self
+
+
+SCENARIOS = {
+    "my_way_home": dict(cfg="my_way_home", timeout=2100, map="MAP01", nomonsters=False),
+    "health_gathering_supreme": dict(
+        cfg="health_gathering_supreme", timeout=2100, map="MAP01", nomonsters=False
+    ),
+    "deadly_corridor_nav": dict(cfg="deadly_corridor", timeout=2100, map="MAP01", nomonsters=True),
+    "freedoom2_map01": dict(cfg="freedoom2", timeout=4200, map="MAP01", nomonsters=True),
+}
+
+
 class RunConfig(StrictModel):
-    scenario: Literal["my_way_home"] = "my_way_home"
-    level: Literal[1] = 1
+    scenario: Literal[
+        "my_way_home", "health_gathering_supreme", "deadly_corridor_nav", "freedoom2_map01"
+    ] = "my_way_home"
+    level: Literal[1, 2, 3] = 1
     seed: int = 101
     model: Literal["muse-spark-1.3", "muse-spark-1.3-contributor"] = "muse-spark-1.3"
     effort: Literal["minimal", "low", "medium"] = "low"
     max_decisions: int = Field(default=60, ge=1, le=1000)
-    max_tics: int = Field(default=2100, ge=1, le=2100)
+    max_tics: int = Field(default=2100, ge=1, le=4200)
     max_usd: float = Field(default=0.25, gt=0)
     wall_seconds: float = Field(default=900.0, gt=0)
     request_timeout: float = Field(default=45.0, gt=0)
     max_output_tokens: int = Field(default=3000, ge=3000, le=8000)
+    grounding_mode: Literal["sam_text", "muse_box_sam"] = "muse_box_sam"
 
 
 # USD per million tokens, source: Meta pricing-rate-limits, checked 2026-11-04.

@@ -1,9 +1,11 @@
 """Meta-only Responses API, stateless output replay and a narrow input gate."""
 
+import base64
 import json
 import random
 import re
 import time
+from collections import Counter
 from dataclasses import dataclass
 
 from openai import APIConnectionError, APIStatusError, OpenAI
@@ -21,8 +23,20 @@ class ModelAPIError(RuntimeError):
     pass
 
 
-def sanitize_request(items, observation):
+def sanitize_request(items, observation, level=1):
     images = 0
+    allowed = Counter(
+        "data:image/jpeg;base64," + base64.b64encode(data).decode()
+        for data in (observation.frame_jpeg, *observation.prev_frames_jpeg)
+    )
+    if level == 3 and observation.plan_png is not None:
+        allowed["data:image/png;base64," + base64.b64encode(observation.plan_png).decode()] += 1
+    if (
+        level not in (1, 2, 3)
+        or (level < 3 and observation.plan_png is not None)
+        or (level == 3 and observation.plan_png is None)
+    ):
+        raise InformationLeakError("Observation does not match information level")
 
     def inspect(item):
         nonlocal images
@@ -32,17 +46,28 @@ def sanitize_request(items, observation):
         elif isinstance(item, dict):
             if item.get("type") == "input_image":
                 images += 1
-            if item.get("type") == "input_text" and re.search(
-                r"\b(pos_x|pos_y|labels_buffer|object_position|sector)\b", item.get("text", "")
-            ):
+                url = item.get("image_url")
+                if not isinstance(url, str) or allowed[url] <= 0:
+                    raise InformationLeakError("Unapproved image in request")
+                allowed[url] -= 1
+            if item.get("type") in {"input_file", "input_video"}:
+                raise InformationLeakError("Unapproved media in gameplay request")
+            text = (
+                item.get("text", "")
+                if item.get("type") == "input_text"
+                else item.get("content", "")
+                if isinstance(item.get("content"), str)
+                else ""
+            )
+            if re.search(r"\b(pos_x|pos_y|labels_buffer|object_position|sector)\b", text):
                 raise InformationLeakError("Forbidden telemetry key in input_text")
             for value in item.values():
                 if isinstance(value, (list, dict)):
                     inspect(value)
 
     inspect(items)
-    if observation.plan_png is not None or images > 1 + len(observation.prev_frames_jpeg):
-        raise InformationLeakError("Unexpected image or map in Level 1 payload")
+    if images > 1 + len(observation.prev_frames_jpeg) + int(level == 3):
+        raise InformationLeakError("Unexpected number of images")
 
 
 def tool_output(call_id, output):
@@ -80,7 +105,7 @@ class MetaClient:
         )
 
     def responses(self, items, obs, remaining_seconds):
-        sanitize_request(items, obs)
+        sanitize_request(items, obs, self.config.level)
         started = time.monotonic()
         for attempt in range(5):
             timeout = min(

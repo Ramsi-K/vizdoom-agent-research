@@ -10,22 +10,41 @@ L1_TASK = "You are an automated QA tester playing an unfamiliar first-person lev
 PROMPT_DIR = Path(__file__).resolve().parents[2] / "prompts"
 
 
-def prefix():
+def prefix(level=1, briefing_l2=None):
     task = (PROMPT_DIR / "level1_task.md").read_text().strip()
     if task != L1_TASK:
         raise ValueError("Pinned Level 1 task has changed")
-    return task + "\n\n" + (PROMPT_DIR / "system_v1.md").read_text()
+    if level not in (1, 2, 3):
+        raise ValueError("Unknown information level")
+    if level == 1 and briefing_l2 is not None:
+        raise ValueError("Level 1 may not receive a briefing")
+    if level > 1 and not briefing_l2:
+        raise ValueError("Guided levels require a briefing")
+    intro = (
+        task
+        if level == 1
+        else "You are an automated QA tester playing this level. Attempt the supplied objective and report confusing or apparently broken behavior."
+    )
+    result = intro + "\n\n" + (PROMPT_DIR / "system_v2.md").read_text()
+    if level > 1:
+        result += "\n\n" + briefing_l2
+    if level == 3:
+        result += "\nA frozen initial floor plan is supplied. Its start marker never updates. Localize yourself from visual landmarks."
+    return result
 
 
-def prompt_hash():
-    return hashlib.sha256(prefix().encode()).hexdigest()
+def prompt_hash(level=1, briefing_l2=None):
+    return hashlib.sha256(prefix(level, briefing_l2).encode()).hexdigest()
 
 
 def build(level: int, memory, obs: AgentObservation, guard_notes=None, briefing_l2=None):
-    if level != 1:
-        raise ValueError("Only Level 1 is implemented in M1")
-    if briefing_l2 is not None or obs.plan_png is not None:
-        raise ValueError("Level 1 may not receive a briefing or map")
+    if level not in (1, 2, 3):
+        raise ValueError("Unknown information level")
+    if level < 3 and obs.plan_png is not None:
+        raise ValueError("Only Level 3 may receive a map")
+    if level == 3 and obs.plan_png is None:
+        raise ValueError("Level 3 requires its frozen initial map")
+    stable = prefix(level, briefing_l2)
     text = (
         f"Decision {obs.decision_idx}; elapsed {obs.tics_elapsed} tics; remaining {obs.tics_remaining} tics.\nScratchpad:\n{memory.scratchpad}\nRecent actions:\n"
         + "\n".join(memory.history)
@@ -45,4 +64,19 @@ def build(level: int, memory, obs: AgentObservation, guard_notes=None, briefing_
                 },
             ]
         )
-    return [{"role": "system", "content": prefix()}, {"role": "user", "content": content}]
+    items = [{"role": "system", "content": stable}]
+    if level == 3:
+        items.append(
+            {
+                "role": "user",
+                "content": [
+                    {"type": "input_text", "text": "Frozen initial floor plan"},
+                    {
+                        "type": "input_image",
+                        "image_url": "data:image/png;base64,"
+                        + base64.b64encode(obs.plan_png).decode(),
+                    },
+                ],
+            }
+        )
+    return items + [{"role": "user", "content": content}]
