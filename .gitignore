@@ -218,3 +218,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local credentials, editor settings, and generated research evidence
+.env.*
+!.env.example
+.vscode/
+.uv-cache/
+.python-install/
+runs/
+results/
+*.lmp
+_vizdoom.ini

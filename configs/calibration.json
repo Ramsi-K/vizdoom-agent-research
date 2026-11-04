@@ -1,0 +1,487 @@
+{
+  "status": "passed",
+  "reason": null,
+  "source": "runs/m0_spike_20261104T064312.342534Z/summary.json",
+  "source_sha256": "d99d6af238bd08c2881860b0bc123daba2303533e7c6f84ca82c2f8c1d85568c",
+  "measured": {
+    "camera_fov_deg": 90.0,
+    "resolution": [
+      640,
+      480
+    ],
+    "delta_default_max": 0.0,
+    "delta_turn_samples": [
+      {
+        "requested_deg": 5.0,
+        "max_value": 0.0,
+        "applied_signed_deg": -4.998779298038812
+      },
+      {
+        "requested_deg": 45.0,
+        "max_value": 0.0,
+        "applied_signed_deg": -45.00000001047738
+      },
+      {
+        "requested_deg": 90.0,
+        "max_value": 0.0,
+        "applied_signed_deg": -90.00000002095476
+      },
+      {
+        "requested_deg": 180.0,
+        "max_value": 0.0,
+        "applied_signed_deg": -179.99999995809048
+      },
+      {
+        "requested_deg": -45.0,
+        "max_value": 0.0,
+        "applied_signed_deg": 45.00000001047738
+      },
+      {
+        "requested_deg": 5.0,
+        "max_value": 30.0,
+        "applied_signed_deg": -4.998779298038869
+      },
+      {
+        "requested_deg": 45.0,
+        "max_value": 30.0,
+        "applied_signed_deg": -30.003662116360772
+      },
+      {
+        "requested_deg": 90.0,
+        "max_value": 30.0,
+        "applied_signed_deg": -30.003662116360772
+      },
+      {
+        "requested_deg": 180.0,
+        "max_value": 30.0,
+        "applied_signed_deg": -30.003662116360772
+      },
+      {
+        "requested_deg": -45.0,
+        "max_value": 30.0,
+        "applied_signed_deg": 29.99816895229702
+      }
+    ],
+    "binary_turns": {
+      "left": {
+        "start_angle": 355.41320809056356,
+        "tics_per_90": 29,
+        "trace": [
+          {
+            "tics": 1,
+            "accumulated_deg": 1.7578125004092726
+          },
+          {
+            "tics": 2,
+            "accumulated_deg": 3.5156250008185452
+          },
+          {
+            "tics": 3,
+            "accumulated_deg": 5.273437417408786
+          },
+          {
+            "tics": 4,
+            "accumulated_deg": 7.031249917818059
+          },
+          {
+            "tics": 5,
+            "accumulated_deg": 8.789062418227331
+          },
+          {
+            "tics": 6,
+            "accumulated_deg": 12.304687419045877
+          },
+          {
+            "tics": 7,
+            "accumulated_deg": 15.820312419864422
+          },
+          {
+            "tics": 8,
+            "accumulated_deg": 19.335937420682967
+          },
+          {
+            "tics": 9,
+            "accumulated_deg": 22.851562421501512
+          },
+          {
+            "tics": 10,
+            "accumulated_deg": 26.367187422320058
+          },
+          {
+            "tics": 11,
+            "accumulated_deg": 29.882812423138603
+          },
+          {
+            "tics": 12,
+            "accumulated_deg": 33.39843742395715
+          },
+          {
+            "tics": 13,
+            "accumulated_deg": 36.91406242477569
+          },
+          {
+            "tics": 14,
+            "accumulated_deg": 40.42968742559424
+          },
+          {
+            "tics": 15,
+            "accumulated_deg": 43.945312426412784
+          },
+          {
+            "tics": 16,
+            "accumulated_deg": 47.46093742723133
+          },
+          {
+            "tics": 17,
+            "accumulated_deg": 50.976562428049874
+          },
+          {
+            "tics": 18,
+            "accumulated_deg": 54.49218742886842
+          },
+          {
+            "tics": 19,
+            "accumulated_deg": 58.007812429686965
+          },
+          {
+            "tics": 20,
+            "accumulated_deg": 61.52343743050551
+          },
+          {
+            "tics": 21,
+            "accumulated_deg": 65.03906243132406
+          },
+          {
+            "tics": 22,
+            "accumulated_deg": 68.5546874321426
+          },
+          {
+            "tics": 23,
+            "accumulated_deg": 72.07031243296115
+          },
+          {
+            "tics": 24,
+            "accumulated_deg": 75.58593743377969
+          },
+          {
+            "tics": 25,
+            "accumulated_deg": 79.10156243459824
+          },
+          {
+            "tics": 26,
+            "accumulated_deg": 82.61718743541678
+          },
+          {
+            "tics": 27,
+            "accumulated_deg": 86.13281243623533
+          },
+          {
+            "tics": 28,
+            "accumulated_deg": 89.64843743705387
+          },
+          {
+            "tics": 29,
+            "accumulated_deg": 93.16406243787242
+          }
+        ]
+      },
+      "right": {
+        "start_angle": 81.65588380807449,
+        "tics_per_90": 29,
+        "trace": [
+          {
+            "tics": 1,
+            "accumulated_deg": 1.7578125004092726
+          },
+          {
+            "tics": 2,
+            "accumulated_deg": 3.5156250008185452
+          },
+          {
+            "tics": 3,
+            "accumulated_deg": 5.273437501227818
+          },
+          {
+            "tics": 4,
+            "accumulated_deg": 7.0312500016370905
+          },
+          {
+            "tics": 5,
+            "accumulated_deg": 8.789062502046363
+          },
+          {
+            "tics": 6,
+            "accumulated_deg": 12.304687502864908
+          },
+          {
+            "tics": 7,
+            "accumulated_deg": 15.820312503683454
+          },
+          {
+            "tics": 8,
+            "accumulated_deg": 19.335937504502
+          },
+          {
+            "tics": 9,
+            "accumulated_deg": 22.851562505320544
+          },
+          {
+            "tics": 10,
+            "accumulated_deg": 26.36718750613909
+          },
+          {
+            "tics": 11,
+            "accumulated_deg": 29.882812506957634
+          },
+          {
+            "tics": 12,
+            "accumulated_deg": 33.39843750777618
+          },
+          {
+            "tics": 13,
+            "accumulated_deg": 36.914062508594725
+          },
+          {
+            "tics": 14,
+            "accumulated_deg": 40.42968750941327
+          },
+          {
+            "tics": 15,
+            "accumulated_deg": 43.945312510231815
+          },
+          {
+            "tics": 16,
+            "accumulated_deg": 47.46093751105036
+          },
+          {
+            "tics": 17,
+            "accumulated_deg": 50.976562511868906
+          },
+          {
+            "tics": 18,
+            "accumulated_deg": 54.49218751268745
+          },
+          {
+            "tics": 19,
+            "accumulated_deg": 58.007812513505996
+          },
+          {
+            "tics": 20,
+            "accumulated_deg": 61.52343751432454
+          },
+          {
+            "tics": 21,
+            "accumulated_deg": 65.03906251514309
+          },
+          {
+            "tics": 22,
+            "accumulated_deg": 68.55468751596163
+          },
+          {
+            "tics": 23,
+            "accumulated_deg": 72.07031251678018
+          },
+          {
+            "tics": 24,
+            "accumulated_deg": 75.58593751759872
+          },
+          {
+            "tics": 25,
+            "accumulated_deg": 79.10156251841727
+          },
+          {
+            "tics": 26,
+            "accumulated_deg": 82.61718743541678
+          },
+          {
+            "tics": 27,
+            "accumulated_deg": 86.13281243623533
+          },
+          {
+            "tics": 28,
+            "accumulated_deg": 89.64843743705387
+          },
+          {
+            "tics": 29,
+            "accumulated_deg": 93.16406243787242
+          }
+        ]
+      }
+    },
+    "movement_samples": [
+      {
+        "speed": false,
+        "requested_heading": 0,
+        "measured_heading": 0.0,
+        "units_per_tic": [
+          0.78125,
+          1.4892578125,
+          2.130889892578125,
+          2.7123565673828125,
+          3.23931884765625,
+          3.7168731689453125,
+          4.149658203125,
+          1.3124542236328125
+        ]
+      },
+      {
+        "speed": false,
+        "requested_heading": 90,
+        "measured_heading": 90.00000002095476,
+        "units_per_tic": [
+          0.78125,
+          1.4892578125,
+          2.130889892578125,
+          2.7123565673828125,
+          3.23931884765625,
+          3.7168731689453125,
+          4.149658203125,
+          4.5418701171875
+        ]
+      },
+      {
+        "speed": false,
+        "requested_heading": 180,
+        "measured_heading": 180.00000004190952,
+        "units_per_tic": [
+          0.78125,
+          1.4892578125,
+          2.130889892578125,
+          2.712371826171875,
+          3.239349365234375,
+          3.7169189453125,
+          4.14971923828125,
+          4.5419464111328125
+        ]
+      },
+      {
+        "speed": false,
+        "requested_heading": 270,
+        "measured_heading": 270.0000000628643,
+        "units_per_tic": [
+          0.78125,
+          1.4892578125,
+          2.130889892578125,
+          2.712371826171875,
+          3.239349365234375,
+          3.7169189453125,
+          4.14971923828125,
+          4.5419464111328125
+        ]
+      },
+      {
+        "speed": true,
+        "requested_heading": 0,
+        "measured_heading": 0.0,
+        "units_per_tic": [
+          1.5625,
+          2.978515625,
+          4.26177978515625,
+          5.4247283935546875,
+          6.4786529541015625,
+          7.43377685546875,
+          8.299346923828125,
+          9.083770751953125
+        ]
+      },
+      {
+        "speed": true,
+        "requested_heading": 90,
+        "measured_heading": 90.00000002095476,
+        "units_per_tic": [
+          1.5625,
+          2.978515625,
+          4.26177978515625,
+          5.4247283935546875,
+          6.4786529541015625,
+          7.43377685546875,
+          8.299346923828125,
+          9.083770751953125
+        ]
+      },
+      {
+        "speed": true,
+        "requested_heading": 180,
+        "measured_heading": 180.00000004190952,
+        "units_per_tic": [
+          1.5625,
+          2.978515625,
+          4.26177978515625,
+          5.42474365234375,
+          6.4786834716796875,
+          7.433807373046875,
+          8.299392700195312,
+          9.083831787109375
+        ]
+      },
+      {
+        "speed": true,
+        "requested_heading": 270,
+        "measured_heading": 270.0000000628643,
+        "units_per_tic": [
+          1.5625,
+          2.978515625,
+          4.26177978515625,
+          5.42474365234375,
+          6.4786834716796875,
+          7.433807373046875,
+          8.299392700195312,
+          9.083831787109375
+        ]
+      }
+    ],
+    "forward_units_per_tic": {
+      "walk": 4.5419464111328125,
+      "run": 9.083831787109375
+    },
+    "movement_method": "Maximum eighth-tic displacement across four headings; inspect raw traces for collisions. Not a steady-state estimate."
+  },
+  "actor_names": {
+    "my_way_home": {
+      "labels": [
+        "GreenArmor"
+      ],
+      "objects": [
+        "DoomPlayer",
+        "GreenArmor"
+      ]
+    },
+    "health_gathering_supreme": {
+      "labels": [
+        "CustomMedikit",
+        "Poison"
+      ],
+      "objects": [
+        "CustomMedikit",
+        "DoomPlayer",
+        "Poison"
+      ]
+    },
+    "freedoom2": {
+      "labels": [
+        "DoomPlayer"
+      ],
+      "objects": [
+        "ArmorBonus",
+        "BigTree",
+        "BlueArmor",
+        "Chainsaw",
+        "Clip",
+        "Column",
+        "DeadMarine",
+        "DoomPlayer",
+        "ExplosiveBarrel",
+        "GreenArmor",
+        "HealthBonus",
+        "Medikit",
+        "Shell",
+        "Shotgun",
+        "Soulsphere",
+        "Stalagtite",
+        "Stimpack",
+        "TechPillar",
+        "TorchTree"
+      ]
+    }
+  }
+}

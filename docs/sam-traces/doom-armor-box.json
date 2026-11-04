@@ -1,0 +1,281 @@
+{
+  "request": {
+    "schema": {
+      "model": "sam-3.1",
+      "input": [
+        {
+          "type": "message",
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "<0f>1<|box;x1=288;y1=228;x2=352;y2=286;w=640;h=480|>"
+            },
+            {
+              "type": "input_image",
+              "image_url": "[REDACTED]"
+            }
+          ]
+        }
+      ],
+      "stream": true,
+      "metadata": {
+        "mask_encoding": "one_bit",
+        "include_confidence": "true"
+      },
+      "store": false
+    },
+    "image": {
+      "data_url_prefix": "data:image/jpeg;base64",
+      "base64_characters": 83804,
+      "decoded_bytes": 62851,
+      "decoded_sha256": "361040b2cabf678b37e5013b90a9f005bfd4238a4d8e43db2ab44ad423e9cc25",
+      "jpeg_magic": "ffd8ff",
+      "format": "JPEG",
+      "mode": "RGB",
+      "size": [
+        640,
+        480
+      ]
+    }
+  },
+  "events": [
+    {
+      "response": {
+        "id": "resp_6aead34a6227810ebee24a29",
+        "created_at": 1793774410.0,
+        "metadata": {
+          "include_confidence": "true",
+          "mask_encoding": "one_bit"
+        },
+        "model": "sam-3.1",
+        "object": "response",
+        "output": [],
+        "parallel_tool_calls": true,
+        "temperature": 1.0,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 1.0,
+        "background": false,
+        "service_tier": "auto",
+        "status": "in_progress",
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "store": false
+      },
+      "sequence_number": 0,
+      "type": "response.created"
+    },
+    {
+      "response": {
+        "id": "resp_6aead34a6227810ebee24a29",
+        "created_at": 1793774410.0,
+        "metadata": {
+          "include_confidence": "true",
+          "mask_encoding": "one_bit"
+        },
+        "model": "sam-3.1",
+        "object": "response",
+        "output": [],
+        "parallel_tool_calls": true,
+        "temperature": 1.0,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 1.0,
+        "background": false,
+        "service_tier": "auto",
+        "status": "in_progress",
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "store": false
+      },
+      "sequence_number": 1,
+      "type": "response.in_progress"
+    },
+    {
+      "item": {
+        "id": "msg_a24323c0-b461-4744-9067-0d21fc160113",
+        "content": [
+          {
+            "annotations": [],
+            "text": "",
+            "type": "output_text",
+            "logprobs": []
+          }
+        ],
+        "role": "assistant",
+        "status": "in_progress",
+        "type": "message"
+      },
+      "output_index": 0,
+      "sequence_number": 2,
+      "type": "response.output_item.added"
+    },
+    {
+      "content_index": 0,
+      "item_id": "msg_a24323c0-b461-4744-9067-0d21fc160113",
+      "output_index": 0,
+      "part": {
+        "annotations": [],
+        "text": "",
+        "type": "output_text",
+        "logprobs": []
+      },
+      "sequence_number": 3,
+      "type": "response.content_part.added"
+    },
+    {
+      "content_index": 0,
+      "delta": "<0f>1<|box;x1=288;y1=227;x2=352;y2=285;w=640;h=480;c=0.921875|><|mask;x=0;y=0;c=0.921875;data=59,65,!!!!!fFNXJJC#h^_MOlZa4)xw)Ew%R7Xz'lzXKTTO]Vq]JU&H?=pZ40O1/F@3/bVUg^pS?a9N2J{bnf`rp$8]|>\n",
+      "item_id": "msg_a24323c0-b461-4744-9067-0d21fc160113",
+      "logprobs": [],
+      "output_index": 0,
+      "sequence_number": 4,
+      "type": "response.output_text.delta"
+    },
+    {
+      "content_index": 0,
+      "item_id": "msg_a24323c0-b461-4744-9067-0d21fc160113",
+      "logprobs": [],
+      "output_index": 0,
+      "sequence_number": 5,
+      "text": "<0f>1<|box;x1=288;y1=227;x2=352;y2=285;w=640;h=480;c=0.921875|><|mask;x=0;y=0;c=0.921875;data=59,65,!!!!!fFNXJJC#h^_MOlZa4)xw)Ew%R7Xz'lzXKTTO]Vq]JU&H?=pZ40O1/F@3/bVUg^pS?a9N2J{bnf`rp$8]|>\n",
+      "type": "response.output_text.done"
+    },
+    {
+      "content_index": 0,
+      "item_id": "msg_a24323c0-b461-4744-9067-0d21fc160113",
+      "output_index": 0,
+      "part": {
+        "annotations": [],
+        "text": "<0f>1<|box;x1=288;y1=227;x2=352;y2=285;w=640;h=480;c=0.921875|><|mask;x=0;y=0;c=0.921875;data=59,65,!!!!!fFNXJJC#h^_MOlZa4)xw)Ew%R7Xz'lzXKTTO]Vq]JU&H?=pZ40O1/F@3/bVUg^pS?a9N2J{bnf`rp$8]|>\n",
+        "type": "output_text",
+        "logprobs": []
+      },
+      "sequence_number": 6,
+      "type": "response.content_part.done"
+    },
+    {
+      "item": {
+        "id": "msg_a24323c0-b461-4744-9067-0d21fc160113",
+        "content": [
+          {
+            "annotations": [],
+            "text": "<0f>1<|box;x1=288;y1=227;x2=352;y2=285;w=640;h=480;c=0.921875|><|mask;x=0;y=0;c=0.921875;data=59,65,!!!!!fFNXJJC#h^_MOlZa4)xw)Ew%R7Xz'lzXKTTO]Vq]JU&H?=pZ40O1/F@3/bVUg^pS?a9N2J{bnf`rp$8]|>\n",
+            "type": "output_text",
+            "logprobs": []
+          }
+        ],
+        "role": "assistant",
+        "status": "completed",
+        "type": "message"
+      },
+      "output_index": 0,
+      "sequence_number": 7,
+      "type": "response.output_item.done"
+    },
+    {
+      "response": {
+        "id": "resp_6aead34a6227810ebee24a29",
+        "created_at": 1793774410.0,
+        "metadata": {
+          "include_confidence": "true",
+          "mask_encoding": "one_bit"
+        },
+        "model": "sam-3.1",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_a24323c0-b461-4744-9067-0d21fc160113",
+            "content": [
+              {
+                "annotations": [],
+                "text": "<0f>1<|box;x1=288;y1=227;x2=352;y2=285;w=640;h=480;c=0.921875|><|mask;x=0;y=0;c=0.921875;data=59,65,!!!!!fFNXJJC#h^_MOlZa4)xw)Ew%R7Xz'lzXKTTO]Vq]JU&H?=pZ40O1/F@3/bVUg^pS?a9N2J{bnf`rp$8]|>\n",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 1.0,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 1.0,
+        "background": false,
+        "completed_at": 1793774410.0,
+        "service_tier": "auto",
+        "status": "completed",
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 0,
+          "images_processed": 1
+        },
+        "store": false
+      },
+      "sequence_number": 8,
+      "type": "response.completed"
+    }
+  ],
+  "http_status": 200,
+  "summary": {
+    "finish_status": "completed",
+    "output_item_types": [
+      "message"
+    ],
+    "delta_events": 1,
+    "delta_characters": 188,
+    "terminal_text_characters": 188,
+    "parser_text_characters": 188,
+    "parser_record_count": 2,
+    "parser_status": "completed",
+    "parser_diagnostics": [],
+    "raw_text_matches_parser": true,
+    "genuinely_empty_model_output": false
+  },
+  "decoded": {
+    "latency_ms": 1103.2933079986833,
+    "concept": "<0f>1<|box;x1=288;y1=228;x2=352;y2=286;w=640;h=480|>",
+    "confidences": [
+      0.921875
+    ],
+    "encodings": [
+      "one_bit"
+    ],
+    "mask_count": 1,
+    "parser": "parse_responses_stream(image_segmentation_format())",
+    "completed": true,
+    "raw_output_chars": 188,
+    "foreground_pixels": [
+      2061
+    ],
+    "live_mask_decoding_verified": true,
+    "wire": {
+      "finish_status": "completed",
+      "output_item_types": [
+        "message"
+      ],
+      "delta_events": 1,
+      "delta_characters": 188,
+      "terminal_text_characters": 188,
+      "parser_text_characters": 188,
+      "parser_record_count": 2,
+      "parser_status": "completed",
+      "parser_diagnostics": [],
+      "raw_text_matches_parser": true,
+      "genuinely_empty_model_output": false
+    }
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "request": {
+    "schema": {
+      "model": "sam-3.1",
+      "input": [
+        {
+          "type": "message",
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "green armor"
+            },
+            {
+              "type": "input_image",
+              "image_url": "[REDACTED]"
+            }
+          ]
+        }
+      ],
+      "stream": true,
+      "metadata": {
+        "mask_encoding": "one_bit",
+        "include_confidence": "true"
+      },
+      "store": false
+    },
+    "image": {
+      "data_url_prefix": "data:image/jpeg;base64",
+      "base64_characters": 83804,
+      "decoded_bytes": 62851,
+      "decoded_sha256": "361040b2cabf678b37e5013b90a9f005bfd4238a4d8e43db2ab44ad423e9cc25",
+      "jpeg_magic": "ffd8ff",
+      "format": "JPEG",
+      "mode": "RGB",
+      "size": [
+        640,
+        480
+      ]
+    }
+  },
+  "events": [
+    {
+      "response": {
+        "id": "resp_6aead348e995e90def49482a",
+        "created_at": 1793774408.0,
+        "metadata": {
+          "include_confidence": "true",
+          "mask_encoding": "one_bit"
+        },
+        "model": "sam-3.1",
+        "object": "response",
+        "output": [],
+        "parallel_tool_calls": true,
+        "temperature": 1.0,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 1.0,
+        "background": false,
+        "service_tier": "auto",
+        "status": "in_progress",
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "store": false
+      },
+      "sequence_number": 0,
+      "type": "response.created"
+    },
+    {
+      "response": {
+        "id": "resp_6aead348e995e90def49482a",
+        "created_at": 1793774408.0,
+        "metadata": {
+          "include_confidence": "true",
+          "mask_encoding": "one_bit"
+        },
+        "model": "sam-3.1",
+        "object": "response",
+        "output": [],
+        "parallel_tool_calls": true,
+        "temperature": 1.0,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 1.0,
+        "background": false,
+        "service_tier": "auto",
+        "status": "in_progress",
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "store": false
+      },
+      "sequence_number": 1,
+      "type": "response.in_progress"
+    },
+    {
+      "item": {
+        "id": "msg_82493385-e797-4952-9dcc-b2f634897fbf",
+        "content": [
+          {
+            "annotations": [],
+            "text": "",
+            "type": "output_text",
+            "logprobs": []
+          }
+        ],
+        "role": "assistant",
+        "status": "in_progress",
+        "type": "message"
+      },
+      "output_index": 0,
+      "sequence_number": 2,
+      "type": "response.output_item.added"
+    },
+    {
+      "content_index": 0,
+      "item_id": "msg_82493385-e797-4952-9dcc-b2f634897fbf",
+      "output_index": 0,
+      "part": {
+        "annotations": [],
+        "text": "",
+        "type": "output_text",
+        "logprobs": []
+      },
+      "sequence_number": 3,
+      "type": "response.content_part.added"
+    },
+    {
+      "content_index": 0,
+      "item_id": "msg_82493385-e797-4952-9dcc-b2f634897fbf",
+      "logprobs": [],
+      "output_index": 0,
+      "sequence_number": 4,
+      "text": "",
+      "type": "response.output_text.done"
+    },
+    {
+      "content_index": 0,
+      "item_id": "msg_82493385-e797-4952-9dcc-b2f634897fbf",
+      "output_index": 0,
+      "part": {
+        "annotations": [],
+        "text": "",
+        "type": "output_text",
+        "logprobs": []
+      },
+      "sequence_number": 5,
+      "type": "response.content_part.done"
+    },
+    {
+      "item": {
+        "id": "msg_82493385-e797-4952-9dcc-b2f634897fbf",
+        "content": [
+          {
+            "annotations": [],
+            "text": "",
+            "type": "output_text",
+            "logprobs": []
+          }
+        ],
+        "role": "assistant",
+        "status": "completed",
+        "type": "message"
+      },
+      "output_index": 0,
+      "sequence_number": 6,
+      "type": "response.output_item.done"
+    },
+    {
+      "response": {
+        "id": "resp_6aead348e995e90def49482a",
+        "created_at": 1793774408.0,
+        "metadata": {
+          "include_confidence": "true",
+          "mask_encoding": "one_bit"
+        },
+        "model": "sam-3.1",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_82493385-e797-4952-9dcc-b2f634897fbf",
+            "content": [
+              {
+                "annotations": [],
+                "text": "",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 1.0,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 1.0,
+        "background": false,
+        "completed_at": 1793774408.0,
+        "service_tier": "auto",
+        "status": "completed",
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 0,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 0,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 0,
+          "images_processed": 1
+        },
+        "store": false
+      },
+      "sequence_number": 7,
+      "type": "response.completed"
+    }
+  ],
+  "http_status": 200,
+  "summary": {
+    "finish_status": "completed",
+    "output_item_types": [
+      "message"
+    ],
+    "delta_events": 0,
+    "delta_characters": 0,
+    "terminal_text_characters": 0,
+    "parser_text_characters": 0,
+    "parser_record_count": 0,
+    "parser_status": "completed",
+    "parser_diagnostics": [],
+    "raw_text_matches_parser": true,
+    "genuinely_empty_model_output": true
+  },
+  "decoded": {
+    "latency_ms": 2014.6976750038448,
+    "concept": "green armor",
+    "confidences": [],
+    "encodings": [],
+    "mask_count": 0,
+    "parser": "parse_responses_stream(image_segmentation_format())",
+    "completed": true,
+    "raw_output_chars": 0,
+    "foreground_pixels": [],
+    "live_mask_decoding_verified": false,
+    "wire": {
+      "finish_status": "completed",
+      "output_item_types": [
+        "message"
+      ],
+      "delta_events": 0,
+      "delta_characters": 0,
+      "terminal_text_characters": 0,
+      "parser_text_characters": 0,
+      "parser_record_count": 0,
+      "parser_status": "completed",
+      "parser_diagnostics": [],
+      "raw_text_matches_parser": true,
+      "genuinely_empty_model_output": true
+    }
+  }
+}
