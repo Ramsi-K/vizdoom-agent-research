@@ -45,14 +45,27 @@ def test_l1_prompt_and_observation_are_narrow_and_frozen(observation):
     sanitize_request(request, observation)
 
 
-def test_maps_and_future_levels_are_rejected(observation):
+def test_information_level_gates(observation):
     with pytest.raises(ValueError):
         build(1, Memory(), replace(observation, plan_png=b"map"))
     with pytest.raises(ValueError):
         build(1, Memory(), observation, briefing_l2="mechanics")
-    for level in (2, 3):
-        with pytest.raises(ValueError, match="Only Level 1"):
-            build(level, Memory(), observation)
+    with pytest.raises(ValueError):
+        build(2, Memory(), observation)
+    with pytest.raises(ValueError):
+        build(3, Memory(), observation, briefing_l2="mechanics")
+    briefing = "ONLY_GUIDED_OBJECTIVE_AND_MECHANICS"
+    plan = b"initial-static-map-fixture"
+    guided = build(2, Memory(), observation, briefing_l2=briefing)
+    informed = build(3, Memory(), replace(observation, plan_png=plan), briefing_l2=briefing)
+    assert briefing not in str(build(1, Memory(), observation))
+    assert briefing in str(guided) and briefing in str(informed)
+    assert "data:image/png" not in str(guided)
+    assert "data:image/png" in str(informed)
+    sanitize_request(guided, observation, 2)
+    sanitize_request(informed, replace(observation, plan_png=plan), 3)
+    with pytest.raises(InformationLeakError):
+        sanitize_request(informed, observation, 1)
 
 
 @pytest.mark.parametrize("key", ["pos_x", "pos_y", "labels_buffer", "object_position", "sector"])
@@ -71,3 +84,12 @@ def test_extra_image_is_rejected(observation):
     )
     with pytest.raises(InformationLeakError):
         sanitize_request(request, observation)
+
+
+def test_swapping_current_frame_for_private_image_is_rejected(observation):
+    request = build(1, Memory(), observation)
+    next(c for c in request[-1]["content"] if c["type"] == "input_image")["image_url"] = (
+        "data:image/jpeg;base64,private-label-buffer"
+    )
+    with pytest.raises(InformationLeakError):
+        sanitize_request(request, observation, 1)

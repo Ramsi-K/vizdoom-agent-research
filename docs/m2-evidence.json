@@ -1,0 +1,2068 @@
+{
+  "format": "compact M2 research evidence v2",
+  "archive_note": "Full intermediate records are archived locally and remain accessible at the pre-cleanup commit; no history was rewritten. Final PR retains measurements rather than duplicate manifests/full traces.",
+  "full_records": [
+    {
+      "commit": "5e157add2e03e7c70543a9b0d8866f90195120d0",
+      "path": "docs/m2-evidence.json",
+      "sha256": "43eb8a8cc2b8232099876470b3db2ae94e066c78d8d4832461a1e28b6056ca6d",
+      "local_archive": "runs/m2-navigation-review/m2-evidence.json"
+    },
+    {
+      "commit": "5e157add2e03e7c70543a9b0d8866f90195120d0",
+      "path": "docs/m2-ledger-evidence.json",
+      "sha256": "554a833b913333850f23add808a458e37d07c7174a252365f5f5d49dc1096477",
+      "local_archive": "runs/m2-navigation-review/m2-ledger-evidence.json"
+    },
+    {
+      "commit": "5e157add2e03e7c70543a9b0d8866f90195120d0",
+      "path": "docs/m2-ledger-extended-evidence.json",
+      "sha256": "9da01fa22d1abfebbcc84da1df6c05e0c932b0aedd9a50d92f010bb745b7e468",
+      "local_archive": "runs/m2-navigation-review/m2-ledger-extended-evidence.json"
+    },
+    {
+      "commit": "5e157add2e03e7c70543a9b0d8866f90195120d0",
+      "path": "docs/m2-trajectory-evidence.json",
+      "sha256": "d6ecf15d2d7842489d1e464f0c3f760ad161b7a7779f1c85f528ac208141bcdb",
+      "local_archive": "runs/m2-navigation-review/m2-trajectory-evidence.json"
+    }
+  ],
+  "baseline": {
+    "date": "2026-11-04",
+    "base_commit": "12d84328e512f2bad581cd586efb5b0db50ac0eb",
+    "runtime_commit": "16afed7121c19e2d5291dfc479650149a22d3547",
+    "tests": {
+      "passed": 70,
+      "live_api_deselected": 4,
+      "lint": "passed"
+    },
+    "paired_spawn_identical": true,
+    "grounding_summary": {
+      "sam_text": {
+        "positive_cases": 21,
+        "hits": 0,
+        "negative_cases": 7,
+        "false_positives": 0,
+        "incomplete": 0,
+        "cost_usd": 0.07,
+        "matched_bearing_mae_deg": null
+      },
+      "muse_box_sam": {
+        "positive_cases": 21,
+        "hits": 10,
+        "negative_cases": 7,
+        "false_positives": 2,
+        "incomplete": 0,
+        "cost_usd": 0.16803335,
+        "matched_bearing_mae_deg": 0.19814813822989186
+      }
+    },
+    "grounding_by_scenario": [
+      {
+        "mode": "sam_text",
+        "scenario": "my_way_home",
+        "positive": 7,
+        "hits": 0,
+        "negative": 3,
+        "false_positives": 0,
+        "muse_boxes_iou_ge_05": null,
+        "mean_muse_box_iou": null,
+        "cost_usd": 0.025
+      },
+      {
+        "mode": "sam_text",
+        "scenario": "health_gathering_supreme",
+        "positive": 7,
+        "hits": 0,
+        "negative": 2,
+        "false_positives": 0,
+        "muse_boxes_iou_ge_05": null,
+        "mean_muse_box_iou": null,
+        "cost_usd": 0.0225
+      },
+      {
+        "mode": "sam_text",
+        "scenario": "freedoom2_map01",
+        "positive": 7,
+        "hits": 0,
+        "negative": 2,
+        "false_positives": 0,
+        "muse_boxes_iou_ge_05": null,
+        "mean_muse_box_iou": null,
+        "cost_usd": 0.0225
+      },
+      {
+        "mode": "muse_box_sam",
+        "scenario": "my_way_home",
+        "positive": 7,
+        "hits": 5,
+        "negative": 3,
+        "false_positives": 1,
+        "muse_boxes_iou_ge_05": 6,
+        "mean_muse_box_iou": 0.6817253256577697,
+        "cost_usd": 0.0478966
+      },
+      {
+        "mode": "muse_box_sam",
+        "scenario": "health_gathering_supreme",
+        "positive": 7,
+        "hits": 5,
+        "negative": 2,
+        "false_positives": 1,
+        "muse_boxes_iou_ge_05": 5,
+        "mean_muse_box_iou": 0.7022769487799517,
+        "cost_usd": 0.09001375
+      },
+      {
+        "mode": "muse_box_sam",
+        "scenario": "freedoom2_map01",
+        "positive": 7,
+        "hits": 0,
+        "negative": 2,
+        "false_positives": 0,
+        "muse_boxes_iou_ge_05": 0,
+        "mean_muse_box_iou": 0.0,
+        "cost_usd": 0.030123
+      }
+    ],
+    "grounding_source_sha256": "ace07e18ffdeae88a737625fc26b792ab773689716989278d48b69b2bb631661",
+    "optical_calibration": {
+      "my_way_home": {
+        "records": 7,
+        "mae_deg": 0.0658433223951289,
+        "max_error_deg": 0.09683339719175521
+      },
+      "health_gathering_supreme": {
+        "records": 18,
+        "mae_deg": 0.041757024367071516,
+        "max_error_deg": 0.10924736976856408
+      },
+      "freedoom2_map01": {
+        "records": 17,
+        "mae_deg": 0.04680124654543912,
+        "max_error_deg": 0.17383012249288754
+      }
+    },
+    "required_ten_fixture_bearing": {
+      "count": 10,
+      "mae_deg": 0.05362124162451417,
+      "max_error_deg": 0.08670814009019999
+    },
+    "costs_usd": {
+      "initial_probe": 0.022133,
+      "paired_grounding": 0.23803335,
+      "episodes": 0.8469034999999997,
+      "total": 1.1070698499999998
+    },
+    "initial_probe": [
+      {
+        "mode": "muse_box_sam",
+        "case": "armor",
+        "max_iou": 0.7043010752688172,
+        "expected_positive": true,
+        "found": true,
+        "cost_usd": 0.0065780000000000005
+      },
+      {
+        "mode": "muse_box_sam",
+        "case": "absent",
+        "max_iou": null,
+        "expected_positive": false,
+        "found": false,
+        "cost_usd": 0.00224625
+      },
+      {
+        "mode": "sam_text",
+        "case": "absent",
+        "max_iou": null,
+        "expected_positive": false,
+        "found": false,
+        "cost_usd": 0.0025
+      },
+      {
+        "mode": "sam_text",
+        "case": "medkit",
+        "max_iou": null,
+        "expected_positive": true,
+        "found": false,
+        "cost_usd": 0.0025
+      },
+      {
+        "mode": "sam_text",
+        "case": "armor",
+        "max_iou": null,
+        "expected_positive": true,
+        "found": false,
+        "cost_usd": 0.0025
+      },
+      {
+        "mode": "muse_box_sam",
+        "case": "medkit",
+        "max_iou": 0.9766627771295215,
+        "expected_positive": true,
+        "found": true,
+        "cost_usd": 0.00580875
+      }
+    ],
+    "episodes": [
+      {
+        "directory": "runs/20261104T084959.240345Z_my_way_home_L1_s101",
+        "manifest": {
+          "run_id": "20261104T084959.240345Z_my_way_home_L1_s101",
+          "git_commit": "16afed7121c19e2d5291dfc479650149a22d3547",
+          "level": 1,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "outcome": "max_decisions",
+          "decisions": 60,
+          "act_calls": 60,
+          "model_calls": 71,
+          "locate_calls": 8,
+          "grounding_model_calls": 16,
+          "grounding_cost_usd": 0.04875025000000001,
+          "total_usd": 0.2957116499999999,
+          "spawn_state": {
+            "pos_x": 464.0,
+            "pos_y": -176.0,
+            "pos_z": 0.0,
+            "angle_deg": 338.93920906329043,
+            "tic": 10
+          },
+          "plan_sha256": null,
+          "prompt_sha256": "99b5e9ecf568113c2dabbd80c4e7c4ec3ffacd99c93ce6fe56dff2ac09acc4a7",
+          "briefing_sha256": null,
+          "start_tic": 10,
+          "final_tic": 602,
+          "tics_used": 592,
+          "reward_total": -0.05920000000000009,
+          "episode_lmp_sha256": "6a6dbb42fd513ae57783d81d6116f7c167c8b30a033ca365489df5165fc92f4a",
+          "events_jsonl_sha256": "c6d8ee03273abb79beaad5b0c2c50a716d534b3355b4cbd7a595bb566f2904a8",
+          "telemetry_jsonl_sha256": "7caab5d3761ff4e9258c12f01b2f8579b53bee154df0522e7fc99cbdf05b086d"
+        },
+        "replay": {
+          "matches_telemetry": true,
+          "final_tic": 602,
+          "reward_total": -0.05920000000000067,
+          "frames": 592,
+          "codec": "h264",
+          "size": [
+            1280,
+            720
+          ],
+          "video_sha256": "ffd7d1ea269523c9a71d6834eb936d4602897a6a7313994f20bc122d69a2b639",
+          "lmp_sha256": "6a6dbb42fd513ae57783d81d6116f7c167c8b30a033ca365489df5165fc92f4a"
+        },
+        "audit": {
+          "every_primitive_matches_model_act": true,
+          "matched_primitives": 71,
+          "unmatched_primitives": 0,
+          "api_errors": 0,
+          "grounding_errors": 0,
+          "rejected_tool_responses": 2,
+          "tool_counts": {
+            "act": 60,
+            "locate": 8,
+            "note": 1
+          },
+          "locate_found": 4,
+          "locate_completed": 8,
+          "all_responses_after_first_have_cached_tokens": true,
+          "static_plan_render_count": 0,
+          "runtime_source_hashes_verified": true,
+          "artifact_hashes_verified": true,
+          "accounting_matches_all_pilot_and_grounding_requests": true,
+          "cache_after_first": {
+            "hits": 70,
+            "responses": 70
+          }
+        }
+      },
+      {
+        "directory": "runs/20261104T084959.528710Z_my_way_home_L2_s101",
+        "manifest": {
+          "run_id": "20261104T084959.528710Z_my_way_home_L2_s101",
+          "git_commit": "16afed7121c19e2d5291dfc479650149a22d3547",
+          "level": 2,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "outcome": "max_decisions",
+          "decisions": 60,
+          "act_calls": 60,
+          "model_calls": 80,
+          "locate_calls": 19,
+          "grounding_model_calls": 21,
+          "grounding_cost_usd": 0.0570585,
+          "total_usd": 0.31740219999999986,
+          "spawn_state": {
+            "pos_x": 464.0,
+            "pos_y": -176.0,
+            "pos_z": 0.0,
+            "angle_deg": 338.93920906329043,
+            "tic": 10
+          },
+          "plan_sha256": null,
+          "prompt_sha256": "cef867caf125d10d149cc80f87c11b85d3bc4bc7fdc35768816a44cb85eb2964",
+          "briefing_sha256": "9ee5d990ea3dac9c99799ba4782e68f28595e9e874c291c747744fad4fb49d19",
+          "start_tic": 10,
+          "final_tic": 696,
+          "tics_used": 686,
+          "reward_total": -0.06860000000000009,
+          "episode_lmp_sha256": "11479d98fd1ca10e04d8c81b5c556d00620db61b1e59ad0b104d3e965ed42675",
+          "events_jsonl_sha256": "16e914c8f1cf0057267772cdeb961d32fa7f6fce66ed754c63fe270336a7dbf7",
+          "telemetry_jsonl_sha256": "172ef0baadb94ea7cbb73088c8642ff7eada08f40a88f60aa8d69346c2328ba5"
+        },
+        "replay": {
+          "matches_telemetry": true,
+          "final_tic": 696,
+          "reward_total": -0.06860000000000094,
+          "frames": 686,
+          "codec": "h264",
+          "size": [
+            1280,
+            720
+          ],
+          "video_sha256": "e9977cd973f00ddedbf3fae47584ccb513d308c9e743b11baeea2713176a277f",
+          "lmp_sha256": "11479d98fd1ca10e04d8c81b5c556d00620db61b1e59ad0b104d3e965ed42675"
+        },
+        "audit": {
+          "every_primitive_matches_model_act": true,
+          "matched_primitives": 66,
+          "unmatched_primitives": 0,
+          "api_errors": 1,
+          "grounding_errors": 0,
+          "rejected_tool_responses": 2,
+          "tool_counts": {
+            "act": 60,
+            "locate": 19
+          },
+          "locate_found": 2,
+          "locate_completed": 19,
+          "all_responses_after_first_have_cached_tokens": true,
+          "static_plan_render_count": 0,
+          "runtime_source_hashes_verified": true,
+          "artifact_hashes_verified": true,
+          "accounting_matches_all_pilot_and_grounding_requests": true,
+          "cache_after_first": {
+            "hits": 79,
+            "responses": 79
+          }
+        }
+      },
+      {
+        "directory": "runs/20261104T084959.633761Z_my_way_home_L3_s101",
+        "manifest": {
+          "run_id": "20261104T084959.633761Z_my_way_home_L3_s101",
+          "git_commit": "16afed7121c19e2d5291dfc479650149a22d3547",
+          "level": 3,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "outcome": "max_decisions",
+          "decisions": 60,
+          "act_calls": 60,
+          "model_calls": 68,
+          "locate_calls": 8,
+          "grounding_model_calls": 8,
+          "grounding_cost_usd": 0.014837749999999999,
+          "total_usd": 0.23378964999999996,
+          "spawn_state": {
+            "pos_x": 464.0,
+            "pos_y": -176.0,
+            "pos_z": 0.0,
+            "angle_deg": 338.93920906329043,
+            "tic": 10
+          },
+          "plan_sha256": "aa34daddff1409d7ccabae7c6000e0ca8e8266075b8ec65543c34c47e77f7685",
+          "prompt_sha256": "f9a5ad20c20a2665bd412193e7bb8ed71cf0ce24f67f7f5627aa14069493cfb8",
+          "briefing_sha256": "9ee5d990ea3dac9c99799ba4782e68f28595e9e874c291c747744fad4fb49d19",
+          "start_tic": 10,
+          "final_tic": 1047,
+          "tics_used": 1037,
+          "reward_total": -0.10370000000000013,
+          "episode_lmp_sha256": "3245f39ecd1792ce06152c10459466559f9c8f3b19804269e689240fa8fdf130",
+          "events_jsonl_sha256": "9231003caa1904e4d53fce0dd839c5cb17efe8c10e5915837d1fb5ede022d91a",
+          "telemetry_jsonl_sha256": "e50ed28012f5638a887eb525d7ec7c69f8e9bb3781a9b92bd8f3ba1ffa72b5a7"
+        },
+        "replay": {
+          "matches_telemetry": true,
+          "final_tic": 1047,
+          "reward_total": -0.10370000000000194,
+          "frames": 1037,
+          "codec": "h264",
+          "size": [
+            1280,
+            720
+          ],
+          "video_sha256": "0df3f88b284d80860b142c42b88b9fd3f9b2a9445094dc6b93e2559ecbd40c96",
+          "lmp_sha256": "3245f39ecd1792ce06152c10459466559f9c8f3b19804269e689240fa8fdf130"
+        },
+        "audit": {
+          "every_primitive_matches_model_act": true,
+          "matched_primitives": 87,
+          "unmatched_primitives": 0,
+          "api_errors": 0,
+          "grounding_errors": 0,
+          "rejected_tool_responses": 0,
+          "tool_counts": {
+            "locate": 8,
+            "act": 60
+          },
+          "locate_found": 0,
+          "locate_completed": 8,
+          "all_responses_after_first_have_cached_tokens": true,
+          "static_plan_render_count": 1,
+          "runtime_source_hashes_verified": true,
+          "artifact_hashes_verified": true,
+          "accounting_matches_all_pilot_and_grounding_requests": true,
+          "cache_after_first": {
+            "hits": 67,
+            "responses": 67
+          }
+        }
+      }
+    ],
+    "grounding_cases_file": "m2-grounding-cases.csv"
+  },
+  "baseline_trajectories": {
+    "methods": {
+      "sampled_path": "Sum of primitive endpoint displacements; lower bound on true travelled path, excludes within-primitive curvature.",
+      "collision_proxy": "Existing M0 eighth-tic displacement proxy: translation under 20% expected free displacement; not a ground-truth collision detector.",
+      "near_zero_translation": "Endpoint displacement under 1 map unit; static-wall proximity <=17 units corroborates contact for a radius-16 player, but does not classify engine collision events.",
+      "reentries": "128-unit cell entries after removing consecutive duplicate cells, minus distinct entered cells, including initial cell.",
+      "pose_recurrence": "Decision endpoint within 24 units and 15 degrees of an endpoint at least six decisions earlier.",
+      "new_cells": "First-ever primitive endpoint in cell, relative to initial sample; not continuous path coverage.",
+      "goal_distance": "Euclidean straight-line distance, ignores walls; coarse BFS unresolved and not used.",
+      "replay_inspection": "Not performed by this script. See docs/m2-results.md for the separate manual sampled replay review."
+    },
+    "episodes": [
+      {
+        "level": 1,
+        "directory": "runs/20261104T084959.240345Z_my_way_home_L1_s101",
+        "start_goal_distance": 602.2889671909987,
+        "minimum_goal_distance": 433.3208422643931,
+        "minimum_goal_at_decision": 12,
+        "final_goal_distance": 497.8540051175161,
+        "goal_visible_anywhere": false,
+        "sampled_path_units": 2308.57340145758,
+        "net_displacement_units": 117.74515673686659,
+        "visited_sector_ids": [
+          1,
+          2,
+          3,
+          13,
+          14,
+          17
+        ],
+        "unique_128_cells": 6,
+        "unique_64_cells": 13,
+        "cell_128_entries": 18,
+        "cell_128_reentries": 12,
+        "translations": 29,
+        "translation_endpoints_under_1_unit": 1,
+        "low_translation_endpoints_within_17_units_of_static_wall": 0,
+        "translation_collision_proxy": 4,
+        "translation_endpoints_within_17_units_of_static_wall": 10,
+        "last20_translation_endpoints_within_17_units_of_static_wall": 4,
+        "primitive_counts": {
+          "forward": 23,
+          "turn_left": 13,
+          "use": 12,
+          "turn_right": 16,
+          "backward": 6,
+          "attack": 1
+        },
+        "half_turns": 7,
+        "turn_max_control_error_deg": 0.002441414399640962,
+        "use_changes_sector_heights": 0,
+        "stuck_warnings": 0,
+        "frame_change_under_2pct": 2,
+        "windows": [
+          {
+            "decisions": [
+              0,
+              19
+            ],
+            "sampled_path_units": 780.8352187039666,
+            "minimum_goal_distance": 433.3208422643931,
+            "end_goal_distance": 673.2094060050151,
+            "new_128_cells": 3,
+            "new_64_cells": 6,
+            "translations": 10,
+            "translation_endpoints_under_1_unit": 0,
+            "translation_collision_proxy": 3
+          },
+          {
+            "decisions": [
+              20,
+              39
+            ],
+            "sampled_path_units": 781.6732583853649,
+            "minimum_goal_distance": 543.6858335532665,
+            "end_goal_distance": 628.5524003627779,
+            "new_128_cells": 1,
+            "new_64_cells": 4,
+            "translations": 10,
+            "translation_endpoints_under_1_unit": 0,
+            "translation_collision_proxy": 0
+          },
+          {
+            "decisions": [
+              40,
+              59
+            ],
+            "sampled_path_units": 746.0649243682486,
+            "minimum_goal_distance": 497.8540051175161,
+            "end_goal_distance": 497.8540051175161,
+            "new_128_cells": 1,
+            "new_64_cells": 2,
+            "translations": 9,
+            "translation_endpoints_under_1_unit": 1,
+            "translation_collision_proxy": 1
+          }
+        ],
+        "pose_recurrences_count": 12
+      },
+      {
+        "level": 2,
+        "directory": "runs/20261104T084959.528710Z_my_way_home_L2_s101",
+        "start_goal_distance": 602.2889671909987,
+        "minimum_goal_distance": 344.1616389261795,
+        "minimum_goal_at_decision": 24,
+        "final_goal_distance": 548.3749539299743,
+        "goal_visible_anywhere": false,
+        "sampled_path_units": 2779.5144115541752,
+        "net_displacement_units": 66.75752503263328,
+        "visited_sector_ids": [
+          0,
+          1,
+          3,
+          15,
+          17
+        ],
+        "unique_128_cells": 4,
+        "unique_64_cells": 9,
+        "cell_128_entries": 22,
+        "cell_128_reentries": 18,
+        "translations": 30,
+        "translation_endpoints_under_1_unit": 0,
+        "low_translation_endpoints_within_17_units_of_static_wall": 0,
+        "translation_collision_proxy": 4,
+        "translation_endpoints_within_17_units_of_static_wall": 6,
+        "last20_translation_endpoints_within_17_units_of_static_wall": 0,
+        "primitive_counts": {
+          "forward": 29,
+          "turn_left": 19,
+          "turn_right": 2,
+          "use": 15,
+          "strafe_left": 1
+        },
+        "half_turns": 14,
+        "turn_max_control_error_deg": 0.0006103562192834033,
+        "use_changes_sector_heights": 0,
+        "stuck_warnings": 0,
+        "frame_change_under_2pct": 4,
+        "windows": [
+          {
+            "decisions": [
+              0,
+              19
+            ],
+            "sampled_path_units": 962.6519275523854,
+            "minimum_goal_distance": 525.9203688993982,
+            "end_goal_distance": 531.0552234670243,
+            "new_128_cells": 2,
+            "new_64_cells": 5,
+            "translations": 11,
+            "translation_endpoints_under_1_unit": 0,
+            "translation_collision_proxy": 0
+          },
+          {
+            "decisions": [
+              20,
+              39
+            ],
+            "sampled_path_units": 1126.4015333799475,
+            "minimum_goal_distance": 344.1616389261795,
+            "end_goal_distance": 659.9220215827372,
+            "new_128_cells": 1,
+            "new_64_cells": 3,
+            "translations": 12,
+            "translation_endpoints_under_1_unit": 0,
+            "translation_collision_proxy": 3
+          },
+          {
+            "decisions": [
+              40,
+              59
+            ],
+            "sampled_path_units": 690.4609506218424,
+            "minimum_goal_distance": 527.9215344074921,
+            "end_goal_distance": 548.3749539299743,
+            "new_128_cells": 0,
+            "new_64_cells": 0,
+            "translations": 7,
+            "translation_endpoints_under_1_unit": 0,
+            "translation_collision_proxy": 1
+          }
+        ],
+        "pose_recurrences_count": 26
+      },
+      {
+        "level": 3,
+        "directory": "runs/20261104T084959.633761Z_my_way_home_L3_s101",
+        "start_goal_distance": 602.2889671909987,
+        "minimum_goal_distance": 338.97222495934506,
+        "minimum_goal_at_decision": 51,
+        "final_goal_distance": 468.1557169209698,
+        "goal_visible_anywhere": false,
+        "sampled_path_units": 3638.6403151990244,
+        "net_displacement_units": 136.9776241729591,
+        "visited_sector_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          12,
+          13,
+          15,
+          17
+        ],
+        "unique_128_cells": 9,
+        "unique_64_cells": 24,
+        "cell_128_entries": 32,
+        "cell_128_reentries": 23,
+        "translations": 45,
+        "translation_endpoints_under_1_unit": 0,
+        "low_translation_endpoints_within_17_units_of_static_wall": 0,
+        "translation_collision_proxy": 3,
+        "translation_endpoints_within_17_units_of_static_wall": 25,
+        "last20_translation_endpoints_within_17_units_of_static_wall": 14,
+        "primitive_counts": {
+          "forward": 35,
+          "turn_right": 18,
+          "turn_left": 18,
+          "use": 6,
+          "strafe_left": 1,
+          "backward": 8,
+          "strafe_right": 1
+        },
+        "half_turns": 9,
+        "turn_max_control_error_deg": 0.003662105883421418,
+        "use_changes_sector_heights": 0,
+        "stuck_warnings": 0,
+        "frame_change_under_2pct": 0,
+        "windows": [
+          {
+            "decisions": [
+              0,
+              19
+            ],
+            "sampled_path_units": 1009.8867592197848,
+            "minimum_goal_distance": 358.47732601288436,
+            "end_goal_distance": 400.2491083384174,
+            "new_128_cells": 4,
+            "new_64_cells": 11,
+            "translations": 12,
+            "translation_endpoints_under_1_unit": 0,
+            "translation_collision_proxy": 0
+          },
+          {
+            "decisions": [
+              20,
+              39
+            ],
+            "sampled_path_units": 1114.0467284320175,
+            "minimum_goal_distance": 395.2647841124884,
+            "end_goal_distance": 550.6513724173727,
+            "new_128_cells": 4,
+            "new_64_cells": 11,
+            "translations": 16,
+            "translation_endpoints_under_1_unit": 0,
+            "translation_collision_proxy": 1
+          },
+          {
+            "decisions": [
+              40,
+              59
+            ],
+            "sampled_path_units": 1514.7068275472218,
+            "minimum_goal_distance": 338.97222495934506,
+            "end_goal_distance": 468.1557169209698,
+            "new_128_cells": 0,
+            "new_64_cells": 1,
+            "translations": 17,
+            "translation_endpoints_under_1_unit": 0,
+            "translation_collision_proxy": 2
+          }
+        ],
+        "pose_recurrences_count": 3
+      }
+    ]
+  },
+  "ledger_retest": {
+    "protocol": {
+      "baselines": [
+        "runs/20261104T084959.240345Z_my_way_home_L1_s101",
+        "runs/20261104T084959.528710Z_my_way_home_L2_s101",
+        "runs/20261104T084959.633761Z_my_way_home_L3_s101"
+      ],
+      "scenario": "my_way_home",
+      "levels": [
+        1,
+        2,
+        3
+      ],
+      "seed": 101,
+      "max_decisions": 60,
+      "max_tics": 2100,
+      "max_usd": 0.6,
+      "wall_seconds": 900,
+      "model": "muse-spark-1.3",
+      "effort": "low",
+      "grounding_mode": "muse_box_sam",
+      "changes": [
+        "model-written landmark/outcome ledger within original 1500-character scratchpad",
+        "uncertain locate evidence in rolling 20-decision log",
+        "visible-only repeated-view warning"
+      ],
+      "visual_detector": {
+        "rgb_size": [
+          32,
+          24
+        ],
+        "keep_top_fraction": 0.75,
+        "threshold_mae": 0.04,
+        "min_gap": 6,
+        "anchor_separation": 3,
+        "required_earlier_matches": 2,
+        "history": 48,
+        "warning_cooldown": 4
+      },
+      "comparison": "One run per level; report all outcomes, costs, novelty, reentries, pose recurrences and interaction proxies; no significance or causal claims from a single seed. No further tuning during runs."
+    },
+    "tests": {
+      "passed": 79,
+      "live_api_deselected": 4,
+      "seconds": 7.05,
+      "lint": "passed"
+    },
+    "total_retest_usd": 1.0239608500000001,
+    "baseline_total_usd": 0.8469034999999997,
+    "paired_spawn_matches_baseline": true,
+    "offline_baseline_warning_counts": [
+      1,
+      6,
+      2
+    ],
+    "episodes": [
+      {
+        "directory": "runs/20261104T092534.245321Z_my_way_home_L1_s101",
+        "manifest": {
+          "run_id": "20261104T092534.245321Z_my_way_home_L1_s101",
+          "git_commit": "9e7625e797b42d47d39ce79c97298213c4a10749",
+          "level": 1,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "outcome": "max_decisions",
+          "decisions": 60,
+          "act_calls": 59,
+          "model_calls": 86,
+          "locate_calls": 3,
+          "grounding_model_calls": 4,
+          "grounding_cost_usd": 0.00913425,
+          "total_usd": 0.34680015000000025,
+          "spawn_state": {
+            "pos_x": 464.0,
+            "pos_y": -176.0,
+            "pos_z": 0.0,
+            "angle_deg": 338.93920906329043,
+            "tic": 10
+          },
+          "plan_sha256": null,
+          "prompt_sha256": "db51a3e4a27a21c49fc4821e997a554e78301e4aff4bf34bfb5ec50c1779da88",
+          "briefing_sha256": null,
+          "start_tic": 10,
+          "final_tic": 694,
+          "tics_used": 684,
+          "reward_total": -0.0684000000000001,
+          "episode_lmp_sha256": "ac9ff27c20da752382f5b267da1ae55b531a0453d716eca47e041771312d6c21",
+          "events_jsonl_sha256": "bc01f42f8ebdf1ba001cd38fa07eda023fcd639f83034354326a149f1905d9cd",
+          "telemetry_jsonl_sha256": "78a2015fc81e5265becb1e4eb8826af802b98d4afcbce35f7d8b2c2a18c4ee2d"
+        },
+        "replay": {
+          "matches_telemetry": true,
+          "final_tic": 694,
+          "reward_total": -0.06840000000000093,
+          "frames": 684,
+          "codec": "h264",
+          "size": [
+            1280,
+            720
+          ],
+          "video_sha256": "30a4914cf8c40452343b42830f34fff73340cf35a7f9aeae2d86674e54b956f4",
+          "lmp_sha256": "ac9ff27c20da752382f5b267da1ae55b531a0453d716eca47e041771312d6c21"
+        },
+        "audit": {
+          "matched_primitives": 73,
+          "unmatched_primitives": 0,
+          "all_actions_model_chosen": true,
+          "grounding_errors": 0,
+          "api_errors": [],
+          "rejected_tool_responses": 3,
+          "ledger_exactly_matches_model_notes": true,
+          "artifact_and_runtime_hashes_verified": true,
+          "all_pilot_responses_after_first_cached": false,
+          "static_plan_render_count": 0,
+          "cache_after_first": {
+            "hits": 77,
+            "responses": 85
+          }
+        },
+        "ledger_updates": 27,
+        "warning_decisions": [
+          42,
+          47
+        ],
+        "ledger_examples": [
+          {
+            "event": "landmark_ledger",
+            "decision_idx": 0,
+            "source": "model_note",
+            "text": "\nd0: brown tile corridor, blue bars right, grey paneled wall ahead | tried: none | observed: start view | next: advance"
+          },
+          {
+            "event": "landmark_ledger",
+            "decision_idx": 58,
+            "source": "model_note",
+            "text": "d50 metal room grey panels far shutter | obs brown corridor opens to metal end | tried L90 d49 | next fwd into room, use shutter\nd54 brown corridor blue cols white door ahead | tried fwd d53 | obs back at corridor | next check side walls for doors\nd57 brown+grey corner facing side | tried turn around d56 | obs side closeup | next turn R face metal use/test\nd58 metal room interior all sides grey | tried turnR+use d57 | obs full room view | next turn 180 find exit opening"
+          }
+        ],
+        "comparison": {
+          "retest": {
+            "level": 1,
+            "directory": "runs/20261104T092534.245321Z_my_way_home_L1_s101",
+            "start_goal_distance": 602.2889671909987,
+            "minimum_goal_distance": 389.1675671071279,
+            "minimum_goal_at_decision": 38,
+            "final_goal_distance": 678.2419157066201,
+            "goal_visible_anywhere": false,
+            "sampled_path_units": 2754.3801130054935,
+            "net_displacement_units": 76.19743340890649,
+            "visited_sector_ids": [
+              0,
+              1,
+              3,
+              15,
+              17
+            ],
+            "unique_128_cells": 6,
+            "unique_64_cells": 12,
+            "cell_128_entries": 22,
+            "cell_128_reentries": 16,
+            "translations": 34,
+            "translation_endpoints_under_1_unit": 0,
+            "low_translation_endpoints_within_17_units_of_static_wall": 0,
+            "translation_collision_proxy": 0,
+            "translation_endpoints_within_17_units_of_static_wall": 12,
+            "last20_translation_endpoints_within_17_units_of_static_wall": 3,
+            "primitive_counts": {
+              "forward": 27,
+              "turn_left": 20,
+              "turn_right": 11,
+              "use": 8,
+              "backward": 7
+            },
+            "half_turns": 7,
+            "turn_max_control_error_deg": 0.0036620325417402455,
+            "use_changes_sector_heights": 0,
+            "stuck_warnings": 0,
+            "frame_change_under_2pct": 1,
+            "windows": [
+              {
+                "decisions": [
+                  0,
+                  19
+                ],
+                "sampled_path_units": 926.9068755788495,
+                "minimum_goal_distance": 524.2172785882412,
+                "end_goal_distance": 795.2200671270241,
+                "new_128_cells": 4,
+                "new_64_cells": 6,
+                "translations": 13,
+                "translation_endpoints_under_1_unit": 0,
+                "translation_collision_proxy": 0
+              },
+              {
+                "decisions": [
+                  20,
+                  39
+                ],
+                "sampled_path_units": 1006.1453464953314,
+                "minimum_goal_distance": 389.1675671071279,
+                "end_goal_distance": 420.38740056834973,
+                "new_128_cells": 1,
+                "new_64_cells": 4,
+                "translations": 12,
+                "translation_endpoints_under_1_unit": 0,
+                "translation_collision_proxy": 0
+              },
+              {
+                "decisions": [
+                  40,
+                  59
+                ],
+                "sampled_path_units": 821.3278909313127,
+                "minimum_goal_distance": 535.1456274011601,
+                "end_goal_distance": 678.2419157066201,
+                "new_128_cells": 0,
+                "new_64_cells": 1,
+                "translations": 9,
+                "translation_endpoints_under_1_unit": 0,
+                "translation_collision_proxy": 0
+              }
+            ],
+            "pose_recurrences_count": 5
+          },
+          "baseline_level": 1
+        }
+      },
+      {
+        "directory": "runs/20261104T092538.514056Z_my_way_home_L2_s101",
+        "manifest": {
+          "run_id": "20261104T092538.514056Z_my_way_home_L2_s101",
+          "git_commit": "9e7625e797b42d47d39ce79c97298213c4a10749",
+          "level": 2,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "outcome": "max_decisions",
+          "decisions": 60,
+          "act_calls": 60,
+          "model_calls": 82,
+          "locate_calls": 4,
+          "grounding_model_calls": 5,
+          "grounding_cost_usd": 0.0124115,
+          "total_usd": 0.36663054999999983,
+          "spawn_state": {
+            "pos_x": 464.0,
+            "pos_y": -176.0,
+            "pos_z": 0.0,
+            "angle_deg": 338.93920906329043,
+            "tic": 10
+          },
+          "plan_sha256": null,
+          "prompt_sha256": "9ff7ae717e4c13e36c72de6cfeb1dcb25635d4ce09118059830e23d031253d10",
+          "briefing_sha256": "9ee5d990ea3dac9c99799ba4782e68f28595e9e874c291c747744fad4fb49d19",
+          "start_tic": 10,
+          "final_tic": 1043,
+          "tics_used": 1033,
+          "reward_total": -0.10330000000000013,
+          "episode_lmp_sha256": "84d82d61a84d394cebbe895022eb5c6424c28290471ef7a7c6f9d16ff30b790c",
+          "events_jsonl_sha256": "e917a502b4d5a7f267cf47f04289625f78eff1ba6dcc119f7b35812a63f0ecbc",
+          "telemetry_jsonl_sha256": "7c21c63aefd0ed49d891726762cb23f50742a1e3552d02a47926eb2fc3724562"
+        },
+        "replay": {
+          "matches_telemetry": true,
+          "final_tic": 1043,
+          "reward_total": -0.10330000000000193,
+          "frames": 1033,
+          "codec": "h264",
+          "size": [
+            1280,
+            720
+          ],
+          "video_sha256": "71f1da07708684c08a5c4c364b8d28da8094f8067752bc8c935e0d4d80266355",
+          "lmp_sha256": "84d82d61a84d394cebbe895022eb5c6424c28290471ef7a7c6f9d16ff30b790c"
+        },
+        "audit": {
+          "matched_primitives": 93,
+          "unmatched_primitives": 0,
+          "all_actions_model_chosen": true,
+          "grounding_errors": 0,
+          "api_errors": [],
+          "rejected_tool_responses": 3,
+          "ledger_exactly_matches_model_notes": true,
+          "artifact_and_runtime_hashes_verified": true,
+          "all_pilot_responses_after_first_cached": false,
+          "static_plan_render_count": 0,
+          "cache_after_first": {
+            "hits": 69,
+            "responses": 81
+          }
+        },
+        "ledger_updates": 21,
+        "warning_decisions": [
+          34,
+          43,
+          47,
+          53,
+          57
+        ],
+        "ledger_examples": [
+          {
+            "event": "landmark_ledger",
+            "decision_idx": 0,
+            "source": "model_note",
+            "text": "\nd0: brown tile corridor, gray paneled door ahead, blue tech wall right | tried: none | observed: start pos | next: move forward"
+          },
+          {
+            "event": "landmark_ledger",
+            "decision_idx": 57,
+            "source": "model_note",
+            "text": "cycling brown walls/red doors/blue bars/lockers area | tried loops fwd/turns/uses | observed no progress, same views repeat d43/d47 | uncertain layout loop | next back out far then systematic left-hand wall follow"
+          }
+        ],
+        "comparison": {
+          "retest": {
+            "level": 2,
+            "directory": "runs/20261104T092538.514056Z_my_way_home_L2_s101",
+            "start_goal_distance": 602.2889671909987,
+            "minimum_goal_distance": 400.13135299348596,
+            "minimum_goal_at_decision": 59,
+            "final_goal_distance": 400.13135299348596,
+            "goal_visible_anywhere": false,
+            "sampled_path_units": 3885.2083593220623,
+            "net_displacement_units": 263.70398006386375,
+            "visited_sector_ids": [
+              1,
+              2,
+              3,
+              5,
+              13,
+              14,
+              16,
+              17
+            ],
+            "unique_128_cells": 9,
+            "unique_64_cells": 18,
+            "cell_128_entries": 27,
+            "cell_128_reentries": 18,
+            "translations": 50,
+            "translation_endpoints_under_1_unit": 1,
+            "low_translation_endpoints_within_17_units_of_static_wall": 1,
+            "translation_collision_proxy": 5,
+            "translation_endpoints_within_17_units_of_static_wall": 20,
+            "last20_translation_endpoints_within_17_units_of_static_wall": 6,
+            "primitive_counts": {
+              "forward": 40,
+              "turn_left": 19,
+              "turn_right": 22,
+              "backward": 10,
+              "use": 2
+            },
+            "half_turns": 6,
+            "turn_max_control_error_deg": 0.0052490655810970566,
+            "use_changes_sector_heights": 0,
+            "stuck_warnings": 0,
+            "frame_change_under_2pct": 1,
+            "windows": [
+              {
+                "decisions": [
+                  0,
+                  19
+                ],
+                "sampled_path_units": 944.1597456787999,
+                "minimum_goal_distance": 530.683202872721,
+                "end_goal_distance": 612.5375835828653,
+                "new_128_cells": 3,
+                "new_64_cells": 7,
+                "translations": 14,
+                "translation_endpoints_under_1_unit": 0,
+                "translation_collision_proxy": 1
+              },
+              {
+                "decisions": [
+                  20,
+                  39
+                ],
+                "sampled_path_units": 1288.0859716702064,
+                "minimum_goal_distance": 549.0979262081878,
+                "end_goal_distance": 568.7449771543959,
+                "new_128_cells": 3,
+                "new_64_cells": 7,
+                "translations": 18,
+                "translation_endpoints_under_1_unit": 1,
+                "translation_collision_proxy": 2
+              },
+              {
+                "decisions": [
+                  40,
+                  59
+                ],
+                "sampled_path_units": 1652.962641973056,
+                "minimum_goal_distance": 400.13135299348596,
+                "end_goal_distance": 400.13135299348596,
+                "new_128_cells": 2,
+                "new_64_cells": 3,
+                "translations": 18,
+                "translation_endpoints_under_1_unit": 0,
+                "translation_collision_proxy": 2
+              }
+            ],
+            "pose_recurrences_count": 7
+          },
+          "baseline_level": 2
+        }
+      },
+      {
+        "directory": "runs/20261104T092542.608122Z_my_way_home_L3_s101",
+        "manifest": {
+          "run_id": "20261104T092542.608122Z_my_way_home_L3_s101",
+          "git_commit": "9e7625e797b42d47d39ce79c97298213c4a10749",
+          "level": 3,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "outcome": "max_decisions",
+          "decisions": 60,
+          "act_calls": 60,
+          "model_calls": 85,
+          "locate_calls": 2,
+          "grounding_model_calls": 2,
+          "grounding_cost_usd": 0.00387625,
+          "total_usd": 0.31053015,
+          "spawn_state": {
+            "pos_x": 464.0,
+            "pos_y": -176.0,
+            "pos_z": 0.0,
+            "angle_deg": 338.93920906329043,
+            "tic": 10
+          },
+          "plan_sha256": "aa34daddff1409d7ccabae7c6000e0ca8e8266075b8ec65543c34c47e77f7685",
+          "prompt_sha256": "6018b90d2136f562730ec914131235f9a5942cf180eef1a66e8b90931b637b89",
+          "briefing_sha256": "9ee5d990ea3dac9c99799ba4782e68f28595e9e874c291c747744fad4fb49d19",
+          "start_tic": 10,
+          "final_tic": 1246,
+          "tics_used": 1236,
+          "reward_total": -0.12360000000000015,
+          "episode_lmp_sha256": "8d6ef1db4669360b31854475c3b367955d1354a1e5e4a380423efd6755d813c4",
+          "events_jsonl_sha256": "726bed622dea92f67dd6a99e333e19badb0bd7cf9172215afa5003383c9ba411",
+          "telemetry_jsonl_sha256": "67d50f496e07b46072593aec6cbaa72e9a03d3e23789ee9290773da1f1281f50"
+        },
+        "replay": {
+          "matches_telemetry": true,
+          "final_tic": 1246,
+          "reward_total": -0.12360000000000251,
+          "frames": 1236,
+          "codec": "h264",
+          "size": [
+            1280,
+            720
+          ],
+          "video_sha256": "b49d5522de8657e9443ea5a2fce4a569520098dd20cf7d68a88bbfbb096c2e32",
+          "lmp_sha256": "8d6ef1db4669360b31854475c3b367955d1354a1e5e4a380423efd6755d813c4"
+        },
+        "audit": {
+          "matched_primitives": 90,
+          "unmatched_primitives": 0,
+          "all_actions_model_chosen": true,
+          "grounding_errors": 0,
+          "api_errors": [],
+          "rejected_tool_responses": 5,
+          "ledger_exactly_matches_model_notes": true,
+          "artifact_and_runtime_hashes_verified": true,
+          "all_pilot_responses_after_first_cached": false,
+          "static_plan_render_count": 1,
+          "cache_after_first": {
+            "hits": 83,
+            "responses": 84
+          }
+        },
+        "ledger_updates": 24,
+        "warning_decisions": [
+          20,
+          30,
+          47
+        ],
+        "ledger_examples": [
+          {
+            "event": "landmark_ledger",
+            "decision_idx": 0,
+            "source": "model_note",
+            "text": "\nd0: brown brick corridor, grey panel door ahead, dark blue walls sides | tried: none | observed: start view | next: explore forward/turn"
+          },
+          {
+            "event": "landmark_ledger",
+            "decision_idx": 58,
+            "source": "model_note",
+            "text": "metal corner silver+ brown pillar close | tried: d35 180+fwd d36 left+fwd | observed: still at metal/brown corner | uncertain: circling small alcove | next: turn 90 + long forward to exit\nd40: grey metal panel room brown tiles | tried: back+turn | observed: reached metal room | uncertain: new area? | next: turn scan for door\nd43: brown tile corridor blue walls white door ahead | tried: turn+move | observed: reached corridor | uncertain: new path | next: forward to white door\nd46: brown tiled corridor blue pillars metal grate ahead | tried: d45 turn+move | observed: facing corridor grate | uncertain: path onward? | next: forward to grate\nd47: blue grate close fills view, t-1 corridor w blue pillars brown tiles | tried: d46 fwd30 to grate | observed: at grate barrier | uncertain: dead end vs usable door | next: turn 180 + forward to leave\nd56: gray locker panels w orange labels, brown pillar on left edge | tried: d55 turn+move35 | observed: facing lockers close | uncertain: alcove | next: turn 180 + forward to exit\nd58: dark wall close w orange light patches, t-1 lockers, t-2 diamond pillar | tried: d57 fwd30 | observed: hit dark corner | uncertain: alcove loop | next: 180 turn + long back-out"
+          }
+        ],
+        "comparison": {
+          "retest": {
+            "level": 3,
+            "directory": "runs/20261104T092542.608122Z_my_way_home_L3_s101",
+            "start_goal_distance": 602.2889671909987,
+            "minimum_goal_distance": 334.2909625326957,
+            "minimum_goal_at_decision": 50,
+            "final_goal_distance": 656.9424995532278,
+            "goal_visible_anywhere": false,
+            "sampled_path_units": 5282.748589457576,
+            "net_displacement_units": 249.30077698784385,
+            "visited_sector_ids": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              11,
+              12,
+              14,
+              15,
+              17
+            ],
+            "unique_128_cells": 14,
+            "unique_64_cells": 29,
+            "cell_128_entries": 44,
+            "cell_128_reentries": 30,
+            "translations": 49,
+            "translation_endpoints_under_1_unit": 0,
+            "low_translation_endpoints_within_17_units_of_static_wall": 0,
+            "translation_collision_proxy": 1,
+            "translation_endpoints_within_17_units_of_static_wall": 15,
+            "last20_translation_endpoints_within_17_units_of_static_wall": 5,
+            "primitive_counts": {
+              "forward": 36,
+              "turn_left": 17,
+              "turn_right": 21,
+              "backward": 9,
+              "strafe_right": 2,
+              "use": 3,
+              "strafe_left": 2
+            },
+            "half_turns": 10,
+            "turn_max_control_error_deg": 6.28642737865448e-08,
+            "use_changes_sector_heights": 0,
+            "stuck_warnings": 0,
+            "frame_change_under_2pct": 1,
+            "windows": [
+              {
+                "decisions": [
+                  0,
+                  19
+                ],
+                "sampled_path_units": 972.7243644868695,
+                "minimum_goal_distance": 532.5424675731861,
+                "end_goal_distance": 554.0282925639985,
+                "new_128_cells": 3,
+                "new_64_cells": 6,
+                "translations": 13,
+                "translation_endpoints_under_1_unit": 0,
+                "translation_collision_proxy": 0
+              },
+              {
+                "decisions": [
+                  20,
+                  39
+                ],
+                "sampled_path_units": 1682.6570640272016,
+                "minimum_goal_distance": 524.1390450230227,
+                "end_goal_distance": 743.6353204435181,
+                "new_128_cells": 5,
+                "new_64_cells": 8,
+                "translations": 16,
+                "translation_endpoints_under_1_unit": 0,
+                "translation_collision_proxy": 1
+              },
+              {
+                "decisions": [
+                  40,
+                  59
+                ],
+                "sampled_path_units": 2627.367160943505,
+                "minimum_goal_distance": 334.2909625326957,
+                "end_goal_distance": 656.9424995532278,
+                "new_128_cells": 5,
+                "new_64_cells": 14,
+                "translations": 20,
+                "translation_endpoints_under_1_unit": 0,
+                "translation_collision_proxy": 0
+              }
+            ],
+            "pose_recurrences_count": 8
+          },
+          "baseline_level": 3
+        }
+      }
+    ]
+  },
+  "ledger_extended": {
+    "directory": "runs/20261104T093221.870296Z_my_way_home_L3_s101",
+    "audit": {
+      "matched_primitives": 169,
+      "unmatched_primitives": 0,
+      "all_actions_model_chosen": true,
+      "ledger_exactly_matches_model_notes": true,
+      "source_and_artifact_hashes_verified": true,
+      "api_errors": [],
+      "grounding_errors": 0,
+      "rejected_tool_responses": 4
+    },
+    "notes": 35,
+    "comparison_with_its_own_first60": [
+      {
+        "decisions": [
+          0,
+          59
+        ],
+        "observed_acts": 60,
+        "new_64_cells": 17,
+        "new_128_cells": 7,
+        "sampled_path_units": 3158.0331069890844,
+        "best_euclidean_distance": 360.02553190163206,
+        "end_euclidean_distance": 594.0681518914533
+      },
+      {
+        "decisions": [
+          60,
+          119
+        ],
+        "observed_acts": 51,
+        "new_64_cells": 7,
+        "new_128_cells": 2,
+        "sampled_path_units": 5300.319449807141,
+        "best_euclidean_distance": 347.277139477199,
+        "end_euclidean_distance": 474.1971461167368
+      }
+    ],
+    "cost_at_60": {
+      "tic": 908,
+      "cost_usd": 0.31339685000000006
+    },
+    "unique_128_cells": 10,
+    "unique_64_cells": 25,
+    "cell_128_reentries": 50,
+    "cell_128_entries": 60,
+    "goal_visible_anywhere": false,
+    "best_euclidean_distance": 347.277139477199,
+    "final_euclidean_distance": 474.1971461167368,
+    "manifest": {
+      "run_id": "20261104T093221.870296Z_my_way_home_L3_s101",
+      "git_commit": "9e7625e797b42d47d39ce79c97298213c4a10749",
+      "level": 3,
+      "seed": 101,
+      "model": "muse-spark-1.3",
+      "effort": "low",
+      "outcome": "budget_exhausted",
+      "decisions": 112,
+      "act_calls": 111,
+      "model_calls": 150,
+      "locate_calls": 3,
+      "grounding_model_calls": 3,
+      "grounding_cost_usd": 0.00666225,
+      "total_usd": 0.6029126000000002,
+      "spawn_state": {
+        "pos_x": 464.0,
+        "pos_y": -176.0,
+        "pos_z": 0.0,
+        "angle_deg": 338.93920906329043,
+        "tic": 10
+      },
+      "plan_sha256": "aa34daddff1409d7ccabae7c6000e0ca8e8266075b8ec65543c34c47e77f7685",
+      "prompt_sha256": "6018b90d2136f562730ec914131235f9a5942cf180eef1a66e8b90931b637b89",
+      "briefing_sha256": "9ee5d990ea3dac9c99799ba4782e68f28595e9e874c291c747744fad4fb49d19",
+      "start_tic": 10,
+      "final_tic": 2027,
+      "tics_used": 2017,
+      "reward_total": -0.20170000000000005,
+      "episode_lmp_sha256": "7792778c37ab4d29cefb813266e0ef890023d7486f21e155c6e526015a1fd9e6",
+      "events_jsonl_sha256": "1a609ecd4c955c8d96bb39490a259345f0c8e1ca224803c95e7e5cbcd4afc0cb",
+      "telemetry_jsonl_sha256": "498981f6eaccee8bfa9e37f92eac2fafdbdb94feda8c0fd67059954d83ae1df7"
+    },
+    "replay": {
+      "matches_telemetry": true,
+      "final_tic": 2027,
+      "reward_total": -0.2016999999999941,
+      "frames": 2017,
+      "codec": "h264",
+      "size": [
+        1280,
+        720
+      ],
+      "video_sha256": "8648b244c01751c55c3f4dd10309ba521d3a2bb0601b9f6fe8374903eabed160",
+      "lmp_sha256": "7792778c37ab4d29cefb813266e0ef890023d7486f21e155c6e526015a1fd9e6"
+    },
+    "warning_decisions": [
+      33,
+      44,
+      57,
+      63,
+      67,
+      71,
+      77,
+      81,
+      85,
+      90,
+      94,
+      105
+    ],
+    "final_ledger": "Metal tech room facing paneled wall|tried: run from locker wall|observed: new metal room|uncertain/next: turn 180 run to exit, seek east to goal\nd104 gray close wall|tried: run to white|observed: stuck at gray wall|uncertain/next: 180 turn run out\nd105 brown corridor blue pillars gate ahead|tried: 180 runs stuck walls|observed: now corridor view|uncertain/next: run forward to gate"
+  },
+  "navigation_retest": {
+    "protocol": {
+      "baseline_commit": "5e157add2e03e7c70543a9b0d8866f90195120d0",
+      "baselines": [
+        "runs/20261104T092538.514056Z_my_way_home_L2_s101",
+        "runs/20261104T092542.608122Z_my_way_home_L3_s101"
+      ],
+      "levels": [
+        2,
+        3
+      ],
+      "scenario": "my_way_home",
+      "seed": 101,
+      "max_decisions": 60,
+      "max_usd": 0.6,
+      "max_tics": 2100,
+      "wall_seconds": 900,
+      "model": "muse-spark-1.3",
+      "effort": "low",
+      "grounding_mode": "muse_box_sam",
+      "comparison": "One fresh run per level against latest ledger/cycle baseline. Same engine/model/budgets; L1 not rerun or tuned. Record all outcomes including budget/tool-round failures. Navigation declarations are not verification of actual map/grounding use.",
+      "policy": "Freeze runtime and prompts before requests. No mid-run tuning."
+    },
+    "tests": {
+      "passed": 92,
+      "live_api_deselected": 4,
+      "seconds": 7.23,
+      "lint": "passed"
+    },
+    "recorded_runtime_source_sha256": {
+      "autoqa/__init__.py": "e7e5bd04cfac130fe14251dcf8f1429120587b28afbc3e3fdc25249b6c318b9c",
+      "autoqa/agent/__init__.py": "0863806f5746f27501778c4f34676dbedc1808c605e4a6b3c28ba944837aef74",
+      "autoqa/agent/client.py": "0b2b997cc83ff63476a53199ad9970e7bc83638a927e523ed91eefafb9f99506",
+      "autoqa/agent/grounder.py": "2bae3326e14c5e1c47a2820b3fe2ec5ec6d586d4b4170f915c820e153ace8c34",
+      "autoqa/agent/guards.py": "c2741daad0f5610374c1f1e1bfb15e9a2e135af33a47234826688dc2c58f5115",
+      "autoqa/agent/memory.py": "47eb4956ec08e8d6c92e7997bffdc4d6f3f43a3c9fc0409a3d5f535ad3b9de05",
+      "autoqa/agent/navigation.py": "3e8ebb1eda7144543c24cdecf502297e50097b0d9ef11865f37f0dc3c8404aa4",
+      "autoqa/agent/pilot.py": "73577eeae6634a1eadf7f123ffd7a9fb5c474d7b04c26cf12f2b13dcc84ded78",
+      "autoqa/agent/tools.py": "b2ba8d0124b6ef5e62b73779e548277730f9d5f659c71b15cd11a399ef6888a3",
+      "autoqa/cli.py": "e3011b9b4aa3ac9c4993c0c6d3c7f76822a6fbfe19cf39463e60b086bb820b08",
+      "autoqa/config.py": "a22cea205144b68dd582648c31e5fed365a2329333d099a35ffda4d39614fc11",
+      "autoqa/doom/__init__.py": "b2465e08ccadc455910e45a1cce1a3795e8badd73f6daa171ed35265a9bf481b",
+      "autoqa/doom/env.py": "9fbfa1429f89c5dc7fa6ea2748867b20952528b2c40f08dc0a39a199e35df9fd",
+      "autoqa/doom/plan_renderer.py": "b3eddac468db3836b6b561fb4e79d801c41ab21c262fbf510ce71f4c25f953a0",
+      "autoqa/doom/replay.py": "b55f4f48c664298992b66a9c934bb9bb2e5a584e35a4aac260e008f7fd004e4e",
+      "autoqa/doom/telemetry.py": "cd47cba9998774b17a7f7f0cbd056c5d11e27aa288c15197a26f8021e99f9a7d",
+      "autoqa/doom/topology.py": "87d5da713f1936f97673732ae5c45a9e86a17da29f59e04f978f742e6e89d34d",
+      "autoqa/doom/types.py": "5a0ea0ad70da17c21541cd905bc9f99b43113e768747890e591cdd51275b3854",
+      "autoqa/io.py": "20c70376cc1b584c2cad7f2b99b85923fcece2557fade60424a1a6685401a9b2",
+      "autoqa/m0/__init__.py": "25623dd83064d4722b4d2acad22cedb8e390a3bc1f76c33063951b69fa90662a",
+      "autoqa/m0/api.py": "0e6e5a1f6a1dd6792d627c2b732f22cb5c083235f4ab35e0a0b0a42cf4c6a480",
+      "autoqa/m0/local.py": "15788c4fd9de22d3f22b6ac4258214058db387ce5885e21cfba65f731a237727",
+      "autoqa/m0/sam_audit.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+      "autoqa/m0/spike.py": "967b57507347013349bec0bc7bece80465fad8e1be8a6210ea96d0236106d5bb",
+      "autoqa/m0/worker.py": "85445b519ab758e88092a105cd2a81c59409a2158f21b9b45b03ba6e2a81e8b6",
+      "autoqa/prompts/__init__.py": "7def4b60beb414d6d7c3affa8653bbb6ede975b7f497bf740d67ad5577bb8cfe",
+      "autoqa/prompts/builder.py": "27adece76d7057ee0c67f3ca7406035773e298c92c432ebaadaae293872db42a",
+      "autoqa/run.py": "de65e6062fca896bb4219b72e7abbcc28ad7b868c78b8538c0b0a29198ab5465",
+      "autoqa/sam_wire.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+      "autoqa/secrets.py": "2da6977bc1e72d0d7c6e47e30b4e657611fbaae2f41b5fc09b78c0cafcfd4674"
+    },
+    "episodes": [
+      {
+        "directory": "runs/20261104T101158.275076Z_my_way_home_L2_s101",
+        "manifest": {
+          "run_id": "20261104T101158.275076Z_my_way_home_L2_s101",
+          "git_commit": "15d2db04c9f21ecdc090306c823cf56137f11e6f",
+          "level": 2,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "outcome": "max_decisions",
+          "decisions": 60,
+          "act_calls": 59,
+          "model_calls": 119,
+          "locate_calls": 5,
+          "grounding_model_calls": 7,
+          "grounding_cost_usd": 0.017098250000000002,
+          "total_usd": 0.5852391500000004,
+          "reward_total": -0.07320000000000007,
+          "prompt_sha256": "79c64a76e8d8e4d3b28ad0336bd15ba7012fa96cbb3ebcccca7130a3dade7f97",
+          "briefing_sha256": "9ee5d990ea3dac9c99799ba4782e68f28595e9e874c291c747744fad4fb49d19",
+          "plan_sha256": null,
+          "spawn_state": {
+            "pos_x": 464.0,
+            "pos_y": -176.0,
+            "pos_z": 0.0,
+            "angle_deg": 338.93920906329043,
+            "tic": 10
+          },
+          "episode_lmp_sha256": "f15acb6bb96366a82c1f5b0dfff2772ba95cfa42eb437f2ca2660b8ed536d2bb",
+          "events_jsonl_sha256": "39e50e3f3f1aac5f8fcdbcc873a9c00f9a08719e0ebbf6ef5814995eb0e8547a",
+          "telemetry_jsonl_sha256": "6e1320b6d12c0accee1453fd231bbc472398e6ebcb44cf754dee36060c66c002"
+        },
+        "timing": {
+          "raw_final_tic": 742,
+          "raw_manifest_tics_used": 732,
+          "elapsed_tics": 732,
+          "reconstructed_final_tic": null,
+          "source": "live engine clock",
+          "reconciled_primitives": []
+        },
+        "replay": {
+          "matches_telemetry": true,
+          "reward_total": -0.07320000000000107,
+          "frames": 732,
+          "codec": "h264",
+          "size": [
+            1280,
+            720
+          ],
+          "video_sha256": "d85dc10dc8c06526b662be4a3bc373dfb1b41a4a5f7fd10e1e829dedf590029e"
+        },
+        "comparison": {
+          "baseline": {
+            "unique_128_cells": 9,
+            "unique_64_cells": 18,
+            "cell_128_entries": 27,
+            "cell_128_reentries": 18,
+            "sampled_path_units": 3885.2083593220623,
+            "net_displacement_units": 263.70398006386375,
+            "minimum_goal_distance": 400.13135299348596,
+            "final_goal_distance": 400.13135299348596,
+            "translations": 50,
+            "translation_collision_proxy": 5,
+            "primitive_counts": {
+              "forward": 40,
+              "turn_left": 19,
+              "turn_right": 22,
+              "backward": 10,
+              "use": 2
+            },
+            "goal_visible_anywhere": false,
+            "pose_recurrences": 7
+          },
+          "current": {
+            "unique_128_cells": 6,
+            "unique_64_cells": 18,
+            "cell_128_entries": 22,
+            "cell_128_reentries": 16,
+            "sampled_path_units": 2611.0432917249514,
+            "net_displacement_units": 352.1183547896956,
+            "minimum_goal_distance": 340.18420705026233,
+            "final_goal_distance": 475.72670853073765,
+            "translations": 48,
+            "translation_collision_proxy": 6,
+            "primitive_counts": {
+              "forward": 34,
+              "turn_left": 27,
+              "use": 2,
+              "turn_right": 16,
+              "backward": 13,
+              "strafe_right": 1
+            },
+            "goal_visible_anywhere": false,
+            "pose_recurrences": 1
+          }
+        },
+        "tail": {
+          "actual_decisions": [
+            40,
+            59
+          ],
+          "new_128_cells": 1,
+          "new_64_cells": 6
+        },
+        "navigation": {
+          "updates": 51,
+          "linked_actions": 59,
+          "declared_basis_counts": {
+            "grounding": 2,
+            "visual": 57
+          },
+          "reused_localizations": 0,
+          "rejections": [
+            {
+              "decision_idx": 20,
+              "reason": "Grounding references must cite actual recent locate receipts"
+            },
+            {
+              "decision_idx": 46,
+              "reason": "Grounding references must cite actual recent locate receipts"
+            },
+            {
+              "decision_idx": 46,
+              "reason": "L2 must cite an observed locate receipt; failed lookups remain uncertain"
+            },
+            {
+              "decision_idx": 46,
+              "reason": "Grounding references must cite actual recent locate receipts"
+            }
+          ],
+          "linked_action_examples": [
+            {
+              "decision_idx": 0,
+              "navigation_at": 0,
+              "basis": "grounding",
+              "destination": "gray door ahead",
+              "subgoal": "approach gray door",
+              "grounding_refs": [
+                "d0:gray door"
+              ],
+              "intent": "Approach gray door ahead, avoid blue wall right, expect door to fill view"
+            },
+            {
+              "decision_idx": 1,
+              "navigation_at": 1,
+              "basis": "visual",
+              "destination": "gray door left",
+              "subgoal": "turn to face door",
+              "grounding_refs": [
+                "d0:gray door"
+              ],
+              "intent": "Turn left to face gray door, expect door centered; subgoal approach door"
+            },
+            {
+              "decision_idx": 20,
+              "navigation_at": 20,
+              "basis": "grounding",
+              "destination": "corridor gap toward red door",
+              "subgoal": "go through gap",
+              "grounding_refs": [
+                "d20:red door"
+              ],
+              "intent": "Subgoal pass pillar gap into corridor; go straight keeping gap center, expect brown tiles enclose"
+            },
+            {
+              "decision_idx": 26,
+              "navigation_at": 26,
+              "basis": "visual",
+              "destination": "room center/open floor",
+              "subgoal": "turn left to scan",
+              "grounding_refs": [
+                "d26:green armor"
+              ],
+              "intent": "Subgoal turn left to room center; expect open floor and far gray walls sweep into view"
+            },
+            {
+              "decision_idx": 35,
+              "navigation_at": 35,
+              "basis": "visual",
+              "destination": "open floor ahead toward diamond wall",
+              "subgoal": "advance along corridor",
+              "grounding_refs": [
+                "d26:green armor"
+              ],
+              "intent": "Subgoal advance to diamond wall; go forward, expect wall grows then side passage visible"
+            },
+            {
+              "decision_idx": 38,
+              "navigation_at": 38,
+              "basis": "visual",
+              "destination": "gap to gray paneled corridor",
+              "subgoal": "align to gap",
+              "grounding_refs": [
+                "d26:green armor"
+              ],
+              "intent": "Subgoal enter gray corridor; turn left to gap then forward, expect panels ahead"
+            },
+            {
+              "decision_idx": 39,
+              "navigation_at": 38,
+              "basis": "visual",
+              "destination": "gap to gray paneled corridor",
+              "subgoal": "align to gap",
+              "grounding_refs": [
+                "d26:green armor"
+              ],
+              "intent": "Subgoal slip through pillar gap; turn right to opening then forward, expect gray panels ahead"
+            },
+            {
+              "decision_idx": 40,
+              "navigation_at": 38,
+              "basis": "visual",
+              "destination": "gap to gray paneled corridor",
+              "subgoal": "align to gap",
+              "grounding_refs": [
+                "d26:green armor"
+              ],
+              "intent": "Subgoal face gray opening; turn left to gap, expect gray panels and floor center"
+            },
+            {
+              "decision_idx": 41,
+              "navigation_at": 41,
+              "basis": "visual",
+              "destination": "open brown-tiled floor by gray cabinets",
+              "subgoal": "sidestep around pillar",
+              "grounding_refs": [
+                "d26:green armor"
+              ],
+              "intent": "Subgoal round pillar to open floor; strafe right then forward, expect pillar clears and floor opens"
+            },
+            {
+              "decision_idx": 59,
+              "navigation_at": 58,
+              "basis": "visual",
+              "destination": "blue window wall ahead",
+              "subgoal": "advance to end wall",
+              "grounding_refs": [
+                "d46:gray cabinets"
+              ],
+              "intent": "Subgoal reach end wall; forward to blue panels, expect wall fills center and door/seam appears"
+            }
+          ],
+          "locates": [
+            {
+              "decision_idx": 0,
+              "concept": "gray door",
+              "found": true,
+              "matches": [
+                {
+                  "id": "1",
+                  "box": [
+                    106,
+                    74,
+                    272,
+                    261
+                  ],
+                  "segmentation_confidence": 0.98828125,
+                  "encoding": "one_bit",
+                  "confidence": 0.85,
+                  "localizer_confidence": 0.85,
+                  "bearing_deg": -22.262965932034646,
+                  "vertical_band": "level",
+                  "area_fraction": 0.093134765625,
+                  "identity_verified": false
+                }
+              ],
+              "cost_usd": 0.00464425,
+              "frame_sha256": "2f5e07ae44f29a5089cab7e32daea4175b4959472f292ff362dda65f96553bf3"
+            },
+            {
+              "decision_idx": 20,
+              "concept": "red door",
+              "found": true,
+              "matches": [
+                {
+                  "id": "1",
+                  "box": [
+                    273,
+                    114,
+                    311,
+                    246
+                  ],
+                  "segmentation_confidence": 0.9609375,
+                  "encoding": "one_bit",
+                  "confidence": 0.8,
+                  "localizer_confidence": 0.8,
+                  "bearing_deg": -5.000644597558432,
+                  "vertical_band": "level",
+                  "area_fraction": 0.014694010416666667,
+                  "identity_verified": false
+                }
+              ],
+              "cost_usd": 0.005498500000000001,
+              "frame_sha256": "83a6a3382a4d456d980eba42018f2af6e4c8e649276c334211401f0addd72d16"
+            },
+            {
+              "decision_idx": 24,
+              "concept": "green armor",
+              "found": false,
+              "matches": [],
+              "cost_usd": 0.0024205000000000008,
+              "frame_sha256": "f55262a1bd542602ca078237c68adf0c34eb438a1279321898c32ad40c8fd130"
+            },
+            {
+              "decision_idx": 26,
+              "concept": "green armor",
+              "found": false,
+              "matches": [],
+              "cost_usd": 0.0020125000000000004,
+              "frame_sha256": "c2e20497604fcf3ace9912ebc0c9c4c3efe980c721832294435c7c2e4930474a"
+            },
+            {
+              "decision_idx": 46,
+              "concept": "gray cabinets",
+              "found": false,
+              "matches": [],
+              "cost_usd": 0.0025225000000000004,
+              "frame_sha256": "e1ab4c01f92c3493d68ec04bd1d1df0cc9086ad6c4d5eb7f3d7eaddf5dfe704f"
+            }
+          ],
+          "updates_file": "m2-navigation-intentions.csv"
+        },
+        "audit": {
+          "all_primitives_match_model_acts": true,
+          "matched_primitives": 93,
+          "unmatched_primitives": 0,
+          "actual_prior_delivered_grounding_citations_only": true,
+          "ledger_reconstructed_from_accepted_model_notes": true,
+          "source_hash_differences": [
+            "autoqa/doom/replay.py",
+            "autoqa/run.py"
+          ],
+          "source_difference_reason": "Post-run fixes only for native terminal clock reset reporting/replay; gameplay/planning/prompt files unchanged.",
+          "artifact_hashes_verified": true,
+          "api_errors": [
+            {
+              "error_type": "APITimeoutError",
+              "http_status": null,
+              "retry": true,
+              "attempt": 1
+            }
+          ],
+          "grounding_errors": 0,
+          "rejected_tool_responses": 0,
+          "visual_cycle_warnings": 0,
+          "cache_after_first": {
+            "hits": 115,
+            "responses": 118
+          },
+          "max_goal_visible_pixels": 0,
+          "terminal_armor": 0.0
+        }
+      },
+      {
+        "directory": "runs/20261104T101202.353976Z_my_way_home_L3_s101",
+        "manifest": {
+          "run_id": "20261104T101202.353976Z_my_way_home_L3_s101",
+          "git_commit": "15d2db04c9f21ecdc090306c823cf56137f11e6f",
+          "level": 3,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "outcome": "success",
+          "decisions": 42,
+          "act_calls": 42,
+          "model_calls": 79,
+          "locate_calls": 0,
+          "grounding_model_calls": 0,
+          "grounding_cost_usd": 0.0,
+          "total_usd": 0.29667894999999994,
+          "reward_total": 0.8719999999999999,
+          "prompt_sha256": "2d7bdd131f4edb71575c9c2feeb9e69a06ee3fc904ec751d919bfdfd9be68a1e",
+          "briefing_sha256": "9ee5d990ea3dac9c99799ba4782e68f28595e9e874c291c747744fad4fb49d19",
+          "plan_sha256": "aa34daddff1409d7ccabae7c6000e0ca8e8266075b8ec65543c34c47e77f7685",
+          "spawn_state": {
+            "pos_x": 464.0,
+            "pos_y": -176.0,
+            "pos_z": 0.0,
+            "angle_deg": 338.93920906329043,
+            "tic": 10
+          },
+          "episode_lmp_sha256": "9bada6f663a0f0bc36ff1043571388f904c9ed2419add9c7c8b3ecfefd600c33",
+          "events_jsonl_sha256": "328e0e8a4adcfba87ae1b3c0d1f73a04189eec8f1c7aba335c164c757b2ccc7a",
+          "telemetry_jsonl_sha256": "edeb60decbde64aaf4245c11fcf91afe91df8bf306b66835d1ad569c93271b31"
+        },
+        "timing": {
+          "raw_final_tic": 0,
+          "raw_manifest_tics_used": -10,
+          "elapsed_tics": 1280,
+          "reconstructed_final_tic": 1290,
+          "source": "native replay count",
+          "reconciled_primitives": [
+            {
+              "decision": 41,
+              "raw_end": 0,
+              "effective_end": 1290,
+              "source": "counted native replay tics"
+            }
+          ]
+        },
+        "replay": {
+          "matches_telemetry": true,
+          "reward_total": 0.8719999999999978,
+          "frames": 1280,
+          "codec": "h264",
+          "size": [
+            1280,
+            720
+          ],
+          "video_sha256": "64be3ca12ac8d33c615886d1d5cc8a28a0b047bb7c1b90af90b56e989e740b81",
+          "terminal_clock_status": "native_reset_reconstructed_by_replay",
+          "reconstructed_tics_used": 1280,
+          "reconstructed_final_tic": 1290
+        },
+        "comparison": {
+          "baseline": {
+            "unique_128_cells": 14,
+            "unique_64_cells": 29,
+            "cell_128_entries": 44,
+            "cell_128_reentries": 30,
+            "sampled_path_units": 5282.748589457576,
+            "net_displacement_units": 249.30077698784385,
+            "minimum_goal_distance": 334.2909625326957,
+            "final_goal_distance": 656.9424995532278,
+            "translations": 49,
+            "translation_collision_proxy": 1,
+            "primitive_counts": {
+              "forward": 36,
+              "turn_left": 17,
+              "turn_right": 21,
+              "backward": 9,
+              "strafe_right": 2,
+              "use": 3,
+              "strafe_left": 2
+            },
+            "goal_visible_anywhere": false,
+            "pose_recurrences": 8
+          },
+          "current": {
+            "unique_128_cells": 18,
+            "unique_64_cells": 29,
+            "cell_128_entries": 33,
+            "cell_128_reentries": 15,
+            "sampled_path_units": 4521.886889989236,
+            "net_displacement_units": 612.399706164256,
+            "minimum_goal_distance": 34.979279758320516,
+            "final_goal_distance": 34.979279758320516,
+            "translations": 48,
+            "translation_collision_proxy": 3,
+            "primitive_counts": {
+              "turn_right": 10,
+              "forward": 24,
+              "turn_left": 16,
+              "backward": 15,
+              "strafe_left": 6,
+              "strafe_right": 3,
+              "use": 4
+            },
+            "goal_visible_anywhere": true,
+            "pose_recurrences": 0
+          }
+        },
+        "tail": {
+          "actual_decisions": [
+            22,
+            41
+          ],
+          "new_128_cells": 11,
+          "new_64_cells": 14
+        },
+        "navigation": {
+          "updates": 37,
+          "linked_actions": 42,
+          "declared_basis_counts": {
+            "map": 42
+          },
+          "reused_localizations": 0,
+          "rejections": [],
+          "linked_action_examples": [
+            {
+              "decision_idx": 0,
+              "navigation_at": 0,
+              "basis": "map",
+              "destination": "G east-south room",
+              "subgoal": "exit central room to east junction",
+              "grounding_refs": [],
+              "intent": "Survey surroundings to identify central room exits toward east G wing"
+            },
+            {
+              "decision_idx": 1,
+              "navigation_at": 1,
+              "basis": "map",
+              "destination": "G east-south room",
+              "subgoal": "follow corridor to junction",
+              "grounding_refs": [],
+              "intent": "Advance down pillar corridor toward junction to reach east wing"
+            },
+            {
+              "decision_idx": 20,
+              "navigation_at": 20,
+              "basis": "map",
+              "destination": "G east-south room",
+              "subgoal": "slide off wall to open floor",
+              "grounding_refs": [],
+              "intent": "Slide off red wall to open floor toward east corridor to G"
+            },
+            {
+              "decision_idx": 26,
+              "navigation_at": 26,
+              "basis": "map",
+              "destination": "G east-south room",
+              "subgoal": "use wall if door then back out",
+              "grounding_refs": [],
+              "intent": "Use wall for door then back out and turn to find open floor east to G"
+            },
+            {
+              "decision_idx": 35,
+              "navigation_at": 35,
+              "basis": "map",
+              "destination": "G east-south room",
+              "subgoal": "follow brown corridor east",
+              "grounding_refs": [],
+              "intent": "Follow brown corridor toward blue-window wall to progress east toward G"
+            },
+            {
+              "decision_idx": 38,
+              "navigation_at": 38,
+              "basis": "map",
+              "destination": "G east-south room",
+              "subgoal": "back to hall center",
+              "grounding_refs": [],
+              "intent": "Back off blue window wall then turn to hall center toward east G route"
+            },
+            {
+              "decision_idx": 39,
+              "navigation_at": 39,
+              "basis": "map",
+              "destination": "G east-south room, green object ahead may be GreenArmor",
+              "subgoal": "advance down corridor to green object",
+              "grounding_refs": [],
+              "intent": "Advance down brown corridor to green object that may be GreenArmor in G wing"
+            },
+            {
+              "decision_idx": 40,
+              "navigation_at": 40,
+              "basis": "map",
+              "destination": "G GreenArmor pickup",
+              "subgoal": "turn left to face armor",
+              "grounding_refs": [],
+              "intent": "Turn left to face green armor then walk over to collect"
+            },
+            {
+              "decision_idx": 41,
+              "navigation_at": 41,
+              "basis": "map",
+              "destination": "G GreenArmor pickup",
+              "subgoal": "walk forward over armor to collect",
+              "grounding_refs": [],
+              "intent": "Walk forward over centered GreenArmor to collect"
+            }
+          ],
+          "locates": [],
+          "updates_file": "m2-navigation-intentions.csv"
+        },
+        "audit": {
+          "all_primitives_match_model_acts": true,
+          "matched_primitives": 78,
+          "unmatched_primitives": 0,
+          "actual_prior_delivered_grounding_citations_only": true,
+          "ledger_reconstructed_from_accepted_model_notes": true,
+          "source_hash_differences": [
+            "autoqa/doom/replay.py",
+            "autoqa/run.py"
+          ],
+          "source_difference_reason": "Post-run fixes only for native terminal clock reset reporting/replay; gameplay/planning/prompt files unchanged.",
+          "artifact_hashes_verified": true,
+          "api_errors": [
+            {
+              "error_type": "APITimeoutError",
+              "http_status": null,
+              "retry": true,
+              "attempt": 1
+            }
+          ],
+          "grounding_errors": 0,
+          "rejected_tool_responses": 0,
+          "visual_cycle_warnings": 4,
+          "cache_after_first": {
+            "hits": 78,
+            "responses": 78
+          },
+          "max_goal_visible_pixels": 6317,
+          "terminal_armor": 100.0
+        }
+      }
+    ],
+    "total_usd": 0.8819181000000003,
+    "baseline_total_usd": 0.6771606999999998,
+    "claims": "Model-written intentions and their cited evidence are audited; enum/tool-call counts do not verify effective navigation. Goal collection is verified separately by reward, armor, pixels and native replay. Single stochastic run per level; no causal map-benefit claim."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "source": "runs/m2-grounding-experiment/results.json",
+  "source_sha256": "ace07e18ffdeae88a737625fc26b792ab773689716989278d48b69b2bb631661",
+  "modes": {
+    "sam_text": {
+      "positive_cases": 21,
+      "hits": 0,
+      "negative_cases": 7,
+      "false_positives": 0,
+      "incomplete": 0,
+      "cost_usd": 0.07,
+      "matched_bearing_mae_deg": null
+    },
+    "muse_box_sam": {
+      "positive_cases": 21,
+      "hits": 10,
+      "negative_cases": 7,
+      "false_positives": 2,
+      "incomplete": 0,
+      "cost_usd": 0.16803335,
+      "matched_bearing_mae_deg": 0.19814813822989186
+    }
+  },
+  "selected_mode": "muse_box_sam",
+  "status": "experimental_partial",
+  "rationale": "10/21 positive hits versus 0/21 for text SAM; 2/7 false positives; not reliable semantic localization. Keep all candidates identity_verified=false; retain direct SAM mode; no automatic mode fallback."
+}

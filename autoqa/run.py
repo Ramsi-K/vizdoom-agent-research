@@ -1,5 +1,6 @@
 """Composition root: connects narrow Pilot session to eval-only engine artifacts."""
 
+import hashlib
 import json
 import subprocess
 import time
@@ -9,7 +10,9 @@ from pathlib import Path
 import vizdoom as vzd
 
 from autoqa.agent.client import MetaClient
+from autoqa.agent.grounder import Grounder
 from autoqa.agent.pilot import Pilot
+from autoqa.config import SCENARIOS
 from autoqa.doom.env import DoomEnv
 from autoqa.io import EventLog, digest, write_json
 from autoqa.prompts.builder import prompt_hash
@@ -23,14 +26,19 @@ def run_episode(config, *, root=Path.cwd()):
     if calibration["status"] != "passed":
         raise ValueError("A measured M0 calibration is required")
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S.%fZ")
-    directory = root / "runs" / f"{stamp}_{config.scenario}_L1_s{config.seed}"
+    directory = root / "runs" / f"{stamp}_{config.scenario}_L{config.level}_s{config.seed}"
     directory.mkdir(parents=True, exist_ok=False)
     (directory / "frames").mkdir()
     log = EventLog(directory / "events.jsonl")
     git_sha = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
-    config_path = Path(vzd.scenarios_path) / f"{config.scenario}.cfg"
+    profile = SCENARIOS[config.scenario]
+    config_path = Path(vzd.scenarios_path) / f"{profile['cfg']}.cfg"
     iwad = Path(vzd.__file__).parent / "freedoom2.wad"
-    wad = Path(vzd.scenarios_path) / f"{config.scenario}.wad"
+    wad = Path(vzd.scenarios_path) / f"{profile['cfg']}.wad"
+    if not wad.exists():
+        wad = iwad
+    briefing_path = root / "scenarios" / config.scenario / "briefing_l2.md"
+    briefing = briefing_path.read_text() if config.level > 1 else None
     code_paths = sorted((root / "autoqa").rglob("*.py"))
     manifest = dict(
         run_id=directory.name,
@@ -43,10 +51,11 @@ def run_episode(config, *, root=Path.cwd()):
         scenario_cfg_path=str(config_path),
         scenario_cfg_sha256=digest(config_path),
         scenario_wad_sha256=digest(wad),
-        prompt_sha256=prompt_hash(),
+        prompt_sha256=prompt_hash(config.level, briefing),
+        briefing_sha256=hashlib.sha256(briefing.encode()).hexdigest() if briefing else None,
         calibration_sha256=digest(calibration_path),
         scenario_id=config.scenario,
-        level=1,
+        level=config.level,
         seed=config.seed,
         model=config.model,
         effort=config.effort,
@@ -64,15 +73,31 @@ def run_episode(config, *, root=Path.cwd()):
         outcome="running",
         total_usd=0.0,
         usage=None,
-        sam_grounding="not implemented (M2)",
+        sam_grounding=config.grounding_mode,
     )
     write_json(directory / "manifest.json", manifest)
     env, client, pilot = None, None, None
     started = time.monotonic()
     try:
         env = DoomEnv(config, directory, calibration["measured"])
+        manifest["spawn_state"] = {
+            key: env.telemetry.last[key] for key in ("pos_x", "pos_y", "pos_z", "angle_deg", "tic")
+        }
+        manifest["plan_sha256"] = digest(directory / "plan_l3.png") if config.level == 3 else None
         client = MetaClient(key, config, log)
-        pilot = Pilot(config, env.player_session(), client, log)
+        pilot = Pilot(config, env.player_session(), client, log, briefing_l2=briefing)
+        pilot.grounder = Grounder(
+            key,
+            mode=config.grounding_mode,
+            model=config.model,
+            fov=calibration["measured"]["camera_fov_deg"],
+            timeout=config.request_timeout,
+            charge=pilot.charge_grounding,
+            directory=directory / "grounding",
+            remaining=lambda: (
+                0 if pilot.guards.budget_exhausted() else pilot.guards.remaining_seconds()
+            ),
+        )
         outcome = pilot.run_episode()
         manifest["outcome"] = env.outcome() or outcome
     except KeyboardInterrupt:
@@ -97,15 +122,29 @@ def run_episode(config, *, root=Path.cwd()):
                     model_calls=pilot.calls,
                     act_calls=pilot.actions,
                     inline_issues=len(pilot.issues),
+                    locate_calls=pilot.locate_calls,
+                    grounding_model_calls=len(pilot.grounder.calls),
+                    grounding_cost_usd=pilot.grounder.cost_usd,
                 )
                 write_json(directory / "issues.json", pilot.issues)
+                write_json(
+                    directory / "memory.json",
+                    dict(
+                        landmark_outcome_ledger=pilot.memory.scratchpad,
+                        recent_history=list(pilot.memory.history),
+                    ),
+                )
             if env and env.telemetry.last:
+                final_tic = env.telemetry.last["tic"]
+                clock_reset = final_tic < env.start_tic
                 manifest.update(
-                    final_tic=env.telemetry.last["tic"],
+                    final_tic=final_tic,
                     reward_total=env.telemetry.last["reward_total"],
                     start_tic=env.start_tic,
-                    tics_used=env.telemetry.last["tic"] - env.start_tic,
+                    tics_used=None if clock_reset else final_tic - env.start_tic,
                 )
+                if clock_reset:
+                    manifest["terminal_clock_status"] = "native_reset_needs_replay"
             for name in ("episode.lmp", "events.jsonl", "telemetry.jsonl"):
                 path = directory / name
                 if path.exists():

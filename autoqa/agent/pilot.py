@@ -1,4 +1,4 @@
-"""Bounded Level 1 loop. act is the only engine-execution branch."""
+"""Bounded information-level loop. act is the only engine-execution branch."""
 
 import json
 from dataclasses import asdict
@@ -8,13 +8,15 @@ from pydantic import ValidationError
 from autoqa.prompts import builder
 
 from .client import InformationLeakError, ModelAPIError, replay_turn, tool_output
+from .grounder import GroundingBudgetExceeded
 from .guards import Guards
 from .memory import Memory
+from .navigation import validate_navigation
 from .tools import MODELS
 
 
 class Pilot:
-    def __init__(self, config, session, client, log):
+    def __init__(self, config, session, client, log, *, briefing_l2=None, grounder=None):
         self.config, self.session, self.client, self.log = config, session, client, log
         self.memory, self.guards = Memory(), Guards(config)
         self.issues = []
@@ -27,6 +29,25 @@ class Pilot:
             "cached_tokens": 0,
             "reasoning_tokens": 0,
         }
+        self.briefing_l2, self.grounder = briefing_l2, grounder
+        self.locate_calls = 0
+        # Evidence registry for validating citations, not an additional model memory.
+        self.grounding_receipts = {}
+
+    def charge_grounding(self, model, cost_usd, usage, latency_ms):
+        self.guards.total_usd += cost_usd
+        for key in ("input_tokens", "output_tokens"):
+            self.tokens[key] += usage.get(key, 0) or 0
+        for key, parent in (
+            ("cached_tokens", "input_tokens_details"),
+            ("reasoning_tokens", "output_tokens_details"),
+        ):
+            self.tokens[key] += (usage.get(parent) or {}).get(key, 0) or 0
+        self.log(
+            "grounding_request", model=model, cost_usd=cost_usd, usage=usage, latency_ms=latency_ms
+        )
+        if self.guards.budget_exhausted():
+            raise GroundingBudgetExceeded("Budget exhausted during grounding")
 
     def run_episode(self):
         for decision in range(self.config.max_decisions):
@@ -36,8 +57,14 @@ class Pilot:
                 return "budget_exhausted"
             self.decisions = decision + 1
             obs = self.session.observe()
-            items = builder.build(1, self.memory, obs, self.guards.warning)
+            cycle = self.guards.observe_view(obs.frame_jpeg, obs.decision_idx)
+            if cycle:
+                self.log("visual_cycle_warning", decision_idx=decision, **cycle)
+            items = builder.build(
+                self.config.level, self.memory, obs, self.guards.warning, self.briefing_l2
+            )
             acted, misses = False, 0
+            locate_results = {}  # exact same observed frame/concept only; no cross-frame reuse
             for call_idx in range(4):
                 if self.guards.budget_exhausted():
                     return "budget_exhausted"
@@ -135,7 +162,11 @@ class Pilot:
                     items = replay_turn(items, turn.output, results)
                     continue
                 stop = None
-                for item in calls:
+                # A model cannot cite a result first produced by this same response.
+                # Only receipts returned on earlier tool rounds were visible to it.
+                visible_receipts = self.grounding_receipts.copy()
+                # Read-only tools use the observed frame before any act in the batch.
+                for item in sorted(calls, key=lambda call: call["name"] in {"act", "finish"}):
                     args = validated[item["call_id"]]
                     self.log(
                         "tool_call",
@@ -144,8 +175,94 @@ class Pilot:
                         name=item["name"],
                         arguments=args.model_dump(),
                     )
-                    if item["name"] == "note":
+                    if item["name"] == "locate":
+                        self.locate_calls += 1
+                        reused = self.config.level > 1 and args.concept in locate_results
+                        if reused:
+                            out = locate_results[args.concept].copy()
+                            self.log("locate_reused", decision_idx=decision, concept=args.concept)
+                        elif self.grounder is None:
+                            out = {
+                                "found": False,
+                                "status": "could_not_verify",
+                                "reason": "No grounder configured",
+                            }
+                        else:
+                            try:
+                                measured, _ = self.grounder.locate(obs.frame_jpeg, args.concept)
+                                self.log(
+                                    "locate",
+                                    decision_idx=decision,
+                                    concept=args.concept,
+                                    **measured,
+                                )
+                                out = {key: measured[key] for key in ("found", "matches", "method")}
+                            except GroundingBudgetExceeded:
+                                return "budget_exhausted"
+                            except Exception as error:
+                                out = {
+                                    "found": False,
+                                    "status": "could_not_verify",
+                                    "error_type": type(error).__name__,
+                                }
+                                self.log("grounding_error", decision_idx=decision, **out)
+                        receipt = None
+                        if self.config.level > 1:
+                            receipt = f"d{decision}:{args.concept}"
+                            self.grounding_receipts = {
+                                ref: value
+                                for ref, value in self.grounding_receipts.items()
+                                if decision - value["decision"] < 20
+                            }
+                            self.grounding_receipts[receipt] = dict(
+                                decision=decision,
+                                concept=args.concept,
+                                found=out.get("found", False),
+                                status=out.get("status", "completed"),
+                                identity_verified=False,
+                                frame_sha256=obs.frame_sha256,
+                            )
+                            out["evidence_ref"] = receipt
+                            out["observed_decision"] = decision
+                            locate_results[args.concept] = out.copy()
+                        self.memory.record_locate(
+                            obs.decision_idx, args.concept, out, receipt=receipt
+                        )
+                    elif item["name"] == "note":
+                        nav = None
+                        if self.config.level > 1 and "NAV " in args.text:
+                            try:
+                                nav = validate_navigation(
+                                    args.text,
+                                    self.config.level,
+                                    decision,
+                                    visible_receipts,
+                                    current=True,
+                                )
+                            except ValueError as error:
+                                results.append(tool_output(item["call_id"], dict(error=str(error))))
+                                self.log(
+                                    "navigation_rejected", decision_idx=decision, reason=str(error)
+                                )
+                                continue
                         out = self.memory.note(args.text, args.mode)
+                        self.log(
+                            "landmark_ledger",
+                            decision_idx=decision,
+                            source="model_note",
+                            text=self.memory.scratchpad,
+                        )
+                        if nav:
+                            self.log(
+                                "navigation_update",
+                                decision_idx=decision,
+                                source="model_note",
+                                **nav.model_dump(),
+                                grounding_evidence={
+                                    ref: self.grounding_receipts[ref] for ref in nav.grounding_refs
+                                },
+                                planning_verified=False,
+                            )
                     elif item["name"] == "report_issue":
                         data = args.model_dump()
                         steps = data["evidence_steps"] or [obs.decision_idx]
@@ -168,13 +285,41 @@ class Pilot:
                         stop = args.status
                         out = {"stopped": True}
                     elif item["name"] == "act":
+                        if self.config.level > 1:
+                            try:
+                                nav = validate_navigation(
+                                    self.memory.scratchpad,
+                                    self.config.level,
+                                    decision,
+                                    visible_receipts,
+                                    current=bool(cycle),
+                                )
+                            except ValueError as error:
+                                results.append(tool_output(item["call_id"], dict(error=str(error))))
+                                self.log(
+                                    "navigation_rejected", decision_idx=decision, reason=str(error)
+                                )
+                                continue
+                            self.log(
+                                "navigation_action",
+                                decision_idx=decision,
+                                source="model_act",
+                                navigation_at=nav.at,
+                                basis=nav.basis,
+                                destination=nav.destination,
+                                subgoal=nav.subgoals[0],
+                                grounding_refs=nav.grounding_refs,
+                                intent=args.intent,
+                                planning_verified=False,
+                            )
                         feedback = self.session.execute(args)
                         out = asdict(feedback)
                         self.actions += 1
                         acted = True
                         self.guards.idle_decisions = 0
-                        self.memory.history.append(
-                            f"Decision {obs.decision_idx}: {args.model_dump()}; dFrame={feedback.frame_change_pct:.2f}%"
+                        self.memory.record(
+                            obs.decision_idx,
+                            f"act {args.model_dump()}; visible dFrame={feedback.frame_change_pct:.2f}% (not proof of interaction success)",
                         )
                         warning = self.guards.observe(args, feedback)
                         if warning:
