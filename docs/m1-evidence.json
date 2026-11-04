@@ -1,0 +1,265 @@
+{
+  "milestone": "M1",
+  "offline_tests": {
+    "passed": 54,
+    "live_api_deselected": 4,
+    "seconds": 5.63
+  },
+  "runs": [
+    {
+      "stage": "initial runtime validation before final telemetry",
+      "run_dir": "runs/20261104T071718.181447Z_my_way_home_L1_s101",
+      "manifest": {
+        "run_id": "20261104T071718.181447Z_my_way_home_L1_s101",
+        "git_commit": "374ceec32e8bce25f06589d2f8f274b932529751",
+        "scenario_id": "my_way_home",
+        "level": 1,
+        "seed": 101,
+        "model": "muse-spark-1.3",
+        "effort": "low",
+        "config": {
+          "scenario": "my_way_home",
+          "level": 1,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "max_decisions": 60,
+          "max_tics": 2100,
+          "max_usd": 0.25,
+          "wall_seconds": 900.0,
+          "request_timeout": 45.0,
+          "max_output_tokens": 3000
+        },
+        "outcome": "max_decisions",
+        "wall_seconds": 189.475525560003,
+        "decisions": 60,
+        "model_calls": 62,
+        "act_calls": 60,
+        "inline_issues": 0,
+        "start_tic": 10,
+        "final_tic": 841,
+        "tics_used": 831,
+        "reward_total": -0.0831000000000001,
+        "total_usd": 0.24843574999999996,
+        "usage": {
+          "input_tokens": 180088,
+          "output_tokens": 14027,
+          "cached_tokens": 32990,
+          "reasoning_tokens": 6421
+        },
+        "vizdoom_version": "1.3.2",
+        "iwad_sha256": "a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b",
+        "scenario_cfg_sha256": "3dc0eb5e3557df7918484f91bdc4bc13b78cf67c6a6eaf2052e8ad66cfccbe46",
+        "scenario_wad_sha256": "18e98ff4c9186808eb00696b799cfe88a79e7486429c1692aafbed8ef359c0b1",
+        "prompt_sha256": "9421ee9afd0361b781cf81031771020ece430122772d25cd7fc59bbea2dcae7e",
+        "calibration_sha256": "6059f73fa524dbbf83a5a1b752a29a28cb08ad85c042d99ab2eef6bb863e230c",
+        "source_sha256": {
+          "autoqa/__init__.py": "0acd2ee602ba6e51b80361398ff6551493647871cd2a67da99d4858adc8df2a9",
+          "autoqa/agent/__init__.py": "0863806f5746f27501778c4f34676dbedc1808c605e4a6b3c28ba944837aef74",
+          "autoqa/agent/client.py": "f6c38dbfe8e498f066680e530d228e6f9594d865a9aaeab541f9f599e7a59f7b",
+          "autoqa/agent/guards.py": "6e3357b517f8e60d4af0795e226ca28acee022fbe07199af0550a4ce5e7faf61",
+          "autoqa/agent/memory.py": "638d668366ab2232982870d367ad3702ce7c4f8e0684acc793ecd92d65a3a9c6",
+          "autoqa/agent/pilot.py": "9396f6ab9d2bc83b509ad01691e46d865711e28b94c8c86e75da6cec33db8a35",
+          "autoqa/agent/tools.py": "6dd8069a64bd4bdee1b88613ea2118375dcb13fc43e3505fba9e2e868f4e28be",
+          "autoqa/cli.py": "b771bacec6b7bcc840be47e96e7886f2d6f0db2595fc16faf1b93fc98c77a735",
+          "autoqa/config.py": "c960be0516e54312c96aa1691fc6f7b1e6cd9d179e7c20cde1d8663643c3de06",
+          "autoqa/doom/__init__.py": "b2465e08ccadc455910e45a1cce1a3795e8badd73f6daa171ed35265a9bf481b",
+          "autoqa/doom/env.py": "c1d035daefe80b11f657f0a65577aa59d93808915fc0e38f4fbeb43746686be8",
+          "autoqa/doom/replay.py": "a2d562f317f66b4983fee5a2d7e77995919c89916e21f749c914684b3c91e243",
+          "autoqa/doom/telemetry.py": "4c9ca880c088ba098d05cbd7f834de2004bb252d1a7f206b578616854de78ecf",
+          "autoqa/doom/types.py": "45f605d66d0e83497ceb9708f458b2301075fb9ecdfb92bde179c6ab66147467",
+          "autoqa/io.py": "20c70376cc1b584c2cad7f2b99b85923fcece2557fade60424a1a6685401a9b2",
+          "autoqa/m0/__init__.py": "25623dd83064d4722b4d2acad22cedb8e390a3bc1f76c33063951b69fa90662a",
+          "autoqa/m0/api.py": "0e6e5a1f6a1dd6792d627c2b732f22cb5c083235f4ab35e0a0b0a42cf4c6a480",
+          "autoqa/m0/local.py": "15788c4fd9de22d3f22b6ac4258214058db387ce5885e21cfba65f731a237727",
+          "autoqa/m0/sam_audit.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+          "autoqa/m0/spike.py": "967b57507347013349bec0bc7bece80465fad8e1be8a6210ea96d0236106d5bb",
+          "autoqa/m0/worker.py": "85445b519ab758e88092a105cd2a81c59409a2158f21b9b45b03ba6e2a81e8b6",
+          "autoqa/prompts/__init__.py": "7def4b60beb414d6d7c3affa8653bbb6ede975b7f497bf740d67ad5577bb8cfe",
+          "autoqa/prompts/builder.py": "3f37e5ae73b2224793011e51476c2134b83eb50c1df7c4b0d73b84638bee53b0",
+          "autoqa/run.py": "b60283f4d9845a0a23e88184e4d487b8c26a1473ecae42a195805c0f1e1c3b25",
+          "autoqa/secrets.py": "2da6977bc1e72d0d7c6e47e30b4e657611fbaae2f41b5fc09b78c0cafcfd4674"
+        }
+      },
+      "audit": {
+        "every_primitive_matches_model_act": true,
+        "matched_primitives": 83,
+        "unmatched_primitives": 0,
+        "act_calls": 60,
+        "model_calls": 62,
+        "rejected_tool_responses": 1,
+        "api_errors": 0,
+        "tool_counts": {
+          "act": 60,
+          "note": 1
+        },
+        "init_tic": 10,
+        "final_tic": 841,
+        "bfs_status_counts": {
+          "not_available_in_initial_version": 145
+        },
+        "immutable_source_hashes_verified": true
+      },
+      "replay": {
+        "final_tic": 841,
+        "reward_total": -0.08310000000000135,
+        "expected_final_tic": 841,
+        "expected_reward_total": -0.0831000000000001,
+        "matches_telemetry": true,
+        "frames": 831,
+        "fps": 35,
+        "shape": [
+          720,
+          1280,
+          3
+        ],
+        "codec": "h264",
+        "size": [
+          1280,
+          720
+        ],
+        "from_tic": 10,
+        "to_tic": 841,
+        "captions": false,
+        "video_sha256": "88d1198952f52e6f89b0c9b8976693e96aaef44a72bab8d2b8f791c5f242f0fa",
+        "lmp_sha256": "966d74bdea87275721337324d7401ea0a359b84c7656415da25e0221cfa2d61d"
+      },
+      "artifact_sha256": {
+        "manifest.json": "f1c78ef644fbb123673cadfad995f9e30e50db6ce9bbd5440d60be55ea9a017f",
+        "events.jsonl": "c66f507ea3cf02ead7f4f0c29e8af0f4f558d81cfa100b037efea39c49746ccf",
+        "telemetry.jsonl": "45cd292333b66bf579974de1d0f3d505a174848a85e33c26f9a9ce86ec15a04c",
+        "episode.lmp": "966d74bdea87275721337324d7401ea0a359b84c7656415da25e0221cfa2d61d",
+        "replay.json": "2790b31646bbad00bfbebf126b0e81b84431653480e318b22d43cc9843ed0eb0",
+        "replay.mp4": "88d1198952f52e6f89b0c9b8976693e96aaef44a72bab8d2b8f791c5f242f0fa"
+      }
+    },
+    {
+      "stage": "final committed implementation validation",
+      "run_dir": "runs/20261104T072627.517704Z_my_way_home_L1_s101",
+      "manifest": {
+        "run_id": "20261104T072627.517704Z_my_way_home_L1_s101",
+        "git_commit": "03210c5eb01b062e5d1f6d9254e98737c1cd7215",
+        "scenario_id": "my_way_home",
+        "level": 1,
+        "seed": 101,
+        "model": "muse-spark-1.3",
+        "effort": "low",
+        "config": {
+          "scenario": "my_way_home",
+          "level": 1,
+          "seed": 101,
+          "model": "muse-spark-1.3",
+          "effort": "low",
+          "max_decisions": 60,
+          "max_tics": 2100,
+          "max_usd": 0.25,
+          "wall_seconds": 900.0,
+          "request_timeout": 45.0,
+          "max_output_tokens": 3000
+        },
+        "outcome": "budget_exhausted",
+        "wall_seconds": 214.6294014649975,
+        "decisions": 58,
+        "model_calls": 66,
+        "act_calls": 57,
+        "inline_issues": 0,
+        "start_tic": 10,
+        "final_tic": 760,
+        "tics_used": 750,
+        "reward_total": -0.07500000000000008,
+        "total_usd": 0.2533303,
+        "usage": {
+          "input_tokens": 189279,
+          "output_tokens": 16071,
+          "cached_tokens": 46882,
+          "reasoning_tokens": 8311
+        },
+        "vizdoom_version": "1.3.2",
+        "iwad_sha256": "a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b",
+        "scenario_cfg_sha256": "3dc0eb5e3557df7918484f91bdc4bc13b78cf67c6a6eaf2052e8ad66cfccbe46",
+        "scenario_wad_sha256": "18e98ff4c9186808eb00696b799cfe88a79e7486429c1692aafbed8ef359c0b1",
+        "prompt_sha256": "9421ee9afd0361b781cf81031771020ece430122772d25cd7fc59bbea2dcae7e",
+        "calibration_sha256": "6059f73fa524dbbf83a5a1b752a29a28cb08ad85c042d99ab2eef6bb863e230c",
+        "source_sha256": {
+          "autoqa/__init__.py": "e7e5bd04cfac130fe14251dcf8f1429120587b28afbc3e3fdc25249b6c318b9c",
+          "autoqa/agent/__init__.py": "0863806f5746f27501778c4f34676dbedc1808c605e4a6b3c28ba944837aef74",
+          "autoqa/agent/client.py": "f6c38dbfe8e498f066680e530d228e6f9594d865a9aaeab541f9f599e7a59f7b",
+          "autoqa/agent/guards.py": "6e3357b517f8e60d4af0795e226ca28acee022fbe07199af0550a4ce5e7faf61",
+          "autoqa/agent/memory.py": "638d668366ab2232982870d367ad3702ce7c4f8e0684acc793ecd92d65a3a9c6",
+          "autoqa/agent/pilot.py": "c3f7d9052a624c8d02952a6651db7f5a23e0cb130dfd4e2632da24c3e4326a5e",
+          "autoqa/agent/tools.py": "6dd8069a64bd4bdee1b88613ea2118375dcb13fc43e3505fba9e2e868f4e28be",
+          "autoqa/cli.py": "b771bacec6b7bcc840be47e96e7886f2d6f0db2595fc16faf1b93fc98c77a735",
+          "autoqa/config.py": "c960be0516e54312c96aa1691fc6f7b1e6cd9d179e7c20cde1d8663643c3de06",
+          "autoqa/doom/__init__.py": "b2465e08ccadc455910e45a1cce1a3795e8badd73f6daa171ed35265a9bf481b",
+          "autoqa/doom/env.py": "c1d035daefe80b11f657f0a65577aa59d93808915fc0e38f4fbeb43746686be8",
+          "autoqa/doom/replay.py": "a2d562f317f66b4983fee5a2d7e77995919c89916e21f749c914684b3c91e243",
+          "autoqa/doom/telemetry.py": "cd47cba9998774b17a7f7f0cbd056c5d11e27aa288c15197a26f8021e99f9a7d",
+          "autoqa/doom/topology.py": "87d5da713f1936f97673732ae5c45a9e86a17da29f59e04f978f742e6e89d34d",
+          "autoqa/doom/types.py": "45f605d66d0e83497ceb9708f458b2301075fb9ecdfb92bde179c6ab66147467",
+          "autoqa/io.py": "20c70376cc1b584c2cad7f2b99b85923fcece2557fade60424a1a6685401a9b2",
+          "autoqa/m0/__init__.py": "25623dd83064d4722b4d2acad22cedb8e390a3bc1f76c33063951b69fa90662a",
+          "autoqa/m0/api.py": "0e6e5a1f6a1dd6792d627c2b732f22cb5c083235f4ab35e0a0b0a42cf4c6a480",
+          "autoqa/m0/local.py": "15788c4fd9de22d3f22b6ac4258214058db387ce5885e21cfba65f731a237727",
+          "autoqa/m0/sam_audit.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+          "autoqa/m0/spike.py": "967b57507347013349bec0bc7bece80465fad8e1be8a6210ea96d0236106d5bb",
+          "autoqa/m0/worker.py": "85445b519ab758e88092a105cd2a81c59409a2158f21b9b45b03ba6e2a81e8b6",
+          "autoqa/prompts/__init__.py": "7def4b60beb414d6d7c3affa8653bbb6ede975b7f497bf740d67ad5577bb8cfe",
+          "autoqa/prompts/builder.py": "3f37e5ae73b2224793011e51476c2134b83eb50c1df7c4b0d73b84638bee53b0",
+          "autoqa/run.py": "b60283f4d9845a0a23e88184e4d487b8c26a1473ecae42a195805c0f1e1c3b25",
+          "autoqa/secrets.py": "2da6977bc1e72d0d7c6e47e30b4e657611fbaae2f41b5fc09b78c0cafcfd4674"
+        }
+      },
+      "audit": {
+        "every_primitive_matches_model_act": true,
+        "matched_primitives": 68,
+        "unmatched_primitives": 0,
+        "act_calls": 57,
+        "model_calls": 66,
+        "rejected_tool_responses": 7,
+        "api_errors": 0,
+        "tool_counts": {
+          "act": 57,
+          "note": 1
+        },
+        "init_tic": 10,
+        "final_tic": 760,
+        "bfs_status_counts": {
+          "unresolved_on_coarse_grid": 127
+        },
+        "immutable_source_hashes_verified": true
+      },
+      "replay": {
+        "final_tic": 760,
+        "reward_total": -0.07500000000000112,
+        "expected_final_tic": 760,
+        "expected_reward_total": -0.07500000000000008,
+        "matches_telemetry": true,
+        "frames": 750,
+        "fps": 35,
+        "shape": [
+          720,
+          1280,
+          3
+        ],
+        "codec": "h264",
+        "size": [
+          1280,
+          720
+        ],
+        "from_tic": 10,
+        "to_tic": 760,
+        "captions": false,
+        "video_sha256": "a7e53e2f402470f5e1641e7affbeb2651e2874c35a3523c2289bb7db38393e64",
+        "lmp_sha256": "18212b466dc4ea8a8a753071f94e39499abf67bdf6c7f7d69a395a29a64bcd63"
+      },
+      "artifact_sha256": {
+        "manifest.json": "23df53b359daed4a146138b02ffff6932b3982f16502d948caf689a5116fe7a7",
+        "events.jsonl": "327f3bbf03132c596bf7859e9d3c4ddb5e5ef6d2e4461063ea3c9835548d7aee",
+        "telemetry.jsonl": "448892c029e142530d36cc47f43f05802af5c723373a599520e5c676881fcc1c",
+        "episode.lmp": "18212b466dc4ea8a8a753071f94e39499abf67bdf6c7f7d69a395a29a64bcd63",
+        "replay.json": "5143bcff513387a7c1e1ec704192042437899130e678bdde7cc6548d6cab15e0",
+        "replay.mp4": "a7e53e2f402470f5e1641e7affbeb2651e2874c35a3523c2289bb7db38393e64"
+      }
+    }
+  ]
+}
