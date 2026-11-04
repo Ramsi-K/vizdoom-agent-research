@@ -239,6 +239,58 @@ def cut_clip(trace, bounds, output, cache, *, require_captions=False, size=(1280
     )
 
 
+def carryover_heatmaps(traces, carry, output):
+    carry_plots = []
+    for pair in carry:
+        selected = sorted(
+            (t for t in traces if t.manifest.get("pair_id") == pair["pair_id"]),
+            key=lambda t: t.manifest.get("attempt", 0),
+        )
+        if len(selected) != 2:
+            continue
+        root = safe_file(output / "carryover_heatmaps", pair["pair_id"])
+        root.mkdir(parents=True)
+        sources = [
+            heatmaps([t.directory], root / f"attempt{t.manifest['attempt']}") for t in selected
+        ]
+        for kind in ("trajectory", "coverage"):
+            canvas = Image.new("RGB", (1000, 690), "#12161f")
+            for index, (trace, paths) in enumerate(zip(selected, sources, strict=True)):
+                source = next((Path(path) for path in paths if kind in Path(path).stem), None)
+                if source:
+                    image = Image.open(source)
+                    level = trace.manifest["level"]
+                    canvas.paste(
+                        image.crop(((level - 1) * 500, 0, level * 500, 610)), (index * 500, 40)
+                    )
+                    draw = ImageDraw.Draw(canvas)
+                    draw.text(
+                        (index * 500 + 10, 5),
+                        f"{pair['pair_id']} | Attempt {trace.manifest['attempt']}",
+                        fill="white",
+                    )
+                    draw.text(
+                        (index * 500 + 10, 21),
+                        f"Episode: {trace.manifest['outcome']} | Pair: {pair['status']}",
+                        fill="white",
+                    )
+            draw = ImageDraw.Draw(canvas)
+            draw.text(
+                (10, 652),
+                "Evaluation only; never agent input. Blue=start; G=tracked goal; map scale shared within pair.",
+                fill="#CBD5E1",
+            )
+            draw.text(
+                (10, 670),
+                "Sampled endpoint chords may cross walls; endpoint density is not continuous coverage or dwell time.",
+                fill="#CBD5E1",
+            )
+            target = root / f"paired_{kind}.png"
+            canvas.save(target)
+            carry_plots.append(target)
+    return carry_plots
+
+
 def table(rows):
     if not rows:
         return "<p>No observations recorded.</p>"
@@ -388,37 +440,7 @@ def generate_report(
         )
     except ImportError:
         pass
-    carry_plots = []
-    for pair in carry:
-        selected = sorted(
-            (t for t in traces if t.manifest.get("pair_id") == pair["pair_id"]),
-            key=lambda t: t.manifest.get("attempt", 0),
-        )
-        if len(selected) != 2:
-            continue
-        root = safe_file(output / "carryover_heatmaps", pair["pair_id"])
-        root.mkdir(parents=True)
-        sources = [
-            heatmaps([t.directory], root / f"attempt{t.manifest['attempt']}") for t in selected
-        ]
-        for kind in ("trajectory", "coverage"):
-            canvas = Image.new("RGB", (1000, 690), "#12161f")
-            for index, (trace, paths) in enumerate(zip(selected, sources, strict=True)):
-                source = next((Path(path) for path in paths if kind in Path(path).stem), None)
-                if source:
-                    image = Image.open(source)
-                    level = trace.manifest["level"]
-                    canvas.paste(
-                        image.crop(((level - 1) * 500, 0, level * 500, 650)), (index * 500, 40)
-                    )
-                    ImageDraw.Draw(canvas).text(
-                        (index * 500 + 10, 10),
-                        f"Attempt {trace.manifest['attempt']} | {trace.manifest['outcome']} | {pair['status']}",
-                        fill="white",
-                    )
-            target = root / f"paired_{kind}.png"
-            canvas.save(target)
-            carry_plots.append(target)
+    carry_plots = carryover_heatmaps(traces, carry, output)
     humans = [
         human_reference(scenario)
         for scenario in sorted({t.manifest["scenario_id"] for t in traces})
