@@ -1,129 +1,176 @@
 # Generalist Game QA: Autonomous Playtesting with Meta AI
 
-Research on autonomous agents that attempt to complete unfamiliar game levels using progressively richer information, evaluating navigation, progression, and potential gameplay issues through ViZDoom experiments.
+A Meta-only ViZDoom research harness for autonomous playtesting of human-created levels. Muse Spark chooses actions from screenshots; experiments vary the information it receives to investigate navigation, progression and candidate gameplay issues. Agent failures are not automatically game defects or evidence of human playability.
 
-## Table of Contents
+**Current status:** M0–M2 implementation is merged. One recorded L3 episode completed `my_way_home`; reliable completion and effective grounding-guided navigation remain unverified. M3–M5 are not implemented.
 
-<details>
-<summary><strong>Part I — Project Overview</strong></summary>
+- [Project overview](#project-overview)
+- [Quick start](#quick-start)
+- [Running L1/L2/L3 episodes](#running-l1l2l3-episodes)
+- [Demo and replay](#demo-and-replay)
+- [System architecture](#system-architecture)
+- [Milestone status](#milestone-status)
+- [Key findings](#key-findings)
+- [Validation](#validation)
+- [Reports and specifications](#reports-and-specifications)
+- [Research motivation](#research-motivation)
 
-- <a href="#project-overview">Project Overview</a>
-- <a href="#demo">Demo</a>
-- <a href="#technology-overview">Technology Overview</a>
-- <a href="#quick-start">Quick Start</a>
-- <a href="#key-findings">Key Findings</a>
+## Project overview
 
-</details>
+The three information levels share the same action space, approved Meta models, bounded memory and safety guards:
 
-<details>
-<summary><strong>Part II — Research Motivation</strong></summary>
-
-<details>
-<summary><a href="#1-the-creative-industries-are-rejecting-ai">1. The Creative Industries Are Rejecting AI</a></summary>
-
-- [1.1. The consent problem](#11-the-consent-problem)
-- [1.2. AO3: scraping, unauthorized reproduction, and AI monetization](#12-ao3-scraping-unauthorized-reproduction-and-ai-monetization)
-- [1.3. Publishing: AI allegations now destroy commercial value](#13-publishing-ai-allegations-now-destroy-commercial-value)
-- [1.4. Human creators are now paying for AI's reputation](#14-human-creators-are-now-paying-for-ais-reputation)
-- [1.5. Scarlett Johansson, creative consent and the right to refuse](#15-scarlett-johansson-creative-consent-and-the-right-to-refuse)
-
-</details>
-
-<details>
-<summary><a href="#2-consumers-are-forcing-game-studios-to-reverse-ai-decisions">2. Consumers Are Forcing Game Studios to Reverse AI Decisions</a></summary>
-
-- [2.1. 1666: Amsterdam](#21-1666-amsterdam-production-efficiency-meets-consumer-rejection)
-- [2.2. Larian Studios](#22-larian-studios-even-a-respected-developer-was-forced-to-reconsider)
-- [2.3. Crimson Desert](#23-crimson-desert-generated-assets-become-a-release-problem)
-- [2.4. Consumers can reject the production method](#24-game-studios-are-discovering-that-consumers-can-reject-the-production-method)
-- [2.5. Epic, Valve, and AI-accelerated development](#25-epic-valve-and-the-cost-of-ai-accelerated-development)
-
-</details>
-
-<details>
-<summary><a href="#3-generating-content-is-not-the-same-as-owning-it">3. Generating Content Is Not the Same as Owning It</a></summary>
-
-- [3.1. AI-generated content creates ownership problems](#31-ai-generated-content-creates-ownership-problems)
-- [3.2. Needle in a Haystack](#32-needle-in-a-haystack-what-happens-when-code-is-copied)
-- [3.3. AI-assisted coding, game cloning, and platform responsibility](#33-ai-assisted-coding-game-cloning-and-platform-responsibility)
-- [3.4. More games do not mean more customers](#34-more-games-do-not-mean-more-customers)
-
-</details>
-
-<details>
-<summary><a href="#4-game-development-has-a-technical-problem-that-ai-is-not-solving">4. Game Development Has a Technical Problem That AI Is Not Solving</a></summary>
-
-- [4.1. Oblivion Remastered](#41-oblivion-remastered-visual-ambition-without-adequate-performance)
-- [4.2. Skyblivion](#42-skyblivion-the-value-of-sustained-human-development)
-- [4.3. AI risks accelerating the wrong part of production](#43-ai-risks-accelerating-the-wrong-part-of-production)
-
-</details>
-
-[5. A Better Use of AI: Test Human-Created Games](#5-a-better-use-of-ai-test-human-created-games)
-
-<details>
-<summary><a href="#6-existing-research-benchmarks-ai-on-gameplay-but-does-that-measure-human-playability">6. Existing Research Benchmarks AI on Gameplay. But Does That Measure Human Playability?</a></summary>
-
-- [6.1. LMGame-Bench](#61-lmgame-bench)
-- [6.2. DoomVLM](#62-doomvlm)
-- [6.3. SegDoom](#63-segdoom)
-- [6.4. The human-playability gap](#64-the-human-playability-gap)
-- [6.5. Yellow paint and Marvel's Wolverine](#65-the-yellow-paint-controversy-and-marvels-wolverine-when-accessibility-becomes-excessive-hand-holding)
-
-</details>
-
-[7. Research Questions](#7-research-questions)
-
-</details>
-
-<details>
-<summary><strong>Part III — Methodology and Experiments</strong></summary>
-
-- [System Architecture](#system-architecture)
-- [Experimental Environment](#experimental-environment)
-- [Auto QA Information Levels](#auto-qa-information-levels)
-- [Experimental Design](#experimental-design)
-- [Results](#results)
-
-</details>
-
-<details>
-<summary><strong>Part IV — Discussion and Future Work</strong></summary>
-
-- [Discussion](#discussion)
-- [Limitations](#limitations)
-- [Future Work](#future-work)
-- [References](#references)
-
-</details>
-
-## Project Overview
-
-This project investigates the use of generalist AI agents for automated game quality assurance (QA). Using ViZDoom as a controlled experimental environment, the research examines whether multimodal agents powered by Meta AI models can independently navigate unfamiliar game levels, complete objectives, identify potential gameplay issues, and produce actionable feedback for developers.
-
-The proposed framework evaluates agent performance across three progressively richer levels of information:
-
-1. **Level 1 — Blind Play:** The agent receives only the game environment, available controls, and in-game information. It must independently discover the objectives, understand the mechanics, and attempt to complete the level.
-2. **Level 2 — Guided Play:** The agent additionally receives information about the game's objectives, rules, and mechanics, allowing it to attempt the level with an understanding of the intended gameplay.
-3. **Level 3 — Informed Play:** The agent receives additional structural information, such as a floor plan, navigation map, or level annotations, to evaluate its ability to complete the level with detailed environmental knowledge.
-
-By comparing performance across these conditions, the research aims to distinguish potential problems with discoverability, navigation, and progression from limitations in the agent's own perception and reasoning.
-
-The longer-term objective is to investigate the feasibility of a configurable **Auto QA** system that developers could use to test game levels, review recorded failures, and identify areas requiring further investigation. Such a system could support games developed in conventional engines as well as emerging creation platforms such as Meta Horizon.
-
-## Demo
-[Watch Demo](URL)
-
-## Technology Overview
-| Component | Technology |
+| Level | Information and current navigation protocol |
 |---|---|
-| ... | ... |
+| **L1 — Blind play** | Current RGB frame, up to two prior thumbnails, controls and visible history. Infer objectives from pixels; no scenario briefing or map. |
+| **L2 — Guided play** | Adds the scenario objective/mechanics briefing. Model-written navigation intentions cite actual `locate` receipts, retaining uncertainty and falling back to visual reasoning when grounding is inconclusive. |
+| **L3 — Informed play** | Adds one frozen initial floor plan. The model maintains a tentative location/heading, destination, map route/subgoals and replanning updates; screenshots guide immediate motion. There is no live GPS marker. |
 
-## Key Findings
-...
+L2/L3 require a current model-written `NAV` annotation in the existing note ledger before acting. These conditions therefore differ in navigation instructions as well as information. A comparison of their outcomes alone does not establish that the extra information caused an improvement. Navigation declarations and map delivery are not proof of effective planning.
 
-## Quick Start
-...
+Every executed primitive originates in a validated Muse `act` call. Guards issue text warnings or stop a run; they never choose a route, insert an action or supply scripted gameplay. Ground-truth position, labels and geometry remain evaluation-only, apart from the permitted initial L3 map artifact.
+
+## Quick start
+
+Tested environment: **WSL/Linux, Python 3.12, `uv`, and ViZDoom 1.3.2**. Model inference uses the remote Meta Model API. The ViZDoom package supplies the bundled scenarios and Freedoom assets used here.
+
+Run in a WSL/Linux terminal with `git` and `uv` available:
+
+```bash
+git clone https://github.com/Ramsi-K/vizdoom-agent-research.git
+cd vizdoom-agent-research
+uv python install 3.12
+uv sync --locked --python 3.12
+[ -f .env ] || cp .env.example .env
+```
+
+Edit `.env` and set `MODEL_API_KEY` to your Meta Model API key. The existing local name `META_MODEL_API_KEY` is also accepted. `.env` and generated run directories are git-ignored; never commit credentials. Muse Spark access is required for gameplay; SAM access is needed when grounding is called.
+
+Check the CLI and local engine/calibration without making model requests:
+
+```bash
+uv run --locked autoqa --help
+uv run --locked autoqa doctor --offline
+```
+
+The measured M0 calibration is already committed in [configs/calibration.json](configs/calibration.json). The offline doctor deliberately returns a nonzero readiness status because live API checks are skipped; inspect its local-check results. It does not verify current API access or account balance. Running `autoqa doctor` without `--offline` performs live checks and incurs API usage.
+
+## Running L1/L2/L3 episodes
+
+These commands start independent model-controlled episodes with the same game seed and limits. **They make paid Meta API requests.** The defaults used below are Muse Spark 1.3, low reasoning effort, a 2,100-tic limit and a 900-second wall-clock limit.
+
+```bash
+uv run --locked autoqa run --scenario my_way_home --level 1 --seed 101 --max-decisions 60 --max-usd 0.60
+uv run --locked autoqa run --scenario my_way_home --level 2 --seed 101 --max-decisions 60 --max-usd 0.60
+uv run --locked autoqa run --scenario my_way_home --level 3 --seed 101 --max-decisions 60 --max-usd 0.60
+```
+
+`--max-usd` is a **stop threshold**, including Pilot and grounding costs. A response can cross it before usage is returned; subsequent actions are stopped. Charges for failed/timed-out requests may be unknown. A run reaching its decision limit has terminated normally but has not necessarily completed the level.
+
+The default grounding mode is the explicitly experimental `muse_box_sam`: Muse proposes a pixel target box and SAM segments it. `--grounding-mode sam_text` selects the direct text-SAM path. Neither mode is a verified object-recognition service; every returned candidate has `identity_verified=false`. No automatic mode fallback or scripted navigation is used.
+
+Other configured scenarios are `health_gathering_supreme`, `deadly_corridor_nav` and `freedoom2_map01`. Use `uv run --locked autoqa run --help` for the available settings. Their configuration does not establish successful play or full validation; the Freedoom L3 exit marker remains unannotated.
+
+Each run prints its new directory under `runs/<timestamp>_<scenario>_L<level>_s<seed>/`. Important artifacts are:
+
+| Artifact | Contents |
+|---|---|
+| `manifest.json` | Configuration, source/asset/prompt hashes, recorded usage/cost and outcome. |
+| `events.jsonl` | Model tool calls, actions, grounding results, warnings and linked navigation intentions. |
+| `telemetry.jsonl`, `geometry.json` | Evaluation-only engine observations and initial geometry; not agent navigation inputs. |
+| `memory.json`, `frames/` | Final model-written ledger/history and observed frame JPEGs. |
+| `plan_l3.png` | L3's frozen initial map, when applicable. |
+| `grounding/` | Optional mask, overlay and sanitized wire-trace evidence when localization runs. |
+| `episode.lmp` | Native recording used for deterministic replay. |
+
+## Demo and replay
+
+Replays are generated locally from `episode.lmp` without model requests or an API key; recordings and MP4s are not included in a clone. Set `RUN_DIR` to the directory printed by your run, replacing the placeholder:
+
+```bash
+RUN_DIR="runs/REPLACE_WITH_YOUR_RUN_ID"
+uv run --locked autoqa replay "$RUN_DIR"
+```
+
+The default output is a 1280×720 H.264 `replay.mp4` and matching `replay.json`. A successful full export adds a labeled half-speed recap of its final recorded second and a three-second result hold. The metadata separates recorded gameplay frames from presentation frames; the ending does not add simulated gameplay or repaint the HUD.
+
+Existing exports are preserved. Choose a fresh filename for another presentation export or for gameplay-only footage:
+
+```bash
+uv run --locked autoqa replay "$RUN_DIR" --output-name replay-demo.mp4
+uv run --locked autoqa replay "$RUN_DIR" --no-outcome-ending --output-name replay-raw.mp4
+```
+
+`--size 640x480`, `--captions`, and `--from-tic A --to-tic B` are also supported. Sliced clips are gameplay-only. On a natural win, ViZDoom can reset its terminal clock to zero; replay records a separate elapsed-tic reconstruction rather than rewriting the original telemetry.
+
+The verified M2 armor pickup is run **`20261104T101202.353976Z_my_way_home_L3_s101`**. In the development workspace its improved export is `runs/20261104T101202.353976Z_my_way_home_L3_s101/replay-demo.mp4`; this local file is not a hosted demo or a repository asset. See the [navigation/replay report](docs/m2-navigation-review.md) for measured results and provenance.
+
+## System architecture
+
+| Component | Current responsibility |
+|---|---|
+| [Pilot](autoqa/agent/pilot.py) and [Meta client](autoqa/agent/client.py) | Bounded stateless Muse tool loop, encrypted response replay, usage accounting and request information gate. |
+| [Grounder](autoqa/agent/grounder.py) | Current-JPEG-only Muse-box/SAM or direct SAM calls, official parser, masks and optical candidate geometry. |
+| [Memory](autoqa/agent/memory.py), [navigation validation](autoqa/agent/navigation.py), [guards](autoqa/agent/guards.py) | Existing ledger/history, model-written guided intentions, citation/freshness checks, visual-cycle warnings and budget stops. |
+| [Prompt builder](autoqa/prompts/builder.py) | Pinned L1 task, level-specific briefings/instructions, approved images and frozen L3 plan. |
+| [ViZDoom driver](autoqa/doom/env.py) | Headless synchronous PLAYER mode, narrow `PlayerSession`, validated action execution and native recording. |
+| [Telemetry](autoqa/doom/telemetry.py) and [plan renderer](autoqa/doom/plan_renderer.py) | Evaluation-only measurements and the once-only permitted L3 map. |
+| [Replay exporter](autoqa/doom/replay.py) | Native recording playback, verified H.264 exports and labeled presentation endings. |
+
+| Technology | Use |
+|---|---|
+| `muse-spark-1.3` | Default Pilot and optional bounding-box proposal inference through Meta. |
+| `sam-3.1` / `meta-sam-parser` | Candidate segmentation and actual wire/mask decoding. |
+| `openai` Python package | HTTP/Responses client pointed at `https://api.meta.ai/v1`; **no non-Meta runtime model is used**. |
+| Python 3.12, `uv`, ViZDoom | Locked environment, CLI and game simulation. |
+| Pillow, NumPy, imageio/FFmpeg | Frame processing, evidence images and H.264 replay. |
+
+The planned multi-scenario sweep, QA reviewer, trace verifier, HTML dossier and V-JEPA analysis are not implemented. Inline issue reports are unverified candidates, not automatically established level defects. The current engine integration is ViZDoom; Meta Horizon support has not been implemented.
+
+## Milestone status
+
+| Milestone | Repository status | Validation limits |
+|---|---|---|
+| M0 — Feasibility/calibration | Implemented and merged. | API/engine access, controls and live mask decoding were measured; text-guided Doom localization failed and account balance was not verified. |
+| M1 — Pilot, telemetry, native recording/replay | Implemented and merged. | Real L1 gameplay and replay checks ran; those recorded attempts did not win. |
+| M2 — Grounding and information levels | Implemented and merged. | One verified L3 win; L2 navigation regressed, grounding remains unreliable, and some map-design targets remain incomplete. |
+| M3 — Sweep/metrics | Not implemented. | Next planned milestone; no multi-seed performance estimate yet. |
+| M4 — Review/verification/reporting | Not implemented. | No completed trace-verified QA pipeline or human-playability validation. |
+| M5 — Ablations/offline analysis | Not implemented. | No map-withheld causal test or V-JEPA study. |
+
+Merged implementation does not mean every original acceptance target or reliability claim has been established.
+
+## Key findings
+
+- **Grounding:** M0 verified nonempty box-guided SAM decoding, while 100 text requests on sampled Doom frames returned no masks. M2's paired comparison found 0/21 positive hits for text SAM versus 10/21 for Muse-box/SAM, with 2/7 negative false positives. Successful segmentation does not verify the proposed object's identity. See [M0](docs/spike-results.md) and [M2](docs/m2-results.md).
+- **Navigation:** one seed-101 L3 retest completed `my_way_home` in 42 decisions, with pickup verified independently in native replay. L2's controlled retest did not win and cost more while exploring fewer coarse cells. These are single-run observations, not reliable completion rates or proof that map access caused the improvement. See [the current navigation report](docs/m2-navigation-review.md).
+- **Interpretation:** candidate detections, map delivery, navigation annotations and low-level action execution are audited separately. None alone establishes effective planning, human playability or a game defect. Detailed costs, failures and regressions remain in the linked reports.
+
+## Validation
+
+Local tests exclude the explicitly marked live-API tests; they include native engine checks:
+
+```bash
+make test
+make lint
+```
+
+The M2 presentation update recorded **92 passing tests**, with four live-API tests deselected. `make test-live` runs paid M0 API checks and requires credentials; it is not necessary to inspect the reports or run the local suite.
+
+## Reports and specifications
+
+- [Milestone progress](docs/progress.md).
+- [M0 spike results](docs/spike-results.md) and [empty-SAM investigation](docs/sam-investigation.md).
+- [M1 Pilot and replay results](docs/m1-results.md).
+- [M2 original grounding/boundary results](docs/m2-results.md), [ledger/cycle retest](docs/m2-ledger-retest.md), and [explicit navigation/replay results](docs/m2-navigation-review.md).
+- [Compact M2 evidence](docs/m2-evidence.json), [paired grounding cases](docs/m2-grounding-cases.csv), and [model-written navigation updates](docs/m2-navigation-intentions.csv).
+- Design documents: [foundations](docs/01-foundations.md), [agent/information boundaries](docs/02-agent.md), [experiments](docs/03-experiments.md), and [implementation/milestone plan](docs/04-implementation.md). These include future design targets; consult the status above and implementation notes before treating them as shipped features.
+
+## Research motivation
+
+The original authored motivation and cited research context are retained below. Repository measurements and current implementation status are described above and in `docs/`.
+
+<details>
+<summary>Read the research motivation, background and research questions</summary>
 
 ## The Problem: AI Has a Reputation Problem
 
@@ -799,8 +846,4 @@ Evaluate whether the agent produces reproducible, actionable information beyond 
 
 Investigate the distinction between agent performance and human playability, using human reference observations where available.
 
-
----
-
-*Project overview, implementation, experiments, results, and limitations will be added following development and evaluation.*
-
+</details>
