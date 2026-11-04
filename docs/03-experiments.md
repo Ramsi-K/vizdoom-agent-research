@@ -2,11 +2,11 @@
 
 *Project: Generalist Game QA, Meta Global AI Developer Hackathon. Drafted 4 Nov 2026 from current Meta Model API, ViZDoom, and V-JEPA documentation. Bracketed numbers point to the source list in section 14.*
 
-This document specifies the scenario suite and planned evaluation protocol. M2's executed experiments are recorded in the [grounding/baseline report](m2-results.md), [ledger retest](m2-ledger-retest.md), and [navigation review](m2-navigation-review.md). Multi-seed sweeps and aggregate metrics (M3), fault probes, human recording, and cross-episode carry-over (M4) have not been implemented or run.
+This document specifies the scenario suite and evaluation protocol. M2's executed experiments are recorded in the [grounding/baseline report](m2-results.md), [ledger retest](m2-ledger-retest.md), and [navigation review](m2-navigation-review.md). Metrics and configurable sweeps are implemented, but [M3's fast sweep](m3-results.md) stopped after six completed runs. [M3.5](m35-results.md) adds separately reported combat experiments. [M4](m4-results.md) implemented QA verification/reporting and carry-over, with one live fault probe and two valid carry-over pairs. Human recording, measured human baselines and the full experimental matrices remain unrun.
 
 ## 7. Scenario suite and controlled QA defect injection
 
-The planned suite combines bundled ViZDoom benchmarks, Freedoom progression, and a segregated fault-injection probe. The current scenario definitions are in `autoqa/config.py::SCENARIOS`, with four `briefing_l2.md` files under `scenarios/`. `scenarios/registry.yaml` and `probe_broken_door` are not implemented. The matrix below retains the intended scenario budgets; current `autoqa run` uses its CLI limits (defaults: 60 decisions and 2,100 tics), so larger scenario budgets require explicit overrides.
+The suite combines bundled ViZDoom benchmarks, Freedoom progression, and a segregated fault-injection probe. Current scenario definitions are in `autoqa/config.py::SCENARIOS`, with briefings under `scenarios/`. `probe_broken_door` is implemented; `scenarios/registry.yaml` remains a design target. M3.5's opt-in combat profiles are documented separately in its report. The matrix below retains the intended scenario budgets; current `autoqa run` uses its CLI limits (defaults: 60 decisions and 2,100 tics), so larger scenario budgets require explicit overrides.
 
 ### 7.1 Scenario matrix
 
@@ -16,7 +16,7 @@ The planned suite combines bundled ViZDoom benchmarks, Freedoom progression, and
 | `health_gathering_supreme` | Ordinary gameplay | Bundled `health_gathering_supreme.cfg` \[18\] | `MAP01` | 2,100 (60 s) | 60 | Survive 2,100 tics on acidic floor while collecting medkits and avoiding poison | Mechanic discoverability (L1 vs L2): distinguishing healing vs poison pickups |
 | `deadly_corridor_nav` | Ordinary gameplay | Bundled `deadly_corridor.cfg` \[18\] (`doom_skill=1` or `-nomonsters`) | `MAP01` | 2,100 (60 s) | 50 | Reach `GreenArmor` vest at end of corridor (`reward >= 500`) | Straight-line bearing calibration, SAM `locate` range test, and progress baseline |
 | `freedoom2_map01` | Ordinary gameplay | Bundled `freedoom2.cfg` + `freedoom2.wad` \[17\] | `MAP01` (*Hydroelectric Plant*) | 4,200 (120 s) | 100 | Activate exit switch (`reward > 0`) with `-nomonsters` | Multi-room level with closed doors (`USE`), switches, height changes, and non-trivial routing |
-| `probe_broken_door` | **Controlled fault probe (`is_fault_probe: true`)** | `freedoom2.cfg` + `freedoom2.wad` with environment fault `unresponsive_use_trigger` | `MAP01` | 1,750 (50 s) | 40 | Exit unreachable because the environment simulates a broken door/switch trigger | Positive control for `INTERACTION_NO_EFFECT`, `BLOCKED_PATH`, and `SOFTLOCK_SUSPECTED` detection (RQ2, RQ4); excluded from RQ1/RQ3 gameplay averages |
+| `probe_broken_door` | **Controlled fault probe (`is_fault_probe: true`)** | `freedoom2.cfg` + `freedoom2.wad` with environment fault `unresponsive_use_trigger` | `MAP01` | 1,750 (50 s) | 40 | Attempt exit with requested `USE` suppressed; actual exit unreachability unverified | Positive control for `INTERACTION_NO_EFFECT`, `BLOCKED_PATH`, and `SOFTLOCK_SUSPECTED` detection (RQ2, RQ4); excluded from RQ1/RQ3 gameplay averages |
 
 ### 7.2 Standardizing buttons, rendering, and controlled environment fault injection
 
@@ -37,7 +37,7 @@ CANONICAL_BUTTONS = [
 ]
 ```
 
-After `load_config()`, `DoomEnv` always calls:
+After `load_config()`, legacy navigation profiles use the following overrides (M3.5 combat profiles opt into additional buttons, without changing legacy controls):
 - `game.set_available_buttons(CANONICAL_BUTTONS)`
 - `game.set_screen_resolution(vzd.ScreenResolution.RES_640X480)`
 - `game.set_screen_format(vzd.ScreenFormat.RGB24)`
@@ -46,31 +46,31 @@ After `load_config()`, `DoomEnv` always calls:
 - `game.set_labels_buffer_enabled(True)`, `game.set_objects_info_enabled(True)`, `game.set_sectors_info_enabled(True)`
 - `game.set_mode(vzd.Mode.PLAYER)` and `game.set_window_visible(False)`
 
-**Distinction between ordinary gameplay and planned controlled defect injection (`probe_broken_door`)**:
+**Distinction between ordinary gameplay and controlled defect injection (`probe_broken_door`)**:
 - In **ordinary gameplay runs** (`is_fault_probe: false`, the default for all benchmarks), `DoomEnv.execute()` is a strict 1-to-1 pass-through: every primitive in the Pilot's `act` tool call is translated directly into its `CANONICAL_BUTTONS` vector and passed to `game.make_action()` without modification (enforcing Section 0.2 Rule 2).
-- The **planned fault-injection probe** (`is_fault_probe: true`) would model a broken game build in which `USE` fails, with requested actions preserved and the injected fault explicitly logged. `EnvironmentFaultInjector`, its probe scenario, and fault-specific checks are not implemented. Current manifests record `is_fault_probe=false` and `fault_injection=null`.
+- The **implemented fault-injection probe** (`is_fault_probe: true`) models a build in which requested `USE` fails. `EnvironmentFaultInjector` preserves requested-action records and logs each suppression; it cannot be enabled in ordinary gameplay. Probe manifests record `fault_injection=unresponsive_use_trigger`. The M4 trace-confirmed symptom does not establish valid-door alignment or exit unreachability.
 
 ## 8. Experimental methodology and protocol
 
 ### 8.1 Core experimental matrix (M3 sweep)
 
-The planned primary experiment is a paired factorial design crossing Information Level $\in \{1, 2, 3\}$ with Scenario and fixed RNG seeds. The sweep files and runner below are M3/M4 targets, not executable commands or completed experiments:
+The primary experimental design crosses Information Level $\in \{1, 2, 3\}$ with Scenario and fixed RNG seeds. Fast/core configurations and the runner are implemented; configuration availability does not establish execution. M3 completed only seeds 101 and 102 on `my_way_home` at all three levels. The broader matrix below is retained as the intended design; the fault-probe configuration was reduced for M4 live validation:
 
 | Sweep tier | Scenarios | Information levels | Seeds per cell | Total episodes | Purpose & when to run |
 | --- | --- | --- | --- | --- | --- |
 | **Core Sweep (`configs/sweep_core.yaml`)** | `my_way_home`, `health_gathering_supreme`, `freedoom2_map01` | L1, L2, L3 | 5 (`101..105`) | 45 | Ordinary gameplay benchmark (RQ1, RQ2, RQ5); run when $\ge 6$ h remain |
 | **Fast Cut-Line Sweep (`configs/sweep_fast.yaml`)** | `my_way_home`, `freedoom2_map01` | L1, L2 (plus L3 on `my_way_home`) | 3 (`101..103`) | 15 | Fallback ordinary gameplay sweep when $< 6$ h remain (section 0.1) |
-| **Controlled Fault Probe (`configs/sweep_probes.yaml`)** | `probe_broken_door` | L1, L2, L3 | 3 (`201..203`) | 9 | Positive control for defect detection & verifier sensitivity (RQ2, RQ4); kept separate from Core Sweep statistics |
+| **Controlled Fault Probe (`configs/sweep_probes.yaml`)** | `probe_broken_door` | L2 | 1 (`101`) | 1 | Executed M4 positive control; kept separate from ordinary gameplay statistics. The original nine-run design was not executed. |
 
 ### 8.2 Experimental controls and fairness invariants
 
-1. **Paired seed initialization**: `game.set_seed(s)` is called before `game.init()` and again before the recorded `new_episode()` in a fresh engine for each level. M2's seed-101 runs verified identical initial position and heading across L1/L2/L3. The multi-seed comparison remains planned \[14\].
-2. **Fixed settings within each comparison**: M2 uses `system_v3.md`, `muse-spark-1.3`, Pilot effort `low`, at most four primitives/70 tics per `act`, and candidate confidence threshold `0.30`. L2/L3 also use their versioned navigation prompts and NAV validation; L1 does not. Freeze and record these bundled protocols and the grounding mode for future sweeps. `system_v1.md` is historical; Reviewer effort `high` is planned.
+1. **Paired seed initialization**: `game.set_seed(s)` is called before `game.init()` and again before the recorded `new_episode()` in a fresh engine for each level. M2's seed-101 runs verified identical initial position and heading across L1/L2/L3. M3 also retained paired spawn/protocol checks for its two completed seeds \[14\].
+2. **Fixed settings within each comparison**: M2 uses `system_v3.md`, `muse-spark-1.3`, Pilot effort `low`, at most four primitives/70 tics per `act`, and candidate confidence threshold `0.30`. L2/L3 also use their versioned navigation prompts and NAV validation; L1 does not. Freeze and record these bundled protocols and the grounding mode for future sweeps. `system_v1.md` is historical; M4 uses Reviewer effort `high`; this post-episode role is separate from the Pilot.
 3. **No cross-run state**: Every episode starts with an empty scratchpad, empty rolling action log, and a fresh `POST /v1/responses` conversation (except in the explicit carry-over experiment in section 8.5).
 
 ### 8.3 Episode outcome taxonomy
 
-At episode termination, the driver combines engine-detected outcomes with the Pilot's stop reason into one primary outcome. The table below defines the intended sweep inclusion rules; aggregation is not implemented. Current runs can also record `interrupted` or `invalid_runtime_error`, which must be reported separately in future analyses:
+At episode termination, the driver combines engine-detected outcomes with the Pilot's stop reason into one primary outcome. The table below defines sweep inclusion rules implemented by M3. Runs can also record `interrupted` or `invalid_runtime_error`; these and unfinalized attempts are excluded from ordinary gameplay aggregates and reported separately:
 
 | Outcome | Condition | Included in gameplay denominator? |
 | --- | --- | --- |
@@ -85,7 +85,7 @@ At episode termination, the driver combines engine-detected outcomes with the Pi
 
 ### 8.4 Information-sensitivity classification and RQ5 (AI vs. human playability)
 
-Comparing paired outcomes and progress fractions $(P_{\text{L1}}, P_{\text{L2}}, P_{\text{L3}})$ on the same `(scenario, seed)` is intended to assess sensitivity to information. M2 also varies navigation instructions and validation requirements across levels, so it does not isolate an information-only causal effect. The classifier below is planned, and its labels are **diagnostic hypotheses for developer triage**, not confirmed game defects:
+Comparing paired outcomes and progress fractions $(P_{\text{L1}}, P_{\text{L2}}, P_{\text{L3}})$ on the same `(scenario, seed)` is intended to assess sensitivity to information. M2 also varies navigation instructions and validation requirements across levels, so it does not isolate an information-only causal effect. The classifier below is implemented, and its labels are **diagnostic hypotheses for developer triage**, not confirmed game defects. Missing required progress measurements yield an unavailable classification, not a fabricated persistent-failure label. All M3 completed triples had unavailable classifications because BFS progress was unresolved:
 
 | Classification | Quantitative rule on paired seed $s$ (or scenario mean) | Diagnostic hypothesis for game developers |
 | --- | --- | --- |
@@ -95,8 +95,8 @@ Comparing paired outcomes and progress fractions $(P_{\text{L1}}, P_{\text{L2}},
 | `PERSISTENT_FAILURE_L1_TO_L3` | L1, L2, and L3 all fail ($P_{\text{L3}} < 0.80$) | Disambiguated by `qa/verify.py`: if `is_fault_probe == True` and the injected fault was triggered, label **`CONFIRMED_INJECTED_FAULT`**; if static sector BFS at `tic=1` proves no topological path exists to the goal, label **`STATIC_TOPOLOGICAL_BLOCKER`**; otherwise label **`UNRESOLVED_AGENT_LIMIT_OR_CANDIDATE_DEFECT`** requiring human inspection of the replay clip. |
 | `NEGATIVE_MAP_TRANSFER` | L2 succeeds but L3 fails ($P_{\text{L2}} - P_{\text{L3}} \ge 0.30$) | Supplying the static floor plan degraded agent performance (e.g., visual attention split between map and viewport). |
 
-**Planned human reference schema (`scenarios/<id>/human_reference.json`, RQ5) — strict anti-fabrication rule**:
-To address **RQ5** (*How closely do AI gameplay difficulties correspond to human gameplay difficulties?*) without violating Section 0.2 Rule 4 (*No invented results*), the proposed schema supports two types of entries. These files and `autoqa record-human` are not implemented, and measured human playtest baselines have not been collected:
+**Human reference schema (`scenarios/<id>/human_reference.json`, RQ5) — strict anti-fabrication rule**:
+To address **RQ5** (*How closely do AI gameplay difficulties correspond to human gameplay difficulties?*) without violating Section 0.2 Rule 4 (*No invented results*), the proposed schema supports two types of entries. Qualitative reference files now exist for `my_way_home` and `freedoom2_map01`; `autoqa record-human` remains unimplemented and measured human playtest baselines have not been collected:
 1. **Qualitative design-intent annotations** grounded in published level/scenario documentation (e.g., ViZDoom's documented dead-end corridor in `my_way_home` \[18\], poison vs. medkit pickups in `health_gathering_supreme` \[18\], or standard Doom `USE`-door conventions \[17\]).
 2. **Optional measured human playtest statistics** (`human_runs_recorded`, `human_completion_rate`, `median_human_tics`), which **must remain `null` unless actually recorded on disk** via `autoqa record-human --scenario <id>` (which runs ViZDoom in `Mode.SPECTATOR` \[16\] and saves a real `.lmp` and `manifest.json` under `runs/human_<id>/`).
 
@@ -119,11 +119,11 @@ To address **RQ5** (*How closely do AI gameplay difficulties correspond to human
 }
 ```
 
-The planned report must state when no human runs were recorded and distinguish qualitative mechanics from measured baselines. Future schema checks must reject non-null completion/time statistics without matching native recordings and manifests. No human completion rate or median time is claimed here.
+The M4 report states that no human runs were recorded and distinguishes qualitative mechanics from measured baselines. Reference validation requires matching native-recording/manifest provenance before accepting non-null measured statistics. No human completion rate or median time is claimed here.
 
 ### 8.5 Carry-over feedback mode (RQ3)
 
-To answer **RQ3** (*Does structured feedback improve subsequent attempts?*), M4 proposes a paired two-attempt protocol. `--carry-over`, `autoqa sweep`, `configs/sweep_carryover.yaml`, and `autoqa/agent/carryover.py` are not implemented. The current landmark/outcome ledger is within-episode memory, not this experiment:
+To investigate **RQ3** (*Does structured feedback improve subsequent attempts?*), M4 implements a separate paired two-attempt protocol through `--carry-over`, `autoqa carryover`, `configs/sweep_carryover.yaml`, and `autoqa/agent/carryover.py`. The landmark/outcome ledger remains within-episode memory. The live study used `configs/sweep_carryover_m4_live_v1.yaml`: three L2 `my_way_home` seeds attempted, two valid pairs, no completion improvement. Extractor v1 was measured; the current v2 default has only offline validation. The broader five-seed matrix below remains unrun:
 
 1. **Attempt 1 (Cold Run)**: Run `(scenario, level, seed)` normally.
 2. **Structured Carry-Over Extraction (`autoqa/agent/carryover.py`)**: Build a deterministic JSON/Markdown summary (`carryover_brief.md`, capped at 800 characters) from **only** information available to the agent during Attempt 1:
@@ -172,12 +172,12 @@ To answer **RQ3** (*Does structured feedback improve subsequent attempts?*), M4 
 How spatial fields are computed from ViZDoom state \[14\]\[15\]\[16\]:
 - `pos_x`, `pos_y`, `pos_z`, `angle_deg`, `health`, `armor`: read via `game.get_game_variable(vzd.GameVariable.POSITION_X)`, etc. (available because `viz_nocheat` is off).
 - `cell_x`, `cell_y`: $(\lfloor \text{pos\_x} / 128 \rfloor, \lfloor \text{pos\_y} / 128 \rfloor)$, partitioning the map into $128 \times 128$ map-unit cells (approx. $4\times$ player radius).
-- `total_accessible_cells` and `goal_dist_bfs` (design): construct a 128-unit walkable graph from the initial sector snapshot and compute BFS distance from the goal. The current `doom/topology.py` makes this evaluation-only attempt at the actual initial state; distances on the measured `my_way_home` traces remain unresolved on the coarse grid and are reported as `null` with a status. Euclidean fallback without sector data is not a navigable-distance measurement. `total_accessible_cells` and normalized coverage are not currently emitted as episode metrics.
+- `total_accessible_cells` and `goal_dist_bfs` (design): construct a 128-unit walkable graph from the initial sector snapshot and compute BFS distance from the goal. The current `doom/topology.py` makes this evaluation-only attempt at the actual initial state; distances on the measured `my_way_home` traces remain unresolved on the coarse grid and are reported as `null` with a status. Euclidean fallback without sector data is not a navigable-distance measurement. The metrics engine reports normalized coverage as unavailable when a validated accessible-cell denominator is missing; it is not inferred from visited cells.
 - `goal_visible_pixels` and `goal_bbox`: inspect `state.labels`; for any `Label` whose `object_name` matches the scenario's `goal_object_names` (discovered and pinned in M0 item 7, e.g., `"GreenArmor"`), sum `(state.labels_buffer == label.value).sum()` and record `[label.x, label.y, label.width, label.height]` \[15\]\[20\].
 
 ### 9.2 Episode and sweep metric definitions (`metrics.json`)
 
-These are M3/M4 metric definitions. The current CLI does not generate `metrics.json` or sweep aggregates. M2's ad hoc trajectory measurements and definitions are retained in its reports and evidence files.
+These are M3/M4 metric definitions. `autoqa metrics`, `autoqa analyze` and `autoqa sweep` generate derived episode metrics and aggregates. M2's historical ad hoc trajectory measurements retain their own definitions and must not be silently substituted. M3's BFS progress, SPL and normalized coverage remain unavailable; measured success, exploration proxies and costs are in its report.
 
 | Metric key | Formula / Definition | Answers |
 | --- | --- | --- |

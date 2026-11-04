@@ -2,7 +2,7 @@
 
 *Project: Generalist Game QA, Meta Global AI Developer Hackathon. Drafted 4 Nov 2026 from current Meta Model API, ViZDoom, and V-JEPA documentation. Bracketed numbers point to the source list in section 14.*
 
-This document contains the project's foundations and development plan. M0–M2 are merged; the sweep, post-episode QA pipeline, carry-over experiment, and offline extensions remain planned. Measured findings are in [M0](spike-results.md), [M1](m1-results.md), and the [latest M2 navigation report](m2-navigation-review.md). M2 includes one verified L3 completion, while grounding reliability and several acceptance checks remain unresolved.
+This document contains the project's foundations and development plan. M0–M3.5 are implemented; M4's QA pipeline and carry-over mode are implemented with partial live validation. M5 remains unrun. Measured findings are in [M0](spike-results.md), [M1](m1-results.md), [M2](m2-navigation-review.md), [M3](m3-results.md), [M3.5](m35-results.md), and [M4](m4-results.md). Implementation does not imply full acceptance: the M3 sweep stopped early, grounding remains unreliable, and M4 retained only two valid carry-over pairs. The dated schedule and unexecuted design targets below are not claims of completed experiments.
 
 ## 0. Read this first
 
@@ -106,7 +106,7 @@ Write results to `docs/spike-results.md` as measured values or `could not verify
 
 ## 3. Architecture and Meta model roles
 
-The diagram includes the planned M3 metrics and M4 QA pipeline. The shipped path currently covers the Pilot, experimental grounder, telemetry, inline issue candidates, native recording, and replay.
+The diagram includes the implemented M3 metrics and opt-in M4 QA pipeline, alongside the Pilot, experimental grounder, telemetry, inline issue candidates, native recording, and replay. Validation limits are recorded in the linked milestone reports; source issue records are preserved and verification writes derived outputs.
 
 ```text
 ViZDoom (PLAYER mode) --frames--> Pilot loop (agent/pilot.py) <--tool calls--> Muse Spark 1.3
@@ -116,15 +116,15 @@ ViZDoom (PLAYER mode) --frames--> Pilot loop (agent/pilot.py) <--tool calls--> M
    +--> telemetry (eval only, never to agent) --> eval/metrics.py --> results/
    +--> episode.lmp + frames + events.jsonl --> qa/reviewer.py (Muse Spark, mp4 + log)
                                               --> qa/verify.py (trace behavior checks + causal triage)
-                                              --> report.html, issues.json, dossier
+                                              --> report.html, issues.verified.json, dossier
 ```
 
 | Role | Meta model | What it does | Cadence |
 | --- | --- | --- | --- |
 | Pilot | `muse-spark-1.3` | Sees frames, reasons, calls `act`, `locate`, `note`, `report_issue`, `finish`. The only source of game actions. | every decision (1 to 4 API calls) |
 | Grounder | Muse Spark + `sam-3.1` (experimental default); direct `sam-3.1` optional | Muse proposes boxes from the current image and concept; SAM segments those boxes. The harness converts masks to candidate bearings, size, and confidence. Candidate identity remains unverified. | on demand via `locate` |
-| Reviewer (planned M4) | `muse-spark-1.3` at high effort (optional ablation: `muse-wonder-1.0`, preview, Standard mode only \[1\]) | Planned video/log review with structured findings and step citations; not implemented. | planned once per episode |
-| Offline embedder (M5) | V-JEPA 2 ViT-L via Hugging Face | Embeds frame windows to estimate revisits and novelty without engine telemetry, validated against ViZDoom ground truth. | offline only |
+| Reviewer (M4) | `muse-spark-1.3` at high effort (optional, unrun M5 ablation: `muse-wonder-1.0`, preview, Standard mode only \[1\]) | Opt-in player-visible video/keyframe and log review with structured findings and step citations; trace checks run separately. | post-episode, only when explicitly invoked |
+| Offline embedder (M5, not implemented) | V-JEPA 2 ViT-L via Hugging Face | Planned frame-window embeddings to estimate revisits and novelty without engine telemetry, for comparison against ViZDoom ground truth. | offline only; not run |
 
 Deliberately not used: Muse Image, Muse Voice Transcribe, Muse Spark audio, V-JEPA 2-AC. Muse Glimmer (30B dense, text and image, Apache-2.0, runs locally) and Muse Spark Open are contingency backends only if API access is blocked \[22\].
 
