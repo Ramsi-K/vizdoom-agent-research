@@ -2,12 +2,14 @@
 
 import math
 from collections import Counter
+from pathlib import Path
 
 from autoqa.eval.aggregate import pairing_errors
 from autoqa.eval.metrics import number, read_json
-from autoqa.io import write_json
+from autoqa.io import digest, write_json
 
 from .schemas import IssueRecord
+from .topology import branch_observation
 from .trace import Trace, distance_to_segment
 
 INTERACTIONS = {"INTERACTION_NO_EFFECT", "BLOCKED_PATH", "SOFTLOCK_SUSPECTED"}
@@ -40,6 +42,7 @@ def deduplicate(records):
                 r
                 for r in result
                 if r.run_id == record.run_id
+                and (r.source != record.source or r.summary == record.summary)
                 and r.tic_range
                 and record.tic_range
                 and (r.category == record.category or {r.category, record.category} <= INTERACTIONS)
@@ -59,6 +62,14 @@ def deduplicate(records):
         overlap.model_confidence = max(overlap.model_confidence, record.model_confidence)
         if overlap.source != record.source:
             overlap.source = "merged"
+        overlap.severity = max(
+            (overlap.severity, record.severity), key={"low": 0, "medium": 1, "high": 2}.get
+        )
+        overlap.summary = (
+            (overlap.summary + " | " + record.summary)
+            if record.summary != overlap.summary
+            else overlap.summary
+        )
         overlap.rationale = (overlap.rationale + " | " + record.rationale).strip(" |")
         if record.recommended_developer_check:
             overlap.recommended_developer_check = record.recommended_developer_check
@@ -93,7 +104,10 @@ def rule(trace, issue):
             "strafe_right",
         }:
             continue
-        elapsed = trace.tic(event["tic_end"]) - event["tic_start"]
+        end_tic = trace.tic(event.get("tic_end"))
+        if end_tic is None:
+            continue
+        elapsed = end_tic - event["tic_start"]
         if elapsed < event.get("requested_tics", elapsed):
             continue  # terminal-truncated movement is not a collision
         if (
@@ -117,10 +131,17 @@ def rule(trace, issue):
     )
     category = issue.category
     if category == "INTERACTION_NO_EFFECT":
-        uses = [e for e in primitives if e.get("requested", {}).get("type") == "use"]
+        uses = [
+            e
+            for e in primitives
+            if e.get("requested", {}).get("type") == "use"
+            and e.get("decision_idx") in issue.evidence_steps
+        ]
         results = []
         for event in uses:
             tic = trace.tic(event["tic_end"])
+            if tic is None:
+                continue
             after = [
                 r
                 for r in trace.rows
@@ -135,7 +156,7 @@ def rule(trace, issue):
                 r.get("sector_heights") for r in after if r.get("sector_heights") is not None
             ]
             activated |= any(a != b for a, b in zip(heights, heights[1:]))
-            covered = trace.end >= tic + 35 and bool(after)
+            covered = any(trace.tic(r["tic"]) == tic + 35 for r in after)
             results.append(
                 dict(
                     decision=event["decision_idx"],
@@ -224,7 +245,19 @@ def rule(trace, issue):
             visible_goal_samples=len(visible),
             pickup_observed=pickup,
         )
-        if visible and pickup and trace.manifest.get("outcome") == "success":
+        since_visible = [
+            r for r in points if visible and trace.tic(r["tic"]) >= trace.tic(visible[0]["tic"])
+        ]
+        approach_distances = [
+            r["goal_dist_euclidean"] for r in since_visible if number(r.get("goal_dist_euclidean"))
+        ]
+        direct = (
+            len(approach_distances) == len(since_visible)
+            and len(approach_distances) >= 2
+            and approach_distances[-1] < approach_distances[0]
+            and all(a >= b for a, b in zip(approach_distances, approach_distances[1:]))
+        )
+        if visible and pickup and direct and trace.manifest.get("outcome") == "success":
             status, note = (
                 "behavior_contradicted",
                 "The visible armor goal was collected and the objective completed in this window.",
@@ -236,7 +269,7 @@ def rule(trace, issue):
             )
         elif (
             visible
-            and trace.end - trace.tic(visible[0]["tic"]) >= 105
+            and hi - trace.tic(visible[0]["tic"]) >= 105
             and not pickup
             and len(distances) == len(points)
             and distances[-1] >= distances[0]
@@ -253,18 +286,22 @@ def rule(trace, issue):
         ]
         bad = []
         for event in attempts:
-            observed = next(
-                (
-                    r
-                    for r in trace.rows
-                    if r.get("decision_idx") == event["decision_idx"]
-                    and r.get("goal_visible_pixels", 0) >= 25
-                ),
-                None,
-            )
-            if observed and (
-                not event.get("found")
-                or all(m.get("confidence", 0) < 0.40 for m in event.get("matches", []))
+            frame_tic = trace.frame_tic(event["decision_idx"])
+            before = [
+                r
+                for r in trace.rows
+                if frame_tic is not None
+                and trace.tic(r.get("tic")) is not None
+                and trace.tic(r["tic"]) <= frame_tic
+            ]
+            observed = before[-1] if before else None
+            if (
+                observed
+                and (observed.get("goal_visible_pixels") or 0) >= 25
+                and (
+                    not event.get("found")
+                    or all(m.get("confidence", 0) < 0.40 for m in event.get("matches", []))
+                )
             ):
                 bad.append(event["decision_idx"])
         metrics["low_confidence_goal_lookup_steps"] = bad
@@ -286,13 +323,67 @@ def rule(trace, issue):
                 "behavior_confirmed",
                 "Explicit hazard/poison-attributed health loss was recorded. Unattributed combat health loss is excluded.",
             )
-    elif category in {"SOFTLOCK_SUSPECTED", "UNREACHABLE_SUSPECTED", "DEAD_END"}:
-        note = "The available coarse static graph cannot establish dynamic reachability, required keys, interactive state or sustained goal-free branch occupancy. No-path/missing BFS is not proof of a defect."
+        else:
+            identified = [
+                line
+                for sector in trace.geometry.get("sectors", [])
+                for line in sector.get("lines", [])
+                if line.get("interactive") is True and line.get("closed") is True
+            ]
+            uses = [e for e in primitives if e.get("requested", {}).get("type") == "use"]
+            contacts = [
+                row
+                for _, row in translations
+                if row.get("collision_substep")
+                and all(number(row.get(key)) for key in ("pos_x", "pos_y"))
+                and any(
+                    distance_to_segment((row["pos_x"], row["pos_y"]), line) <= 96
+                    for line in identified
+                )
+            ]
+            metrics["identified_closed_door_contacts"] = len(contacts)
+            if identified and not uses and len(contacts) >= 2:
+                status, note = (
+                    "behavior_confirmed",
+                    "At least two collision-proxy translations occurred near an explicitly identified closed interactive line, with no use in the evidence window. This verifies the control symptom, not a defective door.",
+                )
+            elif any(row.get("door_or_switch_activated") for row in rows) and uses:
+                status, note = (
+                    "behavior_contradicted",
+                    "A use and sector-change proxy were recorded in the window. The specific target and design cause remain unverified.",
+                )
+    elif category == "DEAD_END":
+        branch = branch_observation(trace, points)
+        metrics["coarse_topology"] = branch
+        if (
+            branch
+            and branch["monotonic_goal_progress"]
+            and (branch["coarse_bfs_reduction"] or 0) >= 128
+        ):
+            status, note = (
+                "behavior_contradicted",
+                "The sampled trace made monotonic measured coarse-graph progress toward the goal by at least 128 units.",
+            )
+        elif branch and branch["coarse_goal_free_branch_dwell_tics"] >= 70:
+            status, note = (
+                "behavior_confirmed",
+                "Sampled occupancy in a goal-free degree-one coarse branch persisted for at least 70 tics. An intentional maze branch remains a plausible cause.",
+            )
+    elif category in {"SOFTLOCK_SUSPECTED", "UNREACHABLE_SUSPECTED"}:
+        note = "The available coarse static graph cannot establish dynamic reachability, required keys or interactive state. Missing/no-path coarse BFS is not proof of a softlock or defect."
+        metrics["dynamic_reachability_verified"] = False
     else:
-        metrics["observed_health_loss"] = max(
+        loss = max(
             (a.get("health", 0) - b.get("health", 0) for a, b in zip(points, points[1:])), default=0
         )
-        note = "OTHER has no structured physical predicate; observed health loss alone cannot verify an arbitrary claim."
+        metrics["observed_health_loss"] = loss
+        if warnings or loss >= 10:
+            status, note = (
+                "behavior_confirmed",
+                "The generic OTHER guard found a stuck warning or at least 10 health loss. This confirms only that symptom, not arbitrary accompanying claims or a design cause.",
+            )
+        else:
+            note = "No generic warning/health-loss predicate was observed; arbitrary OTHER claims remain unverifiable."
     return status, note, metrics
 
 
@@ -308,7 +399,8 @@ def triage(trace, issue, comparison_manifests):
     ]
     m = trace.manifest
     if (
-        m.get("is_fault_probe") is True
+        m.get("scenario_id") == "probe_broken_door"
+        and m.get("is_fault_probe") is True
         and m.get("fault_injection") == "unresponsive_use_trigger"
         and faults
     ):
@@ -383,7 +475,24 @@ def verify_run(directory, *, findings=None, reviewer=None, comparisons=()):
     candidates = [{**c, "source": c.get("source", "pilot_inline")} for c in candidates]
     if findings is not None:
         candidates += findings
+    candidate_sources = []
     if reviewer:
+        reviewer = Path(reviewer)
+        sidecar = reviewer.parent / "reviewer_status.json"
+        if sidecar.exists():
+            status = read_json(sidecar)
+            if (
+                status.get("source_run_id") != trace.manifest["run_id"]
+                or status.get("status") != "completed"
+            ):
+                raise ValueError("Reviewer does not match this finalized run")
+            if status.get("reviewer_sha256") and status["reviewer_sha256"] != digest(reviewer):
+                raise ValueError("Reviewer output changed after generation")
+        else:
+            trace.limitations.append(
+                "Supplied candidate file has no run-bound Reviewer status sidecar; provenance is unverified."
+            )
+        candidate_sources.append(dict(path=str(reviewer), sha256=digest(reviewer)))
         result = read_json(reviewer)
         candidates += [{**f, "source": "reviewer_post"} for f in result.get("findings", [])]
     records = []
@@ -411,6 +520,11 @@ def verify_run(directory, *, findings=None, reviewer=None, comparisons=()):
         run_id=trace.manifest["run_id"],
         source_directory=str(trace.directory),
         source_sha256=trace.source_hashes,
+        verifier_source_sha256={
+            name: digest(Path(__file__).with_name(name))
+            for name in ("verify.py", "trace.py", "topology.py", "schemas.py")
+        },
+        candidate_sources=candidate_sources,
         recording_provenance=trace.manifest.get("recording_provenance", "original_native"),
         is_fault_probe=bool(trace.manifest.get("is_fault_probe")),
         issues=[r.model_dump() for r in records],

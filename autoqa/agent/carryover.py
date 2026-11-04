@@ -7,7 +7,9 @@ from pathlib import Path
 HEADER = "## Observations from Your Previous Attempt on This Level"
 
 
-def extract(directory):
+def extract(directory, *, protocol="self_observed_only_v2"):
+    if protocol not in {"self_observed_only_v1", "self_observed_only_v2"}:
+        raise ValueError("Unknown carry-over extraction protocol")
     directory = Path(directory)
     # Explicit input allowlist. No directory traversal/globbing of evaluator outputs.
     sources = {
@@ -31,6 +33,29 @@ def extract(directory):
         + "\n"
     )
     text += "Own landmark/outcome notes: " + memory.get("landmark_outcome_ledger", "")
+    if protocol == "self_observed_only_v2":
+        concerns = "; ".join(own_issues)[:100] or "none"
+        contexts = []
+        for warning in warnings[-3:]:
+            step = warning["decision_idx"]
+            act = next(
+                (
+                    e.get("arguments", {})
+                    for e in events
+                    if e.get("event") == "tool_call"
+                    and e.get("name") == "act"
+                    and e.get("decision_idx") == step
+                ),
+                {},
+            )
+            moves = ",".join(
+                f"{move.get('type')}:{move.get('amount')}" for move in act.get("moves", [])
+            )
+            contexts.append(f"d{step} {moves[:65]} intent={act.get('intent', '')[:65]}")
+        text = f"Prior observed outcome: {manifest['outcome']}; decisions: {manifest.get('decisions', 'unknown')}. All notes/identities remain tentative.\n"
+        text += "Own concerns: " + concerns + "\n"
+        text += "Repeated-view/action warnings: " + ("; ".join(contexts)[:280] or "none") + "\n"
+        text += "Own landmark/outcome notes: " + memory.get("landmark_outcome_ledger", "")
     brief = text[:800]
     return dict(
         brief=brief,
@@ -40,7 +65,7 @@ def extract(directory):
         level=manifest["level"],
         seed=manifest["seed"],
         source_sha256={name: hashlib.sha256(data).hexdigest() for name, data in sources.items()},
-        protocol="self_observed_only_v1",
+        protocol=protocol,
     )
 
 

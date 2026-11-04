@@ -32,7 +32,11 @@ class SweepConfig(StrictModel):
     seeds: list[int] = Field(min_length=1)
     scenarios: dict[
         Literal[
-            "my_way_home", "health_gathering_supreme", "deadly_corridor_nav", "freedoom2_map01"
+            "my_way_home",
+            "health_gathering_supreme",
+            "deadly_corridor_nav",
+            "freedoom2_map01",
+            "probe_broken_door",
         ],
         ScenarioSweep,
     ]

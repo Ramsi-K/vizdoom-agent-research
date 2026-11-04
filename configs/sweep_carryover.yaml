@@ -1,5 +1,6 @@
-# Bounded M4 live validation. The full five-seed/multi-scenario study remains unrun.
-protocol: self_observed_only_v1
+# Prepared v2 feedback format. Measured M4 runs used sweep_carryover_m4_live_v1.yaml.
+# The full five-seed/multi-scenario study remains unrun.
+protocol: self_observed_only_v2
 scenario: my_way_home
 level: 2
 seeds: [101, 102, 103]

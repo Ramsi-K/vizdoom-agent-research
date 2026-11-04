@@ -19,12 +19,19 @@ from autoqa.prompts.builder import prompt_hash
 from autoqa.secrets import model_key
 
 
-def run_episode(config, *, root=Path.cwd(), carry_over=None, experiment=None):
+def run_episode(
+    config,
+    *,
+    root=Path.cwd(),
+    carry_over=None,
+    experiment=None,
+    carryover_protocol="self_observed_only_v2",
+):
     previous = None
     if carry_over is not None:
         from autoqa.agent.carryover import extract
 
-        previous = extract(carry_over)
+        previous = extract(carry_over, protocol=carryover_protocol)
         if (previous["scenario"], previous["level"], previous["seed"]) != (
             config.scenario,
             config.level,

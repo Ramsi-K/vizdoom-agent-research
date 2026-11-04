@@ -39,7 +39,12 @@ def paired_results(directories):
         groups[m["pair_id"]][m["attempt"]] = (directory, m)
     output = []
     for pair, attempts in sorted(groups.items()):
-        result = dict(pair_id=pair, status="incomplete", deltas=None)
+        result = dict(
+            pair_id=pair,
+            status="incomplete",
+            deltas=None,
+            first_new_room_method="First changed sector_id after initialization; sampled room-entry proxy, not semantic room segmentation",
+        )
         if set(attempts) == {1, 2}:
             a, b = (attempts[i] for i in (1, 2))
             errors = pairing_errors(a[1], b[1])
@@ -48,7 +53,7 @@ def paired_results(directories):
                 errors.append("carryover_source_mismatch")
             from autoqa.agent.carryover import extract
 
-            expected = extract(a[0])
+            expected = extract(a[0], protocol=brief.get("protocol", "self_observed_only_v1"))
             if (
                 brief.get("source_sha256") != expected["source_sha256"]
                 or brief.get("brief_sha256") != expected["brief_sha256"]
@@ -70,7 +75,13 @@ def paired_results(directories):
                     )
                 )
             result.update(
-                status="protocol_mismatch" if errors else "complete",
+                status=(
+                    "invalid_attempt"
+                    if "invalid_attempt_outcome" in errors
+                    else "protocol_mismatch"
+                )
+                if errors
+                else "complete",
                 pairing_errors=errors,
                 attempts=[
                     dict(run_id=r[1]["run_id"], **v) for r, v in zip((a, b), values, strict=True)

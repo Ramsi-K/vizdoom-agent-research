@@ -1,6 +1,7 @@
 """Read immutable source traces and resolve only validated native clock resets."""
 
 import math
+import re
 from pathlib import Path
 
 from autoqa.eval.metrics import number, read_json, read_lines
@@ -23,11 +24,15 @@ class Trace:
     def __init__(self, directory):
         self.directory = Path(directory)
         self.manifest = read_json(self.directory / "manifest.json")
+        if not re.fullmatch(r"[A-Za-z0-9_.-]{1,160}", self.manifest.get("run_id", "")):
+            raise ValueError("Unsafe run identifier")
         self.events = read_lines(self.directory / "events.jsonl")
         self.rows = read_lines(self.directory / "telemetry.jsonl")
         self.source_hashes = {}
         self.limitations = []
-        self.finalized = self.manifest.get("outcome") != "running"
+        self.finalized = (
+            isinstance(self.manifest.get("outcome"), str) and self.manifest["outcome"] != "running"
+        )
         for name in (
             "manifest.json",
             "events.jsonl",
@@ -35,6 +40,7 @@ class Trace:
             "geometry.json",
             "episode.lmp",
             "issues.json",
+            "replay.json",
         ):
             path = self.directory / name
             if not path.exists():
@@ -52,6 +58,7 @@ class Trace:
             (r.get("tic", 0) for r in self.rows if number(r.get("tic"))), default=self.start
         )
         self.replay = None
+        self.clock_reconstructed = False
         path = self.directory / "replay.json"
         if path.exists():
             candidate = read_json(path)
@@ -72,6 +79,7 @@ class Trace:
                     and candidate.get("to_tic") == self.start + elapsed
                 ):
                     self.end = self.start + elapsed
+                    self.clock_reconstructed = True
         self.geometry = (
             read_json(self.directory / "geometry.json")
             if (self.directory / "geometry.json").exists()
@@ -90,7 +98,7 @@ class Trace:
         if not number(value):
             return None
         if value < self.start:
-            if self.replay and number(self.replay.get("reconstructed_tics_used")):
+            if self.clock_reconstructed and value == self.manifest.get("final_tic"):
                 return self.end
             return None
         return value
@@ -106,7 +114,7 @@ class Trace:
             return None
         bounds = []
         for step in steps:
-            if not (self.directory / "frames" / f"step_{step:04d}.jpg").exists():
+            if not safe_file(self.directory, f"frames/step_{step:04d}.jpg", {".jpg"}).is_file():
                 return None
             observed = any(e.get("decision_idx") == step for e in self.events)
             if not observed:

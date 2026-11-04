@@ -1,0 +1,16 @@
+{
+  "scenario_id": "freedoom2_map01",
+  "human_runs_dir": null,
+  "human_runs_recorded": 0,
+  "human_completion_rate": null,
+  "median_human_tics": null,
+  "documented_design_mechanics": [
+    {
+      "id": "doom_manual_door_convention",
+      "category": "MECHANIC_UNCLEAR",
+      "description": "Classic Doom implements manual door actions through use-special-line handling. This is engine-convention context, not proof that any particular Freedoom panel is interactive or that its behavior is a defect.",
+      "is_intentional_convention": true,
+      "source_url": "https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/p_switch.c#L246-L312"
+    }
+  ]
+}
