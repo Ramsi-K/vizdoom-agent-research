@@ -19,7 +19,18 @@ from autoqa.prompts.builder import prompt_hash
 from autoqa.secrets import model_key
 
 
-def run_episode(config, *, root=Path.cwd()):
+def run_episode(config, *, root=Path.cwd(), carry_over=None, experiment=None):
+    previous = None
+    if carry_over is not None:
+        from autoqa.agent.carryover import extract
+
+        previous = extract(carry_over)
+        if (previous["scenario"], previous["level"], previous["seed"]) != (
+            config.scenario,
+            config.level,
+            config.seed,
+        ):
+            raise ValueError("Carry-over requires identical scenario, level and seed")
     key = model_key(root)
     calibration_path = root / "configs/calibration.json"
     calibration = json.loads(calibration_path.read_text())
@@ -60,8 +71,8 @@ def run_episode(config, *, root=Path.cwd()):
         model=config.model,
         effort=config.effort,
         config=config.model_dump(),
-        is_fault_probe=False,
-        fault_injection=None,
+        is_fault_probe=profile.get("is_fault_probe", False),
+        fault_injection=profile.get("fault_injection"),
         engine_overrides={
             "mode": "PLAYER",
             "resolution": [640, 480],
@@ -82,6 +93,13 @@ def run_episode(config, *, root=Path.cwd()):
             button_order=[button.name for button in buttons_for(config)],
             control_prompt_sha256=digest(root / "prompts/combat_controls_v1.md"),
         )
+    if experiment:
+        if set(experiment) - {"evaluation_group", "pair_id", "attempt"}:
+            raise ValueError("Unknown experiment metadata")
+        manifest.update(experiment)
+    if previous:
+        manifest["carryover"] = {k: v for k, v in previous.items() if k != "brief"}
+        (directory / "carryover_brief.md").write_text(previous["brief"] + "\n")
     write_json(directory / "manifest.json", manifest)
     env, client, pilot = None, None, None
     started = time.monotonic()
@@ -93,6 +111,8 @@ def run_episode(config, *, root=Path.cwd()):
         manifest["plan_sha256"] = digest(directory / "plan_l3.png") if config.level == 3 else None
         client = MetaClient(key, config, log)
         pilot = Pilot(config, env.player_session(), client, log, briefing_l2=briefing)
+        if previous:
+            pilot.memory.carryover_brief = previous["brief"]
         pilot.grounder = Grounder(
             key,
             mode=config.grounding_mode,

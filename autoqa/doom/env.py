@@ -111,6 +111,13 @@ class DoomEnv:
             track_armor_goal=not self.combat or config.scenario == "deadly_corridor_combat",
         )
         self.log = EventLog(directory / "events.jsonl")
+        from .faults import EnvironmentFaultInjector
+
+        profile = SCENARIOS[config.scenario]
+        self.fault_injector = EnvironmentFaultInjector(
+            is_fault_probe=profile.get("is_fault_probe", False),
+            fault=profile.get("fault_injection"),
+        )
         self.decision_idx = 0
         self._observation_counter = 0
         self.change = 0.0
@@ -208,6 +215,13 @@ class DoomEnv:
                 if move.type in names:
                     vector[self.buttons.index(getattr(vzd.Button, names[move.type]))] = 1
             tic_start = self._game.get_episode_time()
+            vector = self.fault_injector.apply(
+                vector,
+                self.buttons.index(vzd.Button.USE),
+                self.log,
+                decision_idx=self.decision_idx,
+                tic=tic_start,
+            )
             self._game.make_action(vector, move.tics)
             self.telemetry.record_step(
                 self._game, "primitive", self.decision_idx, index, move, action.run
