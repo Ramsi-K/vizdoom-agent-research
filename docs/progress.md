@@ -1,6 +1,6 @@
 # Milestone progress
 
-PR #10 is merged into `main` at `209d861`. The dated milestone entries below describe their original checkpoints, including references to then-open branches and PRs. The latest measured gameplay findings are in [the M2 navigation review](m2-navigation-review.md); earlier reports retain their original results. M3–M5 remain unimplemented. This documentation review makes no new gameplay or API measurements.
+PR #10 is merged into `main` at `209d861`. The dated milestone entries below describe their original checkpoints, including references to then-open branches and PRs. The latest measured gameplay findings are in [the M2 navigation review](m2-navigation-review.md); earlier reports retain their original results. The M3 entry records offline implementation and pending live validation. M4–M5 remain unimplemented.
 
 ## 2026-11-04 — M0 feasibility tooling
 
@@ -65,3 +65,19 @@ Removed generated report images/replay strips and consolidated oversized histori
 ## 2026-11-04 — M2 demo replay ending
 
 Fixed the abrupt export ending on the winning armor pickup: successful full replays append an explicitly labeled half-speed replay of the last recorded second, then hold a captured approach frame with the verified result for three seconds. No post-win gameplay or HUD is fabricated. Added separate gameplay/ending frame counts, a raw-only option and a new-output-name option. Regenerated the winning run as local `replay-demo.mp4` (41.57 seconds), preserving the original replay and raw artifacts. All 92 tests pass; lint passes. No new gameplay/model requests or generated video files were committed.
+
+## 2026-11-04 — M3 offline sweep and metrics implementation
+
+Implemented on `feat/m3-sweeps` from `0fe5214` after the M2/documentation merges. Added offline episode metrics, matched-seed comparisons, Wilson/bootstrap intervals, the five documented sensitivity rules, trajectory/coverage heatmaps, strict fast/core YAML configs, and a sequential checkpointed sweep runner that reuses `run_episode`. The CLI prepares sweeps without API calls; paid execution requires `--execute`. Source/config drift, pairing errors, concurrent execution, unknown recorded costs, and unresolved in-flight slots are handled explicitly. Pilot prompts, information boundaries, gameplay actions, grounding, and replay are unchanged; no M4–M5 features were added.
+
+Validation: **120 offline tests passed**, four live API tests deselected, in **8.39 seconds**; lint and formatting passed. The 28 new tests include arithmetic, unavailable metrics, provenance, classification rules, paired sampling, generated images, and no-call execution guards. Reanalysis of the existing latest M2 L2/L3 recordings reproduces six/18 unique cells, 16/22 versus 15/33 reentries, USD 0.58523915/0.29667895, and L3's 1,280 native-reconstructed tics. Source logs and historical results were preserved. No new autonomous episodes or paid API calls were run.
+
+Prepared fast/core plans have 15/45 pending episodes and USD 9/27 recorded-usage thresholds, with USD 0.60 per episode. These are soft thresholds and exclude unknown failed-request charges. Live multi-scenario acceptance remains **not run, awaiting approval**. BFS/SPL and some normalized coverage remain unavailable; fast omits Freedoom L3, and incomplete/non-exhaustive classification evidence remains explicitly unclassified. See [M3 results and execution instructions](m3-results.md) and [compact validation evidence](m3-evidence.json). Generated summaries/PNGs and sweep plans remain local in ignored `results/`.
+
+## 2026-11-04 — M3 fast sweep stopped early by user
+
+After approval of fast at the existing USD 9 threshold, completed seed-101/102 `my_way_home` L1/L2/L3 episodes: six runs, all reaching 60 decisions without a win. The user requested stopping after the sixth. The boundary was missed and seed 103 L1 had already started; it was interrupted after decision 8, with a blocked shutdown terminated via SIGTERM. That unfinalized extra run is preserved and excluded from gameplay statistics. Eight later episodes were never launched. No Freedoom or core episodes ran.
+
+Six-run recorded cost is **USD 2.80618700**; the partial extra consumed **USD 0.05641210** in completed usage events, giving **USD 2.86259910** known total, with an unknown in-flight charge possible. The stopped manifest and separate cost accounting retain this deviation explicitly. All six complete native/event/telemetry hashes were verified, and paired protocols/spawns match. No API/grounding errors were logged in those six runs.
+
+Generated partial JSON/CSV summaries, paired deltas, per-run metrics, trajectory and sampled-cell heatmaps. Mean cells L1/L2/L3: **14 / 12 / 10.5**; mean revisit rates **0.4898 / 0.6307 / 0.6996**. Neither L3 run reproduced the earlier M2 win. BFS/SPL/normalized coverage and the persistent-failure classification remain unavailable; no causal conclusion is drawn from two seeds. See [partial results](m3-results.md#partial-fast-sweep-stopped-early) and [compact evidence](m3-fast-partial-evidence.json). Both sweep plans remain stopped/unrun as appropriate; no further paid experiment was executed after stopping.

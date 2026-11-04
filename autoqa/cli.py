@@ -1,4 +1,4 @@
-"""File-based M0 diagnostics and M1 gameplay/replay commands."""
+"""File-based diagnostics, gameplay, replay, and M3 evaluation commands."""
 
 import argparse
 from pathlib import Path
@@ -54,7 +54,67 @@ def main(argv=None):
         "--output-name",
         help="New MP4 filename inside the run directory; existing files are preserved",
     )
+    sweep = commands.add_parser("sweep", help="Prepare a sweep; paid execution needs --execute")
+    sweep.add_argument("--config", type=Path, required=True)
+    sweep.add_argument("--out", type=Path, required=True)
+    sweep.add_argument(
+        "--execute", action="store_true", help="Explicitly authorize paid Meta calls"
+    )
+    sweep.add_argument(
+        "--resume", action="store_true", help="Use an existing prepared/checkpointed sweep"
+    )
+    analyze = commands.add_parser("analyze", help="Offline analysis of recorded runs; no API calls")
+    analyze.add_argument("run_dirs", type=Path, nargs="+")
+    analyze.add_argument("--out", type=Path, required=True)
+    metrics = commands.add_parser("metrics", help="Offline metrics for one recorded episode")
+    metrics.add_argument("run_dir", type=Path)
+    metrics.add_argument("--out", type=Path, required=True, help="New derived JSON file")
     args = parser.parse_args(argv)
+    if args.command in {"sweep", "analyze", "metrics"}:
+        import json
+
+        from .io import digest, write_json
+
+        try:
+            if args.command == "metrics":
+                from .eval.metrics import episode_metrics
+
+                if args.out.exists():
+                    raise ValueError("Output already exists; choose a new file")
+                result = episode_metrics(args.run_dir)
+                args.out.parent.mkdir(parents=True, exist_ok=True)
+                write_json(args.out, result)
+                print(json.dumps(dict(output=str(args.out), outcome=result["outcome"])))
+            elif args.command == "analyze":
+                from .sweep import analyze_runs
+
+                result = analyze_runs(args.run_dirs, args.out)
+                print(json.dumps(dict(output=str(args.out), episodes=len(result["episodes"]))))
+            else:
+                from .sweep import execute_sweep, prepare_sweep
+
+                if args.resume:
+                    from .eval.metrics import read_json
+
+                    plan = read_json(args.out / "sweep_manifest.json")
+                    if digest(args.config) != plan["config_sha256"]:
+                        raise ValueError("Configuration changed since preparation")
+                else:
+                    plan = prepare_sweep(args.config, args.out)
+                if args.execute:
+                    plan = execute_sweep(args.out, approved=True)
+                print(
+                    json.dumps(
+                        {k: plan[k] for k in ("status", "planned_episodes", "max_total_usd")}
+                    )
+                )
+                if args.execute and (
+                    plan["status"] != "finished" or plan["pairing_status"] != "complete"
+                ):
+                    return 1
+        except (ValueError, OSError) as error:
+            parser.error(str(error))
+        return 0
     if args.command == "run":
         from .config import RunConfig
         from .run import run_episode

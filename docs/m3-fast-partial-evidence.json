@@ -1,0 +1,816 @@
+{
+  "schema_version": 1,
+  "status": "stopped_early_by_user",
+  "configuration_sha256": "1aaf1377571f80d6c551216dfa4e5e1d7cc4a4b5e1803aede45d785556753e05",
+  "accounting": {
+    "status": "stopped_early_by_user",
+    "requested_boundary": "after my_way_home L3 seed 102",
+    "completed_episodes": 6,
+    "interrupted_extra_episodes": 1,
+    "unstarted_episodes": 8,
+    "boundary_missed": true,
+    "explanation": "The runner advanced to seed 103 L1 before the boundary stop was applied. It was interrupted; shutdown blocked and required SIGTERM. No later episode was launched.",
+    "completed_runs_recorded_usd": 2.8061870000000004,
+    "interrupted_extra_recorded_usd": 0.0564121,
+    "total_known_recorded_usd": 2.8625991000000006,
+    "unknown_inflight_charge_possible": true,
+    "interrupted_run": "/home/ramsi/projects/vizdoom-agent-research/runs/20261104T173044.780340Z_my_way_home_L1_s103",
+    "last_completed_decision": 8,
+    "terminated_process_exit_code": 143,
+    "stopped_at_utc": "2026-11-04T17:34:48.065449+00:00",
+    "core_sweep_executed": false
+  },
+  "completed_episodes": [
+    {
+      "run_id": "20261104T165213.191149Z_my_way_home_L1_s101",
+      "seed": 101,
+      "level": 1,
+      "outcome": "max_decisions",
+      "completed": 0,
+      "progress_fraction": null,
+      "spl": null,
+      "coverage_fraction": null,
+      "unique_cells_visited": 14,
+      "cell_entries": 23,
+      "cell_reentries": 9,
+      "revisit_rate": 0.3913043478260869,
+      "collision_rate": 0.1111111111111111,
+      "use_precision": null,
+      "locate_calls": 0,
+      "locate_candidate_positive_calls": 0,
+      "cost_usd": 0.3517804500000001,
+      "tics_used": 721,
+      "decisions_used": 60,
+      "goal_visible_anywhere": true,
+      "navigation_updates": 0,
+      "navigation_actions": 0,
+      "api_error_count": 0,
+      "grounding_error_count": 0,
+      "input_sha256": {
+        "manifest.json": "065e3bacd0187463e7ea37a6bec9e07ce8b25cbbd717c5e0a4148c670bec1cdb",
+        "telemetry.jsonl": "ed2495ee1bae6ebf602da883425983b7f9ac403702543278e14288cb063baefa",
+        "events.jsonl": "ba39b35bb6f2243ce8e22d99c7aab8ed1024176ba0c14dc0bdc2994cbf9e9f39",
+        "geometry.json": "383d7fca9abe5ddec214d9f484dc65da1f1b35546eb5b42b8bc6ea0c7b573f0f"
+      },
+      "native_recording_sha256": "4ebaf9190ce22de9d0fa83a771cb19f134e8d16a1e1bc04811b9f9e376a0488b"
+    },
+    {
+      "run_id": "20261104T165638.914244Z_my_way_home_L2_s101",
+      "seed": 101,
+      "level": 2,
+      "outcome": "max_decisions",
+      "completed": 0,
+      "progress_fraction": null,
+      "spl": null,
+      "coverage_fraction": null,
+      "unique_cells_visited": 12,
+      "cell_entries": 32,
+      "cell_reentries": 20,
+      "revisit_rate": 0.625,
+      "collision_rate": 0.061224489795918366,
+      "use_precision": 0.0,
+      "locate_calls": 4,
+      "locate_candidate_positive_calls": 2,
+      "cost_usd": 0.5640965500000001,
+      "tics_used": 975,
+      "decisions_used": 60,
+      "goal_visible_anywhere": false,
+      "navigation_updates": 48,
+      "navigation_actions": 59,
+      "api_error_count": 0,
+      "grounding_error_count": 0,
+      "input_sha256": {
+        "manifest.json": "9f4bfea149121ebeebbda8f5512c3997e6977da2f31d9d88bcc8210f70009287",
+        "telemetry.jsonl": "d200ae183217d6cb8e9c2c22402b2f1f84f5709dda9342398e860f5ded93ad37",
+        "events.jsonl": "b8df3183a38b6882193ec973661d3de02724ae7c30fd4a216f74189d98296678",
+        "geometry.json": "383d7fca9abe5ddec214d9f484dc65da1f1b35546eb5b42b8bc6ea0c7b573f0f"
+      },
+      "native_recording_sha256": "67408afb4997097919e518563d05325694731ad64016c9c448b8d77a75b05085"
+    },
+    {
+      "run_id": "20261104T170403.778761Z_my_way_home_L3_s101",
+      "seed": 101,
+      "level": 3,
+      "outcome": "max_decisions",
+      "completed": 0,
+      "progress_fraction": null,
+      "spl": null,
+      "coverage_fraction": null,
+      "unique_cells_visited": 13,
+      "cell_entries": 40,
+      "cell_reentries": 27,
+      "revisit_rate": 0.675,
+      "collision_rate": 0.03333333333333333,
+      "use_precision": 0.0,
+      "locate_calls": 1,
+      "locate_candidate_positive_calls": 0,
+      "cost_usd": 0.4857822499999999,
+      "tics_used": 1354,
+      "decisions_used": 60,
+      "goal_visible_anywhere": false,
+      "navigation_updates": 57,
+      "navigation_actions": 60,
+      "api_error_count": 0,
+      "grounding_error_count": 0,
+      "input_sha256": {
+        "manifest.json": "d2bd689c031b6fbae974f4168e70de0f314e3d8f1c793bbb423aefcc66465299",
+        "telemetry.jsonl": "b1ea9b6e985b644393b96788ff140fd0f4a7028d323c7dba7f34b9aa89e38965",
+        "events.jsonl": "71bccd8b44827bdf179c4ed253dc201c7f698ac2ad90ccf807f487a60831f002",
+        "geometry.json": "383d7fca9abe5ddec214d9f484dc65da1f1b35546eb5b42b8bc6ea0c7b573f0f"
+      },
+      "native_recording_sha256": "dad3a9895ad1af7af01957bbf57bcf020f0016c3da1b8d523606b61fa9164f5e"
+    },
+    {
+      "run_id": "20261104T171119.010214Z_my_way_home_L1_s102",
+      "seed": 102,
+      "level": 1,
+      "outcome": "max_decisions",
+      "completed": 0,
+      "progress_fraction": null,
+      "spl": null,
+      "coverage_fraction": null,
+      "unique_cells_visited": 14,
+      "cell_entries": 34,
+      "cell_reentries": 20,
+      "revisit_rate": 0.5882352941176471,
+      "collision_rate": 0.02127659574468085,
+      "use_precision": 0.0,
+      "locate_calls": 0,
+      "locate_candidate_positive_calls": 0,
+      "cost_usd": 0.37737745000000017,
+      "tics_used": 1106,
+      "decisions_used": 60,
+      "goal_visible_anywhere": false,
+      "navigation_updates": 0,
+      "navigation_actions": 0,
+      "api_error_count": 0,
+      "grounding_error_count": 0,
+      "input_sha256": {
+        "manifest.json": "f9e009d38919a7616e6974f88e53cc47d2851c3493e65a4e329e3591fa526fb9",
+        "telemetry.jsonl": "7740afc4cd0c3ae22e10c872a13b96d6688451968ad723a61ece4a737faffecc",
+        "events.jsonl": "ede241ec35931d1927f089f34cc29cf897f50e034e013175cf497377000a6f86",
+        "geometry.json": "338eda6bc9314f0c2c076099630423ce8c85a8feb1554b09b606b5107b9ce475"
+      },
+      "native_recording_sha256": "b7dd7a4d561ac6770ea47b65845692e200063fe0a5cc3a5a58f2ffa0fdb60f2a"
+    },
+    {
+      "run_id": "20261104T171554.696152Z_my_way_home_L2_s102",
+      "seed": 102,
+      "level": 2,
+      "outcome": "max_decisions",
+      "completed": 0,
+      "progress_fraction": null,
+      "spl": null,
+      "coverage_fraction": null,
+      "unique_cells_visited": 12,
+      "cell_entries": 33,
+      "cell_reentries": 21,
+      "revisit_rate": 0.6363636363636364,
+      "collision_rate": 0.05660377358490566,
+      "use_precision": 0.0,
+      "locate_calls": 5,
+      "locate_candidate_positive_calls": 2,
+      "cost_usd": 0.5624461000000001,
+      "tics_used": 1073,
+      "decisions_used": 60,
+      "goal_visible_anywhere": true,
+      "navigation_updates": 55,
+      "navigation_actions": 59,
+      "api_error_count": 0,
+      "grounding_error_count": 0,
+      "input_sha256": {
+        "manifest.json": "d2f28ea128dc3701fb256091a71b4fbc196246997a4f8330a7d33928477032ea",
+        "telemetry.jsonl": "d62f779b9d13504c291d81922cc700748724e38b367cd3bb0ffc9ad7f9c71b91",
+        "events.jsonl": "5a62a6228ca111e04afb28542f8722417c1d7a5bec774f2ad6791a29abc21a10",
+        "geometry.json": "338eda6bc9314f0c2c076099630423ce8c85a8feb1554b09b606b5107b9ce475"
+      },
+      "native_recording_sha256": "f410252be1eea70b1df654c7cb43a77031300bf4fde793ef9fb384407d7effe6"
+    },
+    {
+      "run_id": "20261104T172434.027082Z_my_way_home_L3_s102",
+      "seed": 102,
+      "level": 3,
+      "outcome": "max_decisions",
+      "completed": 0,
+      "progress_fraction": null,
+      "spl": null,
+      "coverage_fraction": null,
+      "unique_cells_visited": 8,
+      "cell_entries": 29,
+      "cell_reentries": 21,
+      "revisit_rate": 0.7241379310344828,
+      "collision_rate": 0.043478260869565216,
+      "use_precision": 0.0,
+      "locate_calls": 0,
+      "locate_candidate_positive_calls": 0,
+      "cost_usd": 0.4647041999999999,
+      "tics_used": 1119,
+      "decisions_used": 60,
+      "goal_visible_anywhere": false,
+      "navigation_updates": 52,
+      "navigation_actions": 60,
+      "api_error_count": 0,
+      "grounding_error_count": 0,
+      "input_sha256": {
+        "manifest.json": "216570c5c0e5b44b4c5b150b9aabf07a624b78444edb7d3f4d2ab0b8e9b826fa",
+        "telemetry.jsonl": "79a83a6245d463925a736d2a882806eb5e0022d7d6426469580f07cf5931724d",
+        "events.jsonl": "ebd39cd0e2c7c16b0c6cbbc93caae13abb68b2479b84a4501e42cb16a6059fec",
+        "geometry.json": "338eda6bc9314f0c2c076099630423ce8c85a8feb1554b09b606b5107b9ce475"
+      },
+      "native_recording_sha256": "505d4c5a31804e52247bfd2788a304a7c47b44db6716673fe6a0a9163ca03b26"
+    }
+  ],
+  "groups": [
+    {
+      "scenario": "my_way_home",
+      "level": 1,
+      "planned": 3,
+      "recorded": 2,
+      "included": 2,
+      "completion_rate": 0,
+      "metrics": {
+        "completed": {
+          "n": 2,
+          "mean": 0,
+          "sd": 0.0,
+          "ci95": [
+            0,
+            0.6576197724933469
+          ],
+          "ci_method": "wilson"
+        },
+        "progress_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "spl": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "coverage_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "revisit_rate": {
+          "n": 2,
+          "mean": 0.489769820971867,
+          "sd": 0.13925120754824596,
+          "ci95": [
+            0.3913043478260869,
+            0.5882352941176471
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "collision_rate": {
+          "n": 2,
+          "mean": 0.06619385342789598,
+          "sd": 0.06352259500020994,
+          "ci95": [
+            0.02127659574468085,
+            0.1111111111111111
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "locate_hit_rate": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "use_precision": {
+          "n": 1,
+          "mean": 0.0,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "cost_usd": {
+          "n": 2,
+          "mean": 0.3645789500000001,
+          "sd": 0.01809981227803212,
+          "ci95": [
+            0.3517804500000001,
+            0.37737745000000017
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "unique_cells_visited": {
+          "n": 2,
+          "mean": 14,
+          "sd": 0.0,
+          "ci95": [
+            14,
+            14
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        }
+      }
+    },
+    {
+      "scenario": "my_way_home",
+      "level": 2,
+      "planned": 3,
+      "recorded": 2,
+      "included": 2,
+      "completion_rate": 0,
+      "metrics": {
+        "completed": {
+          "n": 2,
+          "mean": 0,
+          "sd": 0.0,
+          "ci95": [
+            0,
+            0.6576197724933469
+          ],
+          "ci_method": "wilson"
+        },
+        "progress_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "spl": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "coverage_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "revisit_rate": {
+          "n": 2,
+          "mean": 0.6306818181818181,
+          "sd": 0.008035304331665306,
+          "ci95": [
+            0.625,
+            0.6363636363636364
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "collision_rate": {
+          "n": 2,
+          "mean": 0.058914131690412014,
+          "sd": 0.003267339766745693,
+          "ci95": [
+            0.05660377358490566,
+            0.061224489795918366
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "locate_hit_rate": {
+          "n": 2,
+          "mean": 0.45,
+          "sd": 0.07071067811865474,
+          "ci95": [
+            0.4,
+            0.5
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "use_precision": {
+          "n": 2,
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "cost_usd": {
+          "n": 2,
+          "mean": 0.5632713250000001,
+          "sd": 0.0011670443870093947,
+          "ci95": [
+            0.5624461000000001,
+            0.5640965500000001
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "unique_cells_visited": {
+          "n": 2,
+          "mean": 12,
+          "sd": 0.0,
+          "ci95": [
+            12,
+            12
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        }
+      }
+    },
+    {
+      "scenario": "my_way_home",
+      "level": 3,
+      "planned": 3,
+      "recorded": 2,
+      "included": 2,
+      "completion_rate": 0,
+      "metrics": {
+        "completed": {
+          "n": 2,
+          "mean": 0,
+          "sd": 0.0,
+          "ci95": [
+            0,
+            0.6576197724933469
+          ],
+          "ci_method": "wilson"
+        },
+        "progress_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "spl": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "coverage_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "revisit_rate": {
+          "n": 2,
+          "mean": 0.6995689655172415,
+          "sd": 0.03474576424795964,
+          "ci95": [
+            0.675,
+            0.7241379310344828
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "collision_rate": {
+          "n": 2,
+          "mean": 0.03840579710144927,
+          "sd": 0.007173547055515699,
+          "ci95": [
+            0.03333333333333333,
+            0.043478260869565216
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "locate_hit_rate": {
+          "n": 1,
+          "mean": 0.0,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "use_precision": {
+          "n": 2,
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "cost_usd": {
+          "n": 2,
+          "mean": 0.47524322499999994,
+          "sd": 0.014904432089189118,
+          "ci95": [
+            0.4647041999999999,
+            0.4857822499999999
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "unique_cells_visited": {
+          "n": 2,
+          "mean": 10.5,
+          "sd": 3.5355339059327378,
+          "ci95": [
+            8,
+            13
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        }
+      }
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "scenario": "my_way_home",
+      "comparison": "L2-L1",
+      "planned_pairs": 3,
+      "matched_pairs": 2,
+      "status": "incomplete",
+      "metrics": {
+        "completed": {
+          "n": 2,
+          "mean": 0,
+          "sd": 0.0,
+          "ci95": [
+            0,
+            0
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "progress_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "spl": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "coverage_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "revisit_rate": {
+          "n": 2,
+          "mean": 0.14091199720995118,
+          "sd": 0.13121590321658066,
+          "ci95": [
+            0.048128342245989275,
+            0.23369565217391308
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "collision_rate": {
+          "n": 2,
+          "mean": -0.007279721737483966,
+          "sd": 0.06025525523346424,
+          "ci95": [
+            -0.04988662131519274,
+            0.03532717784022481
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "locate_hit_rate": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "use_precision": {
+          "n": 1,
+          "mean": 0.0,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "cost_usd": {
+          "n": 2,
+          "mean": 0.19869237499999998,
+          "sd": 0.019266856665041517,
+          "ci95": [
+            0.1850686499999999,
+            0.21231610000000006
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "unique_cells_visited": {
+          "n": 2,
+          "mean": -2,
+          "sd": 0.0,
+          "ci95": [
+            -2,
+            -2
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        }
+      },
+      "rejected": [
+        {
+          "seed": 103,
+          "reasons": [
+            "missing_run"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "my_way_home",
+      "comparison": "L3-L2",
+      "planned_pairs": 3,
+      "matched_pairs": 2,
+      "status": "incomplete",
+      "metrics": {
+        "completed": {
+          "n": 2,
+          "mean": 0,
+          "sd": 0.0,
+          "ci95": [
+            0,
+            0
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "progress_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "spl": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "coverage_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "revisit_rate": {
+          "n": 2,
+          "mean": 0.06888714733542323,
+          "sd": 0.026710459916294328,
+          "ci95": [
+            0.050000000000000044,
+            0.08777429467084641
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "collision_rate": {
+          "n": 2,
+          "mean": -0.02050833458896274,
+          "sd": 0.010440886822261393,
+          "ci95": [
+            -0.027891156462585033,
+            -0.013125512715340446
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "locate_hit_rate": {
+          "n": 1,
+          "mean": -0.5,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "use_precision": {
+          "n": 2,
+          "mean": 0.0,
+          "sd": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "cost_usd": {
+          "n": 2,
+          "mean": -0.08802810000000019,
+          "sd": 0.013737387702179724,
+          "ci95": [
+            -0.09774190000000016,
+            -0.07831430000000023
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        },
+        "unique_cells_visited": {
+          "n": 2,
+          "mean": -1.5,
+          "sd": 3.5355339059327378,
+          "ci95": [
+            -4,
+            1
+          ],
+          "ci_method": "percentile_bootstrap_2000_seed101"
+        }
+      },
+      "rejected": [
+        {
+          "seed": 103,
+          "reasons": [
+            "missing_run"
+          ]
+        }
+      ]
+    }
+  ],
+  "classifications": [
+    {
+      "scenario": "freedoom2_map01",
+      "classification": null,
+      "status": "insufficient_or_mixed_paired_evidence",
+      "seeds": [
+        {
+          "seed": 101,
+          "classification": null,
+          "status": "missing_valid_level",
+          "causal_claim": false,
+          "pairing_errors": []
+        },
+        {
+          "seed": 102,
+          "classification": null,
+          "status": "missing_valid_level",
+          "causal_claim": false,
+          "pairing_errors": []
+        },
+        {
+          "seed": 103,
+          "classification": null,
+          "status": "missing_valid_level",
+          "causal_claim": false,
+          "pairing_errors": []
+        }
+      ],
+      "interpretation": "Diagnostic information sensitivity of bundled protocols, not a design defect or human-playability claim"
+    },
+    {
+      "scenario": "my_way_home",
+      "classification": null,
+      "status": "insufficient_or_mixed_paired_evidence",
+      "seeds": [
+        {
+          "seed": 101,
+          "classification": null,
+          "status": "insufficient_progress_or_uncovered_outcome_pattern",
+          "causal_claim": false,
+          "pairing_errors": []
+        },
+        {
+          "seed": 102,
+          "classification": null,
+          "status": "insufficient_progress_or_uncovered_outcome_pattern",
+          "causal_claim": false,
+          "pairing_errors": []
+        },
+        {
+          "seed": 103,
+          "classification": null,
+          "status": "missing_valid_level",
+          "causal_claim": false,
+          "pairing_errors": []
+        }
+      ],
+      "interpretation": "Diagnostic information sensitivity of bundled protocols, not a design defect or human-playability claim"
+    }
+  ],
+  "local_artifacts": {
+    "summary_json": "results/m3-fast-preflight/summary.json",
+    "summary_csv": "results/m3-fast-preflight/summary.csv",
+    "heatmaps": [
+      "results/m3-fast-preflight/analysis_partial_000/heatmaps/my_way_home_trajectory.png",
+      "results/m3-fast-preflight/analysis_partial_000/heatmaps/my_way_home_coverage.png"
+    ]
+  },
+  "artifact_sha256": {
+    "summary.json": "c09b741e4d5f8a51a152897f6e3d86234dff1825581e726ec2cdf904353ac0e2",
+    "summary.csv": "e50cf69d19ed802211be58e3a096ab99ce74b3948ebf4cebf55ed578a878f30d",
+    "analysis_partial_000/heatmaps/my_way_home_trajectory.png": "91addf0405b11aecd91f99372fec85ac508ac0ee864bb0ccd7482a7cc6b3d082",
+    "analysis_partial_000/heatmaps/my_way_home_coverage.png": "15b42a13c3330c2ce77743a5d03c0b0033f7480dd1cf73a1dbc296dd8bc003f2"
+  },
+  "limits": [
+    "Only seed 101/102 my_way_home triples are included in gameplay metrics",
+    "Seed 103 L1 began before the stop was applied; it was interrupted and is excluded",
+    "No Freedoom episodes and no core sweep ran",
+    "BFS progress/SPL and normalized coverage remain unavailable",
+    "Two paired seeds do not establish reliability or causal effects"
+  ],
+  "completed_run_sources_match_frozen_plan": true,
+  "published_artifacts_sha256": {
+    "docs/m3-fast-partial/coverage.png": "15b42a13c3330c2ce77743a5d03c0b0033f7480dd1cf73a1dbc296dd8bc003f2",
+    "docs/m3-fast-partial/summary.csv": "e4912cb45fc2e5f95259e437af8d83ac11f4b9bd0dffce8b674181550521d72f",
+    "docs/m3-fast-partial/trajectory.png": "91addf0405b11aecd91f99372fec85ac508ac0ee864bb0ccd7482a7cc6b3d082"
+  },
+  "published_csv_note": "CSV values match the local source exactly; only CRLF line endings were normalized to LF for the repository copy."
+}
