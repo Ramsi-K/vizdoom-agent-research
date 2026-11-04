@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "kind": "M3 offline implementation validation; existing M2 episodes reanalyzed, no new agent episodes",
+  "paid_api_calls_this_milestone": 0,
+  "validation": {
+    "offline_pytest_passed": 120,
+    "live_api_tests_deselected": 4,
+    "pytest_seconds": 8.39,
+    "lint": "passed",
+    "format": "passed"
+  },
+  "evaluator_source_sha256": {
+    "autoqa/cli.py": "d56283f377345fa249f15250feaead07308a33032453d659503a1276583f9cf6",
+    "autoqa/sweep.py": "7eeb65ac1cc763acf67e2bf884058395b2b0faf43e57543a67625bc7ebb3aa53",
+    "autoqa/eval/__init__.py": "124baa45e15174fe0a82285936837366cf5ff00d5e883d8f1e006d2ef3296373",
+    "autoqa/eval/aggregate.py": "678baee7f691573bea97d0abab2bdf86f44462525ea147ef8a6bdf6075779206",
+    "autoqa/eval/metrics.py": "ce1eb830ba6c9ac59a54e00eabae4113d431a9fe596f56d71b7e951da8c0d27e",
+    "autoqa/eval/plots.py": "fffafec8f622304f0f873f860775056c08792101d1d6319dfe288dbd37c536de"
+  },
+  "historical_episodes": [
+    {
+      "run_id": "20261104T101158.275076Z_my_way_home_L2_s101",
+      "level": 2,
+      "outcome": "max_decisions",
+      "completed": 0,
+      "progress_fraction": null,
+      "spl": null,
+      "coverage_fraction": 0.375,
+      "total_accessible_cells": 16,
+      "unique_cells_visited": 6,
+      "cell_entries": 22,
+      "cell_reentries": 16,
+      "revisit_rate": 0.7272727272727273,
+      "collision_rate": 0.125,
+      "locate_calls": 5,
+      "locate_hit_rate": 0.4,
+      "use_precision": 0.0,
+      "cost_usd": 0.5852391500000004,
+      "tics_used": 732,
+      "tics_source": "manifest",
+      "navigation_updates": 51,
+      "navigation_actions": 59,
+      "api_error_count": 1,
+      "unavailable": {
+        "progress_fraction": "No positive initial, consistently measured BFS distance",
+        "spl": "No positive initial, consistently measured BFS distance"
+      },
+      "input_sha256": {
+        "manifest.json": "563b0184f9dfd4353e05dc8d5648741aa32261997a21a5755f3a23a2d99f7994",
+        "telemetry.jsonl": "6e1320b6d12c0accee1453fd231bbc472398e6ebcb44cf754dee36060c66c002",
+        "events.jsonl": "39e50e3f3f1aac5f8fcdbcc873a9c00f9a08719e0ebbf6ef5814995eb0e8547a",
+        "geometry.json": "383d7fca9abe5ddec214d9f484dc65da1f1b35546eb5b42b8bc6ea0c7b573f0f",
+        "replay.json": "d8cf377fdc52961d9831fd20495858ec84e600ed8258cd1173541fb00559ab47"
+      }
+    },
+    {
+      "run_id": "20261104T101202.353976Z_my_way_home_L3_s101",
+      "level": 3,
+      "outcome": "success",
+      "completed": 1,
+      "progress_fraction": 1.0,
+      "spl": null,
+      "coverage_fraction": null,
+      "total_accessible_cells": null,
+      "unique_cells_visited": 18,
+      "cell_entries": 33,
+      "cell_reentries": 15,
+      "revisit_rate": 0.4545454545454546,
+      "collision_rate": 0.0625,
+      "locate_calls": 0,
+      "locate_hit_rate": null,
+      "use_precision": 0.0,
+      "cost_usd": 0.29667894999999994,
+      "tics_used": 1280,
+      "tics_source": "native_replay_reconstruction",
+      "navigation_updates": 37,
+      "navigation_actions": 42,
+      "api_error_count": 1,
+      "unavailable": {
+        "spl": "No positive initial, consistently measured BFS distance",
+        "coverage_fraction": "Initial coarse graph unavailable or does not resolve all sampled cells"
+      },
+      "input_sha256": {
+        "manifest.json": "ceab3dc2088740064f4f8dd6367128d9d08de408b55b6c530e8e4e49af5bf3f8",
+        "telemetry.jsonl": "edeb60decbde64aaf4245c11fcf91afe91df8bf306b66835d1ad569c93271b31",
+        "events.jsonl": "328e0e8a4adcfba87ae1b3c0d1f73a04189eec8f1c7aba335c164c757b2ccc7a",
+        "geometry.json": "383d7fca9abe5ddec214d9f484dc65da1f1b35546eb5b42b8bc6ea0c7b573f0f",
+        "replay.json": "a5c9c01542cdf96cfaf34e53e7d9ac9e006db4cd6c7f3a785c06a5359aa4c12c"
+      }
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "scenario": "my_way_home",
+      "comparison": "L2-L1",
+      "planned_pairs": 0,
+      "matched_pairs": 0,
+      "status": "not_scheduled",
+      "metrics": {
+        "completed": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "progress_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "spl": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "coverage_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "revisit_rate": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "collision_rate": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "locate_hit_rate": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "use_precision": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "cost_usd": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        }
+      },
+      "pairs": [],
+      "rejected": []
+    },
+    {
+      "scenario": "my_way_home",
+      "comparison": "L3-L2",
+      "planned_pairs": 1,
+      "matched_pairs": 1,
+      "status": "complete",
+      "metrics": {
+        "completed": {
+          "n": 1,
+          "mean": 1,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "progress_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "spl": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "coverage_fraction": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "revisit_rate": {
+          "n": 1,
+          "mean": -0.2727272727272727,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "collision_rate": {
+          "n": 1,
+          "mean": -0.0625,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "locate_hit_rate": {
+          "n": 0,
+          "mean": null,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "use_precision": {
+          "n": 1,
+          "mean": 0.0,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        },
+        "cost_usd": {
+          "n": 1,
+          "mean": -0.28856020000000043,
+          "sd": null,
+          "ci95": null,
+          "ci_method": null
+        }
+      },
+      "pairs": [
+        {
+          "seed": 101,
+          "deltas": {
+            "completed": 1,
+            "progress_fraction": null,
+            "spl": null,
+            "coverage_fraction": null,
+            "revisit_rate": -0.2727272727272727,
+            "collision_rate": -0.0625,
+            "locate_hit_rate": null,
+            "use_precision": 0.0,
+            "cost_usd": -0.28856020000000043,
+            "tics_used": 548,
+            "unique_cells_visited": 12,
+            "stuck_warning_count": 0,
+            "visual_cycle_warning_count": 4,
+            "locate_calls": -5,
+            "cache_hit_rate": 0.22828054599264558,
+            "sampled_path_units": 1910.8435982642845
+          }
+        }
+      ],
+      "rejected": []
+    }
+  ],
+  "classifications": [
+    {
+      "scenario": "my_way_home",
+      "classification": null,
+      "status": "insufficient_or_mixed_paired_evidence",
+      "seeds": [
+        {
+          "seed": 101,
+          "classification": null,
+          "status": "missing_valid_level",
+          "causal_claim": false,
+          "pairing_errors": []
+        }
+      ],
+      "interpretation": "Diagnostic information sensitivity of bundled protocols, not a design defect or human-playability claim"
+    }
+  ],
+  "config_preparation": {
+    "fast": {
+      "status": "prepared_no_api_calls",
+      "planned_episodes": 15,
+      "config_sha256": "1aaf1377571f80d6c551216dfa4e5e1d7cc4a4b5e1803aede45d785556753e05",
+      "sum_episode_thresholds_usd": 9.0,
+      "max_total_usd": 9.0,
+      "sum_episode_wall_limits_seconds": 13500.0,
+      "pending_slots": 15
+    },
+    "core": {
+      "status": "prepared_no_api_calls",
+      "planned_episodes": 45,
+      "config_sha256": "1f8bed5e0b7d42c9cf5456e60be4568976d1acbb590020e536121b977bf9e48e",
+      "sum_episode_thresholds_usd": 27.0,
+      "max_total_usd": 27.0,
+      "sum_episode_wall_limits_seconds": 40500.0,
+      "pending_slots": 45
+    }
+  }
+}
