@@ -2,6 +2,8 @@
 
 *Project: Generalist Game QA, Meta Global AI Developer Hackathon. Drafted 4 Nov 2026 from current Meta Model API, ViZDoom, and V-JEPA documentation. Bracketed numbers point to the source list in section 14.*
 
+This document contains the project's foundations and development plan. M0–M2 are merged; the sweep, post-episode QA pipeline, carry-over experiment, and offline extensions remain planned. Measured findings are in [M0](spike-results.md), [M1](m1-results.md), and the [latest M2 navigation report](m2-navigation-review.md). M2 includes one verified L3 completion, while grounding reliability and several acceptance checks remain unresolved.
+
 ## 0. Read this first
 
 ### 0.1 Time
@@ -66,8 +68,8 @@ A CLI-driven research harness in which a Muse Spark multimodal agent plays unfam
 ### 2.2 SAM 3.1 on the Meta Model API
 
 - Model `sam-3.1` over the Responses API. Input is a short noun phrase plus an image or video; output is special-token text with a box and a pixel mask per match. One concept per request; several concepts need several requests \[7\].
-- Python parser: `pip install "meta-sam-parser>=0.1.0"`, import `meta_sam_parser` (Python 3.10+). Stream requests with `stream=True` and pass `metadata={"mask_encoding": "one_bit", "include_confidence": "true"}` (`metadata` values must be strings `"true"`/`"false"`; passing boolean `True` returns HTTP 400) \[7\]. Parse with `parse_image_stream` or `parse_video_stream`, filter records with `records_of_kind`, and decode masks with `decode_mask_to_raster`, `decode_mask_to_rle`, or `decode_mask_to_svg_path` \[8\].
-- Meta's own guidance is to let Muse Spark interpret the scene and decide what to segment, then hand that concept to SAM 3.1 for masks \[7\]. That is exactly the Pilot-to-Grounder split used here.
+- Python parser: the project installs `meta-sam-parser>=0.1.0` through `uv`. Stream requests with `stream=True` and pass `metadata={"mask_encoding": "one_bit", "include_confidence": "true"}` (`metadata` values must be strings `"true"`/`"false"`; passing boolean `True` returns HTTP 400) \[7\]. The installed library exposes `parse_responses_stream(..., image_segmentation_format()).final_result()`; the original `parse_image_stream` name is not available. Decode `one_bit` masks with `decode_mask_to_raster` \[8\]. See the [response investigation](sam-investigation.md).
+- The original design handed a Muse-selected concept directly to SAM \[7\]. Text-guided localization returned no masks on the tested Doom prompts. M2's experimental default instead uses Muse-generated boxes followed by SAM segmentation; direct text-SAM remains selectable. Both modes return uncertain candidates, not verified identities. The [paired evaluation](m2-results.md#grounding-investigation-and-choice) measures the hybrid's misses and false positives.
 
 ### 2.3 V-JEPA
 
@@ -77,7 +79,7 @@ A CLI-driven research harness in which a Muse Spark multimodal agent plays unfam
 
 ### 2.4 ViZDoom
 
-- Current PyPI release is 1.3.2 (which fixed `labels_buffer` bounding-box dimensions). Pre-built wheels need Python 3.10+; Intel macOS wheels exist only up to 1.2.4 \[20\]. Use Python 3.11 on Linux or Apple Silicon.
+- The project pins ViZDoom 1.3.2 (which fixed `labels_buffer` bounding-box dimensions) and Python 3.12 (`>=3.12,<3.13`) in `pyproject.toml`. Setup uses `uv` in WSL/Linux; other platforms have not been validated for this project \[20\].
 - In `PLAYER` mode the engine waits for the agent's action, so model latency does not change game dynamics. `SPECTATOR` mode lets a human play while ViZDoom records states, actions, and tics. `ASYNC_*` modes run at a fixed ticrate \[16\]. Use `PLAYER` for agent runs (and `SPECTATOR` only if recording optional human reference sessions). One tic is 1/35 s \[14\].
 - `make_action(action, tics)` sets the action, advances the tics (repeating the action vector on every processed tic), and returns the reward \[14\].
 - `new_episode(recording_file_path)` records the episode as a `.lmp`; `replay_episode(path)` replays it with all states and rewards available, and it can be re-rendered at another resolution or with the HUD on. Sending a game command or calling `make_action` interrupts playback; advance replays with `advance_action()` \[14\]\[19\]. Calling `new_episode()` again is currently required to flush the recording \[19\].
@@ -104,6 +106,8 @@ Write results to `docs/spike-results.md` as measured values or `could not verify
 
 ## 3. Architecture and Meta model roles
 
+The diagram includes the planned M3 metrics and M4 QA pipeline. The shipped path currently covers the Pilot, experimental grounder, telemetry, inline issue candidates, native recording, and replay.
+
 ```text
 ViZDoom (PLAYER mode) --frames--> Pilot loop (agent/pilot.py) <--tool calls--> Muse Spark 1.3
    |   ^                              |   locate(concept) ----> SAM 3.1 (Grounder)
@@ -118,10 +122,10 @@ ViZDoom (PLAYER mode) --frames--> Pilot loop (agent/pilot.py) <--tool calls--> M
 | Role | Meta model | What it does | Cadence |
 | --- | --- | --- | --- |
 | Pilot | `muse-spark-1.3` | Sees frames, reasons, calls `act`, `locate`, `note`, `report_issue`, `finish`. The only source of game actions. | every decision (1 to 4 API calls) |
-| Grounder | `sam-3.1` | Turns a noun phrase the Pilot chose into boxes and masks. The harness converts them to bearing, apparent size, and confidence, and draws evidence overlays. SAM returns pixel masks and confidence, which Pilot box output alone does not. | on demand via `locate`, and in reports |
-| Reviewer | `muse-spark-1.3` at high effort (optional ablation: `muse-wonder-1.0`, preview, Standard mode only \[1\]) | After each episode reads an mp4 plus the compact event log and returns structured findings with step citations. | once per episode |
+| Grounder | Muse Spark + `sam-3.1` (experimental default); direct `sam-3.1` optional | Muse proposes boxes from the current image and concept; SAM segments those boxes. The harness converts masks to candidate bearings, size, and confidence. Candidate identity remains unverified. | on demand via `locate` |
+| Reviewer (planned M4) | `muse-spark-1.3` at high effort (optional ablation: `muse-wonder-1.0`, preview, Standard mode only \[1\]) | Planned video/log review with structured findings and step citations; not implemented. | planned once per episode |
 | Offline embedder (M5) | V-JEPA 2 ViT-L via Hugging Face | Embeds frame windows to estimate revisits and novelty without engine telemetry, validated against ViZDoom ground truth. | offline only |
 
 Deliberately not used: Muse Image, Muse Voice Transcribe, Muse Spark audio, V-JEPA 2-AC. Muse Glimmer (30B dense, text and image, Apache-2.0, runs locally) and Muse Spark Open are contingency backends only if API access is blocked \[22\].
 
-The engine abstraction: implement `DoomEnv` behind a small `GameEnv` protocol (`observe`, `execute`, `telemetry`, `close`) so another engine could plug in later. Level 1 uses only frames and controls, which is engine-agnostic by design. Do not claim Meta Horizon support.
+The implemented engine boundary exposes a narrow `PlayerSession` (`observe`, `execute`, `episode_finished`, `level`) to the Pilot. Telemetry and lifecycle methods remain on the driver side. Supporting another game engine is future work; Meta Horizon support is not implemented.

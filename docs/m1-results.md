@@ -1,5 +1,7 @@
 # M1 measured validation
 
+This report describes the M1 implementation and its recorded runs. Later grounding, L2/L3 navigation, and replay changes are documented in the [M2 reports](m2-navigation-review.md); the M1 measurements below are unchanged.
+
 M1 implements the pixel-only Muse Spark Pilot, four validated tools (`act`, `note`, `report_issue`, `finish`), bounded guards, eval-only telemetry, native `.lmp` recording, and H.264 replay. SAM is absent from this runtime; independent text-guided grounding remains unverified and belongs to M2. No M2–M5 feature or project specification was changed.
 
 ## Executed episodes

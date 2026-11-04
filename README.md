@@ -18,6 +18,9 @@ Research on autonomous agents that attempt to complete unfamiliar game levels us
 <details>
 <summary><strong>Part II — Research Motivation</strong></summary>
 
+- [The Problem: AI Has a Reputation Problem](#the-problem-ai-has-a-reputation-problem)
+
+<blockquote>
 <details>
 <summary><a href="#1-the-creative-industries-are-rejecting-ai">1. The Creative Industries Are Rejecting AI</a></summary>
 
@@ -35,7 +38,7 @@ Research on autonomous agents that attempt to complete unfamiliar game levels us
 - [2.1. 1666: Amsterdam](#21-1666-amsterdam-production-efficiency-meets-consumer-rejection)
 - [2.2. Larian Studios](#22-larian-studios-even-a-respected-developer-was-forced-to-reconsider)
 - [2.3. Crimson Desert](#23-crimson-desert-generated-assets-become-a-release-problem)
-- [2.4. Consumers can reject the production method](#24-game-studios-are-discovering-that-consumers-can-reject-the-production-method)
+- [2.4. Crowdfunding: consumers can reject AI before funding it](#24-crowdfunding-consumers-can-reject-ai-before-funding-it)
 - [2.5. Epic, Valve, and AI-accelerated development](#25-epic-valve-and-the-cost-of-ai-accelerated-development)
 
 </details>
@@ -59,7 +62,7 @@ Research on autonomous agents that attempt to complete unfamiliar game levels us
 
 </details>
 
-[5. A Better Use of AI: Test Human-Created Games](#5-a-better-use-of-ai-test-human-created-games)
+<a href="#5-a-better-use-of-ai-test-human-created-games">5. A Better Use of AI: Test Human-Created Games</a>
 
 <details>
 <summary><a href="#6-existing-research-benchmarks-ai-on-gameplay-but-does-that-measure-human-playability">6. Existing Research Benchmarks AI on Gameplay. But Does That Measure Human Playability?</a></summary>
@@ -72,8 +75,9 @@ Research on autonomous agents that attempt to complete unfamiliar game levels us
 
 </details>
 
-[7. Research Questions](#7-research-questions)
+<a href="#7-research-questions">7. Research Questions</a>
 
+</blockquote>
 </details>
 
 <details>
@@ -112,18 +116,83 @@ By comparing performance across these conditions, the research aims to distingui
 The longer-term objective is to investigate the feasibility of a configurable **Auto QA** system that developers could use to test game levels, review recorded failures, and identify areas requiring further investigation. Such a system could support games developed in conventional engines as well as emerging creation platforms such as Meta Horizon.
 
 ## Demo
+
 [Watch Demo](URL)
 
 ## Technology Overview
+
 | Component | Technology |
 |---|---|
-| ... | ... |
+| Runtime and setup | Python 3.12, `uv`, locked dependencies; developed in WSL/Linux |
+| Game environment | ViZDoom 1.3.2, headless gameplay with 640×480 RGB observations |
+| Gameplay agent | Meta Muse Spark 1.3 through the Meta Model API; model-selected actions and tool calls |
+| Visual grounding | Meta SAM 3.1; experimental Muse-generated boxes followed by SAM segmentation |
+| API client | Responses API at `https://api.meta.ai/v1`; the `openai` Python package is used only as the client. All runtime AI models are Meta models. |
+| Records and replay | JSON/JSONL telemetry, screenshots, native ViZDoom `.lmp` recordings, and H.264 MP4 export |
+| Validation | `pytest` for integration and information-boundary checks; Ruff for lint and formatting |
 
 ## Key Findings
-...
+
+- **Autonomous completion has been observed:** one L3 `my_way_home` run collected the armor and completed the level in 42 decisions. Model-written map plans, the recorded trajectory, and native replay support this result; repeatable success and a causal benefit from the map remain untested.
+- **Grounding remains experimental:** M0 text-guided SAM returned no masks on 100 Doom prompts. In M2's paired evaluation, Muse-box → SAM hit 10/21 positive cases but also produced 2/7 false positives. A returned mask is a candidate, not a verified object identity.
+- **More guidance did not consistently improve navigation:** the ledger/cycle follow-up still produced no wins; the latest L2 retest cost more and explored fewer coarse cells than its baseline. Repeated local navigation remains a significant failure mode.
+
+See [Results](#results) for the comparisons and links to the experiment reports.
 
 ## Quick Start
-...
+
+Use a WSL/Linux shell with Git and [`uv`](https://docs.astral.sh/uv/getting-started/installation/) installed. From a fresh checkout:
+
+```bash
+git clone https://github.com/Ramsi-K/vizdoom-agent-research.git
+cd vizdoom-agent-research
+uv python install 3.12
+uv sync --locked --python 3.12
+[ -f .env ] || cp .env.example .env
+```
+
+Set `MODEL_API_KEY` in `.env` to your Meta Model API key; the existing `META_MODEL_API_KEY` name is also supported. `.env` and generated runs are ignored by Git. Keep credentials out of committed files.
+
+Check the CLI and run the local tests:
+
+```bash
+uv run --locked autoqa --help
+make test
+make lint
+```
+
+`make test` excludes live API tests. Gameplay commands below make paid Meta API requests. These examples use the M2 retest settings: Muse Spark 1.3, low reasoning effort, seed 101, a 60-decision limit, and a USD 0.60 stop threshold per episode.
+
+```bash
+# L1: blind play
+uv run --locked autoqa run --scenario my_way_home --level 1 --seed 101 \
+  --model muse-spark-1.3 --effort low --max-decisions 60 --max-usd 0.60
+
+# L2: objective/mechanics briefing and grounding-guided navigation
+uv run --locked autoqa run --scenario my_way_home --level 2 --seed 101 \
+  --model muse-spark-1.3 --effort low --max-decisions 60 --max-usd 0.60
+
+# L3: briefing, static map, and explicit map-based planning
+uv run --locked autoqa run --scenario my_way_home --level 3 --seed 101 \
+  --model muse-spark-1.3 --effort low --max-decisions 60 --max-usd 0.60
+```
+
+The default grounding mode is experimental `muse_box_sam`; `--grounding-mode sam_text` selects direct text-guided SAM. The cost threshold is checked after response usage arrives, so a final response can exceed it; unknown charges for timed-out requests are not included in recorded totals.
+
+Each episode creates `runs/<timestamp>_<scenario>_L<level>_s<seed>/`. Set `RUN_DIR` to the directory for the episode you want to replay:
+
+```bash
+RUN_DIR="runs/<timestamp>_my_way_home_L3_s101"
+uv run --locked autoqa replay "$RUN_DIR"
+
+# Export gameplay only to a separate file, preserving the first export
+uv run --locked autoqa replay "$RUN_DIR" \
+  --no-outcome-ending --output-name replay-raw.mp4
+```
+
+Replay writes `replay.mp4` and replay metadata from the native recording, without model calls. Successful full exports include a labeled slow-motion recap and result hold after the recorded gameplay. Runs and videos stay local under `runs/`; they are not included in a fresh clone.
+
+# Part II — Research Motivation
 
 ## The Problem: AI Has a Reputation Problem
 
@@ -454,7 +523,7 @@ The actual *Needle In A Haystack* dispute does not establish that the original c
 
 As AI-generated code becomes more common, these questions become harder to ignore.
 
-## 3.3. AI-assisted coding, game cloning, and platform responsibility
+### 3.3. AI-assisted coding, game cloning, and platform responsibility
 
 AI-assisted programming presents a different question from AI-generated creative content.
 
@@ -802,5 +871,136 @@ Investigate the distinction between agent performance and human playability, usi
 
 ---
 
-*Project overview, implementation, experiments, results, and limitations will be added following development and evaluation.*
+# Part III — Methodology and Experiments
 
+## System Architecture
+
+The system is a Python package and file-based CLI. `autoqa/run.py` connects the ViZDoom environment, Muse Spark Pilot, grounding service, memory, and logging. The Pilot receives an `AgentObservation` containing permitted visual information; evaluation-only engine data is recorded separately.
+
+For each decision, Muse receives the current screenshot, recent visual/action history, its model-written memory, and the information allowed at the selected level. It can call five tools: `act` to execute movement or interaction, `locate` to inspect a visual concept, `note` to update memory, `report_issue` to record a suspected problem, and `finish` to stop. Only `act` advances the game. Each accepted action contains at most four primitives and 70 game tics; invalid requests return errors. The harness does not choose routes or insert gameplay actions.
+
+The shared memory includes a bounded landmark/outcome ledger: what a place looked like, what the agent tried, what it observed afterward, and what remains uncertain. A pixel-based visual-cycle detector warns about repeated views. These warnings prompt reconsideration but do not select a response. L2 and L3 additionally require model-written navigation annotations in the existing memory, recording tentative location/heading, destination, subgoals, evidence, uncertainty, and replanning decisions.
+
+### Grounding and information boundaries
+
+`locate` operates on the current screenshot and a short concept supplied by Muse. The experimental default asks Muse for candidate bounding boxes, then asks SAM to segment those boxes. Returned geometry includes bearings and mask extent, with `identity_verified=false`. Direct text-guided SAM remains available for comparison. Identical concept requests on the same observed frame can reuse a result in L2/L3; bearings from an earlier frame are not silently reused after movement.
+
+Coordinates, actor labels, and level topology are available to offline evaluation, not to the Pilot or runtime grounder. L3's permitted map is rendered once from the initial environment and then frozen; the agent receives no live position marker. Tests cover request contents, level boundaries, and model provenance for executed actions. Implementation details are in [the agent specification](docs/02-agent.md); observed deviations and unresolved checks are recorded in [the M2 report](docs/m2-results.md).
+
+### How QA works so far
+
+During play, Muse can use `report_issue` to record a category, severity, description, confidence, and supporting decision references. Events, screenshots, action intentions, costs, and evaluation telemetry let a developer inspect what was attempted and compare the claim with the native replay. The trajectory investigations used those records to identify repeated visits, ineffective interactions, and exploration plateaus.
+
+These issue records are currently **unverified candidates**: `trace_verification_status` remains `not_run`. Post-episode Reviewer analysis, automated trace verification, causal triage, and HTML QA reports are future work. Successful native replay confirms the recorded gameplay and outcome; it does not establish that a reported difficulty is a game defect.
+
+## Experimental Environment
+
+Episodes run headlessly in ViZDoom's PLAYER mode with 640×480 RGB frames, the HUD, weapon, and crosshair visible, and audio disabled. The Pilot sees the current JPEG plus up to two previous thumbnails. Game time advances through actions rather than during API waits. Each paired episode starts in a fresh engine instance with the same scenario seed; M2 checks confirmed identical initial spawn state across L1/L2/L3.
+
+The principal gameplay experiment is `my_way_home`, where the objective is to navigate to and collect the armor. Grounding evaluation also uses frames from `health_gathering_supreme` and `freedoom2_map01`. The CLI additionally exposes `deadly_corridor_nav`; configuration availability should not be read as completed gameplay validation for every scenario.
+
+Each run keeps a `manifest.json`, `events.jsonl`, `telemetry.jsonl`, screenshots, `memory.json`, and native `episode.lmp`. L3 also saves `plan_l3.png`; grounding artifacts are saved when requested. MP4 exports are reconstructed from the native recording. Compact measurements and provenance are committed under `docs/`, while full recordings, videos, and request traces remain in ignored `runs/`.
+
+## Auto QA Information Levels
+
+| Level | Information and navigation protocol |
+|---|---|
+| **L1 — Blind Play** | Screenshots, controls, visible history, and model-written memory; no objective briefing or map. The latest guided-level navigation changes preserve L1's prompt and tool behavior. |
+| **L2 — Guided Play** | Adds an objective/mechanics briefing. Muse is instructed to use `locate` candidates to select or reject targets, cite actual grounding receipts, and check movement outcomes. Inconclusive localization remains uncertain. |
+| **L3 — Informed Play** | Adds a frozen initial map. Muse must use it for strategic destinations and route/subgoals, maintain a tentative location estimate, and use screenshots for immediate movement and obstacle avoidance. |
+
+Grounding is available as a tool at all three levels. The latest L2/L3 protocols add navigation instructions and memory requirements as well as different information, so their results do not isolate an information-only effect. Telemetry links model-written intentions to subsequent actions but retains `planning_verified=false`; actual planning is assessed separately against behavior and replay.
+
+## Experimental Design
+
+### M0 — API feasibility and calibration
+
+M0 tested the Meta API, tool round trips, SAM response decoding, native recording/replay, and ViZDoom controls before building the gameplay loop. The grounding investigation compared sanitized raw responses with the official parser and used a known-box control to distinguish empty model output from a decoding failure. See [spike results](docs/spike-results.md) and [SAM investigation](docs/sam-investigation.md).
+
+### M1 — End-to-end Pilot
+
+M1 connected real Muse Spark decisions to gameplay, telemetry, native recording, and MP4 replay. Seed-101 L1 episodes tested the complete loop and action provenance, rather than a scripted navigation policy. See [M1 results](docs/m1-results.md).
+
+### M2 — Grounding and navigation experiments
+
+M2 first compared direct text-SAM with Muse-box → SAM on the same 21 positive and seven negative Doom cases. A positive hit required mask IoU ≥ 0.5 against a visible matching actor; a nonempty mask alone did not count. Ground-truth labels were used only for scoring. These are small frame samples, not independent episode-level accuracy estimates.
+
+Real L1/L2/L3 episodes then exposed repeated local navigation. Follow-ups retained a fixed seed and budget while adding the landmark/outcome ledger and visual-cycle warnings, followed by explicit grounding guidance for L2 and map planning for L3. The latest controlled retests used Muse Spark 1.3, low effort, seed 101, a 60-decision maximum, 2,100-tic limit, USD 0.60 threshold, and 900-second wall-clock limit, matching their ledger/cycle baselines. Both retests were recorded, replayed, and audited against model actions.
+
+Exploration was measured using sampled endpoint grid cells, known-cell reentries, repeated poses, goal visibility, and terminal outcomes. Straight-line distances ignore walls; grid cells are a coarse diagnostic, not continuous map coverage. Cost is based on returned API usage, with unknown timeout charges reported separately. Full protocols and definitions are in the [original M2 report](docs/m2-results.md), [ledger retest](docs/m2-ledger-retest.md), and [navigation review](docs/m2-navigation-review.md).
+
+## Results
+
+**M0:** all 100 text-guided SAM requests across 20 Doom frames returned no masks. A separate known-box control decoded a nonempty mask with IoU ≈ 0.925, establishing decoder operation without establishing text-guided localization.
+
+**M1:** real L1 gameplay, action logging, native recording, and readable MP4 replay worked. The two validation runs stopped at the decision or cost limit without completing the level.
+
+**M2 grounding:** direct text-SAM scored 0/21 positive hits; the experimental hybrid scored 10/21, with 2/7 negative false positives. The hybrid hit none of the seven sampled positive Freedoom targets. Grounding remains a source of uncertain candidates, with reliable door/switch identity still unverified. The [paired case data](docs/m2-grounding-cases.csv) preserve both methods' results.
+
+**M2 gameplay:** the initial three-level experiment and the ledger/cycle retests produced no wins. One longer L3 episode also exhausted its budget without completing. The subsequent explicit-navigation retests gave different outcomes:
+
+| Measurement | L2 ledger baseline → guided retest | L3 ledger baseline → map-planning retest |
+|---|---:|---:|
+| Outcome | Decision limit → decision limit | Decision limit → **success** |
+| Decisions / executed acts in retest | 60 / 59 | 42 / 42 |
+| Unique sampled 128-unit cells | 9 → 6 | 14 → 18 |
+| Known-cell reentries / all cell entries | 18/27 → 16/22 | 30/44 → 15/33 |
+| Recorded API cost, USD | 0.36663 → 0.58524 | 0.31053 → 0.29668 |
+
+L2 made five `locate` calls and received two unverified candidate-positive results. Only two of its 59 acts declared grounding as their basis; most used visual navigation after inconclusive or stale grounding. It did not see the goal and regressed on coarse exploration and cost.
+
+L3 wrote map-based destinations and corridor subgoals before seeing the goal, initially mislocalized itself, then traversed the eastern wing toward the southern goal. The native recording reproduces the armor pickup, armor value 100, and terminal reward 0.872 after 1,280 played tics. This is observed map planning followed by successful execution in one episode, not evidence of a reliable success rate or an isolated map benefit.
+
+The winning local run is `runs/20261104T101202.353976Z_my_way_home_L3_s101/`. Its terminal engine clock reset to zero; replay reconstructs elapsed tics from native advances while preserving the original telemetry. All 171 executed primitives across the two latest retests match model requests. Each retest recovered from one API timeout; any charge for those attempts is unknown. See the [navigation review](docs/m2-navigation-review.md), [consolidated evidence](docs/m2-evidence.json), and [model-written intentions](docs/m2-navigation-intentions.csv) for the complete measurements.
+
+---
+
+# Part IV — Discussion and Future Work
+
+## Discussion
+
+The experiments provide partial answers to the [research questions in Section 7](#7-research-questions).
+
+**RQ1 — Can Meta models navigate and complete unfamiliar gameplay scenarios?** One L3 episode completed `my_way_home` through model-selected actions, without a custom reinforcement-learning policy or scripted navigation. Other runs failed within their budgets. This establishes a demonstrated completion, while generalization across seeds and scenarios remains open.
+
+**RQ2 — Can the models recognize and document gameplay failures?** The system records model-written hypotheses and issue candidates alongside actions and screenshots. Offline inspection revealed loops and ineffective interactions, but that researcher diagnosis does not establish the model's issue-detection accuracy. Automated confirmation of reported failures remains unimplemented.
+
+**RQ3 — Does structured feedback improve subsequent attempts?** The within-episode ledger and cycle warnings produced mixed follow-up results. Later explicit navigation coincided with an L3 win and an L2 regression. These changes combined prompts, memory requirements, and stochastic model responses; they do not isolate a feedback benefit. Cross-episode carry-over and Reviewer feedback have not been tested.
+
+**RQ4 — Can the observations contribute to technical game testing?** Native recordings, replay-matched outcomes, action provenance, and trajectory diagnostics provide inspectable evidence beyond a success score. They helped distinguish repeated traversal from sustained exploration and exposed a replay clock assumption at natural completion. The usefulness and accuracy of an automated, actionable QA report still require evaluation.
+
+**RQ5 — How closely do AI difficulties correspond to human difficulties?** This is unanswered. No measured human playtest baseline has been collected. The observed navigation and perception failures cannot establish human difficulty, intentional design friction, or a game defect.
+
+The clearest distinction so far is between providing information and observing its use. Map delivery alone did not establish planning in the earlier L3 runs. The latest run adds model-written route intentions, subsequent traversal, and a verified outcome. Conversely, L2's grounding calls and citations did not translate into improved navigation. Both the intentions and the resulting behavior matter when evaluating the system.
+
+## Limitations
+
+- **Small, evolving experiments:** gameplay comparisons use one paired seed and changing navigation protocols. A multi-seed benchmark, map-withheld ablation, and repeated completion estimate have not been run.
+- **Unreliable semantic grounding:** SAM box segmentation can work when given a suitable region, but direct text localization failed in the tested Doom frames. Muse proposals still miss targets and produce false positives; mask confidence does not verify object identity.
+- **Uncertain localization and progress metrics:** L3's early map position estimates were often wrong. Sampled grid coverage and collision proxies are approximate; navigable-distance/BFS evaluation and a validated Freedoom exit marker remain unresolved.
+- **Incomplete QA validation:** issue candidates lack automated trace verification, causal triage, and human reference measurements. Agent difficulty alone is insufficient evidence of a design problem.
+- **Budget and API variability:** cost thresholds depend on returned usage and may be crossed by a response. Timeout charges are unknown, and caching is not uniform across runs.
+
+## Future Work
+
+### M3 — Multi-scenario experiments and metrics
+
+Not started. Extend evaluation to multiple seeds and scenarios with consistent prompts, settings, budgets, and reproducible progress measurements. This is needed to test whether the observed L3 completion repeats and whether information levels produce consistent differences.
+
+### M4 — Optional QA review and reporting
+
+Not implemented. Add trace verification and evidence-backed reports for issue candidates, then evaluate post-episode review and cross-episode feedback if pursued.
+
+### M5 — Optional extensions
+
+Not implemented. Potential extensions include offline V-JEPA analysis and controlled model/grounding ablations, after the core experiments and QA validation.
+
+## References
+
+The detailed reports retain measurements, protocols, provenance, and relevant technical sources:
+
+- [M0 spike and calibration](docs/spike-results.md) and [SAM response investigation](docs/sam-investigation.md).
+- [M1 Pilot, telemetry, and replay results](docs/m1-results.md).
+- [M2 grounding and initial gameplay](docs/m2-results.md), [ledger/cycle follow-up](docs/m2-ledger-retest.md), and [explicit navigation review](docs/m2-navigation-review.md).
+- [Consolidated M2 evidence](docs/m2-evidence.json), [paired grounding cases](docs/m2-grounding-cases.csv), and [navigation intentions](docs/m2-navigation-intentions.csv).
+- Technical specifications: [foundations](docs/01-foundations.md), [agent](docs/02-agent.md), [experiments](docs/03-experiments.md), and [implementation](docs/04-implementation.md). These include planned work; the results above describe what has actually been implemented and tested.
