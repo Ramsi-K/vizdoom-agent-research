@@ -19,6 +19,24 @@ from autoqa.prompts.builder import prompt_hash
 from autoqa.secrets import model_key
 
 
+def experiment_metadata(config, previous, experiment):
+    metadata = dict(experiment or {})
+    if set(metadata) - {"evaluation_group", "pair_id", "attempt"}:
+        raise ValueError("Unknown experiment metadata")
+    if previous:
+        if metadata.get("evaluation_group", "carryover") != "carryover":
+            raise ValueError("Feedback-informed runs cannot be ordinary benchmarks")
+        metadata.setdefault("evaluation_group", "carryover")
+        metadata.setdefault("pair_id", "feedback_from_" + previous["source_run_id"])
+        metadata.setdefault("attempt", 2)
+    if metadata.get("evaluation_group") == "carryover":
+        if not metadata.get("pair_id") or metadata.get("attempt") not in (1, 2):
+            raise ValueError("Carry-over requires an explicit pair and attempt")
+        if bool(previous) != (metadata["attempt"] == 2):
+            raise ValueError("Only Attempt 2 may receive a previous-attempt brief")
+    return metadata
+
+
 def run_episode(
     config,
     *,
@@ -38,6 +56,7 @@ def run_episode(
             config.seed,
         ):
             raise ValueError("Carry-over requires identical scenario, level and seed")
+    experiment = experiment_metadata(config, previous, experiment)
     key = model_key(root)
     calibration_path = root / "configs/calibration.json"
     calibration = json.loads(calibration_path.read_text())
@@ -101,8 +120,6 @@ def run_episode(
             control_prompt_sha256=digest(root / "prompts/combat_controls_v1.md"),
         )
     if experiment:
-        if set(experiment) - {"evaluation_group", "pair_id", "attempt"}:
-            raise ValueError("Unknown experiment metadata")
         manifest.update(experiment)
     if previous:
         manifest["carryover"] = {k: v for k, v in previous.items() if k != "brief"}

@@ -438,3 +438,40 @@ def test_partial_replay_cannot_reconstruct_terminal_clock(tmp_path):
     write_json(p / "replay.json", data)
     assert Trace(p).tic(0) == 150
     assert Trace(p).tic(5) is None
+
+
+def test_cross_level_triage_excludes_feedback_informed_comparisons(tmp_path, monkeypatch):
+    import autoqa.qa.verify as module
+    from autoqa.qa.trace import Trace
+
+    p = fixture_run(tmp_path, category="UNCLEAR_OBJECTIVE")
+    trace = Trace(p)
+    trace.manifest["level"] = 1
+    issue = module.normalize(
+        trace,
+        dict(
+            category="UNCLEAR_OBJECTIVE",
+            severity="low",
+            summary="unclear",
+            evidence_steps=[0],
+            confidence=0.7,
+        ),
+        1,
+    )
+    issue.tic_range = [10, 45]
+    issue.trace_verification_status = "behavior_confirmed"
+    monkeypatch.setattr(module, "pairing_errors", lambda *args: [])
+    comparisons = [
+        dict(
+            scenario_id="my_way_home",
+            seed=101,
+            level=level,
+            outcome="success",
+            evaluation_group="carryover",
+        )
+        for level in (2, 3)
+    ]
+    assert module.triage(trace, issue, comparisons) is None
+    for row in comparisons:
+        row.pop("evaluation_group")
+    assert module.triage(trace, issue, comparisons) == "CANDIDATE_SIGNPOSTING_OR_CONVENTION_GAP"

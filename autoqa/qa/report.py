@@ -342,6 +342,7 @@ def generate_report(
         for t in traces
         if not t.manifest.get("is_fault_probe")
         and t.manifest.get("evaluation_group") != "carryover"
+        and not t.manifest.get("carryover")
     ]
     comparison = None
     comparison_error = None

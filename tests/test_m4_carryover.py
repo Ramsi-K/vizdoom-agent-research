@@ -175,3 +175,27 @@ def test_feedback_injection_preserves_prefix_images_and_fresh_memory(observation
     assert "Observations from Your Previous Attempt" in warm[-1]["content"][0]["text"]
     assert warm[-1]["content"][1:] == cold[-1]["content"][1:]
     sanitize_request(warm, observation, level=2)
+
+
+def test_one_off_feedback_run_is_excluded_from_ordinary_benchmarks():
+    from autoqa.config import RunConfig
+    from autoqa.run import experiment_metadata
+
+    assert experiment_metadata(RunConfig(), None, None) == {}
+    metadata = experiment_metadata(RunConfig(), dict(source_run_id="prior"), None)
+    assert metadata == dict(evaluation_group="carryover", attempt=2, pair_id="feedback_from_prior")
+    with pytest.raises(ValueError, match="ordinary"):
+        experiment_metadata(
+            RunConfig(), dict(source_run_id="prior"), dict(evaluation_group="ordinary")
+        )
+
+
+def test_ordinary_aggregator_rejects_feedback_cohorts(tmp_path):
+    from test_metrics import change_manifest, recorded_run
+
+    from autoqa.eval.aggregate import summarize
+
+    p = recorded_run(tmp_path)
+    change_manifest(p, carryover=dict(source_run_id="prior"))
+    with pytest.raises(ValueError, match="RQ3"):
+        summarize([p])

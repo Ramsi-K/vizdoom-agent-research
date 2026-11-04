@@ -446,6 +446,10 @@ def triage(trace, issue, comparison_manifests):
             other.get("scenario_id") == m.get("scenario_id")
             and other.get("seed") == m.get("seed")
             and not other.get("is_fault_probe")
+            and other.get("evaluation_group") != "carryover"
+            and not other.get("carryover")
+            and m.get("evaluation_group") != "carryover"
+            and not m.get("carryover")
             and not pairing_errors(m, other)
         ):
             valid.append(other)
