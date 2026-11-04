@@ -1,0 +1,760 @@
+{
+  "kind": "M3.5 authorized Corridor L3/high demo campaign; two original recorded episodes",
+  "approved_total_recorded_usd": 3.0,
+  "known_recorded_usd": 0.19940135,
+  "status": "objective_complete_no_further_paid_calls",
+  "offline_validation": {
+    "passed": 149,
+    "live_deselected": 4,
+    "seconds": 13.37,
+    "lint": "passed",
+    "format": "passed",
+    "detached_sigterm_flush_and_replay": "passed in offline native fixture"
+  },
+  "episodes": [
+    {
+      "run_id": "20261104T203534.300019Z_deadly_corridor_combat_L3_s101",
+      "scenario": "deadly_corridor_combat",
+      "level": 3,
+      "seed": 101,
+      "model": "muse-spark-1.3",
+      "effort": "high",
+      "config": {
+        "scenario": "deadly_corridor_combat",
+        "level": 3,
+        "seed": 101,
+        "model": "muse-spark-1.3",
+        "effort": "high",
+        "max_decisions": 120,
+        "max_tics": 2100,
+        "max_usd": 0.75,
+        "wall_seconds": 1200.0,
+        "request_timeout": 90.0,
+        "max_output_tokens": 6000,
+        "grounding_mode": "muse_box_sam"
+      },
+      "outcome": "player_dead",
+      "decisions": 15,
+      "executed_acts": 15,
+      "combat_final": {
+        "kills": 5.0,
+        "items": 0.0,
+        "hits": 4.0,
+        "damage_dealt": 30.0,
+        "damage_taken": 126.0,
+        "health": -26.0,
+        "armor": 0.0,
+        "selected_weapon": 2.0,
+        "selected_weapon_ammo": 3.0
+      },
+      "peak_observed_kills": 5.0,
+      "peak_observed_damage_dealt": 30.0,
+      "primitives": 27,
+      "model_matched_primitives": 27,
+      "all_primitives_match_model": true,
+      "firing_primitives": 21,
+      "requested_firing_tics": 328,
+      "compound_firing_primitives": 9,
+      "primitive_counts": {
+        "attack": 12,
+        "turn_left": 5,
+        "turn_right": 4,
+        "forward": 6
+      },
+      "ledger_updates": 13,
+      "navigation_updates": 12,
+      "locate_calls": 0,
+      "grounding_model_calls": 0,
+      "grounding_cost_usd": 0.0,
+      "recorded_cost_usd": 0.1661167,
+      "api_errors": [],
+      "grounding_errors": 0,
+      "rejected_tool_batches": 0,
+      "navigation_rejections": 0,
+      "replay_verified": true,
+      "gameplay_frames": 381,
+      "played_tics": 381,
+      "video_sha256": "02c1473044e3f791acd5dbc3ceaecd9d987410e0bcc880fe6b33f1d37cb4f9f5",
+      "artifact_sha256": {
+        "manifest.json": "c301105048beb0b14cb05560151aad305e2c8915b4dd8253e7d57964f9196646",
+        "events.jsonl": "748e87bfe167d1584b9b2c743648df263a1a33de89fdc9f547e1f9a7e7487f48",
+        "telemetry.jsonl": "0c3c23f48c017e4262b3d8262712542bfab23dcd81ec5557611dcbbe5e600b53",
+        "episode.lmp": "089cb5a752fe607bf48db48d3f48eb5badaa19680b0871fcb9374138a8ac247d",
+        "replay.json": "6e6a19d8aa3e0cf8775f2162dfc8440e5ef620b8c70119439050e2afec6d02fe",
+        "replay.mp4": "02c1473044e3f791acd5dbc3ceaecd9d987410e0bcc880fe6b33f1d37cb4f9f5",
+        "memory.json": "9687e4c7fff249830cc94c69bef372e3f686c6395b4e44baa73deca2bcb18f64"
+      },
+      "limits": [
+        "Requested firing tics may include an unexecuted tail at natural termination; not a shot count",
+        "SAM candidates do not verify identity; absence of locate calls is not a grounding failure",
+        "Counts are recorded engine events, not QA verdicts or reliable performance estimates",
+        "Recorded spending excludes unknown charges for failed or interrupted requests"
+      ],
+      "source_commit": "9da9f92d2da1c9c869d3bcb36c1f695f98a48b3d",
+      "prompt_sha256": "ba692c10960396c7fa7641cca10df3e1990b160a0679471514ffc8709170e8b6",
+      "briefing_sha256": "9b39b25aea505348878ba45df7f61809ae59dd76549a545a38e0fa39c2167a8b",
+      "control_prompt_sha256": "c8ca7f42b61a2178643aa7a3aa25cf7f4cbb38dcf1c9fb90221d9501184b85a4",
+      "map_sha256": "a8007cf05360f10ba6495dac682514238954b097cb965b13ae8fc99f54f05e75",
+      "initial_frame_sha256": "cb66ce8950b3b5487b8c85b6a01a44c00e999a70d799b9e949036b9ce12b8d49",
+      "initial_navigation": {
+        "event": "navigation_update",
+        "decision_idx": 0,
+        "source": "model_note",
+        "at": 0,
+        "basis": "map",
+        "location": "tentative west start S facing east, not verified",
+        "heading": "east per blue arrow; uncertain",
+        "destination": "G east end armor goal",
+        "subgoals": [
+          "advance east through west straight",
+          "pass middle bulges",
+          "reach east goal"
+        ],
+        "grounding_refs": [],
+        "uncertainty": "start heading unverified, enemy positions unknown on map",
+        "replan": "initial map route east along corridor",
+        "next_check": "first widening/bulge or continued straight walls",
+        "grounding_evidence": {},
+        "planning_verified": false
+      },
+      "all_navigation_bases": [
+        "map"
+      ],
+      "audit_summary": {
+        "run_id": "20261104T203534.300019Z_deadly_corridor_combat_L3_s101",
+        "recording_provenance": "original_finalized_native",
+        "outcome": "player_dead",
+        "exact_observation_frames": 15,
+        "ammo_decrement_events": 23,
+        "ammo_units_spent": 23.0,
+        "damaging_ammo_events": 4,
+        "nondamaging_ammo_events": 19,
+        "ammo_events_without_enemy_sprite": 8,
+        "ammo_events_horizontal_bbox_overlap": 2,
+        "dry_pistol_attack_tics": 0,
+        "attack_tics": 328,
+        "masks": 0,
+        "mask_enemy_iou_ge_half": 0,
+        "masks_without_object_overlap": 0,
+        "cells": 10,
+        "cell_entries": 11,
+        "reentries": 1,
+        "translation_primitives": 6,
+        "collision_proxy_count": 0,
+        "use_primitives": 0,
+        "geometry_changing_use_proxy": 0,
+        "visual_cycle_warnings": 1,
+        "kills": 5.0,
+        "recorded_usd": 0.1661167
+      },
+      "full_local_audit_sha256": "3b0c0837a1c1dbd7f6625e8f2521f48132ec62d62a4518a43d07bab3d86c46ca",
+      "executed_model_acts": [
+        {
+          "decision": 0,
+          "moves": [
+            {
+              "type": "attack",
+              "amount": 20,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Shoot forward enemies blocking east route, hold position then advance east."
+        },
+        {
+          "decision": 1,
+          "moves": [
+            {
+              "type": "turn_left",
+              "amount": 10,
+              "fire": true
+            },
+            {
+              "type": "attack",
+              "amount": 20,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Hold east corridor subgoal; shoot flanking enemies to clear path east."
+        },
+        {
+          "decision": 2,
+          "moves": [
+            {
+              "type": "attack",
+              "amount": 25,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Hold east corridor subgoal; fire at center enemy to clear path east."
+        },
+        {
+          "decision": 3,
+          "moves": [
+            {
+              "type": "turn_right",
+              "amount": 12,
+              "fire": true
+            },
+            {
+              "type": "attack",
+              "amount": 20,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Hold east corridor subgoal; turn to right enemy and fire to clear path east."
+        },
+        {
+          "decision": 4,
+          "moves": [
+            {
+              "type": "turn_right",
+              "amount": 15,
+              "fire": true
+            },
+            {
+              "type": "attack",
+              "amount": 20,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Hold east-to-goal subgoal; turn to right enemy and fire to finish it before advancing east."
+        },
+        {
+          "decision": 5,
+          "moves": [
+            {
+              "type": "attack",
+              "amount": 25,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Hold east-to-goal subgoal; fire center to confirm kill before advancing east."
+        },
+        {
+          "decision": 6,
+          "moves": [
+            {
+              "type": "forward",
+              "amount": 20,
+              "fire": true
+            },
+            {
+              "type": "attack",
+              "amount": 15,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Hold east-to-goal subgoal; advance east while firing to clear close enemy."
+        },
+        {
+          "decision": 7,
+          "moves": [
+            {
+              "type": "forward",
+              "amount": 30,
+              "fire": true
+            },
+            {
+              "type": "forward",
+              "amount": 20,
+              "fire": true
+            }
+          ],
+          "run": true,
+          "intent": "Hold east-to-goal subgoal; advance east down straight corridor firing to stay clear."
+        },
+        {
+          "decision": 8,
+          "moves": [
+            {
+              "type": "turn_left",
+              "amount": 10,
+              "fire": false
+            },
+            {
+              "type": "forward",
+              "amount": 25,
+              "fire": false
+            }
+          ],
+          "run": false,
+          "intent": "Recenter from right wall then advance east toward goal straight corridor."
+        },
+        {
+          "decision": 9,
+          "moves": [
+            {
+              "type": "turn_left",
+              "amount": 8,
+              "fire": true
+            },
+            {
+              "type": "attack",
+              "amount": 18,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Face left heavy to clear east-to-goal path, fire burst while holding corridor center."
+        },
+        {
+          "decision": 10,
+          "moves": [
+            {
+              "type": "turn_right",
+              "amount": 12,
+              "fire": false
+            },
+            {
+              "type": "attack",
+              "amount": 20,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Turn to right flanker to clear east-to-goal path, fire burst holding corridor."
+        },
+        {
+          "decision": 11,
+          "moves": [
+            {
+              "type": "turn_left",
+              "amount": 25,
+              "fire": false
+            },
+            {
+              "type": "attack",
+              "amount": 15,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Hold east-goal subgoal; turn to left close enemy and fire to drop flanker before pushing east."
+        },
+        {
+          "decision": 12,
+          "moves": [
+            {
+              "type": "turn_left",
+              "amount": 12,
+              "fire": true
+            },
+            {
+              "type": "attack",
+              "amount": 20,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Hold east-goal subgoal; face left close enemy and fire to drop it."
+        },
+        {
+          "decision": 13,
+          "moves": [
+            {
+              "type": "attack",
+              "amount": 20,
+              "fire": true
+            },
+            {
+              "type": "forward",
+              "amount": 15,
+              "fire": true
+            }
+          ],
+          "run": false,
+          "intent": "Hold east-goal subgoal; finish close front enemy then push east toward armor."
+        },
+        {
+          "decision": 14,
+          "moves": [
+            {
+              "type": "turn_right",
+              "amount": 12,
+              "fire": false
+            },
+            {
+              "type": "forward",
+              "amount": 30,
+              "fire": false
+            }
+          ],
+          "run": true,
+          "intent": "Face east down corridor to armor goal, recenter off wall and push east."
+        }
+      ],
+      "original_native_recording_available": true,
+      "source_video_path": "runs/20261104T203534.300019Z_deadly_corridor_combat_L3_s101/replay.mp4"
+    },
+    {
+      "run_id": "20261104T204301.811805Z_deadly_corridor_combat_L3_s101",
+      "scenario": "deadly_corridor_combat",
+      "level": 3,
+      "seed": 101,
+      "model": "muse-spark-1.3",
+      "effort": "high",
+      "config": {
+        "scenario": "deadly_corridor_combat",
+        "level": 3,
+        "seed": 101,
+        "model": "muse-spark-1.3",
+        "effort": "high",
+        "max_decisions": 120,
+        "max_tics": 2100,
+        "max_usd": 0.75,
+        "wall_seconds": 1200.0,
+        "request_timeout": 90.0,
+        "max_output_tokens": 6000,
+        "grounding_mode": "muse_box_sam"
+      },
+      "outcome": "success",
+      "decisions": 3,
+      "executed_acts": 3,
+      "combat_final": {
+        "kills": 1.0,
+        "items": 0.0,
+        "hits": 0.0,
+        "damage_dealt": 0.0,
+        "damage_taken": 60.0,
+        "health": 40.0,
+        "armor": 100.0,
+        "selected_weapon": 2.0,
+        "selected_weapon_ammo": 21.0
+      },
+      "peak_observed_kills": 1.0,
+      "peak_observed_damage_dealt": 0.0,
+      "primitives": 5,
+      "model_matched_primitives": 5,
+      "all_primitives_match_model": true,
+      "firing_primitives": 5,
+      "requested_firing_tics": 90,
+      "compound_firing_primitives": 5,
+      "primitive_counts": {
+        "forward": 5
+      },
+      "ledger_updates": 3,
+      "navigation_updates": 3,
+      "locate_calls": 0,
+      "grounding_model_calls": 0,
+      "grounding_cost_usd": 0.0,
+      "recorded_cost_usd": 0.03328465,
+      "api_errors": [
+        {
+          "attempt": 1,
+          "http_status": null,
+          "error_type": "APIConnectionError",
+          "retry": true
+        }
+      ],
+      "grounding_errors": 0,
+      "rejected_tool_batches": 0,
+      "navigation_rejections": 0,
+      "replay_verified": true,
+      "gameplay_frames": 90,
+      "played_tics": 90,
+      "video_sha256": "a1f9fbb983fe7a830c86eae877fa122a9e56483236e425dc8bf5ec0f8e63b43a",
+      "artifact_sha256": {
+        "manifest.json": "19c5be043cdb32759acdcd01786683d5f2a32ba1cb6c67e0e1c89abd488a2042",
+        "events.jsonl": "3cd14151d625fb07478473cb6f5d50755826149df8a257c76b2ec07f2a67a554",
+        "telemetry.jsonl": "0a31e5774f8b4e2230146bce6190a9d647a6c6113a248135477d54bb1e6e64a8",
+        "episode.lmp": "4c964af1fd65bb2ec8bcbd88c50ff1f08063dc529084096411a852fa8ac24ec8",
+        "replay.json": "144089edfc0469c1da65b061bfae94362b69a745f4e0d757de3a1d49b80cb346",
+        "replay.mp4": "a1f9fbb983fe7a830c86eae877fa122a9e56483236e425dc8bf5ec0f8e63b43a",
+        "memory.json": "affa9006524fc23eec437e8cbec13c65e31e29f9bc6cf7ddf33442af7beedc16"
+      },
+      "limits": [
+        "Requested firing tics may include an unexecuted tail at natural termination; not a shot count",
+        "SAM candidates do not verify identity; absence of locate calls is not a grounding failure",
+        "Counts are recorded engine events, not QA verdicts or reliable performance estimates",
+        "Recorded spending excludes unknown charges for failed or interrupted requests"
+      ],
+      "source_commit": "a1f63782ed119bb759880c10580dcc592f5b5b08",
+      "prompt_sha256": "d4f7b70b8d6d5357027e73e68cae61059a02795e6a1d951ac6ba512775f2b670",
+      "briefing_sha256": "7101252183139dedaf78b20a6b2fb039e1c4d967a8f46a9038aa00abd65a3dd3",
+      "control_prompt_sha256": "c8ca7f42b61a2178643aa7a3aa25cf7f4cbb38dcf1c9fb90221d9501184b85a4",
+      "map_sha256": "a8007cf05360f10ba6495dac682514238954b097cb965b13ae8fc99f54f05e75",
+      "initial_frame_sha256": "cb66ce8950b3b5487b8c85b6a01a44c00e999a70d799b9e949036b9ce12b8d49",
+      "initial_navigation": {
+        "event": "navigation_update",
+        "decision_idx": 0,
+        "source": "model_note",
+        "at": 0,
+        "basis": "map",
+        "location": "tentative west end near S facing east, not verified",
+        "heading": "east per start arrow; uncertain",
+        "destination": "G east end armor",
+        "subgoals": [
+          "traverse straight corridor east past bulges",
+          "reach east end goal"
+        ],
+        "grounding_refs": [],
+        "uncertainty": "start correspondence unverified, enemy block unknown",
+        "replan": "initial map route straight east",
+        "next_check": "mid-corridor bulge / far green armor closer",
+        "grounding_evidence": {},
+        "planning_verified": false
+      },
+      "all_navigation_bases": [
+        "map"
+      ],
+      "audit_summary": {
+        "run_id": "20261104T204301.811805Z_deadly_corridor_combat_L3_s101",
+        "recording_provenance": "original_finalized_native",
+        "outcome": "success",
+        "exact_observation_frames": 3,
+        "ammo_decrement_events": 5,
+        "ammo_units_spent": 5.0,
+        "damaging_ammo_events": 0,
+        "nondamaging_ammo_events": 5,
+        "ammo_events_without_enemy_sprite": 1,
+        "ammo_events_horizontal_bbox_overlap": 0,
+        "dry_pistol_attack_tics": 0,
+        "attack_tics": 90,
+        "masks": 0,
+        "mask_enemy_iou_ge_half": 0,
+        "masks_without_object_overlap": 0,
+        "cells": 5,
+        "cell_entries": 5,
+        "reentries": 0,
+        "translation_primitives": 5,
+        "collision_proxy_count": 0,
+        "use_primitives": 0,
+        "geometry_changing_use_proxy": 0,
+        "visual_cycle_warnings": 0,
+        "kills": 1.0,
+        "recorded_usd": 0.03328465
+      },
+      "full_local_audit_sha256": "82cb7298a747632f492dd99ddd205b1cac6379ae773f0794cdefd10314a1fabe",
+      "executed_model_acts": [
+        {
+          "decision": 0,
+          "moves": [
+            {
+              "type": "forward",
+              "amount": 20,
+              "fire": true
+            },
+            {
+              "type": "forward",
+              "amount": 15,
+              "fire": true
+            }
+          ],
+          "run": true,
+          "intent": "Push east down straight corridor toward far armor, firing at blocking enemies"
+        },
+        {
+          "decision": 1,
+          "moves": [
+            {
+              "type": "forward",
+              "amount": 20,
+              "fire": true
+            },
+            {
+              "type": "forward",
+              "amount": 15,
+              "fire": true
+            }
+          ],
+          "run": true,
+          "intent": "Continue east along straight corridor toward armor, firing at enemies ahead"
+        },
+        {
+          "decision": 2,
+          "moves": [
+            {
+              "type": "forward",
+              "amount": 20,
+              "fire": true
+            },
+            {
+              "type": "forward",
+              "amount": 15,
+              "fire": true
+            }
+          ],
+          "run": true,
+          "intent": "Push east down straight corridor toward armor, firing through blocking enemies"
+        }
+      ],
+      "original_native_recording_available": true,
+      "source_video_path": "runs/20261104T204301.811805Z_deadly_corridor_combat_L3_s101/replay.mp4"
+    }
+  ],
+  "hud_misread_evidence": [
+    {
+      "decision": 13,
+      "native_health_at_observation": 4,
+      "model_note": "NAV {\"at\":13,\"basis\":\"map\",\"location\":\"mid corridor hugging left wall facing east\",\"heading\":\"east down straight corridor\",\"destination\":\"G east armor goal\",\"subgoals\":[\"finish close front enemy\",\"recenter off left wall\",\"push east to goal\"],\"grounding_refs\":[],\"uncertainty\":\"exact east progress unknown, ammo7 health41\",\"replan\":\"close enemy now front-center, stay on it then advance\",\"next_check\":\"front enemy down, center lane clear\"} d11: turned L25+shot15 | obs both flankers alive h34 a8 green item distant | next kill left. d12: turned L12+shot20 | obs muzzle flash front-center enemy, blood on left wall, h41 a7 | next finish front then push east.",
+      "source_frame_sha256": "2db812a19ddac04b3bd9e497a0e1bafa8b378f631e0278c8cbc5f0421a9845a8"
+    },
+    {
+      "decision": 14,
+      "native_health_at_observation": 4,
+      "model_note": "NAV {\"at\":14,\"basis\":\"map\",\"location\":\"mid corridor hugging left wall facing east\",\"heading\":\"east down straight corridor\",\"destination\":\"G east armor goal\",\"subgoals\":[\"recenter off left wall\",\"push east to goal\",\"conserve ammo\"],\"grounding_refs\":[],\"uncertainty\":\"exact east progress unknown, ammo4 hp42\",\"replan\":\"no close enemy visible, turn right to center then advance\",\"next_check\":\"center lane, distant green object identity\"} d12: turn L12+shot20 | obs muzzle front enemy blood left h41 a7 | next finish front. d13: shot20+fwd15 | obs ammo4 h42 left-wall puff miss corridor ahead clear | next recenter push east.",
+      "source_frame_sha256": "aff68596c6b1b0f498c2724eb54c377680c169eab3657c6ffe7c6bb146459da4"
+    }
+  ],
+  "comparison": {
+    "same_runtime_configuration": true,
+    "same_initial_frame": true,
+    "same_static_map": true,
+    "same_controls": true,
+    "changed_briefing": "Two added instructions: distinguish HUD percent glyphs from digits and clarify that eliminating all enemies is not the objective",
+    "causal_limit": "Fresh stochastic model trajectories; one failure and one success do not isolate a causal prompt or reasoning benefit"
+  },
+  "presentation": [
+    {
+      "file": "results/m35-corridor-demo/full-level-demo.mp4",
+      "sha256": "91aa993b013a4651d28ab86dd0cae52aa9a26777ca17029f38accd0249246e1d",
+      "frames": 445,
+      "fps": 35,
+      "duration_seconds": 12.714285714285714,
+      "shape": [
+        1080,
+        1920,
+        3
+      ],
+      "segments": [
+        {
+          "kind": "title_card",
+          "label": "2-second title card; held captured frame",
+          "output_first_frame": 0,
+          "output_end_frame_exclusive": 70
+        },
+        {
+          "kind": "complete_original_gameplay",
+          "run_id": "20261104T204301.811805Z_deadly_corridor_combat_L3_s101",
+          "source_first_frame": 0,
+          "source_end_frame_exclusive": 90,
+          "speed": 1,
+          "output_first_frame": 70,
+          "output_end_frame_exclusive": 160
+        },
+        {
+          "kind": "labelled_slow_replay",
+          "run_id": "20261104T204301.811805Z_deadly_corridor_combat_L3_s101",
+          "source_first_frame": 0,
+          "source_end_frame_exclusive": 90,
+          "speed": 0.5,
+          "output_first_frame": 160,
+          "output_end_frame_exclusive": 340
+        },
+        {
+          "kind": "result_card",
+          "label": "Verified native result; held captured approach frame, not post-win gameplay",
+          "output_first_frame": 340,
+          "output_end_frame_exclusive": 445
+        }
+      ],
+      "sources": {
+        "pilot": {
+          "run_id": "20261104T203534.300019Z_deadly_corridor_combat_L3_s101",
+          "native_video_sha256": "02c1473044e3f791acd5dbc3ceaecd9d987410e0bcc880fe6b33f1d37cb4f9f5",
+          "gameplay_frames": 381,
+          "replay_verified": true
+        },
+        "winner": {
+          "run_id": "20261104T204301.811805Z_deadly_corridor_combat_L3_s101",
+          "native_video_sha256": "a1f9fbb983fe7a830c86eae877fa122a9e56483236e425dc8bf5ec0f8e63b43a",
+          "gameplay_frames": 90,
+          "replay_verified": true
+        }
+      },
+      "interpretation": "Original full gameplay intervals preserved in order. Map and model-written intentions are viewer context. Titles, labelled repeats and result holds are presentation, not added gameplay. Winner damage counter is zero; no accurate-shooting claim."
+    },
+    {
+      "file": "results/m35-corridor-demo/combat-and-completion-showcase.mp4",
+      "sha256": "00036f2aac79fa6e32afcf6122b8b6abb0384d035de4b22dab18f986c608561d",
+      "frames": 871,
+      "fps": 35,
+      "duration_seconds": 24.885714285714286,
+      "shape": [
+        1080,
+        1920,
+        3
+      ],
+      "segments": [
+        {
+          "kind": "title_card",
+          "label": "2-second title card; held captured frame",
+          "output_first_frame": 0,
+          "output_end_frame_exclusive": 70
+        },
+        {
+          "kind": "complete_original_gameplay",
+          "run_id": "20261104T203534.300019Z_deadly_corridor_combat_L3_s101",
+          "source_first_frame": 0,
+          "source_end_frame_exclusive": 381,
+          "speed": 1,
+          "output_first_frame": 70,
+          "output_end_frame_exclusive": 451
+        },
+        {
+          "kind": "transition_card",
+          "label": "Distinct follow-up episode",
+          "output_first_frame": 451,
+          "output_end_frame_exclusive": 496
+        },
+        {
+          "kind": "complete_original_gameplay",
+          "run_id": "20261104T204301.811805Z_deadly_corridor_combat_L3_s101",
+          "source_first_frame": 0,
+          "source_end_frame_exclusive": 90,
+          "speed": 1,
+          "output_first_frame": 496,
+          "output_end_frame_exclusive": 586
+        },
+        {
+          "kind": "labelled_slow_replay",
+          "run_id": "20261104T204301.811805Z_deadly_corridor_combat_L3_s101",
+          "source_first_frame": 0,
+          "source_end_frame_exclusive": 90,
+          "speed": 0.5,
+          "output_first_frame": 586,
+          "output_end_frame_exclusive": 766
+        },
+        {
+          "kind": "result_card",
+          "label": "Verified native result; held captured approach frame, not post-win gameplay",
+          "output_first_frame": 766,
+          "output_end_frame_exclusive": 871
+        }
+      ],
+      "sources": {
+        "pilot": {
+          "run_id": "20261104T203534.300019Z_deadly_corridor_combat_L3_s101",
+          "native_video_sha256": "02c1473044e3f791acd5dbc3ceaecd9d987410e0bcc880fe6b33f1d37cb4f9f5",
+          "gameplay_frames": 381,
+          "replay_verified": true
+        },
+        "winner": {
+          "run_id": "20261104T204301.811805Z_deadly_corridor_combat_L3_s101",
+          "native_video_sha256": "a1f9fbb983fe7a830c86eae877fa122a9e56483236e425dc8bf5ec0f8e63b43a",
+          "gameplay_frames": 90,
+          "replay_verified": true
+        }
+      },
+      "interpretation": "Original full gameplay intervals preserved in order. Map and model-written intentions are viewer context. Titles, labelled repeats and result holds are presentation, not added gameplay. Winner damage counter is zero; no accurate-shooting claim."
+    }
+  ],
+  "audio": {
+    "status": "not_exported",
+    "reason": "Native replay audio buffers remained silent in two offline checks; no synthetic sound effects added"
+  },
+  "limitations": [
+    "Winner completes the compact armor-objective scenario, not a Freedoom campaign map",
+    "Winner has five observed discharges and zero hits/damage; native kill counter 1 must not be attributed to agent shooting",
+    "Both episodes used zero locate calls; no new SAM evidence or grounding-quality claim",
+    "Map-oriented model notes and successful traversal do not prove a causal map-planning benefit",
+    "Presentation contains clearly labelled repeated footage/result holds; native gameplay lasts 2.571429 seconds"
+  ]
+}

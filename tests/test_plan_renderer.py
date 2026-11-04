@@ -75,3 +75,19 @@ def test_freedoom_plan_records_unknown_exit_instead_of_inventing_goal(tmp_path):
         assert not np.any(np.all(pixels == (0, 230, 118), axis=2))
     finally:
         env.close()
+
+
+def test_combat_corridor_l3_marks_the_static_armor_goal(tmp_path):
+    (tmp_path / "frames").mkdir()
+    cal = json.loads(Path("configs/calibration.json").read_text())["measured"]
+    env = DoomEnv(
+        RunConfig(scenario="deadly_corridor_combat", level=3, max_tics=5, effort="high"),
+        tmp_path,
+        cal,
+    )
+    try:
+        pixels = np.array(Image.open(io.BytesIO(env.observe().plan_png)))
+        assert np.any(np.all(pixels == (0, 230, 118), axis=2))
+        assert env.telemetry.goal is not None
+    finally:
+        env.close()

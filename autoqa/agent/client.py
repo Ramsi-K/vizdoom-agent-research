@@ -10,7 +10,7 @@ from dataclasses import dataclass
 
 from openai import APIConnectionError, APIStatusError, OpenAI
 
-from autoqa.config import usage_cost
+from autoqa.config import combat_enabled, usage_cost
 
 from .tools import tools_for_level
 
@@ -117,7 +117,9 @@ class MetaClient:
                 response = self.client.responses.create(
                     model=self.config.model,
                     input=items,
-                    tools=tools_for_level(self.config.level),
+                    tools=tools_for_level(
+                        self.config.level, combat=combat_enabled(self.config.scenario)
+                    ),
                     tool_choice="auto",
                     parallel_tool_calls=True,
                     include=["reasoning.encrypted_content"],

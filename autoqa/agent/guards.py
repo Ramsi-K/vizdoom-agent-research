@@ -84,7 +84,10 @@ class Guards:
         return self.total_usd >= self.config.max_usd or self.remaining_seconds() <= 0
 
     def observe(self, action, feedback):
-        signature = tuple((m.type, m.amount) for m in action.moves), action.run
+        signature = (
+            tuple((m.type, m.amount, getattr(m, "fire", False)) for m in action.moves),
+            action.run,
+        )
         self.repeats = (
             self.repeats + 1
             if signature == self.last_signature and feedback.frame_change_pct < 2

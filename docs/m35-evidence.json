@@ -1,0 +1,922 @@
+{
+  "kind": "M3.5 exploratory combat; separate from M3 benchmark",
+  "episodes": [
+    {
+      "run_id": "20261104T184348.144630Z_basic_combat_L2_s101",
+      "scenario": "basic_combat",
+      "level": 2,
+      "seed": 101,
+      "model": "muse-spark-1.3",
+      "effort": "low",
+      "config": {
+        "scenario": "basic_combat",
+        "level": 2,
+        "seed": 101,
+        "model": "muse-spark-1.3",
+        "effort": "low",
+        "max_decisions": 60,
+        "max_tics": 300,
+        "max_usd": 0.6,
+        "wall_seconds": 900.0,
+        "request_timeout": 45.0,
+        "max_output_tokens": 3000,
+        "grounding_mode": "muse_box_sam"
+      },
+      "outcome": "success",
+      "decisions": 1,
+      "executed_acts": 1,
+      "combat_final": {
+        "kills": 1.0,
+        "items": 0.0,
+        "hits": 1.0,
+        "damage_dealt": 5.0,
+        "damage_taken": 0.0,
+        "health": 100.0,
+        "armor": 0.0,
+        "selected_weapon": 2.0,
+        "selected_weapon_ammo": 49.0
+      },
+      "peak_observed_kills": 1.0,
+      "peak_observed_damage_dealt": 5.0,
+      "primitives": 1,
+      "model_matched_primitives": 1,
+      "all_primitives_match_model": true,
+      "firing_primitives": 1,
+      "requested_firing_tics": 10,
+      "compound_firing_primitives": 0,
+      "primitive_counts": {
+        "attack": 1
+      },
+      "ledger_updates": 1,
+      "navigation_updates": 1,
+      "locate_calls": 1,
+      "grounding_model_calls": 2,
+      "grounding_cost_usd": 0.004954500000000001,
+      "recorded_cost_usd": 0.01709965,
+      "api_errors": [],
+      "grounding_errors": 0,
+      "rejected_tool_batches": 0,
+      "navigation_rejections": 0,
+      "replay_verified": true,
+      "gameplay_frames": 6,
+      "played_tics": 6,
+      "video_sha256": "5cc7616cec2f4150f22867b46acf7b7872112622029c95636353cc0363cf6a43",
+      "artifact_sha256": {
+        "manifest.json": "8cd413355ba4bb0e527303eb9bde99c61269a97bc5d07254f1e36b84b4842821",
+        "events.jsonl": "5eee57c699b723189b1d8fcb0364d1b7a95e314734f240e9300a94c0f2cce72f",
+        "telemetry.jsonl": "241b2d17f0741a5227106e54f97e85dce0eeb011f5e37c3e7c5cf30d541d354d",
+        "episode.lmp": "c2ea40731d8f93e132360d848f685f102948dd42eb6cbd1146e0f0b16d50039d",
+        "replay.json": "82fd9008412892792a7b7ef7b433266f51573efb2cf0bc9ad0cd9634bc07135c",
+        "replay.mp4": "5cc7616cec2f4150f22867b46acf7b7872112622029c95636353cc0363cf6a43",
+        "memory.json": "c6cea3c41b30be0cfe1969eb32f17eda29d1d2ffa65abca77494403f3864291d"
+      },
+      "limits": [
+        "Requested firing tics may include an unexecuted tail at natural termination; not a shot count",
+        "SAM candidates do not verify identity; absence of locate calls is not a grounding failure",
+        "Counts are recorded engine events, not QA verdicts or reliable performance estimates",
+        "Recorded spending excludes unknown charges for failed or interrupted requests"
+      ],
+      "source_commit": "624a3c0841fdb828dcfd9e309a5fea533304c257",
+      "run_directory": "runs/20261104T184348.144630Z_basic_combat_L2_s101",
+      "wall_seconds": 18.961523456004215,
+      "sampled_unique_128unit_cells": 1,
+      "sampled_distance_units": 0.0,
+      "actual_weapon_transitions": [],
+      "grounding_results": [
+        {
+          "decision_idx": 0,
+          "concept": "enemy monster",
+          "found": true,
+          "matches": [
+            {
+              "id": "1",
+              "box": [
+                294,
+                180,
+                345,
+                247
+              ],
+              "segmentation_confidence": 0.9375,
+              "encoding": "one_bit",
+              "confidence": 0.9375,
+              "localizer_confidence": 0.95,
+              "bearing_deg": -0.08952458263394668,
+              "vertical_band": "level",
+              "area_fraction": 0.008369140625,
+              "identity_verified": false
+            }
+          ],
+          "frame_sha256": "6652586abb9e6c204ed88b167592f6fb322fa9657b9c58176ffe1e86a9b61340"
+        }
+      ],
+      "navigation_action_bases": {
+        "grounding": 1
+      },
+      "visual_cycle_warnings": 0,
+      "goal_armor_collected": null
+    },
+    {
+      "run_id": "20261104T190052.792354Z_defend_center_combat_L2_s101",
+      "scenario": "defend_center_combat",
+      "level": 2,
+      "seed": 101,
+      "model": "muse-spark-1.3",
+      "effort": "low",
+      "config": {
+        "scenario": "defend_center_combat",
+        "level": 2,
+        "seed": 101,
+        "model": "muse-spark-1.3",
+        "effort": "low",
+        "max_decisions": 60,
+        "max_tics": 2100,
+        "max_usd": 0.6,
+        "wall_seconds": 900.0,
+        "request_timeout": 45.0,
+        "max_output_tokens": 3000,
+        "grounding_mode": "muse_box_sam"
+      },
+      "outcome": "budget_exhausted",
+      "decisions": 52,
+      "executed_acts": 51,
+      "combat_final": {
+        "kills": 6.0,
+        "items": 0.0,
+        "hits": 6.0,
+        "damage_dealt": 55.0,
+        "damage_taken": 94.0,
+        "health": 6.0,
+        "armor": 0.0,
+        "selected_weapon": 2.0,
+        "selected_weapon_ammo": 0.0
+      },
+      "peak_observed_kills": 6.0,
+      "peak_observed_damage_dealt": 55.0,
+      "primitives": 77,
+      "model_matched_primitives": 77,
+      "all_primitives_match_model": true,
+      "firing_primitives": 22,
+      "requested_firing_tics": 360,
+      "compound_firing_primitives": 0,
+      "primitive_counts": {
+        "attack": 22,
+        "turn_left": 8,
+        "turn_right": 6,
+        "backward": 15,
+        "next_weapon": 1,
+        "weapon_1": 3,
+        "strafe_right": 10,
+        "forward": 6,
+        "strafe_left": 6
+      },
+      "ledger_updates": 47,
+      "navigation_updates": 47,
+      "locate_calls": 3,
+      "grounding_model_calls": 7,
+      "grounding_cost_usd": 0.018207499999999998,
+      "recorded_cost_usd": 0.6015417999999997,
+      "api_errors": [],
+      "grounding_errors": 0,
+      "rejected_tool_batches": 1,
+      "navigation_rejections": 2,
+      "replay_verified": true,
+      "gameplay_frames": 1123,
+      "played_tics": 1123,
+      "video_sha256": "87241002711e82dc55e28be48624e00d45aea2dd8cd9dc86b27cdd697f942d49",
+      "artifact_sha256": {
+        "manifest.json": "990453b95c501c85529fad52f409d8ccbe1c0553e873ff52f64f0e9d7dd07ab1",
+        "events.jsonl": "525fc4d3ee350301623a14bda246e246b3a0d5b6613e235dca06e0ba8075eda6",
+        "telemetry.jsonl": "724842c83b81d64f3e755bccb007a0428b2ad581f2b4dab452e4be6630ae3897",
+        "episode.lmp": "307c975dffceed0d6c5cf95aabbe36871086a90ed4860ae4a9ddc33e6ee41fc1",
+        "replay.json": "8cc89ceead16c686e4a1f1244e321e72f396d2de284047a3d00936bd6f2fb53f",
+        "replay.mp4": "87241002711e82dc55e28be48624e00d45aea2dd8cd9dc86b27cdd697f942d49",
+        "memory.json": "b522005a5cdd8ca05f4a324b7bbd132c925e6fa36b066c8a7e687f7f75f762ba"
+      },
+      "limits": [
+        "Requested firing tics may include an unexecuted tail at natural termination; not a shot count",
+        "SAM candidates do not verify identity; absence of locate calls is not a grounding failure",
+        "Counts are recorded engine events, not QA verdicts or reliable performance estimates",
+        "Recorded spending excludes unknown charges for failed or interrupted requests"
+      ],
+      "source_commit": "6787787bb1937f9f522ab604853db949a4147d44",
+      "run_directory": "runs/20261104T190052.792354Z_defend_center_combat_L2_s101",
+      "wall_seconds": 434.63053532601043,
+      "sampled_unique_128unit_cells": 28,
+      "sampled_distance_units": 4878.238770558976,
+      "actual_weapon_transitions": [],
+      "grounding_results": [
+        {
+          "decision_idx": 0,
+          "concept": "distant soldier",
+          "found": true,
+          "matches": [
+            {
+              "id": "1",
+              "box": [
+                310,
+                223,
+                325,
+                251
+              ],
+              "segmentation_confidence": 0.61328125,
+              "encoding": "one_bit",
+              "confidence": 0.61328125,
+              "localizer_confidence": 0.85,
+              "bearing_deg": -0.447614170860553,
+              "vertical_band": "level",
+              "area_fraction": 0.0010872395833333333,
+              "identity_verified": false
+            }
+          ],
+          "frame_sha256": "3f5063ebb763de06c10a07449936835ee2945cd54676b7023d94ad7075f843aa"
+        },
+        {
+          "decision_idx": 20,
+          "concept": "distant red enemy",
+          "found": true,
+          "matches": [
+            {
+              "id": "1",
+              "box": [
+                256,
+                192,
+                270,
+                226
+              ],
+              "segmentation_confidence": 0.90234375,
+              "encoding": "one_bit",
+              "confidence": 0.85,
+              "localizer_confidence": 0.85,
+              "bearing_deg": -10.09988170366701,
+              "vertical_band": "level",
+              "area_fraction": 0.0011588541666666668,
+              "identity_verified": false
+            }
+          ],
+          "frame_sha256": "d096346d2992406d2eff88c7866f5bb13a32775cc4a2b239d2cf80c9e95cb3a5"
+        },
+        {
+          "decision_idx": 31,
+          "concept": "pink worm enemy",
+          "found": true,
+          "matches": [
+            {
+              "id": "1",
+              "box": [
+                36,
+                141,
+                193,
+                366
+              ],
+              "segmentation_confidence": 0.90625,
+              "encoding": "one_bit",
+              "confidence": 0.90625,
+              "localizer_confidence": 0.99,
+              "bearing_deg": -32.70806973120107,
+              "vertical_band": "level",
+              "area_fraction": 0.06487630208333334,
+              "identity_verified": false
+            },
+            {
+              "id": "2",
+              "box": [
+                236,
+                190,
+                262,
+                230
+              ],
+              "segmentation_confidence": 0.92578125,
+              "encoding": "one_bit",
+              "confidence": 0.82,
+              "localizer_confidence": 0.82,
+              "bearing_deg": -12.50984815341961,
+              "vertical_band": "level",
+              "area_fraction": 0.002314453125,
+              "identity_verified": false
+            }
+          ],
+          "frame_sha256": "34410a9b351e8bb192f22a528578864196dccd1274fa416c11474701221e3d00"
+        }
+      ],
+      "navigation_action_bases": {
+        "grounding": 3,
+        "visual": 48
+      },
+      "visual_cycle_warnings": 9,
+      "goal_armor_collected": null
+    },
+    {
+      "run_id": "20261104T190857.601337Z_deadly_corridor_combat_L2_s101",
+      "scenario": "deadly_corridor_combat",
+      "level": 2,
+      "seed": 101,
+      "model": "muse-spark-1.3",
+      "effort": "low",
+      "config": {
+        "scenario": "deadly_corridor_combat",
+        "level": 2,
+        "seed": 101,
+        "model": "muse-spark-1.3",
+        "effort": "low",
+        "max_decisions": 60,
+        "max_tics": 2100,
+        "max_usd": 0.6,
+        "wall_seconds": 900.0,
+        "request_timeout": 45.0,
+        "max_output_tokens": 3000,
+        "grounding_mode": "muse_box_sam"
+      },
+      "outcome": "player_dead",
+      "decisions": 6,
+      "executed_acts": 6,
+      "combat_final": {
+        "kills": 1.0,
+        "items": 0.0,
+        "hits": 1.0,
+        "damage_dealt": 15.0,
+        "damage_taken": 114.0,
+        "health": -14.0,
+        "armor": 0.0,
+        "selected_weapon": 2.0,
+        "selected_weapon_ammo": 19.0
+      },
+      "peak_observed_kills": 1.0,
+      "peak_observed_damage_dealt": 15.0,
+      "primitives": 16,
+      "model_matched_primitives": 16,
+      "all_primitives_match_model": true,
+      "firing_primitives": 13,
+      "requested_firing_tics": 119,
+      "compound_firing_primitives": 2,
+      "primitive_counts": {
+        "attack": 11,
+        "turn_left": 3,
+        "turn_right": 2
+      },
+      "ledger_updates": 3,
+      "navigation_updates": 3,
+      "locate_calls": 1,
+      "grounding_model_calls": 2,
+      "grounding_cost_usd": 0.007504500000000001,
+      "recorded_cost_usd": 0.06176179999999999,
+      "api_errors": [],
+      "grounding_errors": 0,
+      "rejected_tool_batches": 0,
+      "navigation_rejections": 0,
+      "replay_verified": true,
+      "gameplay_frames": 115,
+      "played_tics": 115,
+      "video_sha256": "05538569d5c96f4ab954c5a5b25fea9f05e90fe159b9524ec71b081c5e916877",
+      "artifact_sha256": {
+        "manifest.json": "e79b9986de30aeb7d6792d1fb1c59576f06d48c9f9aafc5dc4ec8fb0c56c5522",
+        "events.jsonl": "c36720eb9e003b03cced42fecd87d87edb7983cfba2bbc7fb40cfa151278c1fd",
+        "telemetry.jsonl": "80527d63756a6d44bc7dbe8f1ffaf52c02e4d9f347212fa8dc8df39a9701f1e3",
+        "episode.lmp": "e02b0743499fa814e687c475b40e137468e9beebc135b11afce2e92760148003",
+        "replay.json": "69217dfa270fe70cd850dee8b65b6a0cf436e3b2a2e3a81faf192f8af2da7086",
+        "replay.mp4": "05538569d5c96f4ab954c5a5b25fea9f05e90fe159b9524ec71b081c5e916877",
+        "memory.json": "192db5ab2d7467b6b0d7d37ae3a3e7e081c346ead709b49a5cd7fa3032064546"
+      },
+      "limits": [
+        "Requested firing tics may include an unexecuted tail at natural termination; not a shot count",
+        "SAM candidates do not verify identity; absence of locate calls is not a grounding failure",
+        "Counts are recorded engine events, not QA verdicts or reliable performance estimates",
+        "Recorded spending excludes unknown charges for failed or interrupted requests"
+      ],
+      "source_commit": "6787787bb1937f9f522ab604853db949a4147d44",
+      "run_directory": "runs/20261104T190857.601337Z_deadly_corridor_combat_L2_s101",
+      "wall_seconds": 67.2280624720006,
+      "sampled_unique_128unit_cells": 2,
+      "sampled_distance_units": 24.76527443278681,
+      "actual_weapon_transitions": [
+        {
+          "decision": 0,
+          "from": -1.0,
+          "to": 2.0
+        }
+      ],
+      "grounding_results": [
+        {
+          "decision_idx": 0,
+          "concept": "corridor passage",
+          "found": true,
+          "matches": [
+            {
+              "id": "1",
+              "box": [
+                0,
+                0,
+                640,
+                401
+              ],
+              "segmentation_confidence": 0.95703125,
+              "encoding": "one_bit",
+              "confidence": 0.92,
+              "localizer_confidence": 0.92,
+              "bearing_deg": 0.0,
+              "vertical_band": "level",
+              "area_fraction": 0.7823567708333333,
+              "identity_verified": false
+            }
+          ],
+          "frame_sha256": "cb66ce8950b3b5487b8c85b6a01a44c00e999a70d799b9e949036b9ce12b8d49"
+        }
+      ],
+      "navigation_action_bases": {
+        "grounding": 1,
+        "visual": 5
+      },
+      "visual_cycle_warnings": 0,
+      "goal_armor_collected": false
+    },
+    {
+      "run_id": "20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+      "scenario": "freedoom2_combat_map01",
+      "level": 2,
+      "seed": 101,
+      "model": "muse-spark-1.3",
+      "effort": "low",
+      "config": {
+        "scenario": "freedoom2_combat_map01",
+        "level": 2,
+        "seed": 101,
+        "model": "muse-spark-1.3",
+        "effort": "low",
+        "max_decisions": 60,
+        "max_tics": 4200,
+        "max_usd": 0.6,
+        "wall_seconds": 900.0,
+        "request_timeout": 45.0,
+        "max_output_tokens": 3000,
+        "grounding_mode": "muse_box_sam"
+      },
+      "outcome": "budget_exhausted",
+      "decisions": 55,
+      "executed_acts": 54,
+      "combat_final": {
+        "kills": 2.0,
+        "items": 1.0,
+        "hits": 4.0,
+        "damage_dealt": 40.0,
+        "damage_taken": 27.0,
+        "health": 74.0,
+        "armor": 0.0,
+        "selected_weapon": 2.0,
+        "selected_weapon_ammo": 45.0
+      },
+      "peak_observed_kills": 2.0,
+      "peak_observed_damage_dealt": 40.0,
+      "primitives": 76,
+      "model_matched_primitives": 76,
+      "all_primitives_match_model": true,
+      "firing_primitives": 14,
+      "requested_firing_tics": 130,
+      "compound_firing_primitives": 0,
+      "primitive_counts": {
+        "forward": 26,
+        "use": 11,
+        "backward": 2,
+        "turn_left": 12,
+        "turn_right": 7,
+        "strafe_right": 2,
+        "attack": 14,
+        "strafe_left": 2
+      },
+      "ledger_updates": 44,
+      "navigation_updates": 44,
+      "locate_calls": 5,
+      "grounding_model_calls": 11,
+      "grounding_cost_usd": 0.029374499999999998,
+      "recorded_cost_usd": 0.6029905,
+      "api_errors": [],
+      "grounding_errors": 0,
+      "rejected_tool_batches": 3,
+      "navigation_rejections": 3,
+      "replay_verified": true,
+      "gameplay_frames": 755,
+      "played_tics": 755,
+      "video_sha256": "e098d532e18671311dbd29fb25ea740d8126a3818afc1aac596afbd11354c08a",
+      "artifact_sha256": {
+        "manifest.json": "416190a474ea2c25c471daaf7ad8b505d51af2e38d95bb24a28f9d3af1e05b35",
+        "events.jsonl": "aaa8102e687ec0047f294978b95c6ae9d0ec2365d13a52eb9fee63653f9b015e",
+        "telemetry.jsonl": "e2b6a936225d37268e5db9ceeb43c3ca152188fa4b262f8daed9d9c84857f96f",
+        "episode.lmp": "732df5c5079c7ebc4fbd54e835270cb68b8e19b2d4efe0e1ce30afae7e4af32c",
+        "replay.json": "6865ba1980545b334bf8c70ed9759338b1065bd219f685ec794614038c8e3879",
+        "replay.mp4": "e098d532e18671311dbd29fb25ea740d8126a3818afc1aac596afbd11354c08a",
+        "memory.json": "7e693f0e29c8cfa83e6f54473942cec7c19cd66e000cf78fed1934dc6f958ca0"
+      },
+      "limits": [
+        "Requested firing tics may include an unexecuted tail at natural termination; not a shot count",
+        "SAM candidates do not verify identity; absence of locate calls is not a grounding failure",
+        "Counts are recorded engine events, not QA verdicts or reliable performance estimates",
+        "Recorded spending excludes unknown charges for failed or interrupted requests"
+      ],
+      "source_commit": "6787787bb1937f9f522ab604853db949a4147d44",
+      "run_directory": "runs/20261104T191136.406971Z_freedoom2_combat_map01_L2_s101",
+      "wall_seconds": 488.4996862219996,
+      "sampled_unique_128unit_cells": 15,
+      "sampled_distance_units": 5170.335925872626,
+      "actual_weapon_transitions": [],
+      "grounding_results": [
+        {
+          "decision_idx": 0,
+          "concept": "doorway opening",
+          "found": true,
+          "matches": [
+            {
+              "id": "1",
+              "box": [
+                0,
+                145,
+                495,
+                298
+              ],
+              "segmentation_confidence": 0.7578125,
+              "encoding": "one_bit",
+              "confidence": 0.7578125,
+              "localizer_confidence": 0.92,
+              "bearing_deg": -12.76556578105862,
+              "vertical_band": "level",
+              "area_fraction": 0.16918619791666667,
+              "identity_verified": false
+            }
+          ],
+          "frame_sha256": "a0bcee395742164a59c458a0fd0792df44f7c47c11d385aaf48cd710e0ed4502"
+        },
+        {
+          "decision_idx": 20,
+          "concept": "metal door",
+          "found": true,
+          "matches": [
+            {
+              "id": "1",
+              "box": [
+                257,
+                121,
+                384,
+                287
+              ],
+              "segmentation_confidence": 0.94921875,
+              "encoding": "one_bit",
+              "confidence": 0.94921875,
+              "localizer_confidence": 0.95,
+              "bearing_deg": 0.08952458263394668,
+              "vertical_band": "level",
+              "area_fraction": 0.065927734375,
+              "identity_verified": false
+            }
+          ],
+          "frame_sha256": "5db0f0c68051becbdc982efc11a539bf6b29ad102a7d28abb2371236a8dc832f"
+        },
+        {
+          "decision_idx": 21,
+          "concept": "orange wall switch",
+          "found": true,
+          "matches": [
+            {
+              "id": "1",
+              "box": [
+                128,
+                176,
+                166,
+                240
+              ],
+              "segmentation_confidence": 0.9375,
+              "encoding": "one_bit",
+              "confidence": 0.85,
+              "localizer_confidence": 0.85,
+              "bearing_deg": -28.396764243568057,
+              "vertical_band": "level",
+              "area_fraction": 0.007249348958333333,
+              "identity_verified": false
+            }
+          ],
+          "frame_sha256": "867419a21a113e4fbf882318f72681ab233728383de32668270b66333a87b55e"
+        },
+        {
+          "decision_idx": 23,
+          "concept": "orange lit panel",
+          "found": true,
+          "matches": [
+            {
+              "id": "1",
+              "box": [
+                195,
+                118,
+                227,
+                207
+              ],
+              "segmentation_confidence": 0.94921875,
+              "encoding": "one_bit",
+              "confidence": 0.82,
+              "localizer_confidence": 0.82,
+              "bearing_deg": -18.810126301211564,
+              "vertical_band": "level",
+              "area_fraction": 0.007965494791666666,
+              "identity_verified": false
+            }
+          ],
+          "frame_sha256": "f7e06baf986bf240b7383e505af4a55fbdb063739a4afe13e923c10a87cbd804"
+        },
+        {
+          "decision_idx": 35,
+          "concept": "enemy soldier",
+          "found": true,
+          "matches": [
+            {
+              "id": "1",
+              "box": [
+                384,
+                220,
+                403,
+                274
+              ],
+              "segmentation_confidence": 0.87890625,
+              "encoding": "one_bit",
+              "confidence": 0.8,
+              "localizer_confidence": 0.8,
+              "bearing_deg": 12.935758004766129,
+              "vertical_band": "level",
+              "area_fraction": 0.0023893229166666668,
+              "identity_verified": false
+            },
+            {
+              "id": "2",
+              "box": [
+                526,
+                227,
+                561,
+                262
+              ],
+              "segmentation_confidence": 0.6328125,
+              "encoding": "one_bit",
+              "confidence": 0.6328125,
+              "localizer_confidence": 0.9,
+              "bearing_deg": 34.93189242179317,
+              "vertical_band": "level",
+              "area_fraction": 0.0011588541666666668,
+              "identity_verified": false
+            }
+          ],
+          "frame_sha256": "0fdd4edbb23735e6c3a6edc90457b5fe522a667851c46beddf1ac78e61a07340"
+        }
+      ],
+      "navigation_action_bases": {
+        "grounding": 8,
+        "visual": 46
+      },
+      "visual_cycle_warnings": 1,
+      "goal_armor_collected": null
+    }
+  ],
+  "recorded_cost_usd": 1.2833937499999997,
+  "unknown_failed_request_charges_possible": false,
+  "recording_start_diagnostic": {
+    "environment": "Installed ViZDoom 1.3.2 in WSL",
+    "record_filename_characters_105": "native new_episode returned",
+    "record_filename_characters_115": "native new_episode exceeded 8-second offline timeout",
+    "live_trace": "Timeout (0:00:12)!\nThread 0x00007f24f0377080 (most recent call first):\n  File \"/home/ramsi/projects/vizdoom-agent-research/autoqa/doom/env.py\", line 121 in __init__\n  File \"/home/ramsi/projects/vizdoom-agent-research/autoqa/run.py\", line 89 in run_episode\n  File \"/home/ramsi/projects/vizdoom-agent-research/scripts/run_m35.py\", line 83 in main\n  File \"<stdin>\", line 5 in <module>\n",
+    "fix_commit": "6787787",
+    "regression": "Short and >115-character native recording/replay cases passed"
+  },
+  "validation": {
+    "offline_tests_passed": 142,
+    "live_tests_deselected": 4,
+    "test_seconds": 13.39,
+    "ruff_check": "passed",
+    "ruff_format": "passed"
+  },
+  "grounding_audit": {
+    "method": "Offline native replay at original primitive update boundaries; exact JPEG SHA-256 equality with each live locate frame; engine labels never supplied to agent",
+    "rows": [
+      {
+        "run_id": "20261104T190052.792354Z_defend_center_combat_L2_s101",
+        "decision": 0,
+        "tic": 10,
+        "concept": "distant soldier",
+        "frame_sha256_matches": true,
+        "mask_file": "locate_0001_mask0.png",
+        "mask_sha256": "56486f0117ff2556d30400476e0fe8463b72fd9be853f4dae46ec97d59d58e23",
+        "mask_pixels": 334,
+        "labels": [
+          {
+            "name": "MarineChainsawVzd",
+            "bbox": [
+              313,
+              194,
+              12,
+              29
+            ],
+            "iou": 0.0
+          },
+          {
+            "name": "DoomPlayer",
+            "bbox": [
+              298,
+              371,
+              46,
+              32
+            ],
+            "iou": 0.0
+          }
+        ]
+      },
+      {
+        "run_id": "20261104T190052.792354Z_defend_center_combat_L2_s101",
+        "decision": 20,
+        "tic": 270,
+        "concept": "distant red enemy",
+        "frame_sha256_matches": true,
+        "mask_file": "locate_0002_mask0.png",
+        "mask_sha256": "4b66bf00f86d4cf10bc41e043fbefe6c1079fe0d6fecf6604255cbf360d83790",
+        "mask_pixels": 356,
+        "labels": [
+          {
+            "name": "Demon",
+            "bbox": [
+              254,
+              193,
+              16,
+              32
+            ],
+            "iou": 0.7835616438356164
+          },
+          {
+            "name": "BulletPuff",
+            "bbox": [
+              310,
+              196,
+              7,
+              7
+            ],
+            "iou": 0.0
+          },
+          {
+            "name": "DoomPlayer",
+            "bbox": [
+              268,
+              204,
+              112,
+              199
+            ],
+            "iou": 0.0
+          }
+        ]
+      },
+      {
+        "run_id": "20261104T190052.792354Z_defend_center_combat_L2_s101",
+        "decision": 31,
+        "tic": 412,
+        "concept": "pink worm enemy",
+        "frame_sha256_matches": true,
+        "mask_file": "locate_0003_mask0.png",
+        "mask_sha256": "8e679808b1b524060c64b872e0d327697ab5d7ae5786eb0fe0addf67b09a3aac",
+        "mask_pixels": 19930,
+        "labels": [
+          {
+            "name": "MarineChainsawVzd",
+            "bbox": [
+              255,
+              176,
+              45,
+              90
+            ],
+            "iou": 0.0
+          },
+          {
+            "name": "Demon",
+            "bbox": [
+              236,
+              190,
+              27,
+              40
+            ],
+            "iou": 0.0
+          },
+          {
+            "name": "Demon",
+            "bbox": [
+              36,
+              140,
+              178,
+              226
+            ],
+            "iou": 0.8566808950976588
+          },
+          {
+            "name": "DoomPlayer",
+            "bbox": [
+              244,
+              285,
+              106,
+              118
+            ],
+            "iou": 0.0
+          }
+        ]
+      },
+      {
+        "run_id": "20261104T190052.792354Z_defend_center_combat_L2_s101",
+        "decision": 31,
+        "tic": 412,
+        "concept": "pink worm enemy",
+        "frame_sha256_matches": true,
+        "mask_file": "locate_0003_mask1.png",
+        "mask_sha256": "d487616e26988584a8e7f8c7822e9d92e345df7e03e153f3596529874d588fa1",
+        "mask_pixels": 711,
+        "labels": [
+          {
+            "name": "MarineChainsawVzd",
+            "bbox": [
+              255,
+              176,
+              45,
+              90
+            ],
+            "iou": 0.0
+          },
+          {
+            "name": "Demon",
+            "bbox": [
+              236,
+              190,
+              27,
+              40
+            ],
+            "iou": 0.8575380359612724
+          },
+          {
+            "name": "Demon",
+            "bbox": [
+              36,
+              140,
+              178,
+              226
+            ],
+            "iou": 0.0
+          },
+          {
+            "name": "DoomPlayer",
+            "bbox": [
+              244,
+              285,
+              106,
+              118
+            ],
+            "iou": 0.0
+          }
+        ]
+      }
+    ],
+    "limits": "Four post-hoc candidate masks from one arena run; not a general accuracy estimate or causal attribution."
+  },
+  "setup_failures": [
+    {
+      "run_id": "20261104T184518.323446Z_defend_center_combat_L2_s101",
+      "outcome": "native_recording_start_stall",
+      "event_bytes": 0,
+      "telemetry_bytes": 0,
+      "api_calls": 0,
+      "api_cost_usd": 0,
+      "counted_as_gameplay": false,
+      "manifest_sha256": "902650337d51850cdfdca887a1a3aceeed60f6d67f72140520762a9cf8e8d5f9"
+    },
+    {
+      "run_id": "20261104T185043.771169Z_deadly_corridor_combat_L2_s101",
+      "outcome": "native_recording_start_stall",
+      "event_bytes": 0,
+      "telemetry_bytes": 0,
+      "api_calls": 0,
+      "api_cost_usd": 0,
+      "counted_as_gameplay": false,
+      "manifest_sha256": "c1a225d3b695eba0eed455c34a8567ea03db5a181daab14e60f3d84ec01fd642"
+    },
+    {
+      "run_id": "20261104T185412.371383Z_deadly_corridor_combat_L2_s101",
+      "outcome": "native_recording_start_stall",
+      "event_bytes": 0,
+      "telemetry_bytes": 0,
+      "api_calls": 0,
+      "api_cost_usd": 0,
+      "counted_as_gameplay": false,
+      "manifest_sha256": "435f044e8f28df1b9e564e51e2546df2abfe9aa08e66d14dc8e7245c84497f46"
+    },
+    {
+      "run_id": "20261104T185802.679379Z_deadly_corridor_combat_L2_s101",
+      "outcome": "native_recording_start_stall",
+      "event_bytes": 0,
+      "telemetry_bytes": 0,
+      "api_calls": 0,
+      "api_cost_usd": 0,
+      "counted_as_gameplay": false,
+      "manifest_sha256": "11241a778a709280876c69e8be4cc09e5a99a95586d6ed27b2cfedfbe501556a"
+    }
+  ],
+  "protocol_limits": [
+    "Four exploratory profiles, one seed and L2 only; no paired control or human baseline",
+    "Recorded-usage thresholds are soft; final response can cross cap",
+    "Native output counters establish recorded events, not general reliability or QA defects",
+    "Sampled displacement/cells are endpoint measures, not continuous coverage or route progress",
+    "Basic run precedes recording-path fix; source checkpoint preserved per run",
+    "M3 research measurements unchanged"
+  ]
+}

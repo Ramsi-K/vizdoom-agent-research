@@ -1,6 +1,6 @@
 """The five Pilot tools; only act can advance the game."""
 
-from autoqa.config import Act, Finish, Issue, Locate, Note
+from autoqa.config import Act, CombatAct, Finish, Issue, Locate, Note
 
 MODELS = {"act": Act, "note": Note, "report_issue": Issue, "finish": Finish, "locate": Locate}
 DESCRIPTIONS = {
@@ -40,7 +40,23 @@ TOOLS = [
 ]
 
 
-def tools_for_level(level):
+def models_for_combat(combat=False):
+    return {**MODELS, "act": CombatAct} if combat else MODELS
+
+
+def tools_for_level(level, *, combat=False):
+    if combat:
+        return [
+            {
+                **tool,
+                "parameters": parameters(CombatAct),
+                "description": tool["description"]
+                + " Combat controls enabled: every primitive has a required fire boolean to hold ATTACK simultaneously. See the supplied control units.",
+            }
+            if tool["name"] == "act"
+            else tool
+            for tool in tools_for_level(level)
+        ]
     if level == 1:
         return TOOLS
     return [

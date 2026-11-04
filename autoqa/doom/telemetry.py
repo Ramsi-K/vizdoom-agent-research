@@ -11,7 +11,7 @@ from .topology import WalkableTopology
 
 
 class TelemetryRecorder:
-    def __init__(self, directory, calibration):
+    def __init__(self, directory, calibration, *, combat=False, track_armor_goal=True):
         self.log = EventLog(directory / "telemetry.jsonl")
         self.directory = directory
         self.calibration = calibration
@@ -19,6 +19,8 @@ class TelemetryRecorder:
         self.goal = None
         self.previous_heights = None
         self.topology = None
+        self.combat = combat
+        self.track_armor_goal = track_armor_goal
 
     def record_step(self, game, event, decision_idx, primitive_idx=None, move=None, run=False):
         state = game.get_state()
@@ -35,7 +37,21 @@ class TelemetryRecorder:
             }.items()
         }
         objects = state.objects if state else []
-        if self.goal is None:
+        if self.combat:
+            for key, variable in {
+                "kills": "KILLCOUNT",
+                "items": "ITEMCOUNT",
+                "hits": "HITCOUNT",
+                "damage_dealt": "DAMAGECOUNT",
+                "damage_taken": "DAMAGE_TAKEN",
+                "selected_weapon": "SELECTED_WEAPON",
+                "selected_weapon_ammo": "SELECTED_WEAPON_AMMO",
+                "pitch": "PITCH",
+                **{f"ammo_{i}": f"AMMO{i}" for i in range(10)},
+                **{f"weapon_{i}": f"WEAPON{i}" for i in range(10)},
+            }.items():
+                values[key] = game.get_game_variable(getattr(vzd.GameVariable, variable))
+        if self.goal is None and self.track_armor_goal:
             goal = next((o for o in objects if o.name == "GreenArmor"), None)
             if goal:
                 self.goal = (goal.position_x, goal.position_y)
@@ -80,7 +96,9 @@ class TelemetryRecorder:
         ]
         expected = speed * move.amount if translation else None
         labels = (
-            [label for label in state.labels if label.object_name == "GreenArmor"] if state else []
+            [label for label in state.labels if label.object_name == "GreenArmor"]
+            if state and self.track_armor_goal
+            else []
         )
         reward = game.get_total_reward()
         record = dict(

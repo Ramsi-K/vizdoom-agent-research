@@ -3,6 +3,7 @@
 import json
 import math
 from collections import deque
+from contextlib import ExitStack
 from pathlib import Path
 
 import imageio.v2 as imageio
@@ -13,10 +14,11 @@ from PIL import Image, ImageDraw, ImageFont
 from autoqa.config import SCENARIOS, RunConfig
 from autoqa.io import digest, write_json
 
+from .demo_path import native_demo_path
 from .env import configured_game
 
 
-def result_frame(frame, title, detail, *, held=False):
+def result_frame(frame, title, detail, *, held=False, combat=False):
     """Label a held/recap frame; never paint a fictional game HUD."""
     image = Image.fromarray(frame).convert("RGBA")
     overlay = Image.new("RGBA", image.size)
@@ -36,6 +38,8 @@ def result_frame(frame, title, detail, *, held=False):
         (24 * scale, 118 * scale),
         "Result card · captured approach frame held"
         if held
+        else "Recorded gameplay · replayed at half speed"
+        if combat
         else "Recorded pickup footage · replayed at half speed",
         font=font(16),
         fill="#CBD5E1",
@@ -60,6 +64,8 @@ def replay(
     ]
     terminal = telemetry[-1]
     profile = SCENARIOS[config.scenario]
+    if manifest.get("scenario_profile") and manifest["scenario_profile"] != profile:
+        raise ValueError("Scenario control/skill profile differs from recording")
     wad = Path(vzd.scenarios_path) / f"{profile['cfg']}.wad"
     if not wad.exists():
         wad = Path(vzd.__file__).parent / "freedoom2.wad"
@@ -77,7 +83,7 @@ def replay(
     # A natural level exit can reset both episode/server clocks to zero.
     # Preserve the raw telemetry; reconstruct elapsed tics by counting native playback.
     clock_reset = terminal["tic"] < telemetry[0]["tic"]
-    if clock_reset and manifest.get("outcome") != "success":
+    if clock_reset and manifest.get("outcome") not in {"success", "player_dead", "timeout"}:
         raise ValueError("Unexpected terminal clock regression; inspect raw telemetry")
     upper = to_tic if to_tic is not None else None if clock_reset else terminal["tic"]
     if (
@@ -115,9 +121,11 @@ def replay(
     )
     tail = deque(maxlen=35 if present_success else 0)
     ending_frames = 0
+    demo_paths = ExitStack()
     try:
         game.init()
-        game.replay_episode(str((directory / "episode.lmp").resolve()))
+        demo = demo_paths.enter_context(native_demo_path(directory / "episode.lmp"))
+        game.replay_episode(demo)
         with imageio.get_writer(
             video,
             fps=35,
@@ -163,12 +171,31 @@ def replay(
             matched = actual["final_tic"] == terminal["tic"] and math.isclose(
                 actual["reward_total"], terminal["reward_total"], abs_tol=1e-8
             )
+            if manifest.get("action_schema") == "combat_v1":
+                actual["combat_final"] = {
+                    key: game.get_game_variable(getattr(vzd.GameVariable, variable))
+                    for key, variable in {
+                        "kills": "KILLCOUNT",
+                        "damage_dealt": "DAMAGECOUNT",
+                        "damage_taken": "DAMAGE_TAKEN",
+                        "health": "HEALTH",
+                        "selected_weapon": "SELECTED_WEAPON",
+                        "selected_weapon_ammo": "SELECTED_WEAPON_AMMO",
+                    }.items()
+                }
+                matched = matched and all(
+                    math.isclose(value, terminal[key], abs_tol=1e-8)
+                    for key, value in actual["combat_final"].items()
+                )
             if present_success and matched and tail:
                 # Repeat only real captured frames. Do not advance the simulator or
                 # manufacture post-win gameplay after its natural terminal state.
                 for frame in tail:
                     recap = result_frame(
-                        frame, "VICTORY REPLAY · 0.5x", "The final recorded second, slowed down"
+                        frame,
+                        "VICTORY REPLAY · 0.5x",
+                        "The final recorded second, slowed down",
+                        combat=manifest.get("action_schema") == "combat_v1",
                     )
                     writer.append_data(recap)
                     writer.append_data(recap)
@@ -176,12 +203,20 @@ def replay(
                 detail = "Level objective completed"
                 if terminal.get("armor", 0) > telemetry[0].get("armor", 0):
                     detail = f"Armor collected · final armor: {terminal['armor']:.0f}%"
-                hold = result_frame(tail[0], "LEVEL COMPLETE", detail, held=True)
+                title = "LEVEL COMPLETE"
+                if manifest.get("action_schema") == "combat_v1":
+                    title = {
+                        "kill": "TARGET ELIMINATED",
+                        "survive": "SURVIVAL HORIZON REACHED",
+                    }.get(profile["goal"], title)
+                    detail = f"Recorded kills: {terminal['kills']:.0f} · final health: {terminal['health']:.0f}%"
+                hold = result_frame(tail[0], title, detail, held=True)
                 for _ in range(3 * 35):
                     writer.append_data(hold)
                     ending_frames += 1
     finally:
         game.close()
+        demo_paths.close()
     with imageio.get_reader(video) as reader:
         shape = list(reader.get_data(0).shape)
         codec = reader.get_meta_data()["codec"]
