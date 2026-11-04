@@ -127,6 +127,13 @@ def run_episode(config, *, root=Path.cwd()):
                     grounding_cost_usd=pilot.grounder.cost_usd,
                 )
                 write_json(directory / "issues.json", pilot.issues)
+                write_json(
+                    directory / "memory.json",
+                    dict(
+                        landmark_outcome_ledger=pilot.memory.scratchpad,
+                        recent_history=list(pilot.memory.history),
+                    ),
+                )
             if env and env.telemetry.last:
                 manifest.update(
                     final_tic=env.telemetry.last["tic"],

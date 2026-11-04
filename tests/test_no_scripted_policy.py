@@ -1,5 +1,6 @@
 import ast
 import json
+from dataclasses import replace
 from pathlib import Path
 
 from autoqa.agent.client import ModelTurn
@@ -204,3 +205,61 @@ def test_grounding_budget_stops_parallel_act_without_rewriting_it(observation):
     pilot.grounder = ExpensiveGrounder()
     assert pilot.run_episode() == "budget_exhausted"
     assert session.actions == []
+
+
+def test_visual_cycle_only_adds_text_and_preserves_all_model_actions(observation):
+    class SequenceSession(FakeSession):
+        def __init__(self, obs):
+            super().__init__(obs)
+            self.next_decision = 0
+
+        def observe(self):
+            obs = replace(self.obs, decision_idx=self.next_decision)
+            self.next_decision += 1
+            return obs
+
+    responses = [
+        turn(
+            arguments=dict(
+                moves=[dict(type="turn_left" if d % 2 else "turn_right", amount=90)],
+                run=False,
+                intent="model-chosen action",
+            ),
+            call_id=f"a{d}",
+        )
+        for d in range(14)
+    ]
+    expected = [json.loads(response.output[-1]["arguments"]) for response in responses]
+    session = SequenceSession(observation)
+    client = FakeClient(responses)
+    events = []
+    pilot = Pilot(
+        RunConfig(max_decisions=14),
+        session,
+        client,
+        lambda event, **data: events.append((event, data)),
+    )
+    assert pilot.run_episode() == "max_decisions"
+    assert "Visual-cycle warning" in str(client.requests[9])
+    assert any(event == "visual_cycle_warning" for event, _ in events)
+    assert session.actions == expected
+
+
+def test_model_note_and_act_share_response_without_rewriting_ledger(observation):
+    response = turn()
+    note = turn("note", dict(text="gray panel | outcome unknown", mode="replace"), "n")
+    response = ModelTurn(response.output + note.output[-1:], response.usage, 0, 0, "completed")
+    events = []
+    session = FakeSession(observation)
+    pilot = Pilot(
+        RunConfig(max_decisions=1),
+        session,
+        FakeClient([response]),
+        lambda event, **data: events.append((event, data)),
+    )
+    assert pilot.run_episode() == "max_decisions"
+    assert pilot.memory.scratchpad == "gray panel | outcome unknown"
+    assert (
+        next(data for event, data in events if event == "landmark_ledger")["source"] == "model_note"
+    )
+    assert len(session.actions) == 1

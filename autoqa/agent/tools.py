@@ -1,11 +1,11 @@
-"""Only the four M1 tools. SAM locate is deliberately absent until M2."""
+"""The five Pilot tools; only act can advance the game."""
 
 from autoqa.config import Act, Finish, Issue, Locate, Note
 
 MODELS = {"act": Act, "note": Note, "report_issue": Issue, "finish": Finish, "locate": Locate}
 DESCRIPTIONS = {
     "act": "Execute 1 to 4 movement primitives in order, at most 70 tics in total. Ends the decision.",
-    "note": "Append to or replace your private scratchpad (1500 characters maximum).",
+    "note": "Update your private landmark/outcome ledger (1500 characters total). Record visual appearance, attempted action with decision, observed result, and uncertainty/next hypothesis. Use replace to compact old entries. Never invent an outcome before observing it.",
     "report_issue": "Record a suspected gameplay issue with visible evidence; it is not verified as a defect.",
     "finish": "Stop playing because you give up or are blocked. The environment detects success.",
     "locate": "Look for one 1-4 word noun phrase in the current frame. Returns optical candidates or found=false; it does not advance the game or verify identity.",

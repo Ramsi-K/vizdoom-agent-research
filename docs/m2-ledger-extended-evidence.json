@@ -1,0 +1,403 @@
+{
+  "directory": "runs/20261104T093221.870296Z_my_way_home_L3_s101",
+  "manifest": {
+    "run_id": "20261104T093221.870296Z_my_way_home_L3_s101",
+    "timestamp": "20261104T093221.870296Z",
+    "git_commit": "9e7625e797b42d47d39ce79c97298213c4a10749",
+    "source_sha256": {
+      "autoqa/__init__.py": "e7e5bd04cfac130fe14251dcf8f1429120587b28afbc3e3fdc25249b6c318b9c",
+      "autoqa/agent/__init__.py": "0863806f5746f27501778c4f34676dbedc1808c605e4a6b3c28ba944837aef74",
+      "autoqa/agent/client.py": "a8932912b0b35923bac88a79b499dfa0f2d2172f4334581cb401808ce2a7f33a",
+      "autoqa/agent/grounder.py": "2bae3326e14c5e1c47a2820b3fe2ec5ec6d586d4b4170f915c820e153ace8c34",
+      "autoqa/agent/guards.py": "c2741daad0f5610374c1f1e1bfb15e9a2e135af33a47234826688dc2c58f5115",
+      "autoqa/agent/memory.py": "9c64dfca767080147fe01ff11745ff1f0fe6934673104f3b3a9319f412650847",
+      "autoqa/agent/pilot.py": "2f2ea0282c2cf77474537c029e2886686f027d5c2802fd2150fdc0045bf3b02c",
+      "autoqa/agent/tools.py": "7927aab92e35c25fb9fbfbe32bc5a405f0e7e2cab12ea716732f33185bfb6d90",
+      "autoqa/cli.py": "e3011b9b4aa3ac9c4993c0c6d3c7f76822a6fbfe19cf39463e60b086bb820b08",
+      "autoqa/config.py": "a22cea205144b68dd582648c31e5fed365a2329333d099a35ffda4d39614fc11",
+      "autoqa/doom/__init__.py": "b2465e08ccadc455910e45a1cce1a3795e8badd73f6daa171ed35265a9bf481b",
+      "autoqa/doom/env.py": "9fbfa1429f89c5dc7fa6ea2748867b20952528b2c40f08dc0a39a199e35df9fd",
+      "autoqa/doom/plan_renderer.py": "b3eddac468db3836b6b561fb4e79d801c41ab21c262fbf510ce71f4c25f953a0",
+      "autoqa/doom/replay.py": "b55f4f48c664298992b66a9c934bb9bb2e5a584e35a4aac260e008f7fd004e4e",
+      "autoqa/doom/telemetry.py": "cd47cba9998774b17a7f7f0cbd056c5d11e27aa288c15197a26f8021e99f9a7d",
+      "autoqa/doom/topology.py": "87d5da713f1936f97673732ae5c45a9e86a17da29f59e04f978f742e6e89d34d",
+      "autoqa/doom/types.py": "5a0ea0ad70da17c21541cd905bc9f99b43113e768747890e591cdd51275b3854",
+      "autoqa/io.py": "20c70376cc1b584c2cad7f2b99b85923fcece2557fade60424a1a6685401a9b2",
+      "autoqa/m0/__init__.py": "25623dd83064d4722b4d2acad22cedb8e390a3bc1f76c33063951b69fa90662a",
+      "autoqa/m0/api.py": "0e6e5a1f6a1dd6792d627c2b732f22cb5c083235f4ab35e0a0b0a42cf4c6a480",
+      "autoqa/m0/local.py": "15788c4fd9de22d3f22b6ac4258214058db387ce5885e21cfba65f731a237727",
+      "autoqa/m0/sam_audit.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+      "autoqa/m0/spike.py": "967b57507347013349bec0bc7bece80465fad8e1be8a6210ea96d0236106d5bb",
+      "autoqa/m0/worker.py": "85445b519ab758e88092a105cd2a81c59409a2158f21b9b45b03ba6e2a81e8b6",
+      "autoqa/prompts/__init__.py": "7def4b60beb414d6d7c3affa8653bbb6ede975b7f497bf740d67ad5577bb8cfe",
+      "autoqa/prompts/builder.py": "1b3401e0f51a664d1d03f9c26007aa252c5ae36a6f15ea01f9c0c76467e893b4",
+      "autoqa/run.py": "de65e6062fca896bb4219b72e7abbcc28ad7b868c78b8538c0b0a29198ab5465",
+      "autoqa/sam_wire.py": "fe833d7e593160b7512f7afaacea14932b197a85204a7b0a8c5cbdd31522cd61",
+      "autoqa/secrets.py": "2da6977bc1e72d0d7c6e47e30b4e657611fbaae2f41b5fc09b78c0cafcfd4674"
+    },
+    "vizdoom_version": "1.3.2",
+    "iwad_path": "/home/ramsi/projects/vizdoom-agent-research/.venv/lib/python3.12/site-packages/vizdoom/freedoom2.wad",
+    "iwad_sha256": "a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b",
+    "scenario_cfg_path": "/home/ramsi/projects/vizdoom-agent-research/.venv/lib/python3.12/site-packages/vizdoom/scenarios/my_way_home.cfg",
+    "scenario_cfg_sha256": "3dc0eb5e3557df7918484f91bdc4bc13b78cf67c6a6eaf2052e8ad66cfccbe46",
+    "scenario_wad_sha256": "18e98ff4c9186808eb00696b799cfe88a79e7486429c1692aafbed8ef359c0b1",
+    "prompt_sha256": "6018b90d2136f562730ec914131235f9a5942cf180eef1a66e8b90931b637b89",
+    "briefing_sha256": "9ee5d990ea3dac9c99799ba4782e68f28595e9e874c291c747744fad4fb49d19",
+    "calibration_sha256": "6059f73fa524dbbf83a5a1b752a29a28cb08ad85c042d99ab2eef6bb863e230c",
+    "scenario_id": "my_way_home",
+    "level": 3,
+    "seed": 101,
+    "model": "muse-spark-1.3",
+    "effort": "low",
+    "config": {
+      "scenario": "my_way_home",
+      "level": 3,
+      "seed": 101,
+      "model": "muse-spark-1.3",
+      "effort": "low",
+      "max_decisions": 120,
+      "max_tics": 2100,
+      "max_usd": 0.6,
+      "wall_seconds": 900.0,
+      "request_timeout": 45.0,
+      "max_output_tokens": 3000,
+      "grounding_mode": "muse_box_sam"
+    },
+    "is_fault_probe": false,
+    "fault_injection": null,
+    "engine_overrides": {
+      "mode": "PLAYER",
+      "resolution": [
+        640,
+        480
+      ],
+      "hud": true,
+      "episode_start_time": "bundled config (my_way_home: 10)",
+      "episode_timeout": 2100,
+      "recording_seed_reset": true
+    },
+    "outcome": "budget_exhausted",
+    "total_usd": 0.6029126000000002,
+    "usage": {
+      "input_tokens": 649559,
+      "output_tokens": 35309,
+      "cached_tokens": 326454,
+      "reasoning_tokens": 17069
+    },
+    "sam_grounding": "muse_box_sam",
+    "spawn_state": {
+      "pos_x": 464.0,
+      "pos_y": -176.0,
+      "pos_z": 0.0,
+      "angle_deg": 338.93920906329043,
+      "tic": 10
+    },
+    "plan_sha256": "aa34daddff1409d7ccabae7c6000e0ca8e8266075b8ec65543c34c47e77f7685",
+    "wall_seconds": 567.6418743190006,
+    "decisions": 112,
+    "model_calls": 150,
+    "act_calls": 111,
+    "inline_issues": 0,
+    "locate_calls": 3,
+    "grounding_model_calls": 3,
+    "grounding_cost_usd": 0.00666225,
+    "final_tic": 2027,
+    "reward_total": -0.20170000000000005,
+    "start_tic": 10,
+    "tics_used": 2017,
+    "episode_lmp_sha256": "7792778c37ab4d29cefb813266e0ef890023d7486f21e155c6e526015a1fd9e6",
+    "events_jsonl_sha256": "1a609ecd4c955c8d96bb39490a259345f0c8e1ca224803c95e7e5cbcd4afc0cb",
+    "telemetry_jsonl_sha256": "498981f6eaccee8bfa9e37f92eac2fafdbdb94feda8c0fd67059954d83ae1df7"
+  },
+  "replay": {
+    "final_tic": 2027,
+    "reward_total": -0.2016999999999941,
+    "expected_final_tic": 2027,
+    "expected_reward_total": -0.20170000000000005,
+    "matches_telemetry": true,
+    "frames": 2017,
+    "fps": 35,
+    "shape": [
+      720,
+      1280,
+      3
+    ],
+    "codec": "h264",
+    "size": [
+      1280,
+      720
+    ],
+    "from_tic": 10,
+    "to_tic": 2027,
+    "captions": false,
+    "video_sha256": "8648b244c01751c55c3f4dd10309ba521d3a2bb0601b9f6fe8374903eabed160",
+    "lmp_sha256": "7792778c37ab4d29cefb813266e0ef890023d7486f21e155c6e526015a1fd9e6"
+  },
+  "memory": {
+    "landmark_outcome_ledger": "Metal tech room facing paneled wall|tried: run from locker wall|observed: new metal room|uncertain/next: turn 180 run to exit, seek east to goal\nd104 gray close wall|tried: run to white|observed: stuck at gray wall|uncertain/next: 180 turn run out\nd105 brown corridor blue pillars gate ahead|tried: 180 runs stuck walls|observed: now corridor view|uncertain/next: run forward to gate",
+    "recent_history": [
+      "Decision 91: act {'moves': [{'type': 'turn_right', 'amount': 90}], 'run': False, 'intent': 'turn right to look for exit toward goal'}; visible dFrame=9.00% (not proof of interaction success)",
+      "Decision 92: act {'moves': [{'type': 'turn_left', 'amount': 180}, {'type': 'forward', 'amount': 20}], 'run': False, 'intent': 'turn around from close wall and step out to open area'}; visible dFrame=9.43% (not proof of interaction success)",
+      "Decision 93: act {'moves': [{'type': 'turn_left', 'amount': 180}, {'type': 'forward', 'amount': 30}], 'run': False, 'intent': 'turn around from bars and walk out'}; visible dFrame=0.81% (not proof of interaction success)",
+      "Decision 94: act {'moves': [{'type': 'turn_right', 'amount': 90}, {'type': 'forward', 'amount': 25}], 'run': False, 'intent': 'turn right toward white door gap and advance'}; visible dFrame=3.92% (not proof of interaction success)",
+      "Decision 95: act {'moves': [{'type': 'turn_left', 'amount': 180}], 'run': False, 'intent': 'turn around from bars and leave alcove'}; visible dFrame=6.67% (not proof of interaction success)",
+      "Decision 96: act {'moves': [{'type': 'strafe_left', 'amount': 20}], 'run': False, 'intent': 'strafe left through gap away from blue pillar'}; visible dFrame=9.23% (not proof of interaction success)",
+      "Decision 97: act {'moves': [{'type': 'forward', 'amount': 25}], 'run': False, 'intent': 'move forward through gap toward lockers'}; visible dFrame=8.67% (not proof of interaction success)",
+      "Decision 98: act {'moves': [{'type': 'turn_left', 'amount': 180}, {'type': 'forward', 'amount': 20}], 'run': False, 'intent': 'turn away from wall and step out'}; visible dFrame=7.64% (not proof of interaction success)",
+      "Decision 99: act {'moves': [{'type': 'turn_left', 'amount': 90}, {'type': 'forward', 'amount': 30}], 'run': False, 'intent': 'turn left to face locker gap and move out'}; visible dFrame=13.95% (not proof of interaction success)",
+      "Decision 100: act {'moves': [{'type': 'forward', 'amount': 30}], 'run': True, 'intent': 'run forward to lockers then turn to exit'}; visible dFrame=20.58% (not proof of interaction success)",
+      "Decision 101: act {'moves': [{'type': 'turn_left', 'amount': 180}, {'type': 'forward', 'amount': 35}], 'run': True, 'intent': 'turn around from locker wall and run out'}; visible dFrame=24.78% (not proof of interaction success)",
+      "Decision 102: act {'moves': [{'type': 'turn_left', 'amount': 180}, {'type': 'forward', 'amount': 30}], 'run': True, 'intent': 'turn around and run out of metal room toward exit'}; visible dFrame=9.34% (not proof of interaction success)",
+      "Decision 103: act {'moves': [{'type': 'forward', 'amount': 30}], 'run': True, 'intent': 'run toward white wall'}; visible dFrame=25.01% (not proof of interaction success)",
+      "Decision 104: act {'moves': [{'type': 'turn_left', 'amount': 180}, {'type': 'forward', 'amount': 35}], 'run': True, 'intent': 'turn around from close wall and run out'}; visible dFrame=30.46% (not proof of interaction success)",
+      "Decision 105: act {'moves': [{'type': 'forward', 'amount': 30}], 'run': True, 'intent': 'run forward through blue pillars toward gate'}; visible dFrame=9.56% (not proof of interaction success)",
+      "Decision 106: act {'moves': [{'type': 'turn_left', 'amount': 180}, {'type': 'forward', 'amount': 35}], 'run': True, 'intent': 'turn away from metal wall and run out'}; visible dFrame=11.81% (not proof of interaction success)",
+      "Decision 107: act {'moves': [{'type': 'turn_left', 'amount': 90}, {'type': 'forward', 'amount': 35}], 'run': True, 'intent': 'turn left to doorway and run out'}; visible dFrame=19.94% (not proof of interaction success)",
+      "Decision 108: act {'moves': [{'type': 'forward', 'amount': 35}], 'run': True, 'intent': 'run forward into lit corridor toward goal'}; visible dFrame=17.87% (not proof of interaction success)",
+      "Decision 109: act {'moves': [{'type': 'turn_left', 'amount': 180}, {'type': 'forward', 'amount': 35}], 'run': True, 'intent': 'turn around from wall and run out'}; visible dFrame=4.15% (not proof of interaction success)",
+      "Decision 110: act {'moves': [{'type': 'turn_left', 'amount': 180}, {'type': 'forward', 'amount': 35}], 'run': True, 'intent': 'turn around and run from wall'}; visible dFrame=4.30% (not proof of interaction success)"
+    ]
+  },
+  "audit": {
+    "matched_primitives": 169,
+    "unmatched_primitives": 0,
+    "all_actions_model_chosen": true,
+    "ledger_exactly_matches_model_notes": true,
+    "source_and_artifact_hashes_verified": true,
+    "api_errors": [],
+    "grounding_errors": 0,
+    "rejected_tool_responses": 4
+  },
+  "notes": 35,
+  "warnings": [
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 33,
+      "text": "Visual-cycle warning: this view resembles decisions 25 and 22 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        25,
+        22
+      ],
+      "pixel_mae": [
+        0.03734851579520696,
+        0.02513105936819171
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    },
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 44,
+      "text": "Visual-cycle warning: this view resembles decisions 38 and 5 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        38,
+        5
+      ],
+      "pixel_mae": [
+        0.027275667211328975,
+        0.028865400326797384
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    },
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 57,
+      "text": "Visual-cycle warning: this view resembles decisions 51 and 48 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        51,
+        48
+      ],
+      "pixel_mae": [
+        0.03717150054466231,
+        0.031906998910675374
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    },
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 63,
+      "text": "Visual-cycle warning: this view resembles decisions 28 and 20 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        28,
+        20
+      ],
+      "pixel_mae": [
+        0.025071486928104576,
+        0.028118191721132897
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    },
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 67,
+      "text": "Visual-cycle warning: this view resembles decisions 44 and 38 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        44,
+        38
+      ],
+      "pixel_mae": [
+        0.02655228758169935,
+        0.029954724945533768
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    },
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 71,
+      "text": "Visual-cycle warning: this view resembles decisions 63 and 60 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        63,
+        60
+      ],
+      "pixel_mae": [
+        0.027585443899782135,
+        0.02884837962962963
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    },
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 77,
+      "text": "Visual-cycle warning: this view resembles decisions 55 and 50 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        55,
+        50
+      ],
+      "pixel_mae": [
+        0.031857638888888894,
+        0.013109340958605664
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    },
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 81,
+      "text": "Visual-cycle warning: this view resembles decisions 55 and 50 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        55,
+        50
+      ],
+      "pixel_mae": [
+        0.03121085239651416,
+        0.03229847494553377
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    },
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 85,
+      "text": "Visual-cycle warning: this view resembles decisions 77 and 55 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        77,
+        55
+      ],
+      "pixel_mae": [
+        0.02162819989106754,
+        0.032982706971677565
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    },
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 90,
+      "text": "Visual-cycle warning: this view resembles decisions 73 and 63 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        73,
+        63
+      ],
+      "pixel_mae": [
+        0.030895969498910675,
+        0.03388139978213508
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    },
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 94,
+      "text": "Visual-cycle warning: this view resembles decisions 85 and 82 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        85,
+        82
+      ],
+      "pixel_mae": [
+        0.022397535403050107,
+        0.033709490740740734
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    },
+    {
+      "event": "visual_cycle_warning",
+      "decision_idx": 105,
+      "text": "Visual-cycle warning: this view resembles decisions 90 and 74 despite intervening actions. Similar-looking places can differ; this is not proof of the same location or a blocked path. Reconsider your landmark/outcome ledger and record what the visible results support before choosing your next action.",
+      "matched_decisions": [
+        90,
+        74
+      ],
+      "pixel_mae": [
+        0.03262867647058823,
+        0.021303104575163396
+      ],
+      "threshold": 0.04,
+      "min_gap": 6,
+      "source": "visible_rgb_only"
+    }
+  ],
+  "comparison_with_its_own_first60": [
+    {
+      "decisions": [
+        0,
+        59
+      ],
+      "observed_acts": 60,
+      "new_64_cells": 17,
+      "new_128_cells": 7,
+      "sampled_path_units": 3158.0331069890844,
+      "best_euclidean_distance": 360.02553190163206,
+      "end_euclidean_distance": 594.0681518914533
+    },
+    {
+      "decisions": [
+        60,
+        119
+      ],
+      "observed_acts": 51,
+      "new_64_cells": 7,
+      "new_128_cells": 2,
+      "sampled_path_units": 5300.319449807141,
+      "best_euclidean_distance": 347.277139477199,
+      "end_euclidean_distance": 474.1971461167368
+    }
+  ],
+  "cost_at_60": {
+    "tic": 908,
+    "cost_usd": 0.31339685000000006
+  },
+  "unique_128_cells": 10,
+  "unique_64_cells": 25,
+  "cell_128_reentries": 50,
+  "cell_128_entries": 60,
+  "goal_visible_anywhere": false,
+  "best_euclidean_distance": 347.277139477199,
+  "final_euclidean_distance": 474.1971461167368
+}

@@ -25,7 +25,7 @@ def prefix(level=1, briefing_l2=None):
         if level == 1
         else "You are an automated QA tester playing this level. Attempt the supplied objective and report confusing or apparently broken behavior."
     )
-    result = intro + "\n\n" + (PROMPT_DIR / "system_v2.md").read_text()
+    result = intro + "\n\n" + (PROMPT_DIR / "system_v3.md").read_text()
     if level > 1:
         result += "\n\n" + briefing_l2
     if level == 3:
@@ -46,7 +46,7 @@ def build(level: int, memory, obs: AgentObservation, guard_notes=None, briefing_
         raise ValueError("Level 3 requires its frozen initial map")
     stable = prefix(level, briefing_l2)
     text = (
-        f"Decision {obs.decision_idx}; elapsed {obs.tics_elapsed} tics; remaining {obs.tics_remaining} tics.\nScratchpad:\n{memory.scratchpad}\nRecent actions:\n"
+        f"Decision {obs.decision_idx}; elapsed {obs.tics_elapsed} tics; remaining {obs.tics_remaining} tics.\nLandmark/outcome ledger (model-written, 1500 characters maximum):\n{memory.scratchpad or '(empty; record landmarks as you observe them)'}\nRecent actions and uncertain locate evidence:\n"
         + "\n".join(memory.history)
     )
     if guard_notes:

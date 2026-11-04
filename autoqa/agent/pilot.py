@@ -1,4 +1,4 @@
-"""Bounded Level 1 loop. act is the only engine-execution branch."""
+"""Bounded information-level loop. act is the only engine-execution branch."""
 
 import json
 from dataclasses import asdict
@@ -54,6 +54,9 @@ class Pilot:
                 return "budget_exhausted"
             self.decisions = decision + 1
             obs = self.session.observe()
+            cycle = self.guards.observe_view(obs.frame_jpeg, obs.decision_idx)
+            if cycle:
+                self.log("visual_cycle_warning", decision_idx=decision, **cycle)
             items = builder.build(
                 self.config.level, self.memory, obs, self.guards.warning, self.briefing_l2
             )
@@ -192,8 +195,15 @@ class Pilot:
                                     "error_type": type(error).__name__,
                                 }
                                 self.log("grounding_error", decision_idx=decision, **out)
+                        self.memory.record_locate(obs.decision_idx, args.concept, out)
                     elif item["name"] == "note":
                         out = self.memory.note(args.text, args.mode)
+                        self.log(
+                            "landmark_ledger",
+                            decision_idx=decision,
+                            source="model_note",
+                            text=self.memory.scratchpad,
+                        )
                     elif item["name"] == "report_issue":
                         data = args.model_dump()
                         steps = data["evidence_steps"] or [obs.decision_idx]
@@ -221,8 +231,9 @@ class Pilot:
                         self.actions += 1
                         acted = True
                         self.guards.idle_decisions = 0
-                        self.memory.history.append(
-                            f"Decision {obs.decision_idx}: {args.model_dump()}; dFrame={feedback.frame_change_pct:.2f}%"
+                        self.memory.record(
+                            obs.decision_idx,
+                            f"act {args.model_dump()}; visible dFrame={feedback.frame_change_pct:.2f}% (not proof of interaction success)",
                         )
                         warning = self.guards.observe(args, feedback)
                         if warning:

@@ -75,11 +75,12 @@ for directory in args.run_directories:
         if not entries or c != entries[-1]:
             entries.append(c)
     recurrence = []
-    for i, t in enumerate(ds):
+    for t in ds:
         if any(
             math.dist(xy(t), xy(old)) <= 24
             and abs((t["angle_deg"] - old["angle_deg"] + 180) % 360 - 180) <= 15
-            for old in ds[: max(0, i - 5)]
+            for old in ds
+            if old["decision_idx"] <= t["decision_idx"] - 6
         ):
             recurrence.append(t["decision_idx"])
     turnerrors = []
