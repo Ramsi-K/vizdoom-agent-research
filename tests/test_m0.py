@@ -131,7 +131,7 @@ def test_native_engine_headless_replay_at_higher_resolution(tmp_path):
         assert Path(replay["lmp"]).stat().st_size > 0
 
 
-@pytest.mark.parametrize("command", ["run", "sweep", "review"])
+@pytest.mark.parametrize("command", ["sweep", "review"])
 def test_future_milestone_commands_are_not_exposed(command):
     with pytest.raises(SystemExit) as error:
         main([command])

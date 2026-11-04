@@ -1,1 +1,1 @@
-"""M0 feasibility tooling. No gameplay agent is implemented yet."""
+"""Meta-only ViZDoom feasibility checks and autonomous playtesting."""
