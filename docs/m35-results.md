@@ -279,3 +279,17 @@ Use an actual run ID and a fresh output filename. Replay makes no model calls. S
 - SAM returns candidates, not verified identities. A nonempty mask or a navigation note is not proof of correct localization, effective targeting or planning.
 - Combat counters are engine measurements. Requested attack duration is not a shot count, and ammunition changes alone do not identify individual hits or resource planning.
 - Inline issue candidates retain their existing unverified status. No M4 Reviewer, trace-verdict system or carry-over experiment is implemented here.
+
+## Submission README previews
+
+The submission documentation adds display derivatives of existing footage and a byte-identical copy of a saved grounding overlay. This is a presentation-only addition: original recordings, traces, measurements and audit JSON remain unchanged. No gameplay, model inference or new experiment was run to produce these previews.
+
+| README asset | Existing source | Display conversion |
+|---|---|---|
+| [L3 Corridor completion GIF](media/corridor-l3-completion.gif) | `results/m35-corridor-demo/full-level-demo.mp4`; SHA-256 `91aa993b013a4651d28ab86dd0cae52aa9a26777ca17029f38accd0249246e1d` | Full presentation, 720×405, 8 fps, 64-color palette; looping GIF. Retains title, complete 1× gameplay, labeled 0.5× replay and result hold. |
+| [Arena combat GIF](media/arena-autonomous-combat.gif) | `results/m35-demo/arena-kills.mp4`; SHA-256 `5b17c28a438e3e6fa6c83185669bb766f9bb42bd37f3c73ddadc763de30fd47a` | Original arena gameplay 00:00–00:07, 560×315, 10 fps, 64-color palette; looping GIF. |
+| [Arena SAM candidates](media/arena-sam-candidates.png) | `runs/20261104T190052.792354Z_defend_center_combat_L2_s101/grounding/locate_0003_overlay.png`; SHA-256 `4430fe161731552d6d4b92d96df5ea3d940ff541c9a02f057be7e9589ef3f4b2` | Unchanged 640×480 source overlay, decision 31, query `pink worm enemy`; copied for a clone-visible README image. |
+
+The GIFs reduce spatial/color/frame resolution using the installed imageio-ffmpeg binary, with Lanczos scaling and a shared palette per clip. They preserve source timing to GIF timestamp precision; the Corridor display lasts about 12.76 seconds versus the source presentation's 12.71 seconds. No additional gameplay frames, actions, audio or outcomes were synthesized. Looping repeats the same episode/excerpt, not another trial. API waiting time is absent from native gameplay playback.
+
+These are separate episodes. The L3/high Corridor winner made **zero `locate`/SAM calls** and recorded zero hits/damage dealt. The arena run used grounding but did not complete its survival objective; its six-kill counter applies to that run. The overlay's post-hoc sprite IoUs of 0.8567 and 0.8575 establish frame alignment, not reliable semantic identity or aiming. README trajectory and QA images link existing M3/M4 figures, including their evaluation-only and controlled-fault qualifications. A public demo-video URL remains for the author to add.

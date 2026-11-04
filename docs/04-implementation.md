@@ -2,17 +2,17 @@
 
 *Project: Generalist Game QA, Meta Global AI Developer Hackathon. Drafted 4 Nov 2026 from current Meta Model API, ViZDoom, and V-JEPA documentation. Bracketed numbers point to the source list in section 14.*
 
-This document retains implementation requirements and future milestone acceptance criteria. M0–M2 are merged; M3–M5 are not implemented. The current CLI supports `doctor`, `spike`, `run`, and `replay`. The QA pipeline below is an M4 design, not a shipped feature. See the [latest M2 report](m2-navigation-review.md) for measured results and incomplete requirements.
+This document retains implementation requirements and milestone acceptance criteria. M0–M3.5 functionality and the opt-in M4 QA/carry-over pipeline are implemented; validation is partial and M5 remains unimplemented. The CLI now also provides `metrics`, `analyze`, `sweep`, `verify`, `review`, `report` and `carryover`. See [M3](m3-results.md), [M3.5](m35-results.md) and [M4](m4-results.md) for actual execution, costs and incomplete requirements. Acceptance targets and illustrative examples below must not be read as completed measurements.
 
 ## 10. QA reporting, post-episode Reviewer, and deterministic trace verification (`autoqa/qa/`)
 
-**Planned M4.** Current `report_issue` calls save inline candidates in `issues.json` with `source="pilot_inline"`, `trace_verification_status="not_run"`, and `causal_hypothesis=null`. The schema example and verification/reporting behavior below are design targets; their example findings and numbers are not experimental results.
+**Implemented M4, partially validated.** `report_issue` saves original inline candidates in `issues.json` with `source="pilot_inline"`, `trace_verification_status="not_run"`, and `causal_hypothesis=null`. Opt-in verification produces separate `issues.verified.json`; reports and Reviewer outputs never overwrite original evidence. The schema example below is illustrative, not an experimental result. Category-specific checks may return `unverifiable`; dynamic reachability and genuine ordinary-game defects are not established by the live validation.
 
 ### 10.1 Unified issue schema (`autoqa/qa/schemas.py`) — separating behavioral confirmation from design-defect proof
 
 A central methodological principle of this project (README section 6.4–6.5) is that **an observable gameplay event in an AI trace (such as colliding with a wall, entering a dead end, or failing to open a door) does not automatically prove a game-design defect**. An agent may fail because it stood too far from a door when pressing `use`, because a maze intentionally includes a dead-end branch, or because a blind L1 agent lacks standard genre conventions.
 
-Accordingly, `IssueRecord` (`runs/<run_id>/issues.json`) separates **Trace Behavior Verification** (*Did the physical event described by the model actually happen in the engine telemetry, or did the VLM hallucinate it?*) from **Causal Triage Hypothesis** (*What does cross-level and geometric evidence suggest a human developer should check?*):
+Accordingly, derived `IssueRecord` entries (`<qa_output>/issues.verified.json`) separate **Trace Behavior Verification** (*Did the physical event described by the model actually happen in the engine telemetry, or did the VLM hallucinate it?*) from **Causal Triage Hypothesis** (*What does cross-level and geometric evidence suggest a human developer should check?*):
 
 ```json
 {
@@ -46,7 +46,7 @@ Accordingly, `IssueRecord` (`runs/<run_id>/issues.json`) separates **Trace Behav
 
 ### 10.2 Post-episode Reviewer (`autoqa/qa/reviewer.py`)
 
-After an episode terminates and `episode.lmp` is flushed, `reviewer.py` performs a single post-hoc QA pass:
+After an episode terminates and `episode.lmp` is flushed, `autoqa review` prepares a post-hoc QA pass. Inference requires explicit `--execute`; it is not automatic after gameplay. The protocol below describes video preparation and keyframe fallback. Unknown failed-inference charges stop automatic fallback; the diagnostic 8,000-token variants and incomplete outputs are recorded separately in [M4 results](m4-results.md):
 
 1. **Video & log preparation**:
    - Replay `episode.lmp` to generate `review_input.mp4` (`640x480`, H.264, `movflags=+faststart` so the `moov` atom sits at the front and skips server remuxing \[7\], 10 fps with burned top-left caption `Step <d> | Tic <t> | <moves> | dFrame=<pct>%`).
@@ -63,6 +63,8 @@ After an episode terminates and `episode.lmp` is flushed, `reviewer.py` performs
 ### 10.3 Deterministic trace verifier and causal triage (`autoqa/qa/verify.py`)
 
 To answer **RQ4** (*Are the observations actionable and reproducible?*) without overclaiming that every confirmed struggle is a level bug, `autoqa/qa/verify.py` executes a two-stage check over $W = [\text{start\_tic} - 70, \text{end\_tic} + 70]$:
+
+The tables below retain the intended category rules, not a claim that every geometric predicate is measurable in current traces. Missing door/target metadata, incomplete post-action windows and unresolved topology yield conservative `unverifiable` findings. Static topology does not prove dynamic door reachability; the [M4 report](m4-results.md) records which checks actually resolved the live cases.
 
 **Stage 1 — Behavioral Trace Confirmation (`trace_verification_status`)**:
 Verifies whether the physical event claimed by the model actually occurred in `telemetry.jsonl` and `state.sectors`:
@@ -126,7 +128,7 @@ The table below defines milestone requirements, including future M3/M4 checks. I
 
 ### 12.1 Repository structure
 
-The tree below is the target layout across M0–M5. Current setup uses Python 3.12, `uv.lock`, and `uv sync --locked`. Active prompts are `system_v3.md`, `level1_task.md`, and the L2/L3 navigation additions. Current modules also include `agent/navigation.py`, `doom/topology.py`, and `run.py`. Sweep configs, `registry.yaml`, annotation/reference files, carry-over, aggregate metrics, Reviewer/verifier/report modules, and the README generator in this tree remain planned.
+The tree below is the target layout across M0–M5. Current setup uses Python 3.12, `uv.lock`, and `uv sync --locked`. Active prompts are `system_v3.md`, `level1_task.md`, and the L2/L3 navigation additions. Current modules also include `agent/navigation.py`, `doom/topology.py`, and `run.py`. Sweep configs, carry-over, aggregate metrics, Reviewer/verifier/report modules, qualitative human-reference files and the marker-based README generator are implemented. `registry.yaml`, optional L3 annotation loading, human recording and M5 modules remain design targets. The target tree is not an exhaustive listing of the current repository.
 
 ```text
 generalist-game-qa/
@@ -216,24 +218,28 @@ uv run --locked autoqa replay "$RUN_DIR" --no-outcome-ending --output-name repla
 
 The CLI defaults remain 60 decisions, 2,100 tics, USD 0.25, 900 wall-clock seconds, and experimental `muse_box_sam` grounding. M2 retests explicitly used USD 0.60. A replay's default output is `replay.mp4`; existing files are preserved, so use `--output-name` for another export. `--from-tic`/`--to-tic` select a gameplay-only slice. Successful full exports add a labeled recap/result hold; `--no-outcome-ending` keeps gameplay only.
 
-**Planned M3/M4 command interfaces — not currently accepted by the CLI:**
+**Implemented M3/M4 commands.** Use fresh output paths to preserve prior reports. `sweep`, `carryover` and `review` prepare requests without inference unless `--execute` is explicitly supplied; `metrics`, `analyze`, `verify` and `report` are offline:
 
-```text
-# Carry-over from a prior run
-autoqa run ... --carry-over <prior_run_directory>
-# 4. Run post-episode Reviewer, deterministic trace verifier, and HTML report on one run
-autoqa review runs/<run_id> [--model muse-spark-1.3] [--effort high]
-autoqa verify runs/<run_id>
-autoqa report runs/<run_id>
+```bash
+RUN_DIR="runs/<run_id>"  # Replace with an existing local run directory.
+# Derived metrics and paired analysis of existing recordings
+uv run --locked autoqa metrics "$RUN_DIR" --out results/new-metrics.json
+uv run --locked autoqa analyze "$RUN_DIR" --out results/new-analysis
 
-# 5. Execute a multi-scenario, multi-level experiment sweep and generate full dossier
-autoqa sweep --config configs/sweep_core.yaml --out results/sweep_core
-autoqa sweep --config configs/sweep_probes.yaml --out results/sweep_probes
-autoqa report results/sweep_core
+# Prepare a Reviewer request; no inference without --execute
+uv run --locked autoqa review "$RUN_DIR" --out results/new-review
+# Verify inline candidates and assemble an offline report
+uv run --locked autoqa verify "$RUN_DIR" --out results/new-verification/issues.verified.json
+uv run --locked autoqa report "$RUN_DIR" --out results/new-report
+# A completed Reviewer output can be supplied with --reviewer <reviewer.json>.
 
-# 6. Optional: Record a real human reference playtest in ViZDoom SPECTATOR mode
-autoqa record-human --scenario freedoom2_map01 --seed 101
+# Prepare experimental plans; no paid episodes without --execute
+uv run --locked autoqa sweep --config configs/sweep_core.yaml --out results/new-core-plan
+uv run --locked autoqa sweep --config configs/sweep_probes.yaml --out results/new-probe-plan
+uv run --locked autoqa carryover --config configs/sweep_carryover.yaml --out results/new-carryover-plan
 ```
+
+`autoqa run ... --carry-over <prior_run_directory>` starts a **paid** feedback-informed attempt and tags it separately from ordinary benchmarks. The measured M4 study used `configs/sweep_carryover_m4_live_v1.yaml`, not the current default extractor. `autoqa record-human` remains a planned interface and is not accepted by the CLI. For reproduced Reviewer reports, see the concrete paths in [M4's reproduction instructions](m4-results.md#costs-artifacts-and-reproduction).
 
 ### 12.3 On-disk artifact layout per run and sweep
 
@@ -246,13 +252,13 @@ Every `autoqa run` creates a unique directory `runs/<timestamp>_<scenario>_L<lev
 - `frames/`: decision screenshots. `plan_l3.png` is at the run-directory root for L3 only.
 - `geometry.json`: evaluation-only initial geometry/object snapshot.
 - `memory.json`: final model-written landmark ledger and recent visible history.
-- `issues.json`: current unverified inline candidates; not the planned unified `IssueRecord` schema.
+- `issues.json`: original unverified inline candidates. Verification writes unified derived `IssueRecord` entries to a separate output directory, never back into this file.
 - `grounding/`: grounding artifacts when the tool is used.
 - `replay.mp4` and `replay.json`: added by replay export, with separate gameplay/presentation counts and elapsed-tic reconstruction when needed. Named exports use matching metadata filenames.
 
-`metrics.json`, automatically generated issue clips, and `report.html` are planned outputs, not currently produced by `autoqa run`.
+Metrics, verified clips and `report.html` are implemented derived outputs created by their explicit CLI commands; they are not automatically produced by `autoqa run`. Reports also create `dossier.md` and `issues.verified.json`.
 
-The planned `autoqa sweep` would create `results/<sweep_id>/`:
+`autoqa sweep` prepares `results/<sweep_id>/sweep_manifest.json`; explicit execution adds run records and metrics. `autoqa report` subsequently assembles the QA report from source run directories or a completed/partial sweep directory. The layout below is the design overview; derived reports use `issues.verified.json` rather than `issues_all.json`:
 
 - `sweep_manifest.json`: List of constituent `run_id` directories, sweep config hash, and completion status.
 - `summary.csv` and `summary.json`: Aggregated metrics per `(scenario, level)`, paired L1/L2/L3 deltas, information-sensitivity classifications, and behavior-confirmation rates.
@@ -261,6 +267,8 @@ The planned `autoqa sweep` would create `results/<sweep_id>/`:
 - `report.html` and `dossier.md`: Complete multi-scenario experiment report and judge-ready QA dossier.
 
 ### 12.4 Milestones M0–M5, timebox ceilings, and de-scoping triggers
+
+The acceptance criteria below are retained as requirements, not assertions of completion. M3's multi-scenario execution and M4's full carry-over/human-validation targets remain incomplete; the reports above are authoritative for actual results. M3.5 combat was a separately documented intermediate milestone.
 
 Because M0–M4 span API integration, ViZDoom control, SAM 3.1 segmentation, three information conditions, multi-seed sweeps, trace verification, and HTML reporting, the hour figures below are **hard timebox ceilings for cutting scope, not completion forecasts**. Whenever a milestone hits its timebox ceiling, execute its **De-scope trigger** immediately so `main` stays runnable and shippable.
 
@@ -348,11 +356,11 @@ For a typical 50-decision episode at `640x480` (with 1 current frame + 2 thumbna
 | **Estimated total per episode** | **$\approx \$0.32$** | **$\approx \$0.04$** |
 | **Full 45-episode Core Sweep + 9 Fault Probes (54 runs)** | **$\approx \$17.28$** | **$\approx \$2.16$** |
 
-The original estimates fit within the listed $\$150$ grant \[21\], but available credit and actual sweep cost remain unverified. Set `--max-usd` explicitly for each run. The threshold is checked after returned usage is known, so a final response can exceed it; no pending action executes afterward. It is not a provider-side hard spending cap, and `registry.yaml` is not implemented.
+The original estimates fit within the listed $\$150$ grant \[21\], but available credit and the cost of a full unexecuted sweep remain unverified. Actual partial-sweep and M4 returned-usage costs are recorded in their reports; the table above remains an estimate, not measured expenditure. Set `--max-usd` explicitly for each run. The threshold is checked after returned usage is known, so a final response can exceed it; no pending action executes afterward. It is not a provider-side hard spending cap, and `registry.yaml` is not implemented.
 
 ### 13.3 Contingency matrix
 
-These are design contingencies. The current runtime has no configurable base URL, self-hosted backend, token-bucket pacer, or Reviewer fallback. Selecting the supported Contributor model is available through `--model`; it was not the model used in the reported M2 comparisons.
+These are design contingencies. The current runtime has no configurable base URL, self-hosted backend or token-bucket pacer. M4 implements a bounded keyframe Reviewer fallback, with an explicit stop on unknown failed-inference charges. Selecting the supported Contributor model is available through `--model`; it was not the model used in the reported M2 comparisons.
 
 | Failure / constraint observed in M0 | Immediate fallback action |
 | --- | --- |

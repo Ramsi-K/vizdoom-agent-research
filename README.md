@@ -10,8 +10,8 @@ Research on autonomous agents that attempt to complete unfamiliar game levels us
 - <a href="#project-overview">Project Overview</a>
 - <a href="#demo">Demo</a>
 - <a href="#technology-overview">Technology Overview</a>
-- <a href="#quick-start">Quick Start</a>
 - <a href="#key-findings">Key Findings</a>
+- <a href="#quick-start">Quick Start</a>
 
 </details>
 
@@ -97,7 +97,7 @@ Research on autonomous agents that attempt to complete unfamiliar game levels us
 - [Discussion](#discussion)
 - [Limitations](#limitations)
 - [Future Work](#future-work)
-- [References](#references)
+- [References](#references-1)
 
 </details>
 
@@ -117,7 +117,19 @@ The longer-term objective is to investigate the feasibility of a configurable **
 
 ## Demo
 
-[Watch Demo](URL)
+**L3 autonomous objective completion — Deadly Corridor**
+
+![Muse Spark follows its map-based route and completes the Corridor armor objective](docs/media/corridor-l3-completion.gif)
+
+Muse Spark 1.3/high selected all actions in this three-decision completion. The preview includes the complete 2.57-second native gameplay interval, a labeled slow-motion replay, and the recorded result: 100 armor, 40 health. **No `locate` or SAM calls occurred in this episode.** See the [recording and decision audit](docs/m35-results.md#l3high-corridor-demo--completed-objective).
+
+**Autonomous combat — arena, 00:00–00:07**
+
+![Muse Spark turns and fires at enemies in the arena](docs/media/arena-autonomous-combat.gif)
+
+This excerpt shows model-selected combat from a separate L2 run with six recorded kills. The run later exhausted its budget without completing the survival objective. Both previews use existing recordings; API waiting time is absent from native game time. [Clip provenance and limitations](docs/m35-results.md#submission-readme-previews) describe the display conversions.
+
+Public demo-video link: to be added.
 
 ## Technology Overview
 
@@ -133,13 +145,26 @@ The longer-term objective is to investigate the feasibility of a configurable **
 
 ## Key Findings
 
-- **Autonomous completion has been observed:** one L3 `my_way_home` run collected the armor and completed the level in 42 decisions. Model-written map plans, the recorded trajectory, and native replay support this result; repeatable success and a causal benefit from the map remain untested.
+- **Autonomous completion has been observed:** one L3 `my_way_home` run collected the armor and completed the level in 42 decisions. Model-written map plans, the recorded trajectory, and native replay support this result; repeatable success and a causal benefit from the map remain unestablished.
 - **Grounding remains experimental:** M0 text-guided SAM returned no masks on 100 Doom prompts. In M2's paired evaluation, Muse-box → SAM hit 10/21 positive cases but also produced 2/7 false positives. A returned mask is a candidate, not a verified object identity.
 - **More guidance did not consistently improve navigation:** the ledger/cycle follow-up still produced no wins; the latest L2 retest cost more and explored fewer coarse cells than its baseline. Repeated local navigation remains a significant failure mode.
+
+| Milestone | Implemented and observed | Detailed evidence |
+|---|---|---|
+| **M0 — Feasibility** | API/tool loop and replay established; known-box segmentation worked, text-only Doom localization did not. | [Spike](docs/spike-results.md) |
+| **M1 — Pilot** | Real autonomous gameplay, telemetry, native recording and MP4 replay; no level completion in the validation runs. | [M1](docs/m1-results.md) |
+| **M2 — Grounding and information levels** | Candidate grounding, L1/L2/L3 boundaries, ledger and navigation intentions; one verified L3 maze completion. | [M2 navigation](docs/m2-navigation-review.md) |
+| **M3 — Metrics and paired sweeps** | Metrics, comparisons and heatmaps implemented; early-stopped sweep completed six runs with **0/6 wins**. | [M3](docs/m3-results.md) |
+| **M3.5 — Combat** | Four varied combat profiles tested; later L3/high Corridor attempt completed its armor objective. Arena and Freedoom objectives remained incomplete. | [M3.5](docs/m35-results.md) |
+| **M4 — Evidence-backed QA** | Reviewer, trace verifier, reports and carry-over implemented; one controlled fault observation confirmed, two valid carry-over pairs gave no completion improvement. | [M4](docs/m4-results.md) |
 
 See [Results](#results) for the comparisons and links to the experiment reports.
 
 ## Quick Start
+
+This is a local command-line research workflow: run an autonomous episode, export its recording, then inspect offline metrics and QA evidence. Each stage is invoked separately. The examples below do not launch a sweep or automatically call the post-episode Reviewer.
+
+**1. Install and configure.**
 
 Use a WSL/Linux shell with Git and [`uv`](https://docs.astral.sh/uv/getting-started/installation/) installed. From a fresh checkout:
 
@@ -153,15 +178,15 @@ uv sync --locked --python 3.12
 
 Set `MODEL_API_KEY` in `.env` to your Meta Model API key; the existing `META_MODEL_API_KEY` name is also supported. `.env` and generated runs are ignored by Git. Keep credentials out of committed files.
 
-Check the CLI and run the local tests:
+Check the available commands without making API calls:
 
 ```bash
 uv run --locked autoqa --help
-make test
-make lint
 ```
 
-`make test` excludes live API tests. Gameplay commands below make paid Meta API requests. These examples use the M2 retest settings: Muse Spark 1.3, low reasoning effort, seed 101, a 60-decision limit, and a USD 0.60 stop threshold per episode.
+**2. Run one autonomous episode.**
+
+Choose one of the following commands. Each starts a separate episode and makes **paid Meta API requests**. These examples use the M2 retest settings: Muse Spark 1.3, low reasoning effort, seed 101, a 60-decision limit, and a USD 0.60 stop threshold per episode. They exercise the agent; they do not guarantee level completion or reproduce the high-reasoning combat demo.
 
 ```bash
 # L1: blind play
@@ -179,6 +204,8 @@ uv run --locked autoqa run --scenario my_way_home --level 3 --seed 101 \
 
 The default grounding mode is experimental `muse_box_sam`; `--grounding-mode sam_text` selects direct text-guided SAM. The cost threshold is checked after response usage arrives, so a final response can exceed it; unknown charges for timed-out requests are not included in recorded totals.
 
+**3. Export the recorded gameplay.**
+
 Each episode creates `runs/<timestamp>_<scenario>_L<level>_s<seed>/`. Set `RUN_DIR` to the directory for the episode you want to replay:
 
 ```bash
@@ -191,6 +218,19 @@ uv run --locked autoqa replay "$RUN_DIR" \
 ```
 
 Replay writes `replay.mp4` and replay metadata from the native recording, without model calls. Successful full exports include a labeled slow-motion recap and result hold after the recorded gameplay. Runs and videos stay local under `runs/`; they are not included in a fresh clone.
+
+**4. Inspect offline metrics and QA evidence.**
+
+Use the same `RUN_DIR` and fresh output paths:
+
+```bash
+uv run --locked autoqa metrics "$RUN_DIR" --out results/quickstart-metrics.json
+uv run --locked autoqa report "$RUN_DIR" --out results/quickstart-report
+```
+
+Open `results/quickstart-report/report.html` locally. These commands use saved records and make no model calls. The report checks inline issue candidates against the trace and includes available trajectories, grounding evidence and clips; it does not create new model-written findings or establish that a game defect exists. Missing measurements and evidence remain unavailable.
+
+For paired sweeps, combat profiles, opt-in paid Reviewer analysis and carry-over studies, use the protocols in [M3](docs/m3-results.md), [M3.5](docs/m35-results.md), and [M4](docs/m4-results.md). Developer validation commands remain documented in the [implementation specification](docs/04-implementation.md).
 
 # Part II — Research Motivation
 
@@ -881,6 +921,8 @@ For each decision, Muse receives the current screenshot, recent visual/action hi
 
 The shared memory includes a bounded landmark/outcome ledger: what a place looked like, what the agent tried, what it observed afterward, and what remains uncertain. A pixel-based visual-cycle detector warns about repeated views. These warnings prompt reconsideration but do not select a response. L2 and L3 additionally require model-written navigation annotations in the existing memory, recording tentative location/heading, destination, subgoals, evidence, uncertainty, and replanning decisions.
 
+M3 reuses this Pilot and adds offline metrics, paired comparisons, and trajectory/coverage plots. M3.5 adds opt-in combat controls, including firing while moving or turning, vertical aim and weapon selection; Muse chooses whether and how to use them. M4 adds a separate post-episode Muse Spark Reviewer and deterministic trace verifier. Reviewer findings do not become gameplay actions or privileged navigation input.
+
 ### Grounding and information boundaries
 
 `locate` operates on the current screenshot and a short concept supplied by Muse. The experimental default asks Muse for candidate bounding boxes, then asks SAM to segment those boxes. Returned geometry includes bearings and mask extent, with `identity_verified=false`. Direct text-guided SAM remains available for comparison. Identical concept requests on the same observed frame can reuse a result in L2/L3; bearings from an earlier frame are not silently reused after movement.
@@ -891,13 +933,15 @@ Coordinates, actor labels, and level topology are available to offline evaluatio
 
 During play, Muse can use `report_issue` to record a category, severity, description, confidence, and supporting decision references. Events, screenshots, action intentions, costs, and evaluation telemetry let a developer inspect what was attempted and compare the claim with the native replay. The trajectory investigations used those records to identify repeated visits, ineffective interactions, and exploration plateaus.
 
-These issue records are currently **unverified candidates**: `trace_verification_status` remains `not_run`. Post-episode Reviewer analysis, automated trace verification, causal triage, and HTML QA reports are future work. Successful native replay confirms the recorded gameplay and outcome; it does not establish that a reported difficulty is a game defect.
+The original inline issue records remain **unverified candidates** with `trace_verification_status=not_run`. M4's opt-in Reviewer, trace verifier, conservative causal triage, and HTML reports write separate derived outputs, including `issues.verified.json`. The verifier can mark a cited behavior confirmed, contradicted, or unverifiable; a behavioral confirmation is not proof of a game defect. Successful native replay confirms the recorded gameplay and outcome; it does not establish that a reported difficulty is a game defect. See [M4's validation and limitations](docs/m4-results.md).
 
 ## Experimental Environment
 
 Episodes run headlessly in ViZDoom's PLAYER mode with 640×480 RGB frames, the HUD, weapon, and crosshair visible, and audio disabled. The Pilot sees the current JPEG plus up to two previous thumbnails. Game time advances through actions rather than during API waits. Each paired episode starts in a fresh engine instance with the same scenario seed; M2 checks confirmed identical initial spawn state across L1/L2/L3.
 
 The principal gameplay experiment is `my_way_home`, where the objective is to navigate to and collect the armor. Grounding evaluation also uses frames from `health_gathering_supreme` and `freedoom2_map01`. The CLI additionally exposes `deadly_corridor_nav`; configuration availability should not be read as completed gameplay validation for every scenario.
+
+M3.5 separately tested `basic_combat`, `defend_center_combat`, `deadly_corridor_combat`, and `freedoom2_combat_map01`. These combat profiles are not the unrun M3 Freedoom navigation benchmark. M4's `probe_broken_door` suppresses requested `USE` inputs as an explicitly logged environment fault; it is excluded from ordinary gameplay comparisons.
 
 Each run keeps a `manifest.json`, `events.jsonl`, `telemetry.jsonl`, screenshots, `memory.json`, and native `episode.lmp`. L3 also saves `plan_l3.png`; grounding artifacts are saved when requested. MP4 exports are reconstructed from the native recording. Compact measurements and provenance are committed under `docs/`, while full recordings, videos, and request traces remain in ignored `runs/`.
 
@@ -910,6 +954,8 @@ Each run keeps a `manifest.json`, `events.jsonl`, `telemetry.jsonl`, screenshots
 | **L3 — Informed Play** | Adds a frozen initial map. Muse must use it for strategic destinations and route/subgoals, maintain a tentative location estimate, and use screenshots for immediate movement and obstacle avoidance. |
 
 Grounding is available as a tool at all three levels. The latest L2/L3 protocols add navigation instructions and memory requirements as well as different information, so their results do not isolate an information-only effect. Telemetry links model-written intentions to subsequent actions but retains `planning_verified=false`; actual planning is assessed separately against behavior and replay.
+
+Ordinary episodes start with fresh scratchpad, action history, and model conversation. Only the explicitly separated M4 carry-over cohort receives a capped brief from the previous attempt's self-observed notes, actions, warnings and outcome. Evaluation coordinates and Reviewer advice are excluded. Tool availability does not establish tool use: the winning M2 L3 maze run and both M3.5 L3/high Corridor attempts made no `locate` calls.
 
 ## Experimental Design
 
@@ -928,6 +974,22 @@ M2 first compared direct text-SAM with Muse-box → SAM on the same 21 positive 
 Real L1/L2/L3 episodes then exposed repeated local navigation. Follow-ups retained a fixed seed and budget while adding the landmark/outcome ledger and visual-cycle warnings, followed by explicit grounding guidance for L2 and map planning for L3. The latest controlled retests used Muse Spark 1.3, low effort, seed 101, a 60-decision maximum, 2,100-tic limit, USD 0.60 threshold, and 900-second wall-clock limit, matching their ledger/cycle baselines. Both retests were recorded, replayed, and audited against model actions.
 
 Exploration was measured using sampled endpoint grid cells, known-cell reentries, repeated poses, goal visibility, and terminal outcomes. Straight-line distances ignore walls; grid cells are a coarse diagnostic, not continuous map coverage. Cost is based on returned API usage, with unknown timeout charges reported separately. Full protocols and definitions are in the [original M2 report](docs/m2-results.md), [ledger retest](docs/m2-ledger-retest.md), and [navigation review](docs/m2-navigation-review.md).
+
+### M3 — Paired sweeps and metrics
+
+The configurable fast and core plans contain 15 and 45 episodes respectively. The executed fast sweep retained the M2 agent implementation, low effort, 60 decisions, 2,100 tics, and a USD 0.60 threshold per run. It stopped early after the six complete `my_way_home` runs for seeds 101 and 102 across L1/L2/L3. A seed-103 L1 run began before the requested stop was applied; its interrupted prefix is excluded. No Freedoom navigation or core-sweep episode ran.
+
+Offline metrics use sampled 128-unit cells and translation-displacement collision proxies. Pairing requires matching scenario, seed and protocol. Missing navigable-distance/BFS measurements leave progress, SPL and normalized coverage unavailable, rather than substituting straight-line distances. Information-sensitivity classifications remain unavailable where their required progress values are missing. See [M3 methods, results and the separate post-sweep investigation](docs/m3-results.md).
+
+### M3.5 — Autonomous combat and demo selection
+
+Four initial L2, seed-101 combat runs used Muse Spark 1.3/low with 60 decisions and a USD 0.60 threshold. Subsequent experiments are separate cohorts: an interrupted extended Freedoom attempt, then two L3/high Corridor attempts with a narrowly clarified briefing between them. They are not controlled evidence that high reasoning or briefing changes improve performance. Grounding was used in the initial L2 cohort; neither L3/high Corridor attempt called it. All actions remained model-selected. See [M3.5 protocols and recording audit](docs/m35-results.md).
+
+### M4 — Trace verification and carry-over
+
+M4 reviewed existing ordinary recordings and ran one separately tagged controlled-fault probe. Muse Spark 1.3/high received player-visible video or keyframes and an allowlisted action log; the offline verifier checked cited intervals against evaluation telemetry and source hashes. Reviews of the same recording under different video settings are diagnostic variants, not independent gameplay trials.
+
+The carry-over study attempted three paired L2 `my_way_home` seeds (101–103), using low effort, 60 decisions, 2,100 tics, a USD 0.45 threshold and 600 wall seconds per attempt. Seed 101's second attempt failed with an API error, leaving two valid pairs. Attempt 2 received only an 800-character self-observed brief. The measured extractor was **v1**; a later v2 extractor was checked offline but not tested live. Neither Reviewer feedback nor evaluator state entered the brief. See [M4 methods and costs](docs/m4-results.md).
 
 ## Results
 
@@ -953,6 +1015,41 @@ L3 wrote map-based destinations and corridor subgoals before seeing the goal, in
 
 The winning local run is `runs/20261104T101202.353976Z_my_way_home_L3_s101/`. Its terminal engine clock reset to zero; replay reconstructs elapsed tics from native advances while preserving the original telemetry. All 171 executed primitives across the two latest retests match model requests. Each retest recovered from one API timeout; any charge for those attempts is unknown. See the [navigation review](docs/m2-navigation-review.md), [consolidated evidence](docs/m2-evidence.json), and [model-written intentions](docs/m2-navigation-intentions.csv) for the complete measurements.
 
+**M3 — negative replication result:** all six completed runs reached the 60-decision limit without collecting the armor. The table reports two runs per level; cell counts are sampled exploration diagnostics, not map coverage fractions.
+
+| Information level | Completions | Mean unique cells | Mean revisit rate | Mean recorded cost, USD |
+|---|---:|---:|---:|---:|
+| L1 | 0/2 | 14.0 | 48.98% | 0.364579 |
+| L2 | 0/2 | 12.0 | 63.07% | 0.563271 |
+| L3 | 0/2 | 10.5 | 69.96% | 0.475243 |
+
+![M3 sampled trajectories for L1, L2 and L3 on my_way_home](docs/m3-fast-partial/trajectory.png)
+
+The trajectories combine seeds 101 and 102 within each level. They use evaluation-only coordinates, never supplied to the agent. [Coverage heatmap](docs/m3-fast-partial/coverage.png), [summary CSV](docs/m3-fast-partial/summary.csv), and [full results](docs/m3-results.md) retain the definitions and missing measurements. These small comparisons do not establish that maps or grounding caused worse navigation.
+
+The separate post-sweep audit found unchanged M2 runtime modules in all six manifests. L2 made nine `locate` calls, but only 5/118 executed L2 acts declared grounding as their basis. L3 wrote map-linked plans while repeatedly revisiting locations without reaching the goal. Fresh memory meant the earlier winning M2 trajectory was not carried forward. Capability availability and protocol compliance therefore did not establish effective use. Six completed runs cost USD **2.80618700**; including returned usage from the excluded interrupted prefix, known spend was **2.86259910**. In-flight charges remain unknown.
+
+**M3.5 — combat and objective completion:** the initial basic-combat control succeeded in one action; the arena recorded six kills but did not finish survival, Corridor ended in player death, and Freedoom recorded two kills without reaching the exit. The four runs cost USD **1.28339375**. An extended Freedoom attempt was interrupted before finalization: its separately reconstructed, observation-matched prefix is not a completed original native recording or a level completion.
+
+The later L3/high Corridor campaign had one death, then a verified armor-objective completion in three decisions and 90 native tics at USD **0.03328465** for the winning attempt. Both attempts together cost USD **0.19940135**. The winner fired, but its recorded damage and hit counters were zero; its native kill counter must not be described as an agent shooting kill. **Neither attempt used SAM.** See [M3.5's complete audit](docs/m35-results.md).
+
+![Saved Muse-box and SAM candidate overlay from arena decision 31](docs/media/arena-sam-candidates.png)
+
+This is a saved live grounding overlay from the separate **L2 arena run**, decision 31, for `pink worm enemy`. Post-run label scoring gave the two masks IoU **0.8567** and **0.8575** against enemy sprites. It illustrates segmentation alignment on this frame, not reliable identity recognition or effective aiming. At a different arena frame, a well-aligned candidate was followed by six attack-only actions with no damage. [Grounding audit](docs/m35-results.md#sam-alignment-and-uncertain-identity).
+
+**M4 — QA evidence and memory:** the controlled probe logged 11 requested `USE` actions, all suppressed. The Pilot filed no inline issue. A blind post-episode Reviewer returned three findings; one interaction symptom was trace-confirmed and labeled `CONFIRMED_INJECTED_FAULT`, while two remained unverifiable. This verifies the controlled manipulation, not exit unreachability or a genuine ordinary-game defect.
+
+![Controlled-fault evidence frame with a saved SAM candidate and labeled evaluation-only inset](docs/m4-figures/fault-probe-keyframe.jpg)
+
+The inset is evaluation-only and was not supplied to the Pilot or Reviewer; the mask remains an identity-unverified candidate. Ordinary `my_way_home` review had one confirmed navigation symptom and one unverifiable interaction claim. The primary native-640 Freedoom combat review returned three unverifiable findings. Diagnostic review variants and rejected/incomplete responses are kept separate in [M4 results](docs/m4-results.md).
+
+| Valid carry-over pair | Completions, Attempt 1 → 2 | Unique cells | First changed sector, elapsed tics |
+|---|---:|---:|---:|
+| Seed 102 | 0 → 0 | 10 → 8 | 74 → 276 |
+| Seed 103 | 0 → 0 | 8 → 8 | 16 → 21 |
+
+Changed-sector timing is a sampled room-entry proxy. Neither valid pair improved completion; exploration and revisit changes were mixed. Seed 101's API-invalid pair is excluded. This is insufficient evidence for a general carry-over benefit. M4 known returned usage was USD **2.94636210**, including gameplay and Reviewer calls; failed-request charges are unknown. Human statistics remain `null` / `not run`. The [M4 report](docs/m4-results.md) links paired plots, findings, source hashes and local HTML-report instructions.
+
 ---
 
 # Part IV — Discussion and Future Work
@@ -963,33 +1060,37 @@ The experiments provide partial answers to the [research questions in Section 7]
 
 **RQ1 — Can Meta models navigate and complete unfamiliar gameplay scenarios?** One L3 episode completed `my_way_home` through model-selected actions, without a custom reinforcement-learning policy or scripted navigation. Other runs failed within their budgets. This establishes a demonstrated completion, while generalization across seeds and scenarios remains open.
 
-**RQ2 — Can the models recognize and document gameplay failures?** The system records model-written hypotheses and issue candidates alongside actions and screenshots. Offline inspection revealed loops and ineffective interactions, but that researcher diagnosis does not establish the model's issue-detection accuracy. Automated confirmation of reported failures remains unimplemented.
+M3 did not reproduce maze completion in six bounded runs. M3.5 additionally demonstrated a basic combat win and a Corridor armor-objective win, alongside deaths, wasted shots and incomplete arena/Freedoom objectives. These observations establish specific capabilities, not robust level completion across scenarios.
 
-**RQ3 — Does structured feedback improve subsequent attempts?** The within-episode ledger and cycle warnings produced mixed follow-up results. Later explicit navigation coincided with an L3 win and an L2 regression. These changes combined prompts, memory requirements, and stochastic model responses; they do not isolate a feedback benefit. Cross-episode carry-over and Reviewer feedback have not been tested.
+**RQ2 — Can the models recognize and document gameplay failures?** The system records model-written hypotheses and issue candidates alongside actions and screenshots. Offline inspection revealed loops and ineffective interactions, but that researcher diagnosis does not establish the model's issue-detection accuracy. M4 added automated trace checks: a blind Reviewer identified a controlled interaction symptom that the verifier confirmed, while other claims remained unverifiable or contradicted under their sampled-window rules. Ordinary-game defect-detection accuracy remains unmeasured.
+
+**RQ3 — Does structured feedback improve subsequent attempts?** The within-episode ledger and cycle warnings produced mixed follow-up results. Later explicit navigation coincided with an L3 win and an L2 regression. These changes combined prompts, memory requirements, and stochastic model responses; they do not isolate a feedback benefit. M4's two valid self-observed carry-over pairs showed no completion improvement and mixed exploration changes. Reviewer feedback was not supplied to the Pilot or tested as a feedback intervention.
 
 **RQ4 — Can the observations contribute to technical game testing?** Native recordings, replay-matched outcomes, action provenance, and trajectory diagnostics provide inspectable evidence beyond a success score. They helped distinguish repeated traversal from sustained exploration and exposed a replay clock assumption at natural completion. The usefulness and accuracy of an automated, actionable QA report still require evaluation.
 
+M4 now assembles that evidence into derived findings, replay clips and HTML reports, with separate behavioral verification and causal hypotheses. Its narrow fault-probe validation supports inspectability; it does not establish human usefulness, dynamic softlock detection or general defect-verification accuracy.
+
 **RQ5 — How closely do AI difficulties correspond to human difficulties?** This is unanswered. No measured human playtest baseline has been collected. The observed navigation and perception failures cannot establish human difficulty, intentional design friction, or a game defect.
 
-The clearest distinction so far is between providing information and observing its use. Map delivery alone did not establish planning in the earlier L3 runs. The latest run adds model-written route intentions, subsequent traversal, and a verified outcome. Conversely, L2's grounding calls and citations did not translate into improved navigation. Both the intentions and the resulting behavior matter when evaluating the system.
+The clearest distinction so far is between providing information and observing its use. Map delivery alone did not establish planning in the earlier L3 runs. The M2 navigation retest adds model-written route intentions, subsequent traversal, and a verified outcome. Conversely, L2's grounding calls and citations did not translate into improved navigation. Both the intentions and the resulting behavior matter when evaluating the system.
 
 ## Limitations
 
-- **Small, evolving experiments:** gameplay comparisons use one paired seed and changing navigation protocols. A multi-seed benchmark, map-withheld ablation, and repeated completion estimate have not been run.
+- **Small, evolving experiments:** M2 comparisons used one paired seed and changing navigation protocols. M3 completed only two paired seeds on one scenario; M4 retained two valid carry-over pairs. The full multi-scenario benchmark, map-withheld ablation, and repeated completion estimate have not been run.
 - **Unreliable semantic grounding:** SAM box segmentation can work when given a suitable region, but direct text localization failed in the tested Doom frames. Muse proposals still miss targets and produce false positives; mask confidence does not verify object identity.
 - **Uncertain localization and progress metrics:** L3's early map position estimates were often wrong. Sampled grid coverage and collision proxies are approximate; navigable-distance/BFS evaluation and a validated Freedoom exit marker remain unresolved.
-- **Incomplete QA validation:** issue candidates lack automated trace verification, causal triage, and human reference measurements. Agent difficulty alone is insufficient evidence of a design problem.
+- **Incomplete QA validation:** trace verification and conservative causal triage are implemented, but many findings lack sufficient target-specific or temporal evidence. Human reference measurements, dynamic reachability proof and ordinary-game defect-detection accuracy remain unmeasured. Agent difficulty alone is insufficient evidence of a design problem.
 - **Budget and API variability:** cost thresholds depend on returned usage and may be crossed by a response. Timeout charges are unknown, and caching is not uniform across runs.
 
 ## Future Work
 
 ### M3 — Multi-scenario experiments and metrics
 
-Not started. Extend evaluation to multiple seeds and scenarios with consistent prompts, settings, budgets, and reproducible progress measurements. This is needed to test whether the observed L3 completion repeats and whether information levels produce consistent differences.
+The metrics engine and configurable sweeps are implemented; the fast sweep stopped after six complete runs. Completing the multi-scenario benchmark, resolving navigable-distance measurements and repeating controlled comparisons remain future work. This is needed to test whether the observed L3 completion repeats and whether information levels produce consistent differences.
 
 ### M4 — Optional QA review and reporting
 
-Not implemented. Add trace verification and evidence-backed reports for issue candidates, then evaluate post-episode review and cross-episode feedback if pursued.
+Trace verification, evidence-backed reporting, post-episode review and opt-in self-observed carry-over are implemented with partial live validation. Remaining work includes the full carry-over matrix, measured human references, target-specific interaction evidence and broader verification evaluation. Reviewer-to-Pilot feedback has not been tested.
 
 ### M5 — Optional extensions
 
@@ -1003,4 +1104,7 @@ The detailed reports retain measurements, protocols, provenance, and relevant te
 - [M1 Pilot, telemetry, and replay results](docs/m1-results.md).
 - [M2 grounding and initial gameplay](docs/m2-results.md), [ledger/cycle follow-up](docs/m2-ledger-retest.md), and [explicit navigation review](docs/m2-navigation-review.md).
 - [Consolidated M2 evidence](docs/m2-evidence.json), [paired grounding cases](docs/m2-grounding-cases.csv), and [navigation intentions](docs/m2-navigation-intentions.csv).
+- [M3 partial sweep and separate post-sweep investigation](docs/m3-results.md), [recorded accounting](docs/m3-fast-partial-evidence.json), and [per-level summary](docs/m3-fast-partial/summary.csv).
+- [M3.5 combat, failure analysis and demo audit](docs/m35-results.md), [combat evidence](docs/m35-demo-audit.json), and [L3/high Corridor evidence](docs/m35-corridor-demo.json).
+- [M4 QA and carry-over validation](docs/m4-results.md), [measured evidence and costs](docs/m4-evidence.json), and [paired trajectory](docs/m4-figures/carryover-seed102-trajectory.png).
 - Technical specifications: [foundations](docs/01-foundations.md), [agent](docs/02-agent.md), [experiments](docs/03-experiments.md), and [implementation](docs/04-implementation.md). These include planned work; the results above describe what has actually been implemented and tested.
