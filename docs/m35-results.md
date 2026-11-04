@@ -196,6 +196,42 @@ Timestamps below refer to the **full native-gameplay MP4**, starting at its firs
 
 The basic control is only 0.17 seconds of original gameplay, followed by the clearly labeled replay/result hold. It is useful as a controls check, not the main demo. The [compact post-run evidence](m35-demo-audit.json) records the discharge events, mask audits and source/clip hashes. Local excerpts and the full source/clip SHA-256 index are under `results/m35-demo/`; `arena-kills.mp4` and `freedoom-first-engagement.mp4` are the initial recommendations. The extended attempt adds two explicitly labelled reconstructed-prefix excerpts: **00:06.51–00:12.51** (`extended-reconstructed-first-fight.mp4`) and **01:21.49–01:28.51** (`extended-reconstructed-late-fight.mp4`). The latter contains the later two kills and incoming damage. These have verified input/frame/counter provenance, but must be presented as reconstructed-prefix footage because the original recording was not finalized. Optional same-named `.srt` files label native cumulative kill counts; they do not alter any original or recovered MP4.
 
+## L3/high Corridor demo — completed objective
+
+With the hackathon deadline approaching, the user approved a USD **3 total recorded-usage threshold** for a Corridor L3/high pilot and conditional follow-up. This campaign stopped after **USD 0.19940135** because the second attempt completed the scenario. No further paid calls were made.
+
+Preparation enabled Muse Spark's supported `high` reasoning setting in the existing config/CLI and corrected a scenario-name omission in the map renderer: the combat corridor now receives the same **static initial GreenArmor goal marker** as the navigation corridor. There is still no live marker, enemy map, route or scripted path. The existing L3 plan/ledger prompts and combat controls were retained. Each attempt used seed 101, difficulty 3, 120 decisions, 2,100 tics, 1,200 wall seconds, 90-second request timeout, 6,000 maximum output tokens and a USD 0.75 per-attempt threshold. Reasoning tokens share the output allowance, as documented in [Meta's reasoning guide](https://dev.meta.ai/docs/reasoning).
+
+An opt-in detached worker survives its launcher exiting and converts worker SIGTERM into normal recording finalization. Before paid execution, an offline native fixture verified launcher exit, worker SIGTERM, flushed `.lmp` and matched MP4 replay. This does not guarantee protection against SIGKILL or simultaneous termination of the native process. **149 offline tests passed**, four live tests deselected, in 13.37 seconds; lint/format passed.
+
+| Attempt | Native outcome | Acts | Native gameplay | Native kill counter | Hits / damage | Final health / armor | Recorded USD |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Current-prompt pilot | Player death, 166 map units from armor | 15 | 381 tics / 10.89 s | 5 | 4 / 30 | −26 / 0 | 0.16611670 |
+| Narrowly revised briefing | **Armor objective completed alive** | **3** | **90 tics / 2.57 s** | 1 | 0 / 0 | **40 / 100** | **0.03328465** |
+
+The pilot explicitly wrote a map-based plan from west S to east G, then combined combat with eastward movement. It reached close to the goal but exhausted most health while fighting. Its notes at decisions 13/14 reported health **41/42** even though the current observations and native telemetry showed **4%**. This is a directly observed HUD interpretation failure, not an inference from a death alone.
+
+The follow-up added only two narrow briefing clarifications: read the current HUD afresh and distinguish the percent sign from a digit; reaching the armor alive is the objective, while eliminating every enemy is not required. It supplied no movement recipe, turn angles, enemy coordinates, combat strategy or solution route. The runtime configs, initial screenshot, static map and controls match across the two attempts; the briefing/prompt hash changed. Fresh stochastic trajectories differ, so one failure followed by one success does not isolate the causal effect of either sentence or establish reliability.
+
+The follow-up's initial note names west S, the east-facing start arrow and east G. Muse independently chose three run-and-fire acts and reached the armor. Native armor **100**, health **40** and objective termination establish completion; this is not a model-declared success or shaping-reward proxy. The original `.lmp` is intact, and independent native playback matches terminal tic/reward and combat counters. The native clock resets at completion; 90 elapsed tics are counted from that **original native recording**, not an input-log reconstruction.
+
+**Combat qualification:** the winning run fired five observed rounds but recorded **zero hits and zero damage dealt**. Its native kill counter of one must not be attributed to the agent's shooting. It demonstrates successful goal-directed navigation while firing, not accurate marksmanship. The pilot provides the stronger combat example with four damaging hits; its native kill counter is likewise reported as a counter rather than claiming every death was caused by the agent. Neither attempt invoked `locate`, so there are no new SAM masks or grounding-accuracy claims.
+
+Both original episodes were audited offline: all **18 saved observation JPEGs** match native replay and every executed primitive matches a recorded model `act`. Map delivery, map-referenced model notes, consistent movement and success provide more evidence than delivery alone, but do not prove a causal benefit over screenshots without a matched ablation. The completed level is the compact **Deadly Corridor armor-objective scenario**, not a Freedoom campaign map.
+
+### Ready-to-use videos
+
+The winning original run is `runs/20261104T204301.811805Z_deadly_corridor_combat_L3_s101/replay.mp4`. Its full export has 90 gameplay frames plus 175 clearly labelled recap/result frames. The failed combat pilot is `runs/20261104T203534.300019Z_deadly_corridor_combat_L3_s101/replay.mp4`.
+
+Local presentation exports, both with source/segment hashes:
+
+- `results/m35-corridor-demo/full-level-demo.mp4` — **12.71 seconds**, full winning gameplay at 1×, the same full episode at labelled 0.5×, frozen map, actual model intentions and a native-result card showing armor 100 / health 40.
+- `results/m35-corridor-demo/combat-and-completion-showcase.mp4` — **24.89 seconds**, the full failed combat pilot followed by the separate winning episode/replay. Attempt boundaries and outcomes are explicit; this is not presented as one continuous playthrough.
+
+Presentation cards and holds are not new game states. The entire original gameplay intervals are retained in order. Native audio buffers remained silent in two offline replay checks, including the documented OpenAL workaround, so the exports remain silent and no sound effects were fabricated. Gameplay audio was never supplied to the agent.
+
+The [compact campaign evidence](m35-corridor-demo.json) preserves configs, source checkpoints `9da9f92`/`a1f6378`, prompt/map hashes, the HUD-note evidence, model acts, native counters, original/replay hashes, and presentation frame ranges. All earlier experimental results remain intact. This is sufficient for a truthful completed-scenario demo; the small number of attempts does not establish general combat or level-completion reliability.
+
 ## Artifacts and reproduction
 
 The [compact evidence](m35-evidence.json) contains per-run measurements, control-use counts, audit mask and frame hashes and artifact hashes. Local run IDs (all UTC) are:

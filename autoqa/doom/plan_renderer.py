@@ -61,7 +61,7 @@ def render_plan(geometry, spawn, *, scenario="my_way_home", annotations=None):
     draw.polygon(triangle, fill=SPAWN)
     draw.text((x + 10, y + 6), "S (Start)", fill=SPAWN)
     goals = []
-    if scenario in {"my_way_home", "deadly_corridor_nav"}:
+    if scenario in {"my_way_home", "deadly_corridor_nav", "deadly_corridor_combat"}:
         goals = [obj for obj in geometry["objects"] if obj["name"] == "GreenArmor"]
     for obj in goals:
         gx, gy = project(obj["x"], obj["y"])

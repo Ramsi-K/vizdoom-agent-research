@@ -207,7 +207,7 @@ class RunConfig(StrictModel):
     level: Literal[1, 2, 3] = 1
     seed: int = 101
     model: Literal["muse-spark-1.3", "muse-spark-1.3-contributor"] = "muse-spark-1.3"
-    effort: Literal["minimal", "low", "medium"] = "low"
+    effort: Literal["minimal", "low", "medium", "high"] = "low"
     max_decisions: int = Field(default=60, ge=1, le=1000)
     max_tics: int = Field(default=2100, ge=1, le=21000)
     max_usd: float = Field(default=0.25, gt=0)

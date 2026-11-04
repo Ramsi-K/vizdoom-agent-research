@@ -29,7 +29,7 @@ def main(argv=None):
         choices=["muse-spark-1.3", "muse-spark-1.3-contributor"],
         default="muse-spark-1.3",
     )
-    run.add_argument("--effort", choices=["minimal", "low", "medium"], default="low")
+    run.add_argument("--effort", choices=["minimal", "low", "medium", "high"], default="low")
     run.add_argument("--max-decisions", type=int, default=60)
     run.add_argument("--max-tics", type=int, default=2100)
     run.add_argument("--max-usd", type=float, default=0.25)
