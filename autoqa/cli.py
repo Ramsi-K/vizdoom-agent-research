@@ -47,6 +47,13 @@ def main(argv=None):
     view.add_argument("--from-tic", type=int)
     view.add_argument("--to-tic", type=int)
     view.add_argument("--captions", action="store_true")
+    view.add_argument(
+        "--no-outcome-ending", action="store_true", help="Export gameplay frames only"
+    )
+    view.add_argument(
+        "--output-name",
+        help="New MP4 filename inside the run directory; existing files are preserved",
+    )
     args = parser.parse_args(argv)
     if args.command == "run":
         from .config import RunConfig
@@ -68,6 +75,8 @@ def main(argv=None):
             from_tic=args.from_tic,
             to_tic=args.to_tic,
             captions=args.captions,
+            outcome_ending=not args.no_outcome_ending,
+            output_name=args.output_name,
         )
         return 0
     from .m0.spike import run_spike

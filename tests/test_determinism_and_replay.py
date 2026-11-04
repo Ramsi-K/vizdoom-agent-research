@@ -177,5 +177,16 @@ def test_natural_completion_clock_reset_is_reconstructed_without_rewriting_telem
     result = replay(tmp_path, size=(640, 480))
     assert result["matches_telemetry"] and result["final_tic"] == 0
     assert result["reconstructed_tics_used"] == 3
-    assert result["reconstructed_final_tic"] == 13 and result["frames"] == 3
+    assert result["reconstructed_final_tic"] == 13 and result["gameplay_frames"] == 3
+    assert result["ending_frames"] > 0
+    assert result["frames"] == result["gameplay_frames"] + result["ending_frames"]
+    assert result["ending_type"] == "recorded_recap_and_result_hold"
+    assert (tmp_path / "telemetry.jsonl").read_text() == raw
+    # The raw option preserves exact gameplay duration and does not alter the
+    # original export or source recording, even for a verified success.
+    original_info = (tmp_path / "replay.json").read_bytes()
+    plain = replay(tmp_path, size=(640, 480), outcome_ending=False, output_name="replay-raw.mp4")
+    assert plain["frames"] == plain["gameplay_frames"] == 3
+    assert plain["ending_frames"] == 0
+    assert (tmp_path / "replay.json").read_bytes() == original_info
     assert (tmp_path / "telemetry.jsonl").read_text() == raw

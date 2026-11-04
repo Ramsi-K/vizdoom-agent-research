@@ -2,11 +2,13 @@
 
 import json
 import math
+from collections import deque
 from pathlib import Path
 
 import imageio.v2 as imageio
+import numpy as np
 import vizdoom as vzd
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 from autoqa.config import SCENARIOS, RunConfig
 from autoqa.io import digest, write_json
@@ -14,7 +16,43 @@ from autoqa.io import digest, write_json
 from .env import configured_game
 
 
-def replay(directory: Path, *, size=(1280, 720), from_tic=None, to_tic=None, captions=False):
+def result_frame(frame, title, detail, *, held=False):
+    """Label a held/recap frame; never paint a fictional game HUD."""
+    image = Image.fromarray(frame).convert("RGBA")
+    overlay = Image.new("RGBA", image.size)
+    draw = ImageDraw.Draw(overlay)
+    scale = image.width / 1280
+    draw.rectangle((0, 0, image.width, round(155 * scale)), fill=(10, 18, 24, 235))
+
+    def font(size):
+        try:
+            return ImageFont.truetype("DejaVuSans-Bold.ttf", max(12, round(size * scale)))
+        except OSError:
+            return ImageFont.load_default(size=max(12, round(size * scale)))
+
+    draw.text((24 * scale, 18 * scale), title, font=font(42), fill="#60F0A0")
+    draw.text((24 * scale, 78 * scale), detail, font=font(23), fill="white")
+    draw.text(
+        (24 * scale, 118 * scale),
+        "Result card · captured approach frame held"
+        if held
+        else "Recorded pickup footage · replayed at half speed",
+        font=font(16),
+        fill="#CBD5E1",
+    )
+    return np.asarray(Image.alpha_composite(image, overlay).convert("RGB"))
+
+
+def replay(
+    directory: Path,
+    *,
+    size=(1280, 720),
+    from_tic=None,
+    to_tic=None,
+    captions=False,
+    outcome_ending=True,
+    output_name=None,
+):
     manifest = json.loads((directory / "manifest.json").read_text())
     config = RunConfig.model_validate(manifest["config"])
     telemetry = [
@@ -49,8 +87,13 @@ def replay(directory: Path, *, size=(1280, 720), from_tic=None, to_tic=None, cap
         or (lower == upper and terminal["tic"] > telemetry[0]["tic"])
     ):
         raise ValueError("Replay tic slice must lie inside the recorded interval")
+    if output_name and (
+        Path(output_name).name != output_name or Path(output_name).suffix != ".mp4"
+    ):
+        raise ValueError("Output name must be a new .mp4 filename inside the run directory")
     video = directory / (
-        "replay.mp4" if from_tic is None and to_tic is None else f"replay_{lower}_{upper}.mp4"
+        output_name
+        or ("replay.mp4" if from_tic is None and to_tic is None else f"replay_{lower}_{upper}.mp4")
     )
     info_path = video.with_suffix(".json")
     if video.exists() or info_path.exists():
@@ -64,6 +107,14 @@ def replay(directory: Path, *, size=(1280, 720), from_tic=None, to_tic=None, cap
         game.set_episode_timeout(recorded_tics)
     count = 0
     advanced = 0
+    present_success = (
+        outcome_ending
+        and from_tic is None
+        and to_tic is None
+        and manifest.get("outcome") == "success"
+    )
+    tail = deque(maxlen=35 if present_success else 0)
+    ending_frames = 0
     try:
         game.init()
         game.replay_episode(str((directory / "episode.lmp").resolve()))
@@ -99,21 +150,38 @@ def replay(directory: Path, *, size=(1280, 720), from_tic=None, to_tic=None, cap
                         ImageDraw.Draw(image).text(
                             (12, 12), text, fill="white", stroke_width=2, stroke_fill="black"
                         )
-                        import numpy as np
-
                         frame = np.array(image)
                     writer.append_data(frame)
+                    if present_success:
+                        tail.append(frame.copy())
                     count += 1
                 if recorded_tics == 0:
                     break
                 game.advance_action(1, True)
                 advanced += 1
             actual = dict(final_tic=game.get_episode_time(), reward_total=game.get_total_reward())
+            matched = actual["final_tic"] == terminal["tic"] and math.isclose(
+                actual["reward_total"], terminal["reward_total"], abs_tol=1e-8
+            )
+            if present_success and matched and tail:
+                # Repeat only real captured frames. Do not advance the simulator or
+                # manufacture post-win gameplay after its natural terminal state.
+                for frame in tail:
+                    recap = result_frame(
+                        frame, "VICTORY REPLAY · 0.5x", "The final recorded second, slowed down"
+                    )
+                    writer.append_data(recap)
+                    writer.append_data(recap)
+                    ending_frames += 2
+                detail = "Level objective completed"
+                if terminal.get("armor", 0) > telemetry[0].get("armor", 0):
+                    detail = f"Armor collected · final armor: {terminal['armor']:.0f}%"
+                hold = result_frame(tail[0], "LEVEL COMPLETE", detail, held=True)
+                for _ in range(3 * 35):
+                    writer.append_data(hold)
+                    ending_frames += 1
     finally:
         game.close()
-    matched = actual["final_tic"] == terminal["tic"] and math.isclose(
-        actual["reward_total"], terminal["reward_total"], abs_tol=1e-8
-    )
     with imageio.get_reader(video) as reader:
         shape = list(reader.get_data(0).shape)
         codec = reader.get_meta_data()["codec"]
@@ -122,7 +190,10 @@ def replay(directory: Path, *, size=(1280, 720), from_tic=None, to_tic=None, cap
         expected_final_tic=terminal["tic"],
         expected_reward_total=terminal["reward_total"],
         matches_telemetry=matched,
-        frames=count,
+        frames=count + ending_frames,
+        gameplay_frames=count,
+        ending_frames=ending_frames,
+        ending_type="recorded_recap_and_result_hold" if ending_frames else None,
         fps=35,
         shape=shape,
         codec=codec,

@@ -99,3 +99,9 @@ uv run --locked python scripts/inspect_m2_trajectories.py <L2-run> <L3-run> \
 ```
 
 Raw local run IDs: `20261104T101158.275076Z_my_way_home_L2_s101` and `20261104T101202.353976Z_my_way_home_L3_s101`. Successful outcomes must be verified separately from declared intentions. Grounding reliability, repeated-run map effectiveness and the unannotated Freedoom exit remain open M2 limitations.
+
+## Demo replay ending
+
+Successful full replays now keep the recorded gameplay, replay its final second at 0.5× speed, and add a three-second labeled result hold. The hold uses a captured approach frame and the replay-matched terminal result; it does not fabricate post-win gameplay or repaint the HUD. Gameplay and presentation frame counts are recorded separately. Sliced clips and `--no-outcome-ending` remain gameplay-only, and `--output-name` preserves existing exports.
+
+The winning run's `replay-demo.mp4` is 41.57 seconds: 1,280 recorded gameplay frames plus 175 presentation frames. Original `replay.mp4`, its metadata, the native demo and raw telemetry remain unchanged. The new MP4 remains local under ignored `runs/`, not in the PR. This fixes the abrupt presentation cut at the pickup without changing the experiment or spending more API credits.
