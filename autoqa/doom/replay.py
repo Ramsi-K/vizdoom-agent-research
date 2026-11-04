@@ -36,11 +36,16 @@ def replay(directory: Path, *, size=(1280, 720), from_tic=None, to_tic=None, cap
     if vzd.__version__ != manifest["vizdoom_version"]:
         raise ValueError("ViZDoom version differs from recording")
     lower = from_tic if from_tic is not None else telemetry[0]["tic"]
-    upper = to_tic if to_tic is not None else terminal["tic"]
+    # A natural level exit can reset both episode/server clocks to zero.
+    # Preserve the raw telemetry; reconstruct elapsed tics by counting native playback.
+    clock_reset = terminal["tic"] < telemetry[0]["tic"]
+    if clock_reset and manifest.get("outcome") != "success":
+        raise ValueError("Unexpected terminal clock regression; inspect raw telemetry")
+    upper = to_tic if to_tic is not None else None if clock_reset else terminal["tic"]
     if (
         lower < telemetry[0]["tic"]
-        or upper > terminal["tic"]
-        or lower > upper
+        or (upper is not None and not clock_reset and upper > terminal["tic"])
+        or (upper is not None and lower > upper)
         or (lower == upper and terminal["tic"] > telemetry[0]["tic"])
     ):
         raise ValueError("Replay tic slice must lie inside the recorded interval")
@@ -54,10 +59,11 @@ def replay(directory: Path, *, size=(1280, 720), from_tic=None, to_tic=None, cap
     game = configured_game(config, size=size)
     # A demo flushed before natural termination has a trailing native tic.
     # End playback at the logged action boundary, without injecting any action.
-    recorded_tics = terminal["tic"] - telemetry[0]["tic"]
-    if recorded_tics > 0:
+    recorded_tics = None if clock_reset else terminal["tic"] - telemetry[0]["tic"]
+    if recorded_tics is not None and recorded_tics > 0:
         game.set_episode_timeout(recorded_tics)
     count = 0
+    advanced = 0
     try:
         game.init()
         game.replay_episode(str((directory / "episode.lmp").resolve()))
@@ -71,7 +77,9 @@ def replay(directory: Path, *, size=(1280, 720), from_tic=None, to_tic=None, cap
             while not game.is_episode_finished():
                 tic = game.get_episode_time()
                 state = game.get_state()
-                if state is not None and (lower <= tic < upper or recorded_tics == 0):
+                if state is not None and (
+                    (lower <= tic and (upper is None or tic < upper)) or recorded_tics == 0
+                ):
                     frame = state.screen_buffer
                     if captions:
                         image = Image.fromarray(frame)
@@ -99,6 +107,7 @@ def replay(directory: Path, *, size=(1280, 720), from_tic=None, to_tic=None, cap
                 if recorded_tics == 0:
                     break
                 game.advance_action(1, True)
+                advanced += 1
             actual = dict(final_tic=game.get_episode_time(), reward_total=game.get_total_reward())
     finally:
         game.close()
@@ -119,11 +128,18 @@ def replay(directory: Path, *, size=(1280, 720), from_tic=None, to_tic=None, cap
         codec=codec,
         size=list(size),
         from_tic=lower,
-        to_tic=upper,
+        to_tic=upper if upper is not None else telemetry[0]["tic"] + advanced,
         captions=captions,
         video_sha256=digest(video),
         lmp_sha256=manifest["episode_lmp_sha256"],
     )
+    if clock_reset:
+        info.update(
+            terminal_clock_status="native_reset_reconstructed_by_replay",
+            reconstructed_final_tic=telemetry[0]["tic"] + advanced,
+            reconstructed_tics_used=advanced,
+            reconstruction_source="counted advance_action(1) calls in native recording",
+        )
     write_json(info_path, info)
     if not matched:
         raise ValueError("Replay final tic/reward differs from telemetry; inspect replay.json")

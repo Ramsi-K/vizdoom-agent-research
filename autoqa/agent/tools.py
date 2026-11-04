@@ -38,3 +38,22 @@ TOOLS = [
     )
     for name, model in MODELS.items()
 ]
+
+
+def tools_for_level(level):
+    if level == 1:
+        return TOOLS
+    return [
+        {
+            **tool,
+            "description": tool["description"]
+            + (
+                " Include the NAV JSON annotation described in the instructions in your existing note text."
+                if tool["name"] == "note"
+                else " A current model-written NAV entry is required before act."
+                if tool["name"] == "act"
+                else ""
+            ),
+        }
+        for tool in TOOLS
+    ]

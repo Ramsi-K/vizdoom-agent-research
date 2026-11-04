@@ -22,7 +22,7 @@ class Memory:
         else:
             self.history.append((prefix + text)[:1600])
 
-    def record_locate(self, decision, concept, result):
+    def record_locate(self, decision, concept, result, *, receipt=None):
         # Preserve uncertainty across decisions without creating a third memory store.
         summary = dict(
             found=result.get("found", False),
@@ -33,4 +33,8 @@ class Memory:
             ],
             identity_verified=False,
         )
+        if receipt:
+            summary["ref"] = receipt
+            for short, match in zip(summary["candidates"], result.get("matches", [])):
+                short.update({k: match[k] for k in ("box", "area_fraction") if k in match})
         self.record(decision, f"locate {concept!r}: {json.dumps(summary)}")

@@ -30,6 +30,8 @@ def prefix(level=1, briefing_l2=None):
         result += "\n\n" + briefing_l2
     if level == 3:
         result += "\nA frozen initial floor plan is supplied. Its start marker never updates. Localize yourself from visual landmarks."
+    if level > 1:
+        result += "\n\n" + (PROMPT_DIR / f"level{level}_navigation_v1.md").read_text()
     return result
 
 

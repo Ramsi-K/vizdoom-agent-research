@@ -135,12 +135,16 @@ def run_episode(config, *, root=Path.cwd()):
                     ),
                 )
             if env and env.telemetry.last:
+                final_tic = env.telemetry.last["tic"]
+                clock_reset = final_tic < env.start_tic
                 manifest.update(
-                    final_tic=env.telemetry.last["tic"],
+                    final_tic=final_tic,
                     reward_total=env.telemetry.last["reward_total"],
                     start_tic=env.start_tic,
-                    tics_used=env.telemetry.last["tic"] - env.start_tic,
+                    tics_used=None if clock_reset else final_tic - env.start_tic,
                 )
+                if clock_reset:
+                    manifest["terminal_clock_status"] = "native_reset_needs_replay"
             for name in ("episode.lmp", "events.jsonl", "telemetry.jsonl"):
                 path = directory / name
                 if path.exists():

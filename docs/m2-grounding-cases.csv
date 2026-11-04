@@ -1,0 +1,57 @@
+mode,index,scenario,concept,positive,status,mask_iou,muse_box_iou,hit,false_positive,bearing_errors_deg,cost_usd,wire_completed,raw_matches_parser,wire_genuinely_empty
+sam_text,0,my_way_home,green armor,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,1,my_way_home,medkit,False,completed,,,False,False,[],0.0025,True,True,True
+sam_text,2,my_way_home,green armor,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,3,my_way_home,green armor,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,4,my_way_home,green armor,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,5,my_way_home,medkit,False,completed,,,False,False,[],0.0025,True,True,True
+sam_text,6,my_way_home,green armor,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,7,my_way_home,green armor,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,8,my_way_home,green armor,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,9,my_way_home,medkit,False,completed,,,False,False,[],0.0025,True,True,True
+sam_text,10,health_gathering_supreme,medkit,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,11,health_gathering_supreme,medkit,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,12,health_gathering_supreme,medkit,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,13,health_gathering_supreme,green armor,False,completed,,,False,False,[],0.0025,True,True,True
+sam_text,14,health_gathering_supreme,medkit,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,15,health_gathering_supreme,medkit,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,16,health_gathering_supreme,medkit,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,17,health_gathering_supreme,green armor,False,completed,,,False,False,[],0.0025,True,True,True
+sam_text,18,health_gathering_supreme,medkit,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,19,freedoom2_map01,health bonus,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,20,freedoom2_map01,health bonus,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,21,freedoom2_map01,green armor,False,completed,,,False,False,[],0.0025,True,True,True
+sam_text,22,freedoom2_map01,health bonus,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,23,freedoom2_map01,health bonus,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,24,freedoom2_map01,health bonus,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,25,freedoom2_map01,green armor,False,completed,,,False,False,[],0.0025,True,True,True
+sam_text,26,freedoom2_map01,health bonus,True,completed,0.0,,False,False,[],0.0025,True,True,True
+sam_text,27,freedoom2_map01,health bonus,True,completed,0.0,,False,False,[],0.0025,True,True,True
+muse_box_sam,0,my_way_home,green armor,True,completed,0.9100961538461538,0.8177314211212516,True,False,[0.17623228559524143],0.00466385,True,True,False
+muse_box_sam,1,my_way_home,medkit,False,completed,,,False,False,[],0.0018255,True,True,
+muse_box_sam,2,my_way_home,green armor,True,completed,0.9310344827586207,0.864406779661017,True,False,[0.08417468298918607],0.006692750000000001,True,True,False
+muse_box_sam,3,my_way_home,green armor,True,completed,0.25046992481203006,0.29622216662496875,False,False,[],0.0049672499999999994,True,True,False
+muse_box_sam,4,my_way_home,green armor,True,completed,0.5346624376982329,0.5549750653051532,True,False,[2.1154982266672917],0.00571525,True,True,False
+muse_box_sam,5,my_way_home,medkit,False,completed,,,False,False,[],0.00300275,True,True,
+muse_box_sam,6,my_way_home,green armor,True,completed,0.9288358700123406,0.9421888790820829,True,False,[0.06672009142746305],0.0055112500000000005,True,True,False
+muse_box_sam,7,my_way_home,green armor,True,completed,0.9227608874281019,0.7660119555935099,True,False,[0.09683339719175521],0.00472925,True,True,False
+muse_box_sam,8,my_way_home,green armor,True,completed,0.4930685650056201,0.5305410122164049,False,False,[],0.0052222499999999995,True,True,False
+muse_box_sam,9,my_way_home,medkit,False,completed,,,False,True,[],0.0055665,True,True,False
+muse_box_sam,10,health_gathering_supreme,medkit,True,completed,0.9578387228817028,0.9824561403508771,True,False,[0.10924736976856408],0.00492475,True,True,False
+muse_box_sam,11,health_gathering_supreme,medkit,True,completed,0.9593967517401392,0.9369369369369369,True,False,[0.08548256505523844],0.005048,True,True,False
+muse_box_sam,12,health_gathering_supreme,medkit,True,completed,0.9650442477876107,0.9612462006079028,True,False,[0.10521439698984025],0.0092905,True,True,False
+muse_box_sam,13,health_gathering_supreme,green armor,False,completed,,,False,False,[],0.005455,True,True,
+muse_box_sam,14,health_gathering_supreme,medkit,True,completed,0.0,0.0,False,False,[],0.0026585,True,True,
+muse_box_sam,15,health_gathering_supreme,medkit,True,completed,0.9710312862108922,0.9379310344827586,True,False,"[0.056897485169130846, 0.016536961976793663, 0.039558835746003496]",0.01107225,True,True,False
+muse_box_sam,16,health_gathering_supreme,medkit,True,completed,0.09838709677419355,0.16129032258064516,False,False,[],0.014328750000000001,True,True,False
+muse_box_sam,17,health_gathering_supreme,green armor,False,completed,,,False,True,[],0.01685,True,True,False
+muse_box_sam,18,health_gathering_supreme,medkit,True,completed,0.9746835443037974,0.9360780065005417,True,False,"[0.01640880698831282, 0.0999879196389788, 0.06763455347994585, 0.012735879693146046, 0.021206753301378]",0.020386,True,True,False
+muse_box_sam,19,freedoom2_map01,health bonus,True,completed,0.0,0.0,False,False,[],0.00262875,True,True,
+muse_box_sam,20,freedoom2_map01,health bonus,True,completed,0.0,0.0,False,False,[],0.002939,True,True,
+muse_box_sam,21,freedoom2_map01,green armor,False,completed,,,False,False,[],0.00222075,True,True,
+muse_box_sam,22,freedoom2_map01,health bonus,True,completed,0.0,0.0,False,False,[],0.00351275,True,True,
+muse_box_sam,23,freedoom2_map01,health bonus,True,completed,0.0,0.0,False,False,[],0.00466875,True,True,
+muse_box_sam,24,freedoom2_map01,health bonus,True,completed,0.0,0.0,False,False,[],0.00339375,True,True,
+muse_box_sam,25,freedoom2_map01,green armor,False,completed,,,False,False,[],0.00340225,True,True,
+muse_box_sam,26,freedoom2_map01,health bonus,True,completed,0.0,0.0,False,False,[],0.003602,True,True,
+muse_box_sam,27,freedoom2_map01,health bonus,True,completed,0.0,0.0,False,False,[],0.003755,True,True,

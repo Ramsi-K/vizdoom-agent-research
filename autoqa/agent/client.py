@@ -12,7 +12,7 @@ from openai import APIConnectionError, APIStatusError, OpenAI
 
 from autoqa.config import usage_cost
 
-from .tools import TOOLS
+from .tools import tools_for_level
 
 
 class InformationLeakError(ValueError):
@@ -117,7 +117,7 @@ class MetaClient:
                 response = self.client.responses.create(
                     model=self.config.model,
                     input=items,
-                    tools=TOOLS,
+                    tools=tools_for_level(self.config.level),
                     tool_choice="auto",
                     parallel_tool_calls=True,
                     include=["reasoning.encrypted_content"],

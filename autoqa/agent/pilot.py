@@ -11,6 +11,7 @@ from .client import InformationLeakError, ModelAPIError, replay_turn, tool_outpu
 from .grounder import GroundingBudgetExceeded
 from .guards import Guards
 from .memory import Memory
+from .navigation import validate_navigation
 from .tools import MODELS
 
 
@@ -30,6 +31,8 @@ class Pilot:
         }
         self.briefing_l2, self.grounder = briefing_l2, grounder
         self.locate_calls = 0
+        # Evidence registry for validating citations, not an additional model memory.
+        self.grounding_receipts = {}
 
     def charge_grounding(self, model, cost_usd, usage, latency_ms):
         self.guards.total_usd += cost_usd
@@ -61,6 +64,7 @@ class Pilot:
                 self.config.level, self.memory, obs, self.guards.warning, self.briefing_l2
             )
             acted, misses = False, 0
+            locate_results = {}  # exact same observed frame/concept only; no cross-frame reuse
             for call_idx in range(4):
                 if self.guards.budget_exhausted():
                     return "budget_exhausted"
@@ -158,6 +162,9 @@ class Pilot:
                     items = replay_turn(items, turn.output, results)
                     continue
                 stop = None
+                # A model cannot cite a result first produced by this same response.
+                # Only receipts returned on earlier tool rounds were visible to it.
+                visible_receipts = self.grounding_receipts.copy()
                 # Read-only tools use the observed frame before any act in the batch.
                 for item in sorted(calls, key=lambda call: call["name"] in {"act", "finish"}):
                     args = validated[item["call_id"]]
@@ -170,7 +177,11 @@ class Pilot:
                     )
                     if item["name"] == "locate":
                         self.locate_calls += 1
-                        if self.grounder is None:
+                        reused = self.config.level > 1 and args.concept in locate_results
+                        if reused:
+                            out = locate_results[args.concept].copy()
+                            self.log("locate_reused", decision_idx=decision, concept=args.concept)
+                        elif self.grounder is None:
                             out = {
                                 "found": False,
                                 "status": "could_not_verify",
@@ -195,8 +206,45 @@ class Pilot:
                                     "error_type": type(error).__name__,
                                 }
                                 self.log("grounding_error", decision_idx=decision, **out)
-                        self.memory.record_locate(obs.decision_idx, args.concept, out)
+                        receipt = None
+                        if self.config.level > 1:
+                            receipt = f"d{decision}:{args.concept}"
+                            self.grounding_receipts = {
+                                ref: value
+                                for ref, value in self.grounding_receipts.items()
+                                if decision - value["decision"] < 20
+                            }
+                            self.grounding_receipts[receipt] = dict(
+                                decision=decision,
+                                concept=args.concept,
+                                found=out.get("found", False),
+                                status=out.get("status", "completed"),
+                                identity_verified=False,
+                                frame_sha256=obs.frame_sha256,
+                            )
+                            out["evidence_ref"] = receipt
+                            out["observed_decision"] = decision
+                            locate_results[args.concept] = out.copy()
+                        self.memory.record_locate(
+                            obs.decision_idx, args.concept, out, receipt=receipt
+                        )
                     elif item["name"] == "note":
+                        nav = None
+                        if self.config.level > 1 and "NAV " in args.text:
+                            try:
+                                nav = validate_navigation(
+                                    args.text,
+                                    self.config.level,
+                                    decision,
+                                    visible_receipts,
+                                    current=True,
+                                )
+                            except ValueError as error:
+                                results.append(tool_output(item["call_id"], dict(error=str(error))))
+                                self.log(
+                                    "navigation_rejected", decision_idx=decision, reason=str(error)
+                                )
+                                continue
                         out = self.memory.note(args.text, args.mode)
                         self.log(
                             "landmark_ledger",
@@ -204,6 +252,17 @@ class Pilot:
                             source="model_note",
                             text=self.memory.scratchpad,
                         )
+                        if nav:
+                            self.log(
+                                "navigation_update",
+                                decision_idx=decision,
+                                source="model_note",
+                                **nav.model_dump(),
+                                grounding_evidence={
+                                    ref: self.grounding_receipts[ref] for ref in nav.grounding_refs
+                                },
+                                planning_verified=False,
+                            )
                     elif item["name"] == "report_issue":
                         data = args.model_dump()
                         steps = data["evidence_steps"] or [obs.decision_idx]
@@ -226,6 +285,33 @@ class Pilot:
                         stop = args.status
                         out = {"stopped": True}
                     elif item["name"] == "act":
+                        if self.config.level > 1:
+                            try:
+                                nav = validate_navigation(
+                                    self.memory.scratchpad,
+                                    self.config.level,
+                                    decision,
+                                    visible_receipts,
+                                    current=bool(cycle),
+                                )
+                            except ValueError as error:
+                                results.append(tool_output(item["call_id"], dict(error=str(error))))
+                                self.log(
+                                    "navigation_rejected", decision_idx=decision, reason=str(error)
+                                )
+                                continue
+                            self.log(
+                                "navigation_action",
+                                decision_idx=decision,
+                                source="model_act",
+                                navigation_at=nav.at,
+                                basis=nav.basis,
+                                destination=nav.destination,
+                                subgoal=nav.subgoals[0],
+                                grounding_refs=nav.grounding_refs,
+                                intent=args.intent,
+                                planning_verified=False,
+                            )
                         feedback = self.session.execute(args)
                         out = asdict(feedback)
                         self.actions += 1

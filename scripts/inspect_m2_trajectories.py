@@ -1,4 +1,4 @@
-"""Offline inspection of the three 60-decision M2 recordings; never used by the Pilot."""
+"""Offline inspection of M2 seed-101 runs with a 60-decision cap; never used by the Pilot."""
 
 import argparse
 import json
@@ -23,15 +23,17 @@ def segmentdist(p, a, b):
 
 
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument("run_directories", nargs=3, type=Path)
+parser.add_argument("run_directories", nargs="+", type=Path)
 parser.add_argument("--out", type=Path, required=True)
 args = parser.parse_args()
 rows = []
 for directory in args.run_directories:
     p = Path(directory)
     m = json.load(open(p / "manifest.json"))
-    if m["scenario_id"] != "my_way_home" or m["decisions"] != 60 or m["seed"] != 101:
-        raise ValueError("This M2 inspection requires seed-101 my_way_home runs of 60 decisions")
+    if m["scenario_id"] != "my_way_home" or m["config"]["max_decisions"] != 60 or m["seed"] != 101:
+        raise ValueError(
+            "This M2 inspection requires seed-101 my_way_home runs with a 60-decision cap"
+        )
     ts = [json.loads(s) for s in open(p / "telemetry.jsonl")]
     es = [json.loads(s) for s in open(p / "events.jsonl")]
     geo = json.load(open(p / "geometry.json"))
@@ -99,9 +101,10 @@ for directory in args.run_directories:
         windows.append(
             dict(
                 decisions=[start, end],
+                observed_decisions=sum(start <= t["decision_idx"] <= end for t in ds),
                 sampled_path_units=sum(t["displacement_units"] for t in pts),
-                minimum_goal_distance=min(t["goal_dist_euclidean"] for t in pts),
-                end_goal_distance=pts[-1]["goal_dist_euclidean"],
+                minimum_goal_distance=min((t["goal_dist_euclidean"] for t in pts), default=None),
+                end_goal_distance=pts[-1]["goal_dist_euclidean"] if pts else None,
                 new_128_cells=sum(start <= r["decision"] <= end for r in new128),
                 new_64_cells=sum(start <= r["decision"] <= end for r in new64),
                 translations=len(tr),
@@ -171,8 +174,9 @@ for directory in args.run_directories:
         json.dumps(
             dict(
                 level=m["level"],
-                new_128_cells_last20=windows[-1]["new_128_cells"],
-                new_64_cells_last20=windows[-1]["new_64_cells"],
+                new_128_cells_decisions40_to59=windows[-1]["new_128_cells"],
+                new_64_cells_decisions40_to59=windows[-1]["new_64_cells"],
+                observed_decisions_in_window=windows[-1]["observed_decisions"],
                 pose_recurrences=len(recurrence),
                 goal_visible=row["goal_visible_anywhere"],
             )

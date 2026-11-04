@@ -2,6 +2,8 @@
 
 2026-11-04. Work on `feat/m2-grounder`, based on synchronized `main` at `12d8432` after PR #9. References [M2 #4](https://github.com/Ramsi-K/vizdoom-agent-research/issues/4) and [parent #1](https://github.com/Ramsi-K/vizdoom-agent-research/issues/1). **Partial milestone: implementation and engineering checks pass; reliable semantic grounding and level completion have not been established.**
 
+This report records the original baseline. See [the later explicit-navigation retest](m2-navigation-review.md) for the verified L3 win and L2 regressions.
+
 The existing uncommitted `docs/02-agent.md` edit was backed up and preserved byte for byte. No project specification or README changes are included. M3–M5 are not implemented.
 
 ## Implementation
@@ -61,9 +63,9 @@ All three native `.lmp` recordings were replayed to readable 1280×720 H.264 MP4
 
 ## Why the 60-decision runs failed
 
-Inspected all primitive/decision telemetry and action intents, the initial geometry, and 12 actual MP4 frames per run at decisions 0, 5, …, 50, 59. This was sampled visual inspection, not a claim to have manually watched every frame. See the [trajectory diagram](m2-trajectories.png), [replay samples](m2-replay-samples.jpg), and full [trajectory evidence with definitions and decision traces](m2-trajectory-evidence.json).
+Inspected all primitive/decision telemetry and action intents, the initial geometry, and 12 actual MP4 frames per run at decisions 0, 5, …, 50, 59. This was sampled visual inspection, not a claim to have manually watched every frame. See the local trajectory diagram (`runs/m2-navigation-review/m2-trajectories.png`), local replay samples (`runs/m2-navigation-review/m2-replay-samples.jpg`), and compact [trajectory evidence with definitions and measurements](m2-evidence.json).
 
-![Measured trajectories](m2-trajectories.png)
+Trajectory/replay images are retained locally under `runs/m2-navigation-review/`; generated images are excluded from the final PR.
 
 | Measure | L1 | L2 | L3 |
 |---|---:|---:|---:|

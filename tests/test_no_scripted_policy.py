@@ -263,3 +263,103 @@ def test_model_note_and_act_share_response_without_rewriting_ledger(observation)
         next(data for event, data in events if event == "landmark_ledger")["source"] == "model_note"
     )
     assert len(session.actions) == 1
+
+
+def test_guided_duplicate_locate_reuses_only_same_observation_and_links_plan(observation):
+    from test_navigation import nav_text
+
+    class Grounder:
+        calls = 0
+
+        def locate(self, frame, concept):
+            self.calls += 1
+            return dict(found=False, matches=[], method="sam_text"), []
+
+    grounder = Grounder()
+    client = FakeClient(
+        [
+            turn("locate", dict(concept="panel"), "l0"),
+            turn("locate", dict(concept="panel"), "l1"),
+            turn(
+                "note", dict(text=nav_text(basis="visual", refs=["d0:panel"]), mode="replace"), "n"
+            ),
+            turn(call_id="a"),
+        ]
+    )
+    session = FakeSession(observation)
+    events = []
+    pilot = Pilot(
+        RunConfig(level=2, max_decisions=1),
+        session,
+        client,
+        lambda event, **data: events.append((event, data)),
+        briefing_l2="brief",
+        grounder=grounder,
+    )
+    assert pilot.run_episode() == "max_decisions"
+    assert grounder.calls == 1 and pilot.locate_calls == 2
+    assert len(session.actions) == 1
+    assert session.actions[0] == json.loads(turn().output[-1]["arguments"])
+    update = next(data for event, data in events if event == "navigation_update")
+    assert update["grounding_evidence"]["d0:panel"]["found"] is False
+    assert update["planning_verified"] is False
+    assert any(event == "locate_reused" for event, _ in events)
+
+
+def test_guided_missing_plan_adds_error_without_inserting_a_route(observation):
+    session = FakeSession(observation)
+    client = FakeClient([turn(), turn("finish", dict(status="blocked", rationale="no plan"), "f")])
+    pilot = Pilot(
+        RunConfig(level=2), session, client, lambda *args, **kw: None, briefing_l2="brief"
+    )
+    assert pilot.run_episode() == "blocked"
+    assert session.actions == []
+    assert "NAV" in str(client.requests[1])
+
+
+def test_l3_model_map_plan_links_action_without_claiming_verified_planning(observation):
+    from test_navigation import nav_text
+
+    session = FakeSession(replace(observation, plan_png=b"initial-map"))
+    note = turn("note", dict(text=nav_text(), mode="replace"), "n")
+    act = turn(call_id="a")
+    response = ModelTurn(note.output + act.output[-1:], note.usage, 0, 0, "completed")
+    events = []
+    pilot = Pilot(
+        RunConfig(level=3, max_decisions=1),
+        session,
+        FakeClient([response]),
+        lambda event, **data: events.append((event, data)),
+        briefing_l2="brief",
+    )
+    assert pilot.run_episode() == "max_decisions"
+    assert session.actions == [json.loads(act.output[-1]["arguments"])]
+    linked = next(data for event, data in events if event == "navigation_action")
+    assert linked["basis"] == "map" and linked["subgoal"] == "upper junction"
+    assert linked["planning_verified"] is False
+
+
+def test_note_cannot_cite_localization_produced_in_its_own_response(observation):
+    from test_navigation import nav_text
+
+    class Grounder:
+        def locate(self, *args):
+            return dict(found=False, matches=[], method="sam_text"), []
+
+    locate = turn("locate", dict(concept="panel"), "l")
+    note = turn("note", dict(text=nav_text(basis="visual", refs=["d0:panel"]), mode="replace"), "n")
+    combined = ModelTurn(locate.output + note.output[-1:], locate.usage, 0, 0, "completed")
+    client = FakeClient([combined, turn("finish", dict(status="blocked", rationale="stop"), "f")])
+    session = FakeSession(observation)
+    events = []
+    pilot = Pilot(
+        RunConfig(level=2),
+        session,
+        client,
+        lambda event, **data: events.append((event, data)),
+        briefing_l2="brief",
+        grounder=Grounder(),
+    )
+    assert pilot.run_episode() == "blocked"
+    assert pilot.memory.scratchpad == "" and not session.actions
+    assert any(event == "navigation_rejected" for event, _ in events)

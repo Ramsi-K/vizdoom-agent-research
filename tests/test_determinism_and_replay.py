@@ -99,3 +99,83 @@ def test_observation_has_pixels_but_no_ground_truth_and_bad_action_is_rejected(t
         assert env.outcome() == "timeout"
     finally:
         env.close()
+
+
+def test_natural_completion_clock_reset_is_reconstructed_without_rewriting_telemetry(
+    tmp_path, monkeypatch
+):
+    import importlib
+    from types import SimpleNamespace
+
+    import numpy as np
+
+    module = importlib.import_module("autoqa.doom.replay")
+
+    class NativePlayback:
+        steps = 0
+
+        def init(self):
+            pass
+
+        def replay_episode(self, path):
+            pass
+
+        def close(self):
+            pass
+
+        def is_episode_finished(self):
+            return self.steps == 3
+
+        def get_episode_time(self):
+            return 0 if self.is_episode_finished() else 10 + self.steps
+
+        def get_total_reward(self):
+            return 1.0
+
+        def get_state(self):
+            return SimpleNamespace(screen_buffer=np.zeros((480, 640, 3), dtype=np.uint8))
+
+        def advance_action(self, tics, update):
+            assert tics == 1 and update is True
+            self.steps += 1
+
+    class Media:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            pass
+
+        def append_data(self, frame):
+            pass
+
+        def get_data(self, index):
+            return np.zeros((480, 640, 3), dtype=np.uint8)
+
+        def get_meta_data(self):
+            return dict(codec="h264")
+
+    monkeypatch.setattr(module, "configured_game", lambda *args, **kwargs: NativePlayback())
+    monkeypatch.setattr(module, "digest", lambda path: "fixture")
+    monkeypatch.setattr(module.imageio, "get_writer", lambda *args, **kwargs: Media())
+    monkeypatch.setattr(module.imageio, "get_reader", lambda *args, **kwargs: Media())
+    write_json(
+        tmp_path / "manifest.json",
+        dict(
+            config=RunConfig().model_dump(),
+            outcome="success",
+            vizdoom_version=vzd.__version__,
+            iwad_sha256="fixture",
+            scenario_cfg_sha256="fixture",
+            scenario_wad_sha256="fixture",
+            episode_lmp_sha256="fixture",
+        ),
+    )
+    raw = "\n".join(json.dumps(row) for row in [dict(tic=10), dict(tic=0, reward_total=1.0)]) + "\n"
+    (tmp_path / "telemetry.jsonl").write_text(raw)
+    (tmp_path / "events.jsonl").write_text("")
+    result = replay(tmp_path, size=(640, 480))
+    assert result["matches_telemetry"] and result["final_tic"] == 0
+    assert result["reconstructed_tics_used"] == 3
+    assert result["reconstructed_final_tic"] == 13 and result["frames"] == 3
+    assert (tmp_path / "telemetry.jsonl").read_text() == raw
