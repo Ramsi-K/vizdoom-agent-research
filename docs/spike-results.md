@@ -591,7 +591,7 @@ Run in WSL with Python 3.12 and `uv`: `make setup`, `make test`, `make doctor`, 
 `autoqa doctor --offline` and `autoqa spike --offline` skip all network checks explicitly.
 The default spike issues at most 101 SAM requests (20 frames × 5 concepts, plus one box decoder control), three effort samples, a tool round trip and one video upload, with no automatic retries.
 Use `MODEL_API_KEY` in the environment or ignored `.env`; the existing `META_MODEL_API_KEY` name is accepted as a compatibility alias.
-A nonzero command exit means at least one required check is incomplete. No M1–M5 commands or gameplay agent are implemented.
+A nonzero command exit means at least one required check is incomplete. At this M0 checkpoint, no M1–M5 commands or gameplay agent were implemented; subsequent work is recorded in [M1](m1-results.md) and [M2](m2-navigation-review.md).
 
 ## Interpretation limits
 

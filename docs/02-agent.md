@@ -22,7 +22,7 @@
 At most 4 primitives and 70 tics per `act` call. Turn handling must use the same implementation at every level and be logged (requested degrees, tics used).
 
 - **Observation** `AgentObservation` (frozen dataclass): current frame as JPEG (quality 85), up to two previous frames as 320x240 thumbnails, `frame_change_pct` (mean absolute pixel difference of downscaled grayscale frames between the start and end of the last action, reported as a percentage), step counters, and (L3 only) the frozen initial-state plan image. Nothing else.
-- **Telemetry** `autoqa/doom/telemetry.py` (evaluation only, sampled at the actual initial state and at the end of every primitive and every decision): tic, position x/y/z, angle, health, armor, reward, goal visibility pixels (labels buffer), goal distance, 128-unit grid cell, and the initial evaluation geometry used by L3. Read `POSITION_X`, `POSITION_Y`, `POSITION_Z`, `ANGLE`, `HEALTH`, `ARMOR`, and `CAMERA_FOV` directly in `telemetry.py` via `game.get_game_variable(GameVariable.<NAME>)`, leaving `available_game_variables` empty on `GameState` \[14\]. Never imported by `autoqa.agent` (tested).
+- **Telemetry** `autoqa/doom/telemetry.py` (evaluation only, sampled at the actual initial state, after every executed primitive and `act`, and at termination): tic, position x/y/z, angle, health, armor, reward, goal visibility pixels (labels buffer), goal distance, 128-unit grid cell, and the initial evaluation geometry used by L3. Decisions containing no executed action do not emit an action-end telemetry record. Read `POSITION_X`, `POSITION_Y`, `POSITION_Z`, `ANGLE`, `HEALTH`, `ARMOR`, and `CAMERA_FOV` directly in `telemetry.py` via `game.get_game_variable(GameVariable.<NAME>)`, leaving `available_game_variables` empty on `GameState` \[14\]. Never imported by `autoqa.agent` (tested).
 - **Recording**: every episode runs with `new_episode(path/episode.lmp)`, followed by `new_episode()` at the end to flush \[19\].
 - **Replay** `autoqa replay <run_dir> [--from-tic A --to-tic B] [--size 1280x720] [--captions] [--no-outcome-ending] [--output-name NAME.mp4]`: initializes `DoomGame` with the run manifest's exact scenario, map, and seed, overrides `set_screen_resolution(RES_1280X720)` and `set_render_hud(True)`, calls `game.replay_episode(lmp_path)`, and advances tic-by-tic with `game.advance_action(1, True)` until `game.is_episode_finished()` (never calling `make_action` or sending game commands), writing an mp4 (imageio-ffmpeg, H.264) with optional burned captions from `events.jsonl` aligned by tic \[14\]\[19\].
 - **Replay presentation and clocks**: successful full exports append a labeled half-speed recap and held result card from captured footage; `--no-outcome-ending` and sliced clips are gameplay-only. Metadata separates `gameplay_frames` and `ending_frames`. Natural completion can reset the raw clock to zero; replay counts native advances to record a separate elapsed-tic reconstruction without rewriting source telemetry. Existing output files are never overwritten.
@@ -33,64 +33,65 @@ At most 4 primitives and 70 tics per `act` call. Turn handling must use the same
 
 ### 5.1 Loop
 
-This is a control-flow sketch, not a runnable entry point. Here `env` is the narrow `PlayerSession`, and `meta` is `MetaClient`, which supplies model/tools/effort and `include=["reasoning.encrypted_content"], store=False`. Production [Pilot code](../autoqa/agent/pilot.py) additionally validates whole batches, handles failures, checks guided NAV/receipt freshness, reuses exact-frame localization, and records usage/history. Read-only tools run before the single permitted `act` or `finish` in a batch.
+The original design sketch below retains the formatted loop example. Its helper names describe responsibilities rather than the current Python interfaces; `finished` is initialized and checked explicitly so an agent-declared stop cannot fall through to another decision.
+
+The implemented loop is [`Pilot.run_episode()`](../autoqa/agent/pilot.py). It uses the narrow `PlayerSession`, validates the entire tool batch, handles read-only tools before an `act` or `finish`, and executes actions inside the `act` handler. `MetaClient` sends the model, tools, effort, encrypted-reasoning include, and `store=False`, returning dictionary output items. Grounding requests are charged before any pending action, and L2/L3 actions require a valid model-written NAV annotation citing previously delivered evidence. The production loop also records outcomes, checks visual cycles, and handles API/tool errors; those details are omitted from this sketch.
 
 ```python
-for decision in range(cfg.max_decisions):
-    if env.episode_finished() or guards.budget_exhausted():
-        break
+for decision in range(max_decisions):
     obs = env.observe()  # AgentObservation only
-    prompt = prompts.build(level, memory, obs, guards.warning, briefing_l2)
+    prompt = prompts.build(level, scenario, memory, obs, guard_notes)
     actions = None
     finished = False
-    for call_idx in range(4):  # at most four response/tool rounds
+    for call_idx in range(MAX_TOOL_CALLS_PER_DECISION):  # default 4
         resp = meta.responses(
+            model,
             prompt,
-            obs,
-            remaining_seconds=guards.remaining_seconds(),
+            tools=TOOLS,
+            effort=cfg.effort,
+            include=["reasoning.encrypted_content"],
+            store=False,
         )
-        guards.total_usd += resp.cost_usd
-        if guards.budget_exhausted():
-            break
-        calls = [item for item in resp.output if item["type"] == "function_call"]
-        calls.sort(key=lambda item: item["name"] in {"act", "finish"})
         results = []
-        for item in calls:
-            tc_args = MODELS[item["name"]].model_validate(json.loads(item["arguments"]))
-            if item["name"] == "locate":
-                measured, _ = grounder.locate(obs.frame_jpeg, tc_args.concept)
-                out = {key: measured[key] for key in ("found", "matches", "method")}
-                # Production handlers add citation receipts for L2/L3.
-            elif item["name"] == "note":
-                # Production validates any guided NAV annotation before writing.
-                out = memory.note(tc_args.text, tc_args.mode)
-            elif item["name"] == "report_issue":
-                issues.append(
+        for item in resp.output:
+            if item.type != "function_call":
+                continue
+            tc_args = json.loads(item.arguments)
+            if item.name == "locate":
+                out = grounder.locate(obs.frame, tc_args)  # SAM 3.1
+                results.append(
                     {
-                        **tc_args.model_dump(),
-                        "evidence_steps": tc_args.evidence_steps or [obs.decision_idx],
-                        "source": "pilot_inline",
-                        "trace_verification_status": "not_run",
-                        "causal_hypothesis": None,
+                        "type": "function_call_output",
+                        "call_id": item.call_id,
+                        "output": json.dumps(out),
                     }
                 )
-                out = {"issue_index": len(issues) - 1, "trace_verification_status": "not_run"}
-            elif item["name"] == "finish":
+            elif item.name == "note":
+                out = memory.write(tc_args)
+                results.append(
+                    {
+                        "type": "function_call_output",
+                        "call_id": item.call_id,
+                        "output": json.dumps(out),
+                    }
+                )
+            elif item.name == "report_issue":
+                out = issues.add(tc_args, evidence=obs.refs)
+                results.append(
+                    {
+                        "type": "function_call_output",
+                        "call_id": item.call_id,
+                        "output": json.dumps(out),
+                    }
+                )
+            elif item.name == "finish":
                 finished = True
-                out = {"stopped": True}
-            elif item["name"] == "act":
-                # Production first checks budgets and, for L2/L3, the current NAV.
+                end_episode(tc_args)
+                break
+            elif item.name == "act":
                 actions = tc_args
-                out = asdict(env.execute(actions))  # only call site advancing gameplay
-                guards.idle_decisions = 0
-            results.append(
-                {
-                    "type": "function_call_output",
-                    "call_id": item["call_id"],
-                    "output": json.dumps(out),
-                }
-            )
-        if actions is not None or finished:
+                break
+        if actions or finished:
             break
         prompt += (
             resp.output + results
@@ -99,10 +100,12 @@ for decision in range(cfg.max_decisions):
         break
     if actions is None:
         log("no_action")
-        guards.idle_decisions += 1
-        if guards.idle_decisions >= 5:
-            break
+        guards.count_no_action()
         continue
+    env.execute(actions)  # the only call site that advances the game
+    log_event(...)  # events.jsonl + frame + usage + latency
+    if env.episode_finished() or guards.exhausted():
+        break
 ```
 
 ### 5.2 Tools (function calling, Responses API)
@@ -149,7 +152,7 @@ For L2/L3, the same scratchpad contains a single-line `NAV {...}` annotation: cu
 
 ### 5.6 Model parameters
 
-`muse-spark-1.3`, Responses API, `reasoning.effort` default `low` for the Pilot (CLI alternatives: `minimal` and `medium`), `high` is planned for the M4 Reviewer (not implemented), `max_output_tokens` at least 3,000 because reasoning counts toward the cap, parallel tool calls allowed, `tool_choice="auto"`, `temperature` is not sent; the provider default is used. Model ID, effort, and variant (Standard or Contributor) are config values recorded in every manifest.
+`muse-spark-1.3`, Responses API, `reasoning.effort` default `low` for the Pilot (CLI alternatives: `minimal` and `medium`), `high` is planned for the M4 Reviewer (not implemented), `max_output_tokens=3000` by default, including reasoning tokens, parallel tool calls allowed, `tool_choice="auto"`, `temperature` is not sent; the provider default is used. Model ID, effort, and variant (Standard or Contributor) are config values recorded in every manifest.
 
 ## 6. Information levels and code-level enforcement
 
@@ -169,7 +172,7 @@ The harness evaluates the exact same `muse-spark-1.3` Pilot agent, action space,
 
 ### 6.2 Level 2 briefing contract (`scenarios/<id>/briefing_l2.md`)
 
-Level 2 injects a static markdown block into the cached prompt prefix immediately after the controls table. Every L2 briefing follows a fixed 4-part template and is hashed into `manifest.json`:
+Level 2 appends a scenario briefing to the shared system-prompt prefix, followed by the level-specific navigation instructions. The briefing and combined prompt are hashed into `manifest.json`. The four-part briefing contract is:
 
 1. **Objective**: Exact condition that ends the episode as a success (for example, *"Navigate the interconnected rooms and walk over the green armor vest (`GreenArmor`) to collect it before the 2,100-tic timer expires"* for `my_way_home`, or *"Reach the exit room, face the exit switch on the wall, and press `use`"* for `freedoom2_map01`).
 2. **Core mechanics**:

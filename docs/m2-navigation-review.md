@@ -1,6 +1,6 @@
 # M2: grounding-guided L2 and explicit map planning in L3
 
-2026-11-04. Continued on `feat/m2-grounder`, draft PR #10. **One L3 retest completed `my_way_home`; L2 regressed on cost and coarse exploration and did not win.** This is one stochastic paired seed, not a completion-rate or causal-benefit estimate. M2 remains partial on grounding reliability and other information-level/scenario acceptance checks.
+2026-11-04. Work performed on `feat/m2-grounder` for PR #10, subsequently merged into `main` at `209d861`. **One L3 retest completed `my_way_home`; L2 regressed on cost and coarse exploration and did not win.** This is one stochastic paired seed, not a completion-rate or causal-benefit estimate. M2 remains partial on grounding reliability and other information-level/scenario acceptance checks.
 
 ## Changes and boundaries
 
@@ -83,7 +83,7 @@ Each retest had one recovered `APITimeoutError`; no grounding error occurred. To
 
 The original 55-file / 24,075-addition PR was dominated by repeated manifests, full decision traces and ledger snapshots. Full intermediate records are archived in ignored `runs/m2-navigation-review/` and remain accessible at immutable pre-cleanup commit `5e157ad`. The final PR consolidates compact historical/current measurements into [m2-evidence.json](m2-evidence.json), retains all 56 paired grounding cases in [m2-grounding-cases.csv](m2-grounding-cases.csv), and all 88 new model-written navigation updates in [m2-navigation-intentions.csv](m2-navigation-intentions.csv). Full traces, recordings, replay strips and generated trajectory images are excluded from the final PR tree. Required ten real test JPEGs and SAM wire/geometry fixtures remain; JSON fixture compaction changes no values. Unused historical `system_v2.md` is excluded; active L1 `system_v3.md` is unchanged. History is not rewritten. The final diff remains 55 files, including the ten required frame JPEGs, but is approximately 5,200 additions rather than 24,075 (about 78% fewer). The largest changed file is the 76,903-byte consolidated evidence JSON; no changed file exceeds 77 KB.
 
-The existing uncommitted `docs/02-agent.md` edit is preserved byte for byte and excluded. No project specifications, README, M3–M5 features or non-Meta runtime models were changed. The PR remains draft and unmerged.
+At the M2 checkpoint, the existing uncommitted `docs/02-agent.md` edit was preserved byte for byte and excluded. No project specifications, README, M3–M5 features or non-Meta runtime models were changed in that PR. PR #10 was subsequently merged; the measurements in this report remain those of the recorded M2 runs.
 
 Reproduce the controlled run independently for each level:
 

@@ -1,5 +1,7 @@
 # Milestone progress
 
+PR #10 is merged into `main` at `209d861`. The dated milestone entries below describe their original checkpoints, including references to then-open branches and PRs. The latest measured gameplay findings are in [the M2 navigation review](m2-navigation-review.md); earlier reports retain their original results. M3–M5 remain unimplemented. This documentation review makes no new gameplay or API measurements.
+
 ## 2026-11-04 — M0 feasibility tooling
 
 Implemented on `feat/m0-feasibility`, linked to [parent #1](https://github.com/Ramsi-K/vizdoom-agent-research/issues/1) and [M0 #2](https://github.com/Ramsi-K/vizdoom-agent-research/issues/2). M1–M5 remain unimplemented; README prose is unchanged.
