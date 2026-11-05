@@ -117,6 +117,10 @@ The longer-term objective is to investigate the feasibility of a configurable **
 
 ## Demo
 
+[![Watch Generalist Game QA — narrated Meta AI Hackathon demo](docs/media/demo-thumbnail.png)](https://www.youtube.com/watch?v=dGXsiHtB9x0)
+
+[Watch the narrated demo on YouTube](https://www.youtube.com/watch?v=dGXsiHtB9x0).
+
 **L3 autonomous objective completion — Deadly Corridor**
 
 ![Muse Spark follows its map-based route and completes the Corridor armor objective](docs/media/corridor-l3-completion.gif)
@@ -128,8 +132,6 @@ Muse Spark 1.3/high selected all actions in this three-decision completion. The 
 ![Muse Spark turns and fires at enemies in the arena](docs/media/arena-autonomous-combat.gif)
 
 This excerpt shows model-selected combat from a separate L2 run with six recorded kills. The run later exhausted its budget without completing the survival objective. Both previews use existing recordings; API waiting time is absent from native game time. [Clip provenance and limitations](docs/m35-results.md#submission-readme-previews) describe the display conversions.
-
-Public demo-video link: to be added.
 
 ## Technology Overview
 
